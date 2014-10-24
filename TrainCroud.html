@@ -3,16 +3,16 @@
 </head>
 
 <body>
+  {{> nav_bar}}
   {{> home}}
   {{> footer}}
 </body>
 
-<template name="home">
+<template name="nav_bar">
   <!-- NAVBAR
 ================================================== -->
   <div class="navbar-wrapper">
     <div class="container">
-
       <div class="navbar navbar-inverse navbar-static-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -54,8 +54,9 @@
 
     </div>
   </div>
+</template>
 
-
+<template name="home">
   <!-- Carousel
   ================================================== -->
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
