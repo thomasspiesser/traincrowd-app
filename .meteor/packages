@@ -6,8 +6,11 @@
 meteor-platform
 autopublish
 insecure
-iron:router
 accounts-password
 mizzao:bootstrap-3
 natestrauser:animate-css
 mrt:accounts-ui-bootstrap-3
+aldeed:autoform
+aldeed:collection2
+iron:router@1.0.0-pre4
+
