@@ -8,20 +8,37 @@ Template.navItems.helpers({
 
 Template.createCourse.events({
   'click #createCourseButton': function (event, template) {
-    e.preventDefault();
+    console.log('clicked')
+    event.preventDefault();
     var title = template.find("#inputTitleCourse").value;
     var description = template.find("#inputDescriptionCourse").value;
-    var maxParticipants = template.find("#inputMaxNrParticipantsCourse").value;
+    var maxParticipants = parseInt(template.find("#inputMaxNrParticipantsCourse").value);
     var public = template.find("#publishCourse").checked;
 
-    var id = createParty({
-      title: title,
-      description: description,
-      maxParticipants: maxParticipants,
-      public: public
-    });
+    // console.log(typeof maxParticipants)
 
-    Session.set("selectedCourse", id);
-    // Router.go("/")
+    if (title.length && description.length && maxParticipants > 1) {
+      console.log('insert')
+      var id = createCourse({
+        title: title,
+        description: description,
+        maxParticipants: maxParticipants,
+        public: public
+      });
+
+      Session.set("selectedCourse", id);
+      Session.set("createError",
+                  "");
+      // Router.go("/")
+    } else {
+      Session.set("createError",
+                  "Please, fill out the entire form!");
+    }
+  }
+});
+
+Template.createCourse.helpers({
+  error: function () {
+    return Session.get("createError");
   }
 });
