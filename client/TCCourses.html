@@ -1,16 +1,27 @@
-<template name="courseList">
-  <div class="container" style="margin-top: 10em">
+<template name="courses">
+  <div class="container notHome">
     <div class="row">
         {{#each courses}}
-        <div class="col-lg-4">
-        {{> courseListItem}}
+        <div class="col-lg-4" style="margin-bottom: 1em">
+          {{> course}}
+          <a href="{{ pathFor route='course.show' data=getPost }}">course details</a>
         </div>
         {{/each}}
     </div>
   </div>
 </template>
 
-<template name="courseListItem">
+<template name="courseDetail">
+  <div class="container notHome">
+    <div class="ro">
+      <div class="col-md-6 col-md-offset-3">
+        {{> course}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="course">
         <h4>{{title}}</h4>
         <p>{{description}}</p>
         <p>{{maxParticipants}}</p>
@@ -19,7 +30,7 @@
 </template>
 
 <template name="createCourse">
-  <div class="container" style="margin-top: 10em">
+  <div class="container notHome">
   {{#if currentUser}}
     <form class="form-horizontal" role="form" id="createCourseForm">
         <legend>Add a new course</legend>

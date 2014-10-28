@@ -4,11 +4,22 @@
 /* Padding below the footer and lighter body text */
 
 body {
+  height: 100%;
   padding-bottom: 40px;
   color: #5a5a5a;
 }
 
+footer {
+  height: 60px;
+}
 
+.pfooter {
+  margin: 20px 0;
+}
+
+.notHome {
+  padding-top: 100px;
+}
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */

@@ -19,7 +19,9 @@
               {{> navItems}}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="{{ pathFor 'createCourse' }}">Create Course</a></li>
+              <li>
+                <a href="{{ pathFor 'createCourse' }}">Create Course</a>
+              </li>
               <li>
                 <a href="#">{{> loginButtons align='right'}}</a>
               </li>
@@ -32,13 +34,15 @@
 </template>
 
 <template name='navItems'>
-  <li class="{{ activeIfTemplateIs 'home' }}">
+  <li>
   <a href="/">Home</a>
   </li>
-  <li class="{{ activeIfTemplateIs 'about' }}">
+  <li>
     <a href="{{pathFor 'about'}}">About</a>
   </li>
-  <li><a href="#contact">Contact</a></li>
+  <li>
+    <a href="{{pathFor 'courses'}}">Courses</a>
+  </li>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
@@ -55,10 +59,10 @@
 
 <template name="footer">
   <!-- FOOTER -->
-  <div class="container">
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-  </div>
+  <!-- <div id="footer"> -->
+    <div class="container" style="height: 60px">
+      <p class="pull-right pfooter"><a href="#">Back to top</a></p>
+      <p class="pfooter">&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </div>
+  <!-- </div> -->
 </template>
