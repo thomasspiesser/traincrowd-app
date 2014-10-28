@@ -6,6 +6,13 @@ Template.navItems.helpers({
   }
 });
 
+Template.courseList.helpers({
+  courses: function () {
+    var courses = Courses.find()
+    return courses
+  }
+});
+
 Template.createCourse.events({
   'click #createCourseButton': function (event, template) {
     console.log('clicked')
@@ -15,8 +22,6 @@ Template.createCourse.events({
     var maxParticipants = parseInt(template.find("#inputMaxNrParticipantsCourse").value);
     var public = template.find("#publishCourse").checked;
 
-    // console.log(typeof maxParticipants)
-
     if (title.length && description.length && maxParticipants > 1) {
       console.log('insert')
       var id = createCourse({
@@ -25,11 +30,9 @@ Template.createCourse.events({
         maxParticipants: maxParticipants,
         public: public
       });
-
       Session.set("selectedCourse", id);
-      Session.set("createError",
-                  "");
-      // Router.go("/")
+      Session.set("createError", "");
+      // Router.go("/courseDetail")
     } else {
       Session.set("createError",
                   "Please, fill out the entire form!");
