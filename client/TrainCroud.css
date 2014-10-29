@@ -21,6 +21,68 @@ footer {
   padding-top: 100px;
 }
 
+#firstHeadline {
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 1.2s;
+  -webkit-animation-delay: 1s;
+  -webkit-animation-iteration-count: 1;
+}
+
+#firstSubHeadline {
+  -webkit-animation-name: fadeInLeftBig;
+  -webkit-animation-duration: 1.1s;
+  -webkit-animation-delay: 1.1s;
+}
+
+#firstHeadlineButton1 {
+  -webkit-animation-name: fadeInDownBig;
+  -webkit-animation-duration: 1.2s;
+  -webkit-animation-delay: 0.95s;
+}
+
+#firstHeadlineButton2 {
+  -webkit-animation-name: fadeInRightBig;
+  -webkit-animation-duration: 1.3s;
+  -webkit-animation-delay: 1.15s;
+}
+
+#secondHeadline {
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 1.2s;
+  -webkit-animation-delay: 1s;
+}
+
+#secondSubHeadline {
+  -webkit-animation-name: fadeInUpBig;
+  -webkit-animation-duration: 1.1s;
+  -webkit-animation-delay: 0.8s;
+}
+
+#secondHeadlineButton {
+  -webkit-animation-name: fadeInRightBig;
+  -webkit-animation-duration: 1.2s;
+  -webkit-animation-delay: 0.85s;
+}
+
+
+#thirdHeadline {
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 1.2s;
+  -webkit-animation-delay: 1s;
+}
+
+#thirdSubHeadline {
+  -webkit-animation-name: fadeInRightBig;
+  -webkit-animation-duration: 1.1s;
+  -webkit-animation-delay: 1.1s;
+}
+
+#thirdHeadlineButton {
+  -webkit-animation-name: fadeInDownBig;
+  -webkit-animation-duration: 1.2s;
+  -webkit-animation-delay: 0.95s;
+}
+
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 
