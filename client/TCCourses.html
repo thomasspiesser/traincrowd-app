@@ -44,21 +44,21 @@
 
         <div class="form-group">
           <label for="inputTitleCourse" class="col-sm-3 control-label">Title</label>
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <input type="text" class="form-control" id="inputTitleCourse" value="{{title}}">
           </div>
         </div>
 
         <div class="form-group">
           <label for="inputDescriptionCourse" class="col-sm-3 control-label">Description</label>
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <textarea class="form-control" id="inputDescriptionCourse" value="{{description}}"></textarea>
           </div>
         </div>
 
         <div class="form-group">
           <label for="inputMaxNrParticipantsCourse" class="col-sm-3 control-label">Maximal no. of Participants</label>
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <input type="number" class="form-control" id="inputMaxNrParticipantsCourse" min="1"  value="{{maxParticipants}}">
           </div>
         </div>
@@ -74,7 +74,7 @@
         </div>
 
         <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-3">
+          <div class="col-sm-offset-3 col-sm-4">
             <button type="submit" class="btn btn-primary" id="editCourseButton">Save</button>
             
             <button type="button" class="btn btn-default pull-right" id="cancelEditCourseButton">Cancel</button>
@@ -83,18 +83,8 @@
         </div>
 
         <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-3">
-          <div style="height: 1px; background-color: #e5e5e5; text-align: center; margin: 40px 0px 40px 0px">
-            <span style="background-color: white; position: relative; top: -0.75em; padding: 10px 10px 10px 10px; font-family: Georgia,serif; font-style: italic;">
-              or
-            </span>
-          </div>
-        </div>
-        </div>
-
-        <div class="form-group">
           <div class="col-sm-offset-3 col-sm-3">
-            <button type="button" class="btn btn-danger" id="removeCourseButton">Remove course</button>
+            <button type="button" class="btn btn-danger" id="removeCourseButton">Remove</button>
           </div>
         </div>
     </form>
@@ -116,21 +106,21 @@
 
         <div class="form-group">
           <label for="inputTitleCourse" class="col-sm-3 control-label">Title</label>
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <input type="text" class="form-control" id="inputTitleCourse" >
           </div>
         </div>
 
         <div class="form-group">
           <label for="inputDescriptionCourse" class="col-sm-3 control-label">Description</label>
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <textarea class="form-control" id="inputDescriptionCourse" ></textarea>
           </div>
         </div>
 
         <div class="form-group">
           <label for="inputMaxNrParticipantsCourse" class="col-sm-3 control-label">Maximal no. of Participants</label>
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <input type="number" class="form-control" id="inputMaxNrParticipantsCourse" min="1" >
           </div>
         </div>
@@ -152,7 +142,43 @@
         </div>
     </form>
   {{else}}
-    <div class="alert alert-danger">Please, log in to add a new course!</div>
+    {{> register}}
   {{/if}}
+  </div>
+</template>
+
+<template name="register">
+  <div class="col-sm-6 col-sm-offset-3">
+    <form class="form-horizontal" role="form" id="registerForm">
+      <fieldset>
+        <legend>Sign in/up to add new courses</legend>
+
+        {{#if error}}
+          <div class="alert alert-danger">{{error}}</div>
+        {{/if}}
+
+        <div class="form-group">
+        <div class="col-sm-12">
+          <input class="form-control" type="email" id="account-email" placeholder="Email">
+        </div>
+        </div>
+
+        <div class="form-group">
+        <div class="col-sm-12">
+          <input class="form-control" type="password" id="account-password" placeholder="Password" pattern=".{6,12}" maxLength="12">
+        </div>
+        </div>
+
+        <button type="submit" class="btn btn-block btn-primary" id="logInButton">Sign in</button>
+
+        <div style="height: 1px; background-color: #e5e5e5; text-align: center; margin: 20px 0px 20px 0px">
+          <span style="background-color: white; position: relative; top: -0.75em; padding: 10px 10px 10px 10px; font-family: Georgia,serif; font-style: italic;">
+            new here:
+          </span>
+        </div>
+
+        <button type="submit" class="btn btn-block btn-info" id="signUpButton">Sign up</button>
+      </fieldset>
+    </form>
   </div>
 </template>
