@@ -1,0 +1,38 @@
+<template name="courses">
+  <div class="container notHome">
+    <div class="row">
+        {{#each courses}}
+        <div class="col-lg-4" style="margin-bottom: 1em">
+          {{> course}}
+          <a href="{{ pathFor route='course.show' data=getPost }}">course details</a>
+        </div>
+        {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="courseDetail">
+  <div class="container notHome">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        {{> course}}
+        {{#if canEdit}}
+            <button type="submit" class="btn btn-primary" id="editCourseButton">Edit course</button>
+        {{/if}}
+      </div>
+      <div class="col-md-1 col-md-offset-1">
+        <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Book course</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="course">
+  <h4>{{title}}</h4>
+  <p>{{description}}</p>
+  <p>{{maxParticipants}}</p>
+  <p>{{rating}}</p>
+  <p>{{comments}}</p>
+  <p>{{inquired}}</p>
+  <p>{{current}}</p>
+</template>

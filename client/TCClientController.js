@@ -16,13 +16,53 @@ var trimInput = function(val) {
   return val.replace(/^\s*|\s*$/g, "");
 }
 
+//////////// courseInquiry template /////////
+
+Template.courseInquiry.helpers( errorHelper );
+
+Template.courseInquiry.rendered=function() {
+    $('#inquireDatesDatepicker').datepicker({
+      format: "dd/mm/yyyy",
+      weekStart: 1,
+      language: "de",
+      todayBtn: true,
+      multidate: true,
+      todayHighlight: true
+    });
+}
+
+Template.courseInquiry.events({
+  'click #cancelBookCourseButton': function () {
+    Router.go("course.show", {_id: this._id} );
+  },
+  'click #inquireCourseDatesButton': function (event, template) {
+    var inquiredDates = template.find("#inquireDatesDatepicker").value;
+    if (inquiredDates.length > 1) {
+      var inquiredDatesArray = inquiredDates.split(",");
+      var instanceId = inquireNewCourseDates({ courseId:this._id, dates: inquiredDatesArray });
+      Session.set("createError", "");
+      // Router.go("course.show", {_id: this._id} );
+    } else {
+      Session.set("createError",
+                  "Please, choose at least one date!");
+    }
+    
+    return false
+
+    
+  }
+});
+
 //////////// courseDetail template /////////
 
 Template.courseDetail.helpers( canEditHelper );
 
 Template.courseDetail.events({
-  'click #editCourseButton': function (event, template) {
+  'click #editCourseButton': function () {
     Router.go("course.edit", {_id: this._id} );
+  },
+  'click #inquireCourseDatesButton': function () {
+    Router.go("course.inquire", {_id: this._id} );
   }
 });
 
