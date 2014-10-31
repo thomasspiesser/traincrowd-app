@@ -41,7 +41,7 @@ Template.courseInquiry.events({
       var inquiredDatesArray = inquiredDates.split(",");
       var instanceId = inquireNewCourseDates({ courseId:this._id, dates: inquiredDatesArray });
       Session.set("createError", "");
-      // Router.go("course.show", {_id: this._id} );
+      Router.go("course.show", {_id: this._id} );
     } else {
       Session.set("createError",
                   "Please, choose at least one date!");
