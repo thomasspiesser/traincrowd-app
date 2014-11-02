@@ -46,16 +46,14 @@ Template.courseInquiry.events({
       Session.set("createError",
                   "Please, choose at least one date!");
     }
-    
     return false
-
-    
   }
 });
 
 //////////// courseDetail template /////////
 
 Template.courseDetail.helpers( canEditHelper );
+Template.courseDetail.helpers( errorHelper );
 
 Template.courseDetail.events({
   'click #editCourseButton': function () {
@@ -63,6 +61,25 @@ Template.courseDetail.events({
   },
   'click #inquireCourseDatesButton': function () {
     Router.go("course.inquire", {_id: this._id} );
+  },
+  'click #confirmDateButton': function (event,template) {
+    var buttonContext = event.target.name;
+    var date = template.find('input:radio[name='+buttonContext+']:checked');
+    if (date) {
+      var options = {
+        courseId: template.data._id,
+        instanceId: this.instanceId,
+        confirmedDate: date.value,
+        inquirer: this.inquirer
+      }
+      Meteor.call('confirmCourseDate', options);
+      Session.set("createError", "");
+      return false
+    }
+    else {
+      Session.set("createError",
+                  "Please, select a date to confirm!");
+    }
   }
 });
 

@@ -17,11 +17,36 @@
       <div class="col-md-6 col-md-offset-3">
         {{> course}}
         {{#if canEdit}}
-            <button type="submit" class="btn btn-primary" id="editCourseButton">Edit course</button>
+          <div>Course inquiries (course owner only)</div>
+          {{#if error}}
+            <div class="alert alert-danger">{{error}}</div>
+          {{/if}}
+          <hr>
+          {{#each inquired}}
+            <form class="form-inline" role="form">
+              {{#each inquiredDates}}
+                <label class="radio-inline">
+                  <input type="radio" name="{{../instanceId}}" value="{{this}}"> {{this}}
+                </label>
+              {{/each}}
+              <button type="button" class="btn btn-default" name="{{instanceId}}" id="confirmDateButton">Confirm</button>
+            </form>
+            <hr>
+          {{/each}}
         {{/if}}
       </div>
-      <div class="col-md-1 col-md-offset-1">
-        <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Book course</button>
+      <div class="col-md-3">
+        {{#if canEdit}}
+          <button type="submit" class="btn btn-primary" id="editCourseButton">Edit course</button>
+        {{/if}}
+        <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button>
+        <div class="list-group">
+          <a href="#" class="list-group-item"><span class="badge">14</span>Cras justo odio</a>
+          <a href="#" class="list-group-item"><span class="badge">14</span>Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item"><span class="badge">14</span>Morbi leo risus</a>
+          <a href="#" class="list-group-item"><span class="badge">14</span>Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item"><span class="badge">14</span>Vestibulum at eros</a>
+        </div>
       </div>
     </div>
   </div>
@@ -33,6 +58,4 @@
   <p>{{maxParticipants}}</p>
   <p>{{rating}}</p>
   <p>{{comments}}</p>
-  <p>{{inquired}}</p>
-  <p>{{current}}</p>
 </template>
