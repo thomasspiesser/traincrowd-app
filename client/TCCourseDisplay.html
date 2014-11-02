@@ -12,6 +12,7 @@
 </template>
 
 <template name="courseDetail">
+ {{> paymentModal }}
   <div class="container notHome">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
@@ -29,7 +30,7 @@
                   <input type="radio" name="{{../instanceId}}" value="{{this}}"> {{this}}
                 </label>
               {{/each}}
-              <button type="button" class="btn btn-default" name="{{instanceId}}" id="confirmDateButton">Confirm</button>
+              <button type="button" class="btn btn-default confirmDateButton" name="{{instanceId}}" >Confirm</button>
             </form>
             <hr>
           {{/each}}
@@ -43,7 +44,8 @@
         <div class="list-group">
           <a href="#" class="list-group-item disabled">Join course at dates:</a>
           {{#each current}}
-            <a href="#" class="list-group-item"><span class="badge">{{this.participants.length}}</span>{{this.courseDate}}</a>
+            <a href="#" name="{{this.instanceId}}" class="joinCourseButton list-group-item"><span class="badge">{{this.participants.length}}</span>{{this.courseDate}}</a>
+            <!-- <a href="#paymentModal" data-toggle="modal" class="list-group-item"><span class="badge">{{this.participants.length}}</span>{{this.courseDate}}</a> -->
           {{/each}}
         </div>
       </div>
@@ -57,4 +59,63 @@
   <p>{{maxParticipants}}</p>
   <p>{{rating}}</p>
   <p>{{comments}}</p>
+</template>
+
+<template name="paymentModal">
+  <!-- Modal -->
+  <div id="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Payment Placeholder</h4>
+      </div>
+      <div class="modal-body">
+        <h4>Payment</h4>
+        <p>There are different methods to include payment, check out Braintree for example.</p>
+        
+        {{#unless currentUser}}
+          <h4>Please, sign in/up to book courses on <i>traincroud</i></h4>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              {{> register}}
+            </div>
+          </div>
+        {{else}}
+        <h4>External service communication here</h4>
+
+          {{#if message}}
+            <div class="alert alert-danger">{{message}} {{countdown}}</div>
+          {{/if}}
+          {{#if errorMessage}}
+            <div class="alert alert-danger">{{errorMessage}}</div>
+          {{/if}}
+
+        <form class="form-inline">
+          <div class="form-group">
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="dummy1" placeholder="Name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="dummy1" placeholder="visa number">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-3">
+              <button name="" type="button" class="btn btn-primary" id="bookCourseButton">Book course</button>
+            </div>
+          </div>
+        </form>
+        {{/unless}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    </div>
+  </div>
 </template>

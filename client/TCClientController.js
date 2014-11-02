@@ -48,7 +48,7 @@ Template.courseInquiry.events({
     }
     return false
   }
-});
+}); 
 
 //////////// courseDetail template /////////
 
@@ -62,9 +62,9 @@ Template.courseDetail.events({
   'click #inquireCourseDatesButton': function () {
     Router.go("course.inquire", {_id: this._id} );
   },
-  'click #confirmDateButton': function (event,template) {
-    var buttonContext = event.target.name;
-    var date = template.find('input:radio[name='+buttonContext+']:checked');
+  'click .confirmDateButton': function (event,template) {
+    var instanceId = event.target.name;
+    var date = template.find('input:radio[name='+instanceId+']:checked');
     if (date) {
       var options = {
         courseId: template.data._id,
@@ -80,8 +80,69 @@ Template.courseDetail.events({
       Session.set("createError",
                   "Please, select a date to confirm!");
     }
+  },
+  'click .joinCourseButton': function (event, template) {
+    var instanceId = event.target.name;
+    $("#bookCourseButton").attr('name',instanceId); // pass the instanceId to modal through name
+    $('#paymentModal').modal('show');
   }
 });
+
+//////////// paymentModal template /////////
+
+Template.paymentModal.helpers( errorHelper );
+
+Template.paymentModal.events({
+  'click #bookCourseButton': function (event, template) {
+    var instanceId = event.target.name;
+    var currentCourse = _.findWhere(this.current, {instanceId: instanceId});
+    // data context is still course: access using 'this.'
+    if (Meteor.userId() === this.owner) {
+      Session.set('errorMessage', 'You cannot book your own course!');
+      return false
+    }
+    if (_.contains(currentCourse.participants, Meteor.userId())) {
+      Session.set('errorMessage', 'You already booked this course!');
+      return false
+    }
+
+    var courseId = this._id;
+    Session.set("bookingMessage",
+                  "Contact external service, wait for callback success/error!");
+    var clock = 5;
+    timeLeft = function(){
+      if (clock > 0) {
+        clock--;
+        Session.set('time',clock);
+      } else {
+        Session.set('time','');
+        Session.set("bookingMessage",'');
+        Meteor.clearInterval(interval);
+        $('#paymentModal').modal('hide');
+        // assume success, push userId into current.participants if not already there
+        var options = {
+          courseId: courseId,
+          instanceId: instanceId,
+          userId: Meteor.userId()
+        }
+        Meteor.call('addParticipant', options);  
+      }
+    }
+    var interval = Meteor.setInterval(timeLeft, 1000);
+  }
+});
+
+Template.paymentModal.helpers({
+  countdown: function () {
+    return "wait for it: "+Session.get('time');
+  },
+  message: function () {
+    return Session.get("bookingMessage");
+  },
+  errorMessage: function () {
+    return Session.get("errorMessage");
+  }
+});  
 
 //////////// editCourse template /////////
 
