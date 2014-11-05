@@ -2,9 +2,11 @@
   <div class="container notHome">
     <div class="row">
         {{#each courses}}
-        <div class="col-lg-4" style="margin-bottom: 1em">
-          {{> course}}
-          <a href="{{ pathFor route='course.show' data=getPost }}">course details</a>
+        <div class="col-lg-3">
+          <div class="well all-courses-wrapper">
+            {{> course}}
+            <a href="{{ pathFor route='course.show' data=getPost }}">check me out!</a>
+          </div>
         </div>
         {{/each}}
     </div>
@@ -45,7 +47,6 @@
           <a href="#" class="list-group-item disabled">Join course at dates:</a>
           {{#each current}}
             <a href="#" name="{{this.instanceId}}" class="joinCourseButton list-group-item"><span class="badge">{{this.participants.length}}</span>{{this.courseDate}}</a>
-            <!-- <a href="#paymentModal" data-toggle="modal" class="list-group-item"><span class="badge">{{this.participants.length}}</span>{{this.courseDate}}</a> -->
           {{/each}}
         </div>
       </div>

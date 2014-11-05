@@ -1,7 +1,7 @@
 <template name="editCourse">
   <div class="container notHome">
   {{#if canEdit}}
-    <form class="form-horizontal" role="form" id="createCourseForm">
+    <form class="form-horizontal" role="form" id="editCourseForm">
         <legend>Edit your course</legend>
 
         {{#if error}}
@@ -41,16 +41,16 @@
 
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-4">
-            <button type="submit" class="btn btn-primary" id="editCourseButton">Save</button>
+            <button type="submit" class="btn btn-primary" id="editCourseButton"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
             
-            <button type="button" class="btn btn-default pull-right" id="cancelEditCourseButton">Cancel</button>
+            <button type="button" class="btn btn-default pull-right" id="cancelEditCourseButton"><i class="glyphicon glyphicon-minus-sign"></i> Cancel</button>
 
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-3">
-            <button type="button" class="btn btn-danger" id="removeCourseButton">Remove</button>
+            <button type="button" class="btn btn-danger" id="removeCourseButton"><i class="glyphicon glyphicon-remove-sign"></i> Remove</button>
           </div>
         </div>
     </form>

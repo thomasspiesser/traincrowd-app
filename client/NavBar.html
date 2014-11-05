@@ -22,6 +22,11 @@
               <li>
                 <a href="{{ pathFor 'createCourse' }}">Create Course</a>
               </li>
+              {{#if currentUser}}
+                <li>
+                <a href="{{ pathFor 'userProfile.show' data=currentUser }}">User Profile</a>
+                </li>
+              {{/if}}
               <li>
                 <a href="#">{{> loginButtons align='right'}}</a>
               </li>
