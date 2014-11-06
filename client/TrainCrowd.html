@@ -1,8 +1,9 @@
 <head>
-  <title>TrainCroud</title>
+  <title>TrainCrowd</title>
 </head>
 
 <body>
+  {{> notifications}}
 </body>
 
 <template name="TCLayout">
@@ -34,7 +35,7 @@
             <h1 id="firstHeadline">First headline.</h1>
             <p id="firstSubHeadline">Landing: Looking for courses, wanna learn something, more catchi text here...</p>
             <p><a class="btn btn-lg btn-primary" id="firstHeadlineButton1" href="{{ pathFor 'courses' }}" role="button">Browse all Courses</a>
-            <a class="btn btn-lg btn-primary" id="firstHeadlineButton2" href="#" role="button">Search for Courses</a></p>
+            <a class="btn btn-lg btn-primary" id="firstHeadlineButton2" href="{{ pathFor 'search' }}" role="button">Search for Courses</a></p>
           </div>
         </div>
       </div>

@@ -6,24 +6,36 @@ Template.userProfile.events({
 
 //////////// editUserProfile template /////////
 
-Template.editUserProfile.helpers( errorHelper );
-
 Template.editUserProfile.events({ 
   'click #saveChangesUserProfile': function (event, template) {
-    var firstName = template.find("#inputTitleCourse").value;
-    var lastName = template.find("#inputTitleCourse").value;
-    var about = template.find("#inputDescriptionCourse").value;
-    var phone = template.find("#inputDescriptionCourse").value;
-    var mobilePhone = template.find("#inputDescriptionCourse").value;
-    var location = template.find("#inputDescriptionCourse").value;
+    var skills = template.find('#skills').value
+    if (skills.length > 1) {
+      var skillsArray = skills.split(",");
+    }
 
-    modifier = {  firstName: last_name,
-                  lastName: last_name,
-                  maxParticipants: maxParticipants,
-                  public: public }
-    Courses.update(this._id, { $set: modifier });
+    var profile = {
+      name: template.find('#name').value,
+      about: template.find('#about').value,
+      skills: skillsArray,
+      description: template.find('#description').value,
+      phone: template.find('#phone').value,
+      mobile: template.find('#mobile').value,
+      location: template.find('#location').value
+    },
+    user = {
+      profile: profile
+    }
+
+    Meteor.call('updateUser', user, function(err){
+      if(err) {
+        console.log(err);
+      } else {
+        Notifications.info('Profile updated!', 'Successfully saved.', {timeout: 5000});
+      }
+    });
 
     Router.go("userProfile.show", {_id: this._id} );
+    return false
   },
   'click #discardChangesUserProfile': function (event, template) {
     Router.go("userProfile.show", {_id: this._id} );

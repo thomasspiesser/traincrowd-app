@@ -16,6 +16,13 @@ var trimInput = function(val) {
   return val.replace(/^\s*|\s*$/g, "");
 }
 
+var ownerNameHelper = {
+  // works only where data context is Course
+  ownerName: function () {
+    return Meteor.users.findOne( this.owner ).profile.name;
+  }
+}
+
 //////////// courseInquiry template /////////
 
 Template.courseInquiry.helpers( errorHelper );
@@ -50,10 +57,15 @@ Template.courseInquiry.events({
   }
 }); 
 
+//////////// course template /////////
+
+Template.course.helpers( ownerNameHelper );
+
 //////////// courseDetail template /////////
 
 Template.courseDetail.helpers( canEditHelper );
 Template.courseDetail.helpers( errorHelper );
+
 
 Template.courseDetail.events({
   'click #editCourseButton': function () {
