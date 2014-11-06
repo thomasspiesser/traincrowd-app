@@ -17,7 +17,7 @@
  {{> paymentModal }}
   <div class="container notHome">
     <div class="row">
-      <div class="col-md-6 ">
+      <div class="col-md-6 col-md-offset-3">
         {{> course}}
         {{#if canEdit}}
           <div>Course inquiries (course owner only)</div>
@@ -58,7 +58,7 @@
   <h4>{{title}}</h4>
   <p>{{description}}</p>
   <p>{{maxParticipants}}</p>
-  <p>{{ownerName}}</p>
+  <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName}}</a>
   <p>{{rating}}</p>
   <p>{{comments}}</p>
 </template>
