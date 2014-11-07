@@ -24,7 +24,13 @@
               </li>
               {{#if currentUser}}
                 <li>
-                <a href="{{ pathFor 'userProfile.show' data=currentUser }}">User Profile</a>
+                <a href="{{ pathFor 'userProfile.show' data=currentUser }}" style="padding-bottom:5px; padding-top:5px; padding-right:0px">
+                {{#if currentUser.profile.profilePicture}}
+                  <img class="img-circle" src="{{currentUser.profile.profilePicture}}" alt="{{currentUser.profile.name}}" style="width:40px">
+                {{else}}
+                  <img class="img-circle" src="/dummyUser.jpg" alt="" style="width:40px">
+                {{/if}}
+                </a>
                 </li>
               {{/if}}
               <li>

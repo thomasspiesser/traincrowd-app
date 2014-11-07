@@ -2,12 +2,18 @@
   <div class="container notHome">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 col-xs-10">
+        {{#if canEdit}}
         <button type="button" class="btn btn-sm pull-right" id="editUserProfileButton">Edit <span class="glyphicon glyphicon-edit"></span></button>
+        {{/if}}
         <div class="well panel panel-default">
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-12 col-sm-4 text-center">
+                {{#if profile.profilePicture}}
+                <img src="{{profile.profilePicture}}" alt="" class="center-block img-circle img-thumbnail img-responsive">
+                {{else}}
                 <img src="/dummyUser.jpg" alt="" class="center-block img-circle img-thumbnail img-responsive">
+                {{/if}}
               </div>
               <div class="col-xs-12 col-sm-8">
                 <h2>{{profile.name}}</h2>
@@ -43,9 +49,16 @@
         {{/if}}
 
         <div class="form-group">
+          <label for="profilePicture" class="col-sm-3 control-label">Profile picture</label>
+          <div class="col-sm-4">
+            <input type="file" class="form-control" id="profilePicture" title="select a profile picture">
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="name" class="col-sm-3 control-label">Full name</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="name" value="{{profile.name}}" title="enter your first name if any">
+            <input type="text" class="form-control" id="name" value="{{profile.name}}" title="enter your name if any">
           </div>
         </div>
 

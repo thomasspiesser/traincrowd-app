@@ -1,3 +1,9 @@
+Template.userProfile.helpers({
+  canEdit: function () {
+    return this._id === Meteor.userId();
+  }
+});
+
 Template.userProfile.events({
   'click #editUserProfileButton': function () {
     Router.go("userProfile.edit", {_id: this._id} );
@@ -13,7 +19,11 @@ Template.editUserProfile.events({ 
       var skillsArray = skills.split(",");
     }
 
+    var file = template.find('#profilePicture').files[0];
+    var reader = new FileReader();
+
     var profile = {
+      profilePicture: '',
       name: template.find('#name').value,
       about: template.find('#about').value,
       skills: skillsArray,
@@ -25,14 +35,18 @@ Template.editUserProfile.events({ 
     user = {
       profile: profile
     }
-
-    Meteor.call('updateUser', user, function(err){
-      if(err) {
-        console.log(err);
-      } else {
-        Notifications.info('Profile updated!', 'Successfully saved.', {timeout: 5000});
-      }
-    });
+    
+    reader.onload = function(event) {
+      user.profile.profilePicture = event.target.result;
+      Meteor.call('updateUser', user, function(err){
+        if(err) {
+          console.log(err);
+        } else {
+          Notifications.info('Profile updated!', 'Successfully saved.', {timeout: 5000});
+        }
+      });
+    };
+    reader.readAsDataURL(file);
 
     Router.go("userProfile.show", {_id: this._id} );
     return false
