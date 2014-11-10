@@ -1,0 +1,9 @@
+<template name="adminTemplate">
+{{#if isAdminUser}}
+	<div class="container notHome">
+	{{> accountsAdmin}}
+	</div>
+{{else}}
+  Must be admin to see this...
+{{/if}}
+</template>

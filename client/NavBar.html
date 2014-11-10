@@ -1,6 +1,4 @@
 <template name="navBar">
-  <!-- NAVBAR
-================================================== -->
   <div class="navbar-wrapper">
     <div class="container">
       <div class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -44,6 +42,8 @@
   </div>
 </template>
 
+<!--  /////////////////////////////////////////////////// --> 
+
 <template name='navItems'>
   <li>
   <a href="/">Home</a>
@@ -64,42 +64,11 @@
   </li>
 </template>
 
+<!--  /////////////////////////////////////////////////// --> 
+
 <template name="footer">
-  <!-- FOOTER -->
-  <!-- <div id="footer"> -->
     <div class="container" style="height: 60px">
       <p class="pull-right pfooter"><a href="#">Back to top</a></p>
       <p class="pfooter">&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
     </div>
-  <!-- </div> -->
-</template>
-
-<template name="register">
-    <form class="form-horizontal" role="form" id="registerForm">
-        <legend>Sign in/up</legend>
-
-        {{#if error}}
-          <div class="alert alert-danger">{{error}}</div>
-        {{/if}}
-
-        <div class="form-group">
-          <div class="col-sm-12">
-            <input class="form-control" type="email" id="account-email" placeholder="Email">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-12">
-            <input class="form-control" type="password" id="account-password" placeholder="Password" pattern=".{6,12}" maxLength="12">
-          </div>
-        </div>
-        <button type="submit" class="btn btn-block btn-primary" id="logInButton">Sign in</button>
-
-        <div style="height: 1px; background-color: #e5e5e5; text-align: center; margin: 20px 0px 20px 0px">
-          <span style="background-color: white; position: relative; top: -0.75em; padding: 10px 10px 10px 10px; font-family: Georgia,serif; font-style: italic;">
-            new here? then:
-          </span>
-        </div>
-
-        <button type="submit" class="btn btn-block btn-info" id="signUpButton">Sign up</button>
-    </form>
 </template>

@@ -1,12 +1,28 @@
 Template.userProfile.helpers({
   canEdit: function () {
-    return this._id === Meteor.userId();
+    return this.user._id === Meteor.userId();
+  }, 
+  show: function () {
+    console.log(this)
+  }
+});
+
+Template.userCourses.helpers({ 
+  showDateOrNoOfParticipants: function (course, helperId) {
+    var bookedCourse = _.find(course.current, function (item) { 
+      return _.contains(item.participants, Meteor.userId() )
+    });
+    if (helperId === 1) {
+      return bookedCourse.courseDate;
+    } else if (helperId === 2) {
+      return bookedCourse.participants.length;
+    }
   }
 });
 
 Template.userProfile.events({
   'click #editUserProfileButton': function () {
-    Router.go("userProfile.edit", {_id: this._id} );
+    Router.go("userProfile.edit", {_id: this.user._id} );
   }
 });
 
@@ -40,6 +56,7 @@ Template.editUserProfile.events({ 
       user.profile.profilePicture = event.target.result;
       Meteor.call('updateUser', user, function(err){
         if(err) {
+          Notifications.error('Snap!', err, {timeout: 5000});
           console.log(err);
         } else {
           Notifications.info('Profile updated!', 'Successfully saved.', {timeout: 5000});
