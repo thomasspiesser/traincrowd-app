@@ -60,8 +60,8 @@ Template.paymentModal.events({
         Session.set('time','');
         Session.set("bookingMessage",'');
         Meteor.clearInterval(interval);
-        $('#paymentModal').modal('hide');
         Session.set('errorMessage', '');
+        $('#paymentModal').modal('hide');
         // assume success, push userId into current.participants if not already there
         var options = {
           courseId: courseId,
@@ -72,6 +72,9 @@ Template.paymentModal.events({
       }
     }
     var interval = Meteor.setInterval(timeLeft, 1000);
+  },
+  'click #modalCloseButton': function () {
+    Session.set('errorMessage', '');
   }
 });
 
