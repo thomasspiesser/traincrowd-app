@@ -2,7 +2,7 @@
   <div class="container notHome">
     <div class="row">
         {{#each courses}}
-        <div class="col-lg-3">
+        <div class="col-lg-8 col-lg-offset-2">
           <div class="well all-courses-wrapper">
             {{> course}}
             <a href="{{ pathFor route='course.show' data=getPost }}">check me out!</a>
@@ -39,6 +39,7 @@
             <hr>
           {{/each}}
         {{/if}}
+        {{> pinboard}}
       </div>
       <div class="col-md-3">
         {{#if canEdit}}
@@ -54,6 +55,7 @@
       </div>
     </div>
   </div>
+  <!-- <button type="button" class="btn btn-danger" id="remove">remove</button> -->
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 
@@ -65,4 +67,57 @@
   <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName}}</a>
   <p>{{rating}}</p>
   <p>{{comments}}</p>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="pinboard">
+  {{#if isParticipant}}
+    {{#with pinboard}}
+      <h3>Pinnbrett</h3>
+      <ul>
+        {{#each messages}}
+        <li>{{userName}}: {{message}}</li>
+        {{/each}}
+      </ul>
+      <form class="form-inline" role="form" id="pinboardForm{{_id}}">
+        <div class="form-group">
+          <input type="text" class="form-control" id="inputField{{_id}}" title="Gib Deine Nachricht hier ein" placeholder="Deine neue Nachricht">
+        </div>
+        <button type="button" class="btn btn-default submitMessageButton">Senden</button>
+      </form>
+    {{/with}}
+  {{/if}}
+  {{#if isOwner}}
+    {{#if pinboards}}
+    <div role="tabpanel">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        {{#each pinboards}}
+          <li role="presentation"><a href="#{{_id}}" aria-controls="{{_id}}" role="tab" data-toggle="tab">{{name}}</a></li>
+        {{/each}}
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        {{#each pinboards}}
+          <div role="tabpanel" class="tab-pane fade" id="{{_id}}">
+            <h3>Pinnbrett</h3>
+            <ul>
+              {{#each messages}}
+              <li>{{userName}}: {{message}}</li>
+              {{/each}}
+            </ul>
+            <form class="form-inline" role="form" id="pinboardForm{{_id}}">
+              <div class="form-group">
+                <input type="text" class="form-control" id="inputField{{_id}}" title="Gib Deine Nachricht hier ein" placeholder="Deine neue Nachricht">
+              </div>
+              <button type="button" class="btn btn-default submitMessageButton">Senden</button>
+            </form>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+  {{/if}}
 </template>

@@ -8,19 +8,23 @@
       </div>
     </div>
 
+    <div class="row">
     {{#ifEsIsSearching index="courses"}}
       <div>Loading...</div>
     {{else}}
       {{#esEach index="courses"}}
-          <div class="col-md-3">
-            <div class="well all-courses-wrapper">
-              {{> course}}
-              <a href="{{ pathFor route='course.show' data=getPost }}">check me out!</a>
-            </div>
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="well all-courses-wrapper">
+            {{> course}}
+            <a href="{{ pathFor route='course.show' data=getPost }}">check me out!</a>
           </div>
+        </div>
       {{/esEach}}
-      {{> esLoadMoreButton index="courses"}}
+      <div class="col-lg-2 col-lg-offset-5">
+        {{> esLoadMoreButton index="courses" classes="btn btn-default btn-block"}}
+      </div>
     {{/ifEsIsSearching}}
+    </div>
 
     {{#ifEsHasNoResults index="courses"}}
       <div class="no-results">No results found!</div>
