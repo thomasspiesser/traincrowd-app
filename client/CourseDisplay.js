@@ -74,7 +74,7 @@ Template.pinboard.helpers({
   },
   pinboards: function () {
     if ( this.owner === Meteor.userId() ) {
-      return Pinboards.find( {owner: Meteor.userId()} )
+      return Pinboards.find( {owner: Meteor.userId(), course: this._id} )
     }
   }
 });
@@ -90,7 +90,8 @@ Template.pinboard.events({
     var message = {
       message: text,
       user: user,
-      userName: userName
+      userName: userName,
+      timestamp: new Date()
     };
 
     if (text.length) {

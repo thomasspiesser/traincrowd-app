@@ -4,8 +4,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 accounts-password
 natestrauser:animate-css
 mrt:accounts-ui-bootstrap-3
@@ -17,4 +15,3 @@ matteodem:easy-search
 meteorhacks:kadira
 alanning:roles
 mrt:accounts-admin-ui-bootstrap-3
-
