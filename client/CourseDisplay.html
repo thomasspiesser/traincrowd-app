@@ -88,6 +88,7 @@
       </form>
     {{/with}}
   {{/if}}
+
   {{#if isOwner}}
     {{#if pinboards}}
     <div role="tabpanel">
@@ -103,17 +104,18 @@
         {{#each pinboards}}
           <div role="tabpanel" class="tab-pane fade" id="{{_id}}">
             <h3>Pinnbrett</h3>
-            <ul>
               {{#each messages}}
-              <li>{{userName}}: {{message}}</li>
+                <div class="{{bubbleTitle ../owner}}">{{timestamp}} <br> {{userName}} </div>
+                <div class="{{bubble ../owner}}">{{message}}</div>
               {{/each}}
-            </ul>
+            <div>
             <form class="form-inline" role="form" id="pinboardForm{{_id}}">
               <div class="form-group">
                 <input type="text" class="form-control" id="inputField{{_id}}" title="Gib Deine Nachricht hier ein" placeholder="Deine neue Nachricht">
               </div>
               <button type="button" class="btn btn-default submitMessageButton">Senden</button>
             </form>
+            </div>
           </div>
         {{/each}}
       </div>

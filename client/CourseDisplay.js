@@ -70,18 +70,33 @@ Template.pinboard.helpers({
     var bookedCourse = _.find(this.current, function (item) { 
       return _.contains(item.participants, Meteor.userId() )
     });
-    return Pinboards.findOne( {courseInstance: bookedCourse.instanceId} );
+    return Pinboards.findOne( {courseInstance: bookedCourse.instanceId}, { sort: { timestamp: -1 }} );
   },
   pinboards: function () {
     if ( this.owner === Meteor.userId() ) {
-      return Pinboards.find( {owner: Meteor.userId(), course: this._id} )
+      return Pinboards.find( {owner: Meteor.userId(), course: this._id} , { sort: { timestamp: -1 }})
     }
+  },
+  bubble: function (courseOwner) {
+    return courseOwner === this.user ? 'bubbledRight' : 'bubbledLeft';
+  },
+  bubbleTitle: function (courseOwner) {
+    return courseOwner === this.user ? 'bubbleTitleRight' : 'bubbleTitleLeft';
   }
 });
 
 Template.pinboard.events({
   'click .submitMessageButton': function (event, template) {
-    var text = template.find('#inputField'+this._id).value;
+    processMessage(this, event, template);
+  },
+  'submit .form-inline': function (event, template) {
+    event.preventDefault();
+    processMessage(this, event, template);
+  }
+});
+
+var processMessage = function (self, event, template) {
+    var text = template.find('#inputField'+self._id).value;
     var user = Meteor.userId();
     var userName = Meteor.user().profile.name;
     if (typeof userName === 'undefined') {
@@ -95,11 +110,10 @@ Template.pinboard.events({
     };
 
     if (text.length) {
-      Meteor.call('insertMessage', {pinboardId: this._id, message: message});
-      $('#pinboardForm'+this._id)[0].reset();
+      Meteor.call('insertMessage', {pinboardId: self._id, message: message});
+      $('#pinboardForm'+self._id)[0].reset();
     } else {
       Notifications.error('Leere Nachricht', 'Bitte gib deine Nachricht ein.', {timeout: 5000});
     }
     return false
-  }
-});
+}
