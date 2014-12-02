@@ -54,18 +54,6 @@ Template.courseDetail.events({
 //////////// pinboard template /////////
 
 Template.pinboard.helpers({
-  isParticipant: function () {
-    var bookedCourse = _.find(this.current, function (item) { 
-      return _.contains(item.participants, Meteor.userId() )
-    });
-    if (bookedCourse) {
-      return true
-    }
-    return false
-  },
-  isOwner: function () {
-    return this.owner === Meteor.userId() 
-  },
   pinboard: function () {
     var bookedCourse = _.find(this.current, function (item) { 
       return _.contains(item.participants, Meteor.userId() )
@@ -76,12 +64,6 @@ Template.pinboard.helpers({
     if ( this.owner === Meteor.userId() ) {
       return Pinboards.find( {owner: Meteor.userId(), course: this._id} , { sort: { timestamp: -1 }})
     }
-  },
-  bubble: function (courseOwner) {
-    return courseOwner === this.user ? 'bubbledRight' : 'bubbledLeft';
-  },
-  bubbleTitle: function (courseOwner) {
-    return courseOwner === this.user ? 'bubbleTitleRight' : 'bubbleTitleLeft';
   }
 });
 

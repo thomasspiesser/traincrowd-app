@@ -72,9 +72,9 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="pinboard">
-  {{#if isParticipant}}
+  {{#if pinboard}}
     {{#with pinboard}}
-      <h3>Pinnbrett</h3>
+      <h3>Pinnwand</h3>
 
         {{#each messages}}
           <div class="panel panel-default">
@@ -97,7 +97,6 @@
     {{/with}}
   {{/if}}
 
-  {{#if isOwner}}
     {{#if pinboards}}
     <div role="tabpanel">
       <!-- Nav tabs -->
@@ -111,7 +110,7 @@
       <div class="tab-content">
         {{#each pinboards}}
           <div role="tabpanel" class="tab-pane fade" id="{{_id}}">
-            <h3>Pinnbrett</h3>
+            <h3>Pinnwand</h3>
               {{#each messages}}
                 <div class="panel panel-default">
                   <div class="panel-heading">
@@ -136,5 +135,4 @@
       </div>
     </div>
     {{/if}}
-  {{/if}}
 </template>
