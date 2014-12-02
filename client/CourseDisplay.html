@@ -75,11 +75,19 @@
   {{#if isParticipant}}
     {{#with pinboard}}
       <h3>Pinnbrett</h3>
-      <ul>
+
         {{#each messages}}
-        <li>{{userName}}: {{message}}</li>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{userName}}</h3>
+              <small>{{timestamp}}</small>
+            </div>
+            <div class="panel-body">
+              {{message}}
+            </div>
+          </div>
         {{/each}}
-      </ul>
+
       <form class="form-inline" role="form" id="pinboardForm{{_id}}">
         <div class="form-group">
           <input type="text" class="form-control" id="inputField{{_id}}" title="Gib Deine Nachricht hier ein" placeholder="Deine neue Nachricht">
@@ -105,8 +113,15 @@
           <div role="tabpanel" class="tab-pane fade" id="{{_id}}">
             <h3>Pinnbrett</h3>
               {{#each messages}}
-                <div class="{{bubbleTitle ../owner}}">{{timestamp}} <br> {{userName}} </div>
-                <div class="{{bubble ../owner}}">{{message}}</div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">{{userName}}</h3>
+                    <small>{{timestamp}}</small>
+                  </div>
+                  <div class="panel-body">
+                    {{message}}
+                  </div>
+                </div>
               {{/each}}
             <div>
             <form class="form-inline" role="form" id="pinboardForm{{_id}}">
