@@ -8,8 +8,8 @@ trimInput = function(val) {
 }
 
 // works only where data context is Course
-UI.registerHelper('canEdit', function() {
-  return this.owner === Meteor.userId();
+UI.registerHelper('canEdit', function(owner) {
+  return owner === Meteor.userId();
 });
 
 UI.registerHelper('error', function() {
@@ -17,8 +17,10 @@ UI.registerHelper('error', function() {
 });
 
 // works only where data context is Course
-UI.registerHelper('ownerName', function() {
-  if (this.owner) {
-    return Meteor.users.findOne( this.owner ).profile.name;
-  }
+UI.registerHelper('ownerName', function(userId) {
+	var user = Meteor.users.findOne( userId )
+	if (user.profile && user.profile.name) 
+  	return user.profile.name;
+  else return user.emails[0].address;
+
 });

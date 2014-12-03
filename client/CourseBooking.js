@@ -18,15 +18,24 @@ Template.courseInquiry.events({
   'click #inquireCourseDatesButton': function (event, template) {
     var inquiredDates = template.find("#inquireDatesDatepicker").value;
     if (inquiredDates.length > 1) {
+      var courseId = this._id;
       var inquiredDatesArray = inquiredDates.split(",");
-      var instanceId = inquireNewCourseDates({ courseId:this._id, dates: inquiredDatesArray });
-      Session.set("createError", "");
-      Router.go("course.show", {_id: this._id} );
-      Notifications.info('Course date inquiry!', 'Successfully submitted dates to trainer.', {timeout: 5000});
+      var options = {
+        courseId: courseId,
+        courseOwner: this.owner,
+        dates: inquiredDatesArray
+      }
+      Meteor.call('createInquired', options, function (error, result) {
+        if(error) {
+          Notifications.error('Fehler!', error, {timeout: 5000});
+        } else {
+          // Session.set( "instanceId", result );
+          Router.go("course.show", {_id: courseId} );
+          Notifications.info('Course date inquiry!', 'Successfully submitted dates to trainer.', {timeout: 5000});
+        }
+      });
     } else {
       Notifications.error('Error!', 'Please, choose at least one date!', {timeout: 5000});
-      Session.set("createError",
-                  "Please, choose at least one date!");
     }
     return false
   }

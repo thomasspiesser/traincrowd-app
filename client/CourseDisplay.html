@@ -20,21 +20,21 @@
   <div class="container notHome">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        {{> course}}
-        {{#if canEdit}}
+        {{#with course}}
+          {{> course}}
+        {{/with}}
+        {{#if canEdit course.owner}}
           <div>Course inquiries (course owner only)</div>
-          {{#if error}}
-            <div class="alert alert-danger">{{error}}</div>
-          {{/if}}
           <hr>
           {{#each inquired}}
             <form class="form-inline" role="form">
               {{#each inquiredDates}}
                 <label class="radio-inline">
-                  <input type="radio" name="{{../instanceId}}" value="{{this}}"> {{this}}
+                  <input type="radio" name="{{../_id}}" value="{{this}}"> {{this}}
                 </label>
               {{/each}}
-              <button type="button" class="btn btn-default confirmDateButton" name="{{instanceId}}" >Confirm</button>
+              <button type="button" class="btn btn-success confirmDateButton">Confirm</button>
+              <button type="button" class="btn btn-danger declineDateButton">Decline</button>
             </form>
             <hr>
           {{/each}}
@@ -42,20 +42,19 @@
         {{> pinboard}}
       </div>
       <div class="col-md-3">
-        {{#if canEdit}}
+        {{#if canEdit course.owner}}
           <button type="submit" class="btn btn-primary" id="editCourseButton">Edit course</button>
         {{/if}}
         <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button>
         <div class="list-group">
           <a href="#" class="list-group-item disabled">Join course at dates:</a>
           {{#each current}}
-            <a href="#" name="{{this.instanceId}}" class="joinCourseButton list-group-item"><span class="badge">{{this.participants.length}}</span>{{this.courseDate}}</a>
+            <a href="#" class="joinCourseButton list-group-item"><span class="badge">{{this.participants.length}}</span>{{this.courseDate}}</a>
           {{/each}}
         </div>
       </div>
     </div>
   </div>
-  <!-- <button type="button" class="btn btn-danger" id="remove">remove</button> -->
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 
@@ -64,7 +63,7 @@
   <h4>{{title}}</h4>
   <p>{{description}}</p>
   <p>{{maxParticipants}}</p>
-  <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName}}</a>
+  <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName this.owner}}</a>
   <p>{{rating}}</p>
   <p>{{comments}}</p>
 </template>

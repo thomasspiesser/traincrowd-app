@@ -3,9 +3,6 @@
 //////////// courseDetail template /////////
 
 Template.courseDetail.events({
-  'click #remove': function () {
-    Meteor.call('removeFromCurrent', "5sMs79akgARhgrZRs");
-  },
   'click #editCourseButton': function () {
     Router.go("course.edit", {_id: this._id} );
   },
@@ -25,27 +22,38 @@ Template.courseDetail.events({
     }
   },
   'click .confirmDateButton': function (event,template) {
-    var instanceId = event.target.name;
-    var date = template.find('input:radio[name='+instanceId+']:checked');
+    var date = template.find('input:radio[name='+this._id+']:checked');
     if (date) {
       var options = {
-        courseId: template.data._id,
-        courseOwner: template.data.owner,
-        instanceId: this.instanceId,
-        confirmedDate: date.value,
-        inquirer: this.inquirer
+        courseId: this.course,
+        courseOwner: this.owner,
+        id: this._id,
+        inquirer: this.inquirer,
+        confirmedDate: date.value
       }
-      Meteor.call('confirmCourseDate', options);
-      Session.set("createError", "");
+      Meteor.call('confirmInquired', options, function (error, result) {
+        if(error) {
+          Notifications.error('Fehler!', error, {timeout: 5000});
+        } else {
+          // Session.set( "instanceId", result );
+          Notifications.info('Super!', 'Wenn sich genug Teilnehmer finden, findet Dein Kurs am' + date.value + 'statt.', {timeout: 5000});
+        }
+      });
       return false
     }
     else {
-      Session.set("createError",
-                  "Please, select a date to confirm!");
+      Notifications.error('Fehler!', 'Bitte einen Termin auswählen.', {timeout: 5000});
     }
+    return false
+  },
+  'click #declineDateButton': function () {
+    // remove from inquired
+    // send mail to inquirer that was not suitable
   },
   'click .joinCourseButton': function (event, template) {
-    var instanceId = event.target.name;
+    console.log(this)
+    return false
+    var instanceId = this._id;
     $("#bookCourseButton").attr('name',instanceId); // pass the instanceId to modal through name
     $('#paymentModal').modal('show');
   }
