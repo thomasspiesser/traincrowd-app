@@ -96,42 +96,42 @@
     {{/with}}
   {{/if}}
 
-    {{#if pinboards}}
-    <div role="tabpanel">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        {{#each pinboards}}
-          <li role="presentation"><a href="#{{_id}}" aria-controls="{{_id}}" role="tab" data-toggle="tab">{{name}}</a></li>
-        {{/each}}
-      </ul>
+  {{#if pinboards}}
+  <div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      {{#each pinboards}}
+        <li role="presentation"><a href="#{{_id}}" aria-controls="{{_id}}" role="tab" data-toggle="tab">{{name}}</a></li>
+      {{/each}}
+    </ul>
 
-      <!-- Tab panes -->
-      <div class="tab-content">
-        {{#each pinboards}}
-          <div role="tabpanel" class="tab-pane fade" id="{{_id}}">
-            <h3>Pinnwand</h3>
-              {{#each messages}}
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">{{userName}}</h3>
-                    <small>{{timestamp}}</small>
-                  </div>
-                  <div class="panel-body">
-                    {{message}}
-                  </div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      {{#each pinboards}}
+        <div role="tabpanel" class="tab-pane fade" id="{{_id}}">
+          <h3>Pinnwand</h3>
+            {{#each messages}}
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">{{userName}}</h3>
+                  <small>{{timestamp}}</small>
                 </div>
-              {{/each}}
-            <div>
-            <form class="form-inline" role="form" id="pinboardForm{{_id}}">
-              <div class="form-group">
-                <input type="text" class="form-control" id="inputField{{_id}}" title="Gib Deine Nachricht hier ein" placeholder="Deine neue Nachricht">
+                <div class="panel-body">
+                  {{message}}
+                </div>
               </div>
-              <button type="button" class="btn btn-default submitMessageButton">Senden</button>
-            </form>
+            {{/each}}
+          <div>
+          <form class="form-inline" role="form" id="pinboardForm{{_id}}">
+            <div class="form-group">
+              <input type="text" class="form-control" id="inputField{{_id}}" title="Gib Deine Nachricht hier ein" placeholder="Deine neue Nachricht">
             </div>
+            <button type="button" class="btn btn-default submitMessageButton">Senden</button>
+          </form>
           </div>
-        {{/each}}
-      </div>
+        </div>
+      {{/each}}
     </div>
-    {{/if}}
+  </div>
+  {{/if}}
 </template>

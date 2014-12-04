@@ -63,14 +63,20 @@ Template.courseDetail.events({
 
 Template.pinboard.helpers({
   pinboard: function () {
-    var bookedCourse = _.find(this.current, function (item) { 
-      return _.contains(item.participants, Meteor.userId() )
-    });
-    return Pinboards.findOne( {courseInstance: bookedCourse.instanceId}, { sort: { timestamp: -1 }} );
+    if ( this.course.owner === Meteor.userId() ){
+        return false
+      }
+    var bookedCourse = Current.findOne({ course: this.course._id, participants: Meteor.userId() });
+    // TODO: works both, find out with kadira at some point which is faster!
+    // var bookedCourseOld = _.find(this.current.fetch(), function (item) { 
+    //   return _.contains(item.participants, Meteor.userId() )
+    // });
+    if (bookedCourse)
+      return Pinboards.findOne( {_id: bookedCourse._id}, { sort: { timestamp: -1 }} );
   },
   pinboards: function () {
-    if ( this.owner === Meteor.userId() ) {
-      return Pinboards.find( {owner: Meteor.userId(), course: this._id} , { sort: { timestamp: -1 }})
+    if ( this.course.owner === Meteor.userId() ) {
+      return Pinboards.find( {owner: Meteor.userId(), course: this.course._id} , { sort: { timestamp: -1 }})
     }
   }
 });
@@ -88,10 +94,7 @@ Template.pinboard.events({
 var processMessage = function (self, event, template) {
     var text = template.find('#inputField'+self._id).value;
     var user = Meteor.userId();
-    var userName = Meteor.user().profile.name;
-    if (typeof userName === 'undefined') {
-      var userName = Meteor.user().emails[0].address;
-    }
+    var userName = displayName(Meteor.user());
     var message = {
       message: text,
       user: user,
