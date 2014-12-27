@@ -64,15 +64,12 @@
         <li><a href="{{ pathFor 'userProfile.show' data=currentUser }}">Mein Profil</a></li>
         <li><a href="{{pathFor 'search'}}">Meine Kurse</a></li>
         <li class="divider"></li>
-        <li><a href="#">Ausloggen</a></li>
+        <li><a href="#" id="logout">Ausloggen</a></li>
       </ul>
     </li>
   {{else}}
-    <li><a href="#">Anmelden</a></li>
+    <li><a href="#" data-toggle="modal" data-target="#loginModal">Anmelden</a></li>
   {{/if}}
-  <li>
-    <a href="#">{{> loginButtons align='right'}}</a>
-  </li>
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 

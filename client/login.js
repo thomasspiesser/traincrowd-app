@@ -11,6 +11,7 @@ Template.login.events({
         Session.set( "createError", "Sorry, "+err.reason );
       } else {
         Session.set( "createError", '' );
+        $('#loginModal').modal('hide');
       }
     });
     return false;
@@ -25,6 +26,7 @@ Template.login.events({
         Session.set( "createError", "Sorry, "+err.reason );
       } else {
         Session.set( "createError", '' );
+        $('#loginModal').modal('hide');
       }
     });
     return false;

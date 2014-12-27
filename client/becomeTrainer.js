@@ -10,7 +10,7 @@ Template.becomeTrainer.events({
     var title = template.find("#inputTitleCourse").value;
 
     if (title.length) {
-      Meteor.call('createCourseNew', title, function (error, id) {
+      Meteor.call('createCourse', title, function (error, id) {
       	if (error) {
       		Notifications.error('Fehler!', error, {timeout: 8000});
       	} else {
