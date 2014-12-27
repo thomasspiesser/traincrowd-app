@@ -4,7 +4,7 @@
 
 Template.courseDetail.events({
   'click #editCourseButton': function () {
-    Router.go("course.edit", {_id: this._id} );
+    Router.go("course.edit", {_id: this.course._id} );
   },
   'click #inquireCourseDatesButton': function () {
     if (this.owner === Meteor.userId()) {

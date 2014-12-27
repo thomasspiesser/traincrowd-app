@@ -14,26 +14,10 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              {{> navItems}}
+              {{> navItemsLeft}}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li>
-                <a href="{{ pathFor 'becomeTrainer' }}">Werde Anbieter</a>
-              </li>
-              {{#if currentUser}}
-                <li>
-                <a href="{{ pathFor 'userProfile.show' data=currentUser }}" style="padding-bottom:5px; padding-top:5px; padding-right:0px">
-                {{#if currentUser.profile.profilePicture}}
-                  <img class="img-circle" src="{{currentUser.profile.profilePicture}}" alt="{{currentUser.profile.name}}" style="width:40px">
-                {{else}}
-                  <img class="img-circle" src="/dummyUser.jpg" alt="" style="width:40px">
-                {{/if}}
-                </a>
-                </li>
-              {{/if}}
-              <li>
-                <a href="#">{{> loginButtons align='right'}}</a>
-              </li>
+              {{> navItemsRight}}
             </ul>
           </div>
         </div>
@@ -44,23 +28,50 @@
 
 <!--  /////////////////////////////////////////////////// --> 
 
-<template name='navItems'>
+<template name='navItemsLeft'>
   <li>
-  <a href="/">Home</a>
-  </li>
-  <li>
-    <a href="{{pathFor 'about'}}">About</a>
+    <a href="{{pathFor 'about'}}">Über uns</a>
   </li>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Courses <span class="caret"></span></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kurse <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
-      <li><a href="{{pathFor 'courses'}}">Browse</a></li>
-      <li><a href="{{pathFor 'search'}}">Search</a></li>
-      <li class="divider"></li>
-      <li class="dropdown-header">Nav header</li>
-      <li><a href="#">Separated link</a></li>
-      <li><a href="#">One more separated link</a></li>
+      <li><a href="{{pathFor 'courses'}}">Alle Kurse</a></li>
+      <li><a href="{{pathFor 'search'}}">Suchen</a></li>
     </ul>
+  </li>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name='navItemsRight'>
+  <li>
+    <a href="{{ pathFor 'becomeTrainerLanding' }}">Werde Anbieter</a>
+  </li>
+  {{#if currentUser}}
+    <li>
+    <a href="{{ pathFor 'userProfile.show' data=currentUser }}" style="padding-bottom:5px; padding-top:5px; padding-right:0px">
+    {{#if currentUser.profile.profilePicture}}
+      <img class="img-circle" src="{{currentUser.profile.profilePicture}}" alt="{{currentUser.profile.name}}" style="width:40px">
+    {{else}}
+      <img class="img-circle" src="/dummyUser.jpg" alt="" style="width:40px">
+    {{/if}}
+    </a>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ownerName currentUser._id}} <span class="caret"></span></a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">Nav header</li>
+        <li><a href="{{ pathFor 'userProfile.show' data=currentUser }}">Mein Profil</a></li>
+        <li><a href="{{pathFor 'search'}}">Meine Kurse</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Ausloggen</a></li>
+      </ul>
+    </li>
+  {{else}}
+    <li><a href="#">Anmelden</a></li>
+  {{/if}}
+  <li>
+    <a href="#">{{> loginButtons align='right'}}</a>
   </li>
 </template>
 
