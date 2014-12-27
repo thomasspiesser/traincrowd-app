@@ -33,14 +33,6 @@ Meteor.methods({
     //remove from Inquired:
     Inquired.remove({_id: options.id});
 
-    //create pinboard for this course instance
-    Pinboards.insert({
-      _id: options.id,
-      owner: options.courseOwner,
-      course: options.courseId,
-      name: options.confirmedDate,
-      messages: []
-    });
   },
   currentCourseDone: function (options) {
   	// course happend so insert into elapsed
@@ -67,7 +59,6 @@ Houston.add_collection(Courses);
 Houston.add_collection(Inquired);
 Houston.add_collection(Current);
 Houston.add_collection(Elapsed);
-Houston.add_collection(Pinboards);
 
 Houston.methods(Courses, {
   Publish: function (course) {

@@ -14,10 +14,6 @@ Meteor.publish('elapsed', function () {
 	return Elapsed.find();
 });
 
-Meteor.publish('pinboards', function () {
-	return Pinboards.find();
-});
-
 Meteor.publish('userData', function () {
 	return Meteor.users.find();
 });
