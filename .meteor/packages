@@ -6,7 +6,6 @@
 meteor-platform
 accounts-password
 natestrauser:animate-css
-mrt:accounts-ui-bootstrap-3
 iron:router@1.0.0-pre4
 mizzao:bootstrap-3
 rajit:bootstrap3-datepicker
