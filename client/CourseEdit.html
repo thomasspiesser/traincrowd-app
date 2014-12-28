@@ -1,8 +1,51 @@
 <template name="editCourse">
   <div class="container notHome">
   {{#if canEdit owner}}
+
+    <div class="row">
+      <div class="col-sm-4">
+        <ol class="breadcrumb" style="background-color: #fff;">
+          <li><a href="{{pathFor 'meineKurse'}}">Meine Kurse</a></li>
+          <li class="active">{{title}}</li>
+        </ol>
+      </div>
+      <div class="col-sm-4 text-center"></div>
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" id="cancelEditCourseButton">Vorschau <i class="glyphicon glyphicon-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-8">
+      <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#a" data-toggle="tab"><span class="glyphicon glyphicon-th-list"></span> Kursbeschreibung</a>
+          </li>
+          <li>
+            <a href="#b" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Kosten und Leistungen</a>
+          </li>
+          <li>
+            <a href="#c" data-toggle="tab"><span class="glyphicon glyphicon-calendar"></span> Termine und Logistik</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="a">
+            eins
+          </div>
+          <div class="tab-pane" id="b">
+            zwei
+          </div>
+          <div class="tab-pane" id="c">
+            drei 
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+
     <form class="form-horizontal" role="form" id="editCourseForm">
-        <legend>Edit your course</legend>
 
         <div class="form-group">
           <label for="inputTitleCourse" class="col-sm-3 control-label">Title</label>
@@ -27,16 +70,16 @@
 
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-4">
-            <button type="button" class="btn btn-primary" id="editCourseButton"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+            <button type="button" class="btn btn-primary" id="editCourseButton"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
             
-            <button type="button" class="btn btn-default pull-right" id="cancelEditCourseButton"><i class="glyphicon glyphicon-minus-sign"></i> Cancel</button>
+            
 
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-3">
-            <button type="button" class="btn btn-danger" id="removeCourseButton"><i class="glyphicon glyphicon-remove-sign"></i> Remove</button>
+            <button type="button" class="btn btn-danger" id="removeCourseButton"><i class="glyphicon glyphicon-remove-sign"></i> Löschen</button>
           </div>
         </div>
     </form>
@@ -44,4 +87,8 @@
     <div class="alert alert-danger">You can only edit your own courses.</div>
   {{/if}}
   </div>
+</template>
+
+<template name="sideMenuEditCourse">
+  
 </template>
