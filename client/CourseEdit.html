@@ -16,79 +16,134 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-md-2">
       <div class="tabbable tabs-left">
         <ul class="nav nav-tabs">
+          <li >
+            <a href="#courseDescription" data-toggle="tab"><span class="glyphicon glyphicon-th-list"></span> Kursbeschreibung</a>
+          </li>
+          <li>
+            <a href="#courseCostsLogistics" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Kosten und Leistungen</a>
+          </li>
           <li class="active">
-            <a href="#a" data-toggle="tab"><span class="glyphicon glyphicon-th-list"></span> Kursbeschreibung</a>
-          </li>
-          <li>
-            <a href="#b" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Kosten und Leistungen</a>
-          </li>
-          <li>
-            <a href="#c" data-toggle="tab"><span class="glyphicon glyphicon-calendar"></span> Termine und Logistik</a>
+            <a href="#courseDatesServices" data-toggle="tab"><span class="glyphicon glyphicon-calendar"></span> Termine und Logistik</a>
           </li>
         </ul>
+      </div>
+      </div>
+      <div class="col-md-6">
         <div class="tab-content">
-          <div class="tab-pane active" id="a">
-            eins
+          <div class="tab-pane" id="courseDescription">
+            {{> editCourseDescription}}
           </div>
-          <div class="tab-pane" id="b">
-            zwei
+          <div class="tab-pane" id="courseCostsLogistics">
+            {{> editCourseCostsLogistics}}
           </div>
-          <div class="tab-pane" id="c">
-            drei 
+          <div class="tab-pane active" id="courseDatesServices">
+            {{> editCourseDatesServices}} 
           </div>
         </div>
       </div>
-
-      </div>
+    <!-- div row -->
     </div>
-
-    <form class="form-horizontal" role="form" id="editCourseForm">
-
-        <div class="form-group">
-          <label for="inputTitleCourse" class="col-sm-3 control-label">Title</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="inputTitleCourse" value="{{title}}">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="inputDescriptionCourse" class="col-sm-3 control-label">Description</label>
-          <div class="col-sm-4">
-            <textarea class="form-control" id="inputDescriptionCourse" value="{{description}}"></textarea>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="inputMaxNrParticipantsCourse" class="col-sm-3 control-label">Maximal no. of Participants</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" id="inputMaxNrParticipantsCourse" min="1"  value="{{maxParticipants}}">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-4">
-            <button type="button" class="btn btn-primary" id="editCourseButton"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
-            
-            
-
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-3">
-            <button type="button" class="btn btn-danger" id="removeCourseButton"><i class="glyphicon glyphicon-remove-sign"></i> Löschen</button>
-          </div>
-        </div>
-    </form>
   {{else}}
-    <div class="alert alert-danger">You can only edit your own courses.</div>
+    <div class="alert alert-danger">Sie können nur Ihre eigenen Kurse editieren.</div>
   {{/if}}
   </div>
 </template>
 
-<template name="sideMenuEditCourse">
-  
+<template name="editCourseDescription">
+  <div class="form-group">
+    <label for="editCourseTitle" class="control-label">Titel</label>
+    <input type="text" class="form-control" id="editCourseTitle" value="{{title}}">
+  </div>
+  <div class="form-group">
+    <label for="editCourseShortDescription" class="control-label">Kurzbeschreibung</label>
+    <textarea class="form-control" id="editCourseShortDescription" value="{{description}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="editCourseAims" class="control-label">Lernziele</label>
+    <textarea class="form-control" id="editCourseAims" value="{{aims}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="editCourseMethods" class="control-label">Lernformen, Methodik und Didaktik</label>
+    <textarea class="form-control" id="editCourseMethods" value="{{methods}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="editCourseTargetGroup" class="control-label">Zielgruppe</label>
+    <textarea class="form-control" id="editCourseTargetGroup" value="{{targetGroup}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="editCoursePrerequisites" class="control-label">Vorraussetzungen</label>
+    <textarea class="form-control" id="editCoursePrerequisites" value="{{prerequisites}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="editCourseLanguages" class="control-label">Sprachen</label>
+    <input type="text" class="form-control" id="editCourseLanguages" value="{{languages}}">
+  </div>
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" id="saveEditCourseDescription"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-danger removeCourseButton pull-right"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
+  </div>
+</template>
+
+<template name="editCourseCostsLogistics">
+  <div class="form-group">
+    <label for="editCourseFee" class="control-label">Preis</label>
+    <input type="number" class="form-control" id="editCourseFee" value="{{fee}}">
+  </div>
+  <div class="form-group">
+    <label for="editCourseMinParticipants" class="control-label">Mindestteilnehmeranzahl</label>
+    <input type="number" class="form-control" id="editCourseMinParticipants" value="{{minParticipants}}">
+  </div>
+  <div class="form-group">
+    <label for="editCourseMaxParticipants" class="control-label">Maximale Gruppengröße</label>
+    <input type="number" class="form-control" id="editCourseMaxParticipants" value="{{minParticipants}}">
+  </div>
+  <div class="form-group">
+    <label for="editCourseDuration" class="control-label">Kursdauer</label>
+    <input type="number" class="form-control" id="editCourseDuration" value="{{duration}}">
+  </div>
+  <div class="form-group">
+    <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
+    <textarea class="form-control" id="editCourseAdditionalServices" value="{{additionalServices}}"></textarea>
+  </div>
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" id="saveEditCourseCosts"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-danger removeCourseButton pull-right"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
+  </div>
+</template>
+
+<template name="editCourseDatesServices">
+  <div class="form-group">
+    <label for="editCourseDates" class="control-label">Wann</label>
+    <input type="number" class="form-control" id="editCourseDates" value="{{date}}">
+  </div>
+  <div class="checkbox">
+    <label>
+    <input type="checkbox" id="editCourseAllowInquiry" value="{{allowInquiry}}">Traincrowd-Nutzer dürfen Anfragen für individuelle Termine stellen.
+    </label>
+  </div>
+  <div class="form-group">
+    <label for="editCourseExpires" class="control-label">Wie viele Wochen vorher muss der Kurs verbindlich gebucht werden?</label>
+    <select class="form-control">
+      <option value=""></option>
+      <option value="1">1 Woche</option>
+      <option value="2">2 Wochen</option>
+      <option value="3">3 Wochen</option>
+      <option value="4">4 Wochen</option>
+    </select>
+    <!-- <input type="number" class="form-control" id="editCourseExpires" value="{{expires}}"> -->
+  </div>
+  <div class="form-group">
+    <label for="editCourseLocation" class="control-label">Wo findet der Kurs statt?</label>
+    <input type="number" class="form-control" id="editCourseLocation" value="{{location}}">
+  </div>
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" id="saveEditCourseCosts"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-danger removeCourseButton pull-right"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
+  </div>
 </template>

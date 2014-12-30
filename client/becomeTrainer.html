@@ -6,7 +6,6 @@
 
 <template name="becomeTrainer">
   <div class="container notHome">
-  {{#if currentUser}}
     <form class="form-horizontal" role="form" id="createCourseFormSmall">
       <legend>Kurs Title</legend>
 
@@ -23,10 +22,5 @@
         </div>
       </div>
     </form>
-  {{else}}
-    <div class="col-sm-4 col-sm-offset-4">
-      {{> login}}
-    </div>
-  {{/if}}
   </div>
 </template>

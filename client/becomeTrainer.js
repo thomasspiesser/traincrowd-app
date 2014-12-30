@@ -1,6 +1,9 @@
 Template.becomeTrainerLanding.events({
 	'click #startCourseButton': function (event, template) {
-		Router.go('becomeTrainer');
+    if (Meteor.userId())
+		  Router.go('becomeTrainer');
+    else 
+      $('#loginModal').modal('show');
 	}
 });
 

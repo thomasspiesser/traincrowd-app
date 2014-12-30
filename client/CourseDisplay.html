@@ -23,7 +23,7 @@
         {{#with course}}
           {{> course}}
         {{/with}}
-        {{#if canEdit course.owner}}
+<!--         {{#if canEdit course.owner}}
           <div>Course inquiries (course owner only)</div>
           <hr>
           {{#each inquired}}
@@ -38,13 +38,13 @@
             </form>
             <hr>
           {{/each}}
-        {{/if}}
+        {{/if}} -->
       </div>
       <div class="col-md-3">
         {{#if canEdit course.owner}}
           <button type="submit" class="btn btn-primary" id="editCourseButton">Edit course</button>
         {{/if}}
-        <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button>
+        <!-- <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button> -->
         <div class="list-group">
           <a href="#" class="list-group-item disabled">Join course at dates:</a>
           {{#each current}}

@@ -7,6 +7,10 @@ trimInput = function(val) {
   return val.replace(/^\s*|\s*$/g, "");
 }
 
+UI.registerHelper('fakeParagraph', function (number) {
+    return Fake.paragraph(number);
+});
+
 UI.registerHelper('canEdit', function(owner) {
   return owner === Meteor.userId();
 });
