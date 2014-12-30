@@ -16,8 +16,8 @@
     </div>
 
     <div class="row">
-      <div class="col-md-2">
-      <div class="tabbable tabs-left">
+      <div class="col-md-3">
+      <div class="tabbable tabs-left" >
         <ul class="nav nav-tabs">
           <li >
             <a href="#courseDescription" data-toggle="tab"><span class="glyphicon glyphicon-th-list"></span> Kursbeschreibung</a>
@@ -51,6 +51,8 @@
   {{/if}}
   </div>
 </template>
+
+<!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDescription">
   <div class="form-group">
@@ -88,6 +90,8 @@
   </div>
 </template>
 
+<!--  /////////////////////////////////////////////////// --> 
+
 <template name="editCourseCostsLogistics">
   <div class="form-group">
     <label for="editCourseFee" class="control-label">Preis</label>
@@ -116,10 +120,14 @@
   </div>
 </template>
 
+<!--  /////////////////////////////////////////////////// --> 
+
 <template name="editCourseDatesServices">
   <div class="form-group">
     <label for="editCourseDates" class="control-label">Wann</label>
-    <input type="number" class="form-control" id="editCourseDates" value="{{date}}">
+    <div class="input-group">
+      <input type="text" class="form-control" id="editCourseDates" placeholder="tt.mm.yyyy"><div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+    </div>
   </div>
   <div class="checkbox">
     <label>
@@ -135,15 +143,34 @@
       <option value="3">3 Wochen</option>
       <option value="4">4 Wochen</option>
     </select>
-    <!-- <input type="number" class="form-control" id="editCourseExpires" value="{{expires}}"> -->
+  </div>
+  <h4>wo findet der kurs statt?</h4>
+  <div class="form-group">
+    <label for="editCourseStreet" class="control-label">Strasse</label>
+    <input type="number" class="form-control" id="editCourseStreet" value="{{street}}">
   </div>
   <div class="form-group">
-    <label for="editCourseLocation" class="control-label">Wo findet der Kurs statt?</label>
-    <input type="number" class="form-control" id="editCourseLocation" value="{{location}}">
+    <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>
+    <input type="number" class="form-control" id="editCourseStreetAdditional" value="{{streetAdditional}}">
+  </div>
+  <div class="form-group">
+    <label for="editCoursePLZ" class="control-label">PLZ</label>
+    <input type="number" class="form-control" id="editCoursePLZ" value="{{plz}}">
+  </div>
+  <div class="form-group">
+    <label for="editCourseCity" class="control-label">Stadt</label>
+    <select class="form-control">
+      <option value="Berlin">Berlin</option>
+    </select>
+  </div>
+  <div class="checkbox">
+    <label>
+    <input type="checkbox" id="editCourseNoLocation" value="{{noLocation}}">Ort steht noch nicht fest.
+    </label>
   </div>
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary" id="saveEditCourseCosts"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary" id="saveEditDatesServices"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
     <button type="button" class="btn btn-danger removeCourseButton pull-right"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
   </div>
 </template>
