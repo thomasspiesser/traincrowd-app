@@ -12,7 +12,7 @@ $.fn.datepicker.dates['de'] = {
     format: "dd.mm.yyyy"
   };
 
-Template.editCourseDatesServices.rendered=function() {
+Template.editCourseDatesLogistics.rendered=function() {
     $('#editCourseDates').datepicker({
       startDate: "-0d",
       language: "de",
@@ -44,7 +44,46 @@ Template.editCourse.events({ 
     Courses.remove(this._id);
     Router.go("/courses");
   },
-  'click #cancelEditCourseButton': function (event, template) {
+  'click #previewCourseButton': function (event, template) {
+    // TODO: publish is false but owner can see the course
     Router.go("course.show", {_id: this._id} );
+  }
+});
+
+Template.editCourseDescription.events({
+  'click #saveEditCourse': function () {
+    // get the input data
+    // check the non-optional ones for not empty
+    // check all for appropriate type
+    // provide user feedback if error from one of the above checks
+    // make meteor call to update DB securely
+    // provide feedback on success/error
+  }
+});
+
+Template.editCourseCostsServices.events({
+  'click #saveEditCourse': function () {
+    // ...
+  }
+});
+
+
+
+Template.editCourseDatesLogistics.helpers({
+  noLocation: function () {
+    return Session.get("noLocation");
+  }
+});
+
+Template.editCourseDatesLogistics.events({
+  'click #saveEditCourseDatesLogistics': function (event, template) {
+    var dates = template.find("#editCourseDates").value;
+    console.log(dates);
+    var allowInquiry = template.find('input:checkbox[id=editCourseAllowInquiry]:checked');
+    console.log(allowInquiry);
+
+  },
+  'change #editCourseNoLocation': function (event) {
+    Session.set("noLocation", event.target.checked);
   }
 });

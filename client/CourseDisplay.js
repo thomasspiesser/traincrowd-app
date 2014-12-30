@@ -21,35 +21,35 @@ Template.courseDetail.events({
   //     Router.go("course.inquire", {_id: this._id} );
   //   }
   // },
-  'click .confirmDateButton': function (event,template) {
-    var date = template.find('input:radio[name='+this._id+']:checked');
-    if (date) {
-      var options = {
-        courseId: this.course,
-        courseOwner: this.owner,
-        id: this._id,
-        inquirer: this.inquirer,
-        confirmedDate: date.value
-      }
-      Meteor.call('confirmInquired', options, function (error, result) {
-        if(error) {
-          Notifications.error('Fehler!', error, {timeout: 5000});
-        } else {
-          // Session.set( "instanceId", result );
-          Notifications.info('Super!', 'Wenn sich genug Teilnehmer finden, findet Dein Kurs am' + date.value + 'statt.', {timeout: 5000});
-        }
-      });
-      return false
-    }
-    else {
-      Notifications.error('Fehler!', 'Bitte einen Termin auswählen.', {timeout: 5000});
-    }
-    return false
-  },
-  'click #declineDateButton': function () {
-    // remove from inquired
-    // send mail to inquirer that was not suitable
-  },
+  // 'click .confirmDateButton': function (event,template) {
+  //   var date = template.find('input:radio[name='+this._id+']:checked');
+  //   if (date) {
+  //     var options = {
+  //       courseId: this.course,
+  //       courseOwner: this.owner,
+  //       id: this._id,
+  //       inquirer: this.inquirer,
+  //       confirmedDate: date.value
+  //     }
+  //     Meteor.call('confirmInquired', options, function (error, result) {
+  //       if(error) {
+  //         Notifications.error('Fehler!', error, {timeout: 5000});
+  //       } else {
+  //         // Session.set( "instanceId", result );
+  //         Notifications.info('Super!', 'Wenn sich genug Teilnehmer finden, findet Dein Kurs am' + date.value + 'statt.', {timeout: 5000});
+  //       }
+  //     });
+  //     return false
+  //   }
+  //   else {
+  //     Notifications.error('Fehler!', 'Bitte einen Termin auswählen.', {timeout: 5000});
+  //   }
+  //   return false
+  // },
+  // 'click #declineDateButton': function () {
+  //   // remove from inquired
+  //   // send mail to inquirer that was not suitable
+  // },
   'click .joinCourseButton': function (event, template) {
     console.log(this)
     return false
