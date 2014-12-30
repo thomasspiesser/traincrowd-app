@@ -1,27 +1,5 @@
 //////////// editCourse template /////////
 
-$.fn.datepicker.dates['de'] = {
-    days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
-    daysShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam", "Son"],
-    daysMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
-    months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-    monthsShort: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-    today: "Heute",
-    clear: "Löschen",
-    weekStart: 1,
-    format: "dd.mm.yyyy"
-  };
-
-Template.editCourseDatesLogistics.rendered=function() {
-    $('#editCourseDates').datepicker({
-      startDate: "-0d",
-      language: "de",
-      todayBtn: true,
-      multidate: 6,
-      todayHighlight: true
-    });
-}
-
 Template.editCourse.events({ 
   'click #editCourseButton': function (event, template) {
     var title = template.find("#inputTitleCourse").value;
@@ -61,28 +39,73 @@ Template.editCourseDescription.events({
   }
 });
 
-Template.editCourseCostsServices.events({
+Template.editCourseDetails.events({
   'click #saveEditCourse': function () {
     // ...
   }
 });
 
+Template.editCourseCosts.events({
+  'click #saveEditCourse': function () {
+    // ...
+  }
+});
 
+Template.editCourseServices.events({
+  'click #saveEditCourse': function () {
+    // ...
+  }
+});
 
-Template.editCourseDatesLogistics.helpers({
+$.fn.datepicker.dates['de'] = {
+    days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
+    daysShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam", "Son"],
+    daysMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+    months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+    monthsShort: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+    today: "Heute",
+    clear: "Löschen",
+    weekStart: 1,
+    format: "dd.mm.yyyy"
+  };
+
+Template.editCourseDates.rendered=function() {
+    $('#editCourseDates').datepicker({
+      startDate: "-0d",
+      language: "de",
+      todayBtn: true,
+      multidate: 6,
+      todayHighlight: true
+    });
+};
+
+Template.editCourseDates.events({
+  'click #saveEditCourseDates': function (event, template) {
+    var dates = template.find("#editCourseDates").value;
+    var allowInquiry = template.find("#editCourseAllowInquiry").checked;
+    var expires = template.find("#editCourseExpires").value;
+    modifier = {_id: this._id,
+                owner: this.owner,
+                dates: dates,
+                allowInquiry: allowInquiry,
+                expires: expires }
+    Meteor.call('updateCourse', modifier, function (error, result) {
+      if (error)
+        Notifications.error('Fehler!', error, {timeout: 8000});
+      else
+        Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
+    });
+
+  }
+});
+
+Template.editCourseLogistics.helpers({
   noLocation: function () {
     return Session.get("noLocation");
   }
 });
 
-Template.editCourseDatesLogistics.events({
-  'click #saveEditCourseDatesLogistics': function (event, template) {
-    var dates = template.find("#editCourseDates").value;
-    console.log(dates);
-    var allowInquiry = template.find('input:checkbox[id=editCourseAllowInquiry]:checked');
-    console.log(allowInquiry);
-
-  },
+Template.editCourseLogistics.events({
   'change #editCourseNoLocation': function (event) {
     Session.set("noLocation", event.target.checked);
   }

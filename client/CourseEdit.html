@@ -11,36 +11,55 @@
       </div>
       <div class="col-sm-4 text-center"></div>
       <div class="col-sm-4">
-        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" id="previewCourseButton">Vorschau <i class="glyphicon glyphicon-arrow-right"></i></button>
+        <button type="button" class="btn btn-info pull-right" style="margin-right: 15px;" id="previewCourseButton">Vorschau <i class="glyphicon glyphicon-arrow-right"></i></button>
+        <button type="button" class="btn btn-danger pull-right" style="margin-right: 15px;" id="deleteCourseButton"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-2">
       <div class="tabbable tabs-left" >
         <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#courseDescription" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Beschreibung</a>
+          </li>
           <li >
-            <a href="#courseDescription" data-toggle="tab"><span class="glyphicon glyphicon-th-list"></span> Kursbeschreibung</a>
+            <a href="#courseDetails" data-toggle="tab"><span class="glyphicon glyphicon-eye-open"></span> Details</a>
           </li>
           <li>
-            <a href="#courseCostsServices" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Kosten und Leistungen</a>
+            <a href="#courseCosts" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Kosten</a>
           </li>
-          <li class="active">
-            <a href="#courseDatesLogistics" data-toggle="tab"><span class="glyphicon glyphicon-calendar"></span> Termine und Logistik</a>
+          <li>
+            <a href="#courseServices" data-toggle="tab"><span class="glyphicon glyphicon-random"></span> Leistungen</a>
+          </li>
+          <li>
+            <a href="#courseDates" data-toggle="tab"><span class="glyphicon glyphicon-calendar"></span> Termine</a>
+          </li>
+          <li>
+            <a href="#courseLogistics" data-toggle="tab"><span class="glyphicon glyphicon-road"></span> Logistik</a>
           </li>
         </ul>
       </div>
       </div>
       <div class="col-md-6">
         <div class="tab-content">
-          <div class="tab-pane" id="courseDescription">
+          <div class="tab-pane active" id="courseDescription">
             {{> editCourseDescription}}
           </div>
-          <div class="tab-pane" id="courseCostsServices">
-            {{> editCourseCostsServices}}
+          <div class="tab-pane" id="courseDetails">
+            {{> editCourseDetails}}
           </div>
-          <div class="tab-pane active" id="courseDatesLogistics">
-            {{> editCourseDatesLogistics}} 
+          <div class="tab-pane" id="courseCosts">
+            {{> editCourseCosts}}
+          </div>
+          <div class="tab-pane" id="courseServices">
+            {{> editCourseServices}}
+          </div>
+          <div class="tab-pane" id="courseDates">
+            {{> editCourseDates}} 
+          </div>
+          <div class="tab-pane" id="courseLogistics">
+            {{> editCourseLogistics}} 
           </div>
         </div>
       </div>
@@ -61,8 +80,22 @@
   </div>
   <div class="form-group">
     <label for="editCourseShortDescription" class="control-label">Kurzbeschreibung</label>
-    <textarea class="form-control" id="editCourseShortDescription" value="{{description}}"></textarea>
+    <textarea class="form-control" id="editCourseShortDescription" rows="6" value="{{description}}"></textarea>
   </div>
+
+  <div class="form-group">
+    <label for="editCourseLogo" class="control-label">Logo</label>
+    <input type="text" class="form-control" id="editCourseLogo" value="{{logo}}">
+  </div>
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDescription"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="editCourseDetails">
   <div class="form-group">
     <label for="editCourseAims" class="control-label">Lernziele</label>
     <textarea class="form-control" id="editCourseAims" value="{{aims}}"></textarea>
@@ -85,18 +118,27 @@
   </div>
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary" id="saveEditCourseDescription"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
-    <button type="button" class="btn btn-danger removeCourseButton pull-right"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDetails"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
   </div>
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 
 
-<template name="editCourseCostsServices">
+<template name="editCourseCosts">
   <div class="form-group">
     <label for="editCourseFee" class="control-label">Preis</label>
     <input type="number" class="form-control" id="editCourseFee" value="{{fee}}">
   </div>
+
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseCosts"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="editCourseServices">
   <div class="form-group">
     <label for="editCourseMinParticipants" class="control-label">Mindestteilnehmeranzahl</label>
     <input type="number" class="form-control" id="editCourseMinParticipants" value="{{minParticipants}}">
@@ -115,16 +157,16 @@
   </div>
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary" id="saveEditCourseCostsServices"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
-    <button type="button" class="btn btn-danger removeCourseButton pull-right"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseServices"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
   </div>
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 
 
-<template name="editCourseDatesLogistics">
+<template name="editCourseDates">
   <div class="form-group">
-    <label for="editCourseDates" class="control-label">Wann</label>
+
+    <label for="editCourseDates" class="control-label">Termine und Anfragen</label>
     <div class="input-group">
       <input type="text" class="form-control" id="editCourseDates" placeholder="tt.mm.yyyy"><div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
     </div>
@@ -134,9 +176,10 @@
     <input type="checkbox" id="editCourseAllowInquiry" checked="{{allowInquiry}}">Traincrowd-Nutzer dürfen Anfragen für individuelle Termine stellen.
     </label>
   </div>
+  <hr>
   <div class="form-group">
     <label for="editCourseExpires" class="control-label">Wie viele Wochen vorher muss der Kurs verbindlich gebucht werden?</label>
-    <select class="form-control">
+    <select class="form-control" id="editCourseExpires">
       <option value=""></option>
       <option value="1">1 Woche</option>
       <option value="2">2 Wochen</option>
@@ -144,6 +187,15 @@
       <option value="4">4 Wochen</option>
     </select>
   </div>
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDates"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="editCourseLogistics">
   <h4>wo findet der kurs statt?</h4>
   <div class="checkbox">
     <label>
@@ -176,9 +228,8 @@
       </div>
     </div>
   {{/unless}}
-  <!-- buttons -->
+  <!-- button -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary" id="saveEditCourseDatesLogistics"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
-    <button type="button" class="btn btn-danger removeCourseButton pull-right"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseLogistics"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
   </div>
 </template>
