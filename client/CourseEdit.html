@@ -85,7 +85,7 @@
 
   <div class="form-group">
     <label for="editCourseLogo" class="control-label">Logo</label>
-    <input type="text" class="form-control" id="editCourseLogo" value="{{logo}}">
+    <input type="file" id="editCourseLogo" title="Kurs Logo">
   </div>
   <!-- buttons -->
   <div class="form-group">
@@ -180,11 +180,11 @@
   <div class="form-group">
     <label for="editCourseExpires" class="control-label">Wie viele Wochen vorher muss der Kurs verbindlich gebucht werden?</label>
     <select class="form-control" id="editCourseExpires">
-      <option value=""></option>
-      <option value="1">1 Woche</option>
-      <option value="2">2 Wochen</option>
-      <option value="3">3 Wochen</option>
-      <option value="4">4 Wochen</option>
+      <option value="" {{selected '' expires}}></option>
+      <option value="1" {{selected '1' expires}}>1 Woche</option>
+      <option value="2" {{selected '2' expires}}>2 Wochen</option>
+      <option value="3" {{selected '3' expires}}>3 Wochen</option>
+      <option value="4" {{selected '4' expires}}>4 Wochen</option>
     </select>
   </div>
   <!-- buttons -->

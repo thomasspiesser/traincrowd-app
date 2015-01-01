@@ -29,31 +29,100 @@ Template.editCourse.events({ 
 });
 
 Template.editCourseDescription.events({
-  'click #saveEditCourse': function () {
-    // get the input data
-    // check the non-optional ones for not empty
+  'click #saveEditCourseDescription': function (event, template) {
+    var title = template.find("#editCourseTitle").value;
+    var description = template.find("#editCourseShortDescription").value;
+    var logo = template.find("#editCourseLogo").files[0];
+
+    if (! title.length) {
+      Notifications.error('Fehler!', "Der Kurs braucht einen Titel.", {timeout: 8000});
+      return false
+    }
+
+    modifier = {_id: this._id,
+                owner: this.owner,
+                title: title,
+                description: description }
+
+    if (logo) {
+      var reader = new FileReader();
+      reader.onload = function(event) {
+        modifier.logo = event.target.result;
+
+        Meteor.call('updateCourse', modifier, function (error, result) {
+          if (error)
+            Notifications.error('Fehler!', error, {timeout: 8000});
+          else
+            Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
+        });
+      };
+      reader.readAsDataURL(logo);
+    }
+    else {
+      Meteor.call('updateCourse', modifier, function (error, result) {
+        if (error)
+          Notifications.error('Fehler!', error, {timeout: 8000});
+        else
+          Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
+      });
+    }
+    return false;
+    
     // check all for appropriate type
     // provide user feedback if error from one of the above checks
-    // make meteor call to update DB securely
-    // provide feedback on success/error
   }
 });
 
 Template.editCourseDetails.events({
-  'click #saveEditCourse': function () {
-    // ...
+  'click #saveEditCourseDetails': function (event, template) {
+    var aims = template.find("#editCourseAims").value;
+    var methods = template.find("#editCourseMethods").value;
+    var targetGroup = template.find("#editCourseTargetGroup").value;
+    var prerequisites = template.find("#editCoursePrerequisites").value;
+    var languages = template.find("#editCourseLanguages").value;
+
+    modifier = {_id: this._id,
+                owner: this.owner,
+                aims: aims,
+                methods: methods,
+                targetGroup: targetGroup,
+                prerequisites: prerequisites,
+                languages: languages }
+
+    Meteor.call('updateCourse', modifier, function (error, result) {
+      if (error)
+        Notifications.error('Fehler!', error, {timeout: 8000});
+      else
+        Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
+    });
   }
 });
 
 Template.editCourseCosts.events({
-  'click #saveEditCourse': function () {
-    // ...
+  'click #saveEditCourseCosts': function (event, template) {
+    var fee = template.find("#editCourseFee").value;
+
+    if (! fee.length) {
+      Notifications.error('Fehler!', "Sie müssen einen Preis angeben.", {timeout: 8000});
+      return false
+    }
+    var fee = parseFloat(fee).toFixed(2); // rounded to 2 digits
+    modifier = {_id: this._id,
+                owner: this.owner,
+                fee: fee }
+
+    Meteor.call('updateCourse', modifier, function (error, result) {
+      if (error)
+        Notifications.error('Fehler!', error, {timeout: 8000});
+      else
+        Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
+    });
   }
 });
 
 Template.editCourseServices.events({
-  'click #saveEditCourse': function () {
-    // ...
+  'click #saveEditCourseServices': function (event, template) {
+
   }
 });
 
@@ -78,6 +147,12 @@ Template.editCourseDates.rendered=function() {
       todayHighlight: true
     });
 };
+
+Template.editCourseDates.helpers({
+  selected: function (one, two) {
+    return one === two ? 'selected' : '';
+  }
+});
 
 Template.editCourseDates.events({
   'click #saveEditCourseDates': function (event, template) {
@@ -106,6 +181,9 @@ Template.editCourseLogistics.helpers({
 });
 
 Template.editCourseLogistics.events({
+  'click #saveEditCourseLogistics': function (event, template) {
+    
+  },
   'change #editCourseNoLocation': function (event) {
     Session.set("noLocation", event.target.checked);
   }
