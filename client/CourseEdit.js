@@ -28,7 +28,7 @@ Template.editCourseDescription.events({
   'click #saveEditCourseDescription': function (event, template) {
     var title = template.find("#editCourseTitle").value;
     var description = template.find("#editCourseShortDescription").value;
-    var logo = template.find("#editCourseLogo").files[0];
+    var logo = template.find("#newCourseLogoReal").files[0];
 
     if (! title.length) {
       Notifications.error('Fehler!', "Der Kurs braucht einen Titel.", {timeout: 8000});
@@ -56,6 +56,9 @@ Template.editCourseDescription.events({
     
     // check all for appropriate type
     // provide user feedback if error from one of the above checks
+  },
+  'click #newCourseLogoDummy': function () {
+    $('#newCourseLogoReal').click();
   }
 });
 

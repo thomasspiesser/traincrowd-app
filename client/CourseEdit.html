@@ -11,7 +11,7 @@
       </div>
       <div class="col-sm-4 text-center"></div>
       <div class="col-sm-4">
-        <button type="button" class="btn btn-info pull-right" style="margin-right: 15px;" id="previewCourseButton">Vorschau <i class="glyphicon glyphicon-arrow-right"></i></button>
+        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" id="previewCourseButton">Vorschau <i class="glyphicon glyphicon-arrow-right"></i></button>
         <button type="button" class="btn btn-danger pull-right" style="margin-right: 15px;" id="deleteCourseButton"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
       </div>
     </div>
@@ -86,18 +86,25 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-      <label for="editCourseLogo" class="control-label">Logo</label>
+      <label for="" class="control-label">Logo</label>
         {{#if logo}}
-        <img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive" style="margin-left:0px; height: 140px;">
+        <img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive" style="margin-left:0px; width: 160px;">
         {{else}}
-        <img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="margin-left:0px; height: 140px;">
+        <img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="margin-left:0px; width: 160px;">
         {{/if}}
       </div>
     </div>
     <div class="col-md-6">
-      <div class="form-group">
-        
-        <input type="file" id="editCourseLogo" title="Kurs Logo">
+      <div class="form-group">    
+        <label for="newCourseLogoDummy" class="control-label">Ändern</label>
+        <br>
+
+        <button type="button" class="btn btn-sm btn-default" id="newCourseLogoDummy"><i class="glyphicon glyphicon-upload"></i> Neues Logo</button>
+
+        <br>
+        <input type="file" id="newCourseLogoReal" style="display:none;">
+
+        <button type="button" class="btn btn-sm btn-danger" id="deleteCourseLogo" style="margin-top:5px;"> <i class="glyphicon glyphicon-remove-sign"></i> Logo Löschen</button>
       </div>
     </div>
   </div>
