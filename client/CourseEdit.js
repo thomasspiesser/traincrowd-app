@@ -59,6 +59,17 @@ Template.editCourseDescription.events({
   },
   'click #newCourseLogoDummy': function () {
     $('#newCourseLogoReal').click();
+  },
+  'click #deleteCourseLogo': function () {
+    var self = this; // needed, coz this in bootbox is bootbox object
+    bootbox.confirm('Logo löschen?', function(result) {
+      if (result) {
+        modifier = {_id: self._id,
+                    owner: self.owner,
+                    logo: '' }
+        saveUpdates(modifier);
+      }
+    });
   }
 });
 
