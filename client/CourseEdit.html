@@ -83,10 +83,26 @@
     <textarea class="form-control" id="editCourseShortDescription" rows="6" value="{{description}}"></textarea>
   </div>
 
-  <div class="form-group">
-    <label for="editCourseLogo" class="control-label">Logo</label>
-    <input type="file" id="editCourseLogo" title="Kurs Logo">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+      <label for="editCourseLogo" class="control-label">Logo</label>
+        {{#if logo}}
+        <img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive" style="margin-left:0px; height: 140px;">
+        {{else}}
+        <img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="margin-left:0px; height: 140px;">
+        {{/if}}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        
+        <input type="file" id="editCourseLogo" title="Kurs Logo">
+      </div>
+    </div>
   </div>
+
+
   <!-- buttons -->
   <div class="form-group">
     <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDescription"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
@@ -145,11 +161,17 @@
   </div>
   <div class="form-group">
     <label for="editCourseMaxParticipants" class="control-label">Maximale Gruppengröße</label>
-    <input type="number" class="form-control" id="editCourseMaxParticipants" value="{{minParticipants}}">
+    <input type="number" class="form-control" id="editCourseMaxParticipants" value="{{maxParticipants}}">
   </div>
   <div class="form-group">
     <label for="editCourseDuration" class="control-label">Kursdauer</label>
-    <input type="number" class="form-control" id="editCourseDuration" value="{{duration}}">
+    <select class="form-control" id="editCourseDuration">
+      <option value="" {{selected '' duration}}></option>
+      <option value="1" {{selected '1' duration}}>1 Tag</option>
+      <option value="2" {{selected '2' duration}}>2 Tage</option>
+      <option value="3" {{selected '3' duration}}>3 Tage</option>
+      <option value="4" {{selected '4' duration}}>4 Tage</option>
+    </select>
   </div>
   <div class="form-group">
     <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
@@ -168,7 +190,7 @@
 
     <label for="editCourseDates" class="control-label">Termine und Anfragen</label>
     <div class="input-group">
-      <input type="text" class="form-control" id="editCourseDates" placeholder="tt.mm.yyyy"><div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+      <input type="text" class="form-control" id="editCourseDates" placeholder="tt.mm.yyyy" value="{{dates}}"><div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
     </div>
   </div>
   <div class="checkbox">
@@ -205,11 +227,11 @@
   {{#unless noLocation}}
     <div class="form-group">
       <label for="editCourseStreet" class="control-label">Strasse</label>
-      <input type="number" class="form-control" id="editCourseStreet" value="{{street}}">
+      <input type="text" class="form-control" id="editCourseStreet" value="{{street}}">
     </div>
     <div class="form-group">
       <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>
-      <input type="number" class="form-control" id="editCourseStreetAdditional" value="{{streetAdditional}}">
+      <input type="text" class="form-control" id="editCourseStreetAdditional" value="{{streetAdditional}}">
     </div>
     <div class="row">
       <div class="col-md-6">

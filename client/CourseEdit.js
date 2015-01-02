@@ -1,23 +1,6 @@
 //////////// editCourse template /////////
 
 Template.editCourse.events({ 
-  'click #editCourseButton': function (event, template) {
-    var title = template.find("#inputTitleCourse").value;
-    var description = template.find("#inputDescriptionCourse").value;
-    var maxParticipants = parseInt(template.find("#inputMaxNrParticipantsCourse").value);
-
-    if (title.length && description.length && maxParticipants > 1) {
-      modifier = {  title: title,
-                    description: description,
-                    maxParticipants: maxParticipants }
-      Courses.update(this._id, { $set: modifier });
-      Notifications.info('Kurs erfolgreich geändert!', 'Deine Änderungen wurden übernommen.', {timeout: 5000});
-      // Router.go("course.show", {_id: this._id} );
-    } else {
-      Notifications.error('Fehler!', "Es ist ein Fehler aufgetreten. Dein Kurs wurde nicht aktualisiert. Sind alle Felder ausgefüllt?", {timeout: 5000});
-    }
-    return false
-  },
   'click #removeCourseButton': function (event, template) {
     Courses.remove(this._id);
     Router.go("/courses");
@@ -27,6 +10,19 @@ Template.editCourse.events({ 
     Router.go("course.show", {_id: this._id} );
   }
 });
+
+//////////// local functions /////////
+
+var saveUpdates = function (modifier) {
+  Meteor.call('updateCourse', modifier, function (error, result) {
+    if (error)
+      Notifications.error('Fehler!', error, {timeout: 8000});
+    else
+      Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
+  });
+}
+
+//////////// editCourse DESCRIPTION template /////////
 
 Template.editCourseDescription.events({
   'click #saveEditCourseDescription': function (event, template) {
@@ -49,22 +45,12 @@ Template.editCourseDescription.events({
       reader.onload = function(event) {
         modifier.logo = event.target.result;
 
-        Meteor.call('updateCourse', modifier, function (error, result) {
-          if (error)
-            Notifications.error('Fehler!', error, {timeout: 8000});
-          else
-            Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
-        });
+        saveUpdates(modifier);
       };
       reader.readAsDataURL(logo);
     }
     else {
-      Meteor.call('updateCourse', modifier, function (error, result) {
-        if (error)
-          Notifications.error('Fehler!', error, {timeout: 8000});
-        else
-          Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
-      });
+      saveUpdates(modifier);
     }
     return false;
     
@@ -72,6 +58,8 @@ Template.editCourseDescription.events({
     // provide user feedback if error from one of the above checks
   }
 });
+
+//////////// editCourse DETAILS template /////////
 
 Template.editCourseDetails.events({
   'click #saveEditCourseDetails': function (event, template) {
@@ -89,14 +77,11 @@ Template.editCourseDetails.events({
                 prerequisites: prerequisites,
                 languages: languages }
 
-    Meteor.call('updateCourse', modifier, function (error, result) {
-      if (error)
-        Notifications.error('Fehler!', error, {timeout: 8000});
-      else
-        Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
-    });
+    saveUpdates(modifier);
   }
 });
+
+//////////// editCourse COSTS template /////////
 
 Template.editCourseCosts.events({
   'click #saveEditCourseCosts': function (event, template) {
@@ -110,21 +95,48 @@ Template.editCourseCosts.events({
     modifier = {_id: this._id,
                 owner: this.owner,
                 fee: fee }
+    saveUpdates(modifier);
+  }
+});
 
-    Meteor.call('updateCourse', modifier, function (error, result) {
-      if (error)
-        Notifications.error('Fehler!', error, {timeout: 8000});
-      else
-        Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
-    });
+//////////// editCourse SERVICES template /////////
+
+Template.editCourseServices.helpers({
+  selected: function (one, two) {
+    return one === two ? 'selected' : '';
   }
 });
 
 Template.editCourseServices.events({
   'click #saveEditCourseServices': function (event, template) {
+    var minParticipants = template.find("#editCourseMinParticipants").value;
+    var maxParticipants = template.find("#editCourseMaxParticipants").value;
 
+    if (! minParticipants.length || ! maxParticipants.length) {
+      Notifications.error('Fehler!', "Sie müssen die Teilnehmerzahlen angeben.", {timeout: 8000});
+      return false
+    }
+    var minParticipants = parseInt(minParticipants);
+    var maxParticipants = parseInt(maxParticipants);
+
+    if (minParticipants > maxParticipants) {
+      Notifications.error('Fehler!', "Die maximale Gruppengröße muss mindestens "+minParticipants+" sein.", {timeout: 8000});
+      return false
+    }
+
+    var duration = template.find("#editCourseDuration").value;
+    var additionalServices = template.find("#editCourseAdditionalServices").value;
+    modifier = {_id: this._id,
+                owner: this.owner,
+                minParticipants: minParticipants,
+                maxParticipants: maxParticipants,
+                duration: duration,
+                additionalServices: additionalServices }
+    saveUpdates(modifier);
   }
 });
+
+//////////// editCourse DATES template /////////
 
 $.fn.datepicker.dates['de'] = {
     days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
@@ -151,6 +163,13 @@ Template.editCourseDates.rendered=function() {
 Template.editCourseDates.helpers({
   selected: function (one, two) {
     return one === two ? 'selected' : '';
+  },
+  allowInquiry: function () {
+    if (this.allowInquiry)
+      Session.setDefault("allowInquiry", this.allowInquiry);
+    else
+      Session.setDefault("allowInquiry", false);
+    return Session.get("allowInquiry");
   }
 });
 
@@ -164,25 +183,51 @@ Template.editCourseDates.events({
                 dates: dates,
                 allowInquiry: allowInquiry,
                 expires: expires }
-    Meteor.call('updateCourse', modifier, function (error, result) {
-      if (error)
-        Notifications.error('Fehler!', error, {timeout: 8000});
-      else
-        Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
-    });
-
+    saveUpdates(modifier);
+  },
+  'change #editCourseAllowInquiry': function (event) {
+    Session.set("allowInquiry", event.target.checked);
   }
 });
 
+//////////// editCourse LOGISTICS template /////////
+
+
+
 Template.editCourseLogistics.helpers({
   noLocation: function () {
+    if (this.allowInquiry)
+      Session.setDefault("noLocation", this.noLocation);
+    else
+      Session.setDefault("noLocation", true);
     return Session.get("noLocation");
   }
 });
 
 Template.editCourseLogistics.events({
   'click #saveEditCourseLogistics': function (event, template) {
-    
+    var noLocation = template.find("#editCourseNoLocation").checked;
+    modifier = {_id: this._id,
+                owner: this.owner,
+                noLocation: noLocation }
+    if (noLocation) {
+      saveUpdates(modifier);
+    } 
+    else {
+      var street = template.find("#editCourseStreet").value;
+      var streetAdditional = template.find("#editCourseStreetAdditional").value;
+      var plz = template.find("#editCoursePLZ").value;
+      // var city = template.find("#editCourseCity").value;
+
+      if (! street.length || plz.length < 5) {
+        Notifications.error('Fehler!', "Bitte geben Sie ein vollständige Adresse an.", {timeout: 8000});
+        return false
+      }
+      modifier.street = street;
+      modifier.streetAdditional = streetAdditional;
+      modifier.plz = plz;
+      saveUpdates(modifier);
+    }
   },
   'change #editCourseNoLocation': function (event) {
     Session.set("noLocation", event.target.checked);
