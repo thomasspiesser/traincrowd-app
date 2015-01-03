@@ -1,0 +1,41 @@
+<template name="userCourses">
+  <div class="container notHome">
+    {{#if this.hosted.count}}
+    <h3>Angebotene Kurse</h3>
+    <table class='table table-striped'>
+      <tbody>
+        {{#each hosted}}
+          <tr>
+            <td>
+              {{#if logo}}
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
+              {{else}}
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
+              {{/if}}
+            </td>
+            <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
+            <td>{{rating}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+
+    {{#if this.inquired.count}}
+    <h3>inquired</h3>
+    <table class='table table-striped'>
+      <tbody>
+        {{#each inquired}}
+          <tr>
+            <td>{{title}}</td>
+            <td>{{ownerName}}</td>
+            <td>{{showDateOrNoOfParticipants this 1}}</td>
+            <td>{{showDateOrNoOfParticipants this 2}}/{{maxParticipants}}</td>
+
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+  </div>
+</template>

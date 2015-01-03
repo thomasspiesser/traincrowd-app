@@ -9,18 +9,18 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-12 col-sm-4 text-center">
-                {{#if user.profile.profilePicture}}
-                <img src="{{user.profile.profilePicture}}" alt="" class="center-block img-circle img-thumbnail img-responsive">
+                {{#if profile.profilePicture}}
+                <img src="{{profile.profilePicture}}" alt="" class="center-block img-circle img-thumbnail img-responsive">
                 {{else}}
                 <img src="/dummyUser.jpg" alt="" class="center-block img-circle img-thumbnail img-responsive">
                 {{/if}}
               </div>
               <div class="col-xs-12 col-sm-8">
-                <h2>{{user.profile.name}}</h2>
-                <p><strong>About: </strong> {{user.profile.about}} </p>
-                <p><strong>Phone: </strong> {{user.profile.phone}} </p>
+                <h2>{{profile.name}}</h2>
+                <p><strong>About: </strong> {{profile.about}} </p>
+                <p><strong>Phone: </strong> {{profile.phone}} </p>
                 <p><strong>Skills: </strong>
-                  {{#each user.profile.skills}}
+                  {{#each profile.skills}}
                   <span class="label label-info tags">{{this}}</span> 
                   {{/each}}
                 </p>
@@ -29,43 +29,13 @@
               <hr>
               <div class="col-xs-12">
                 <p><strong> Description: </strong></p>
-                <p class="text-justify">{{user.profile.description}}</p>
+                <p class="text-justify">{{profile.description}}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  {{#if canEdit}}
-    {{> userCourses}}
-  {{/if}}
-</template>
-
-<template name="userCourses">
-  <div class="container">
-    <h3>My booked courses</h3>
-    <table class='table table-striped'>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Trainer</th>
-          <th>Date</th>
-          <th>Full</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each userCourses}}
-          <tr>
-            <td>{{title}}</td>
-            <td>{{ownerName}}</td>
-            <td>{{showDateOrNoOfParticipants this 1}}</td>
-            <td>{{showDateOrNoOfParticipants this 2}}/{{maxParticipants}}</td>
-
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
   </div>
 </template>
 

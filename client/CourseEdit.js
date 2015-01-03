@@ -179,7 +179,7 @@ Template.editCourseDates.helpers({
     return one === two ? 'selected' : '';
   },
   allowInquiry: function () {
-    if (this.allowInquiry)
+    if (typeof this.allowInquiry !== 'undefined')
       Session.setDefault("allowInquiry", this.allowInquiry);
     else
       Session.setDefault("allowInquiry", false);
@@ -206,11 +206,9 @@ Template.editCourseDates.events({
 
 //////////// editCourse LOGISTICS template /////////
 
-
-
 Template.editCourseLogistics.helpers({
   noLocation: function () {
-    if (this.allowInquiry)
+    if (typeof this.noLocation !== 'undefined')
       Session.setDefault("noLocation", this.noLocation);
     else
       Session.setDefault("noLocation", true);

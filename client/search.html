@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
         <div class="searchInput">
-          {{> esInput index="courses" placeholder="Search..." classes="form-control"}}
+          {{> esInput index="courses" placeholder="Suchen..." classes="form-control"}}
         </div>
       </div>
     </div>
@@ -15,7 +15,7 @@
       {{#esEach index="courses"}}
         <div class="col-lg-8 col-lg-offset-2">
           <div class="well all-courses-wrapper">
-            {{> course}}
+            {{> coursePreview}}
             <a href="{{ pathFor route='course.show' data=getPost }}">check me out!</a>
           </div>
         </div>

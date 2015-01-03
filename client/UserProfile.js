@@ -1,28 +1,15 @@
 Template.userProfile.helpers({
   canEdit: function () {
-    return this.user._id === Meteor.userId();
+    return this._id === Meteor.userId();
   }, 
   show: function () {
     console.log(this)
   }
 });
 
-Template.userCourses.helpers({ 
-  showDateOrNoOfParticipants: function (course, helperId) {
-    var bookedCourse = _.find(course.current, function (item) { 
-      return _.contains(item.participants, Meteor.userId() )
-    });
-    if (helperId === 1) {
-      return bookedCourse.courseDate;
-    } else if (helperId === 2) {
-      return bookedCourse.participants.length;
-    }
-  }
-});
-
 Template.userProfile.events({
   'click #editUserProfileButton': function () {
-    Router.go("userProfile.edit", {_id: this.user._id} );
+    Router.go("userProfile.edit", {_id: this._id} );
   }
 });
 
