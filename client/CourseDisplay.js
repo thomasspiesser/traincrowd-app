@@ -2,6 +2,12 @@
 
 //////////// courseDetail template /////////
 
+Template.courseDetail.helpers({
+  trainerProfilePicture: function (id) {
+    return Meteor.users.findOne( {_id: id}, {fields: {"profile.profilePicture": 1}} ).profile.profilePicture;
+  }
+});
+
 Template.courseDetail.events({
   'click #editCourseButton': function () {
     Router.go("course.edit", {_id: this.course._id} );

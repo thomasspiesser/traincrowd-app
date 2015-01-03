@@ -19,10 +19,54 @@
  {{> paymentModal }}
   <div class="container notHome">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        {{#with course}}
-          {{> course}}
-        {{/with}}
+      <div class="col-md-3">
+      {{#with course}}
+        <div id="logo">
+        {{#if logo}}
+          <img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;">
+          {{else}}
+          <img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;">
+          {{/if}}
+        </div>
+        <div id="trainer" style="text-align: center;">
+          <h4>Trainer</h4>
+          {{#if trainerProfilePicture owner}}
+          <img src="{{trainerProfilePicture owner}}" alt="" class="center-block img-circle img-thumbnail img-responsive" style="width: 160px;">
+          {{else}}
+          <img src="/dummyUser.jpg" alt="" class="center-block img-circle img-thumbnail img-responsive" style="width: 160px;">
+          {{/if}}
+          <a href="{{ pathFor 'userProfile.show' _id = owner }}">{{ownerName owner}}</a>
+        </div>
+        <div id="location">
+          <h4>Veranstalltungsort</h4>
+          {{#if noLocation}}
+            <p>hat noch keinen Ort</p>
+          {{else}}
+            <p>{{street}}</p>
+            <p>{{streetAdditionals}}</p>
+            <p>{{streetAdditional}}</p>
+            {{plz}}
+            Berlin
+          {{/if}}
+        </div>
+      {{/with}}
+      </div>
+      <div class="col-md-6">
+      {{#with course}}
+        <h3>{{title}}</h3>
+        <p>{{description}}</p>
+        <p>{{maxParticipants}}</p>
+        <p>{{aims}}</p>
+        <p>{{methods}}</p>
+        <p>{{targetGroup}}</p>
+        <p>{{targetGroup}}</p>
+        <p>{{prerequisits}}</p>
+        <p>{{languages}}</p>
+        <p>{{duration}}</p>
+        <p>{{additionalServices}}</p>
+        
+        <p>{{rating}}</p>
+      {{/with}}
 <!--         {{#if canEdit course.owner}}
           <div>Course inquiries (course owner only)</div>
           <hr>
