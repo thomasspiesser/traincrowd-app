@@ -1,9 +1,22 @@
-//////////// course template /////////
+//////////// coursePreview template /////////
+
+Template.coursePreview.helpers({
+  descriptionPreview: function () {
+    if (! this.description)
+      return false
+    var descriptionPreview = this.description.replace("\n"," "); // remove linebreaks
+    if (descriptionPreview.length > 100)
+      return descriptionPreview.slice(0,100)+"...";
+    else
+      return descriptionPreview;
+  }
+});
 
 //////////// courseDetail template /////////
 
 Template.courseDetail.rendered = function() {
    $('[data-toggle="tooltip"]').tooltip() //initialize all tooltips in this template
+   $('.arschloch').tooltip() //initialize all tooltips in this template
 };
 
 Template.courseDetail.helpers({
@@ -11,18 +24,17 @@ Template.courseDetail.helpers({
     return Meteor.users.findOne( {_id: id}, {fields: {"profile.profilePicture": 1}} ).profile.profilePicture;
   },
   datesArray: function () {
-    if (this.dates) {
-      return this.dates.split(",");
-    } 
-    // else
-      // return []
-
+    if (this.dates)
+      return this.dates.split(","); 
+  },
+  feePP: function () {
+    return (this.fee / parseInt(this.minParticipants)).toFixed(2);
   }
 });
 
 Template.courseDetail.events({
   'click #editCourseButton': function () {
-    Router.go("course.edit", {_id: this.course._id} );
+    Router.go("course.edit", {_id: this._id} );
   },
   // 'click #inquireCourseDatesButton': function () {
   //   if (this.owner === Meteor.userId()) {

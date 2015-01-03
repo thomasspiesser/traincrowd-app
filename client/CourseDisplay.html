@@ -4,11 +4,33 @@
         {{#each courses}}
         <div class="col-lg-8 col-lg-offset-2">
           <div class="well all-courses-wrapper">
-            {{> course}}
-            <a href="{{ pathFor route='course.show' data=getPost }}">check me out!</a>
+            {{> coursePreview}}
+            <!-- <a href="{{ pathFor route='course.show' data=getPost }}">check me out!</a> -->
           </div>
         </div>
         {{/each}}
+    </div>
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="coursePreview">
+  <div class="row">
+    <div class="col-md-3">
+      <div id="logo">
+        {{#if logo}}
+          <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;"></a>
+          {{else}}
+          <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;"></a>
+          {{/if}}
+        </div>
+        <p>{{rating}}</p>
+      </div>
+    <div class="col-md-9">
+      <a href="{{ pathFor route='course.show' _id=this._id }}"><h4>{{title}}</h4></a>
+      <p>{{descriptionPreview}}</p>
+      <!-- <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName this.owner}}</a> -->
     </div>
   </div>
 </template>
@@ -20,7 +42,6 @@
   <div class="container notHome">
     <div class="row">
       <div class="col-md-3">
-      {{#with course}}
         <div id="logo">
         {{#if logo}}
           <img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;">
@@ -49,10 +70,8 @@
             Berlin
           {{/if}}
         </div>
-      {{/with}}
       </div>
       <div class="col-md-6">
-      {{#with course}}
         <h3>{{title}}</h3>
         <p>{{description}}</p>
         <p>{{maxParticipants}}</p>
@@ -66,7 +85,7 @@
         <p>{{additionalServices}}</p>
         
         <p>{{rating}}</p>
-      {{/with}}
+
 <!--         {{#if canEdit course.owner}}
           <div>Course inquiries (course owner only)</div>
           <hr>
@@ -85,57 +104,56 @@
         {{/if}} -->
       </div>
               
-        
       <div class="col-md-3">
         <div class="affix">
-          {{#if canEdit course.owner}}
+          {{#if canEdit owner}}
             <button type="submit" class="btn btn-primary" id="editCourseButton">Edit course</button>
           {{/if}}
           <!-- <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button> -->
-          <h4>Jetzt Kurs buchen:</h4>
+          <h4 style="text-align: center;">Jetzt Kurs buchen:</h4>
           <div class="row">
             <div class="col-xs-6">
               <span data-toggle="tooltip" title="Kursdauer">
               <i class="glyphicon glyphicon-time" ></i>
-                {{course.duration}} Tage
+                {{duration}} Tage
               </span>
             </div>
             <div class="col-xs-6">
               <span class="pull-right" data-toggle="tooltip" title="Anzahl Kursplätze">
               <i class="glyphicon glyphicon-user" ></i>
-              {{course.minParticipants}}-{{course.maxParticipants}} Plätze
+              {{minParticipants}}-{{maxParticipants}} Plätze
               </span>
             </div>
           </div>
           
           <hr>
-          Daten:
+          
+          <div class="row">
+            <div class="col-xs-12">
+              <span data-toggle="tooltip" title="Kurspreis pro Person">
+              <i class="glyphicon glyphicon-euro" ></i>
+              {{feePP}} pP
+              </span>
+            </div>
+          </div>
+          
+          <hr>
+          
+          Mögliche Kursdaten:
           <div class="list-group">
-            {{#with course}}
-              {{# each datesArray}}
-                <a href="#" class="joinCourseButton list-group-item">
-                <!-- <span class="badge">{{this.participants.length}}</span> -->
-                {{this}}</a>
-              {{/each}}
-            {{/with}}
+
+            {{# each datesArray}}
+              <a href="#" class="joinCourseButton list-group-item">
+              <!-- <span class="badge">{{this.participants.length}}</span> -->
+              {{this}}</a>
+            {{/each}}
+
           </div>
 
-          
         </div>
 
       </div>
     </div>
   </div>
-</template>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<template name="course">
-  <h4>{{title}}</h4>
-  <p>{{description}}</p>
-  <p>{{maxParticipants}}</p>
-  <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName this.owner}}</a>
-  <p>{{rating}}</p>
-  <p>{{comments}}</p>
 </template>
 
