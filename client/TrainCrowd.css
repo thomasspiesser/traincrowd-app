@@ -33,6 +33,10 @@ footer {
   margin-bottom: 25px;
 }
 
+.affix{
+position: relative;
+}
+
 /* custom inclusion of right, left and below tabs */
 
 .tabs-left > .nav-tabs {

@@ -2,9 +2,21 @@
 
 //////////// courseDetail template /////////
 
+Template.courseDetail.rendered = function() {
+   $('[data-toggle="tooltip"]').tooltip() //initialize all tooltips in this template
+};
+
 Template.courseDetail.helpers({
   trainerProfilePicture: function (id) {
     return Meteor.users.findOne( {_id: id}, {fields: {"profile.profilePicture": 1}} ).profile.profilePicture;
+  },
+  datesArray: function () {
+    if (this.dates) {
+      return this.dates.split(",");
+    } 
+    // else
+      // return []
+
   }
 });
 

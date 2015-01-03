@@ -84,17 +84,45 @@
           {{/each}}
         {{/if}} -->
       </div>
+              
+        
       <div class="col-md-3">
-        {{#if canEdit course.owner}}
-          <button type="submit" class="btn btn-primary" id="editCourseButton">Edit course</button>
-        {{/if}}
-        <!-- <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button> -->
-        <div class="list-group">
-          <a href="#" class="list-group-item disabled">Join course at dates:</a>
-          {{#each current}}
-            <a href="#" class="joinCourseButton list-group-item"><span class="badge">{{this.participants.length}}</span>{{this.courseDate}}</a>
-          {{/each}}
+        <div class="affix">
+          {{#if canEdit course.owner}}
+            <button type="submit" class="btn btn-primary" id="editCourseButton">Edit course</button>
+          {{/if}}
+          <!-- <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button> -->
+          <h4>Jetzt Kurs buchen:</h4>
+          <div class="row">
+            <div class="col-xs-6">
+              <span data-toggle="tooltip" title="Kursdauer">
+              <i class="glyphicon glyphicon-time" ></i>
+                {{course.duration}} Tage
+              </span>
+            </div>
+            <div class="col-xs-6">
+              <span class="pull-right" data-toggle="tooltip" title="Anzahl Kursplätze">
+              <i class="glyphicon glyphicon-user" ></i>
+              {{course.minParticipants}}-{{course.maxParticipants}} Plätze
+              </span>
+            </div>
+          </div>
+          
+          <hr>
+          Daten:
+          <div class="list-group">
+            {{#with course}}
+              {{# each datesArray}}
+                <a href="#" class="joinCourseButton list-group-item">
+                <!-- <span class="badge">{{this.participants.length}}</span> -->
+                {{this}}</a>
+              {{/each}}
+            {{/with}}
+          </div>
+
+          
         </div>
+
       </div>
     </div>
   </div>
