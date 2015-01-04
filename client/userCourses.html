@@ -1,10 +1,10 @@
 <template name="userCourses">
   <div class="container notHome">
-    {{#if this.hosted.count}}
+    {{#if hostedCourses.count}}
     <h3>Angebotene Kurse</h3>
     <table class='table table-striped'>
       <tbody>
-        {{#each hosted}}
+        {{#each hostedCourses}}
           <tr>
             <td>
               {{#if logo}}
@@ -21,17 +21,102 @@
     </table>
     {{/if}}
 
-    {{#if this.inquired.count}}
-    <h3>inquired</h3>
+    {{#if inquired}}
+    <h3>Angefragte Kurse</h3>
     <table class='table table-striped'>
+      <thead>
+        <tr>
+          <td></td>
+          <td>Titel</td>
+          <td>Angefragte Daten</td>
+          <td>Bewertung</td>
+        </tr>
+      </thead>
       <tbody>
         {{#each inquired}}
           <tr>
-            <td>{{title}}</td>
-            <td>{{ownerName}}</td>
-            <td>{{showDateOrNoOfParticipants this 1}}</td>
-            <td>{{showDateOrNoOfParticipants this 2}}/{{maxParticipants}}</td>
+            <td>
+              {{#if logo}}
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
+              {{else}}
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
+              {{/if}}
+            </td>
+            <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
+            <td>{{inquiredDates}}</td>
+            <td>{{rating}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
 
+    {{#if current}}
+    <h3>Angefragte Kurse</h3>
+    <table class='table table-striped'>
+    <thead>
+        <tr>
+          <td></td>
+          <td>Titel</td>
+          <td>Kurs Datum</td>
+          <td>Bewertung</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each current}}
+          <tr>
+            <td>
+              {{#if logo}}
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
+              {{else}}
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
+              {{/if}}
+            </td>
+            <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
+            <td>{{courseDate}}</td>
+            <td>{{rating}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+
+    {{#if elapsed}}
+    <h3>Angefragte Kurse</h3>
+    <table class='table table-striped'>
+    <thead>
+        <tr>
+          <td></td>
+          <td>Titel</td>
+          <td>Kurs Datum</td>
+          <td>Status</td>
+          <td>Bewertung</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each elapsed}}
+          <tr>
+            <td>
+              {{#if logo}}
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
+              {{else}}
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
+              {{/if}}
+            </td>
+            <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
+            <td>{{courseDate}}</td>
+            <td>
+              {{#if myRating _id}}
+                {{myRating _id}}
+                a href modal bewertung anpassen (grün)
+              {{else}}
+                a href modal bewerten (rot)
+              {{/if}}
+
+            </td>
+            <td>{{rating}}</td>
           </tr>
         {{/each}}
       </tbody>
