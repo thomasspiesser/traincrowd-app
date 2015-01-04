@@ -38,12 +38,12 @@
           <tr>
             <td>
               {{#if logo}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
+              <a href="{{ pathFor route='course.show' _id=course }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
               {{else}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
+              <a href="{{ pathFor route='course.show' _id=course }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
               {{/if}}
             </td>
-            <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
+            <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
             <td>{{inquiredDates}}</td>
             <td>{{rating}}</td>
           </tr>
@@ -69,12 +69,12 @@
           <tr>
             <td>
               {{#if logo}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
+              <a href="{{ pathFor route='course.show' _id=course }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
               {{else}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
+              <a href="{{ pathFor route='course.show' _id=course }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
               {{/if}}
             </td>
-            <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
+            <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
             <td>{{courseDate}}</td>
             <td>{{rating}}</td>
           </tr>
@@ -101,12 +101,12 @@
           <tr>
             <td>
               {{#if logo}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
+              <a href="{{ pathFor route='course.show' _id=course }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
               {{else}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
+              <a href="{{ pathFor route='course.show' _id=course }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
               {{/if}}
             </td>
-            <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
+            <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
             <td>{{courseDate}}</td>
             <td>
               {{#if myRating _id}}
@@ -114,9 +114,7 @@
                 <a href="#" class="rateCourse" title="Bewertung Ändern"><i class="glyphicon glyphicon-edit"></i> </a>
               {{else}}
                 <a href="#" class="rateCourse" title="Jetzt bewerten"><span style="color: red;"><i class="glyphicon glyphicon-flag"></i> Jetzt Bewerten</span></a>
-                
               {{/if}}
-
             </td>
             <td>{{rating}}</td>
           </tr>
@@ -138,8 +136,8 @@
           <h4 class="modal-title" id="myModalLabel">Kurs Bewerten</h4>
         </div>
         <div class="modal-body">
-          <input type="range" value="4" step="0.5" id="backing">
-          <div class="rateit" data-rateit-backingfld="#backing" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+          <input type="range" value="0" id="backing">
+          <div class="rateit" data-rateit-backingfld="#backing" data-rateit-resetable="true" data-rateit-ispreset="true">
           </div>
           <button type="button" class="btn btn-default" id="saveRating"><i class="glyphicon glyphicon-save"></i> Speichern</button>
 

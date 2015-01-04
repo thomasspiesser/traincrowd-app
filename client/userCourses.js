@@ -56,19 +56,22 @@ Template.userCourses.helpers({
   },
   myRating: function (id) {
     var elapsed = Elapsed.findOne( {_id: id }, {fields: {ratings:1}} );
-    var myRating = _.find(elapsed.ratings, function (item) {
-      return item.participant === Meteor.userId();
-      });
-    if (typeof myRating !== 'undefined')
-      return (myRating.rating).toString() // toString coz if 0 then = false
-    else
+    var myRating = _.find(elapsed.ratings, function (item) { return item.participant === Meteor.userId(); });
+    if (myRating) {
+      Session.set(id, myRating.rating);
+      return true
+    }
+    else {
+      Session.set(id, 0);
       return false
+    }
   }
 });
 
 Template.userCourses.events({
   'click .rateCourse': function () {
     Session.set("rateId", this._id);
+    $('.rateit').rateit('value', Session.get(this._id));
     $('#ratingModal').modal('show');
   }
 });
@@ -76,12 +79,6 @@ Template.userCourses.events({
 Template.ratingModal.rendered = function () {
   $('.rateit').rateit();
 };
-
-Template.ratingModal.helpers({
-  log: function () {
-    console.log(this)
-  }
-});
 
 Template.ratingModal.events({
   'click #saveRating': function (event, template) {
