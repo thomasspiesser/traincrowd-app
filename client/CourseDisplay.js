@@ -16,7 +16,6 @@ Template.coursePreview.helpers({
 
 Template.courseDetail.rendered = function() {
    $('[data-toggle="tooltip"]').tooltip() //initialize all tooltips in this template
-   $('.arschloch').tooltip() //initialize all tooltips in this template
 };
 
 Template.courseDetail.helpers({

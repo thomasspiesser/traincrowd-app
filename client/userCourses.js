@@ -9,9 +9,6 @@ Template.userCourses.helpers({
       return bookedCourse.participants.length;
     }
   },
-  log: function(){
-    console.log(this);
-  },
   hostedCourses: function () {
     return Courses.find( { owner: Meteor.userId() }, {fields: {logo:1, title:1, rating:1}} )
   },
@@ -20,7 +17,8 @@ Template.userCourses.helpers({
     if (inquired.length) {
       for (var i = 0; i < inquired.length; i++) {
         var courseId = inquired[i].course
-        var course = Courses.findOne( { _id: courseId }, {fields: {_id:0, logo:1, title:1, rating:1}} )
+        var course = Courses.findOne( { _id: courseId }, {fields: {logo:1, title:1, rating:1}} )
+        delete course._id;
         _.extend(inquired[i],course);
       }
       return inquired;
@@ -33,7 +31,8 @@ Template.userCourses.helpers({
     if (current.length) {
       for (var i = 0; i < current.length; i++) {
         var courseId = current[i].course
-        var course = Courses.findOne( { _id: courseId }, {fields: {_id:0, logo:1, title:1, rating:1}} )
+        var course = Courses.findOne( { _id: courseId }, {fields: {logo:1, title:1, rating:1}} )
+        delete course._id;
         _.extend(current[i],course);
       }
       return current;
@@ -60,10 +59,43 @@ Template.userCourses.helpers({
     var myRating = _.find(elapsed.ratings, function (item) {
       return item.participant === Meteor.userId();
       });
-    console.log(myRating)
     if (typeof myRating !== 'undefined')
       return (myRating.rating).toString() // toString coz if 0 then = false
     else
       return false
+  }
+});
+
+Template.userCourses.events({
+  'click .rateCourse': function () {
+    Session.set("rateId", this._id);
+    $('#ratingModal').modal('show');
+  }
+});
+
+Template.ratingModal.rendered = function () {
+  $('.rateit').rateit();
+};
+
+Template.ratingModal.helpers({
+  log: function () {
+    console.log(this)
+  }
+});
+
+Template.ratingModal.events({
+  'click #saveRating': function (event, template) {
+    var ratedValue = template.find('#backing').value;
+    modifier = {_id: Session.get("rateId"),
+                ratedValue: ratedValue }
+    Meteor.call('rateCourse', modifier, function (error, result) {
+      if (error)
+        Notifications.error('Fehler!', error, {timeout: 8000});
+      else {
+        Notifications.info('', 'Gespeichert.', {timeout: 8000});
+        Session.set("rateId", "");
+        $('#ratingModal').modal('hide');
+      }
+    });    
   }
 });
