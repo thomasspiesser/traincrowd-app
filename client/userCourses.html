@@ -21,7 +21,7 @@
     </table>
     {{/if}}
 
-    {{#if inquired}}
+    {{#if inquiredCourses}}
     <h3>Angefragte Kurse</h3>
     <table class='table table-striped'>
       <thead>
@@ -33,7 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        {{#each inquired}}
+        {{#each inquiredCourses}}
           <tr>
             <td>
               {{#if logo}}
@@ -51,8 +51,8 @@
     </table>
     {{/if}}
 
-    {{#if current}}
-    <h3>Angefragte Kurse</h3>
+    {{#if currentCourses}}
+    <h3>Gebuchte Kurse</h3>
     <table class='table table-striped'>
     <thead>
         <tr>
@@ -64,7 +64,7 @@
       </thead>
 
       <tbody>
-        {{#each current}}
+        {{#each currentCourses}}
           <tr>
             <td>
               {{#if logo}}
@@ -82,21 +82,21 @@
     </table>
     {{/if}}
 
-    {{#if elapsed}}
-    <h3>Angefragte Kurse</h3>
+    {{#if elapsedCourses}}
+    <h3>Besuchte Kurse</h3>
     <table class='table table-striped'>
     <thead>
         <tr>
           <td></td>
           <td>Titel</td>
-          <td>Kurs Datum</td>
+          <td>Datum</td>
           <td>Status</td>
           <td>Bewertung</td>
         </tr>
       </thead>
 
       <tbody>
-        {{#each elapsed}}
+        {{#each elapsedCourses}}
           <tr>
             <td>
               {{#if logo}}
