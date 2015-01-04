@@ -27,7 +27,8 @@ Template.userCourses.helpers({
       return false
   },
   currentCourses: function () {
-    var current = Current.find( { "current.participants": Meteor.userId() }, {fields: {course:1, courseDate:1}} ).fetch();
+    var current = Current.find( { participants: Meteor.userId() }, {fields: {course:1, courseDate:1}} ).fetch();
+
     if (current.length) {
       for (var i = 0; i < current.length; i++) {
         var courseId = current[i].course
