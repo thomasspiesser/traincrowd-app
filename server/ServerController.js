@@ -8,10 +8,10 @@
 Meteor.methods({
 	createInquired: function (options) {
     if (! this.userId)
-      throw new Meteor.Error(403, "You must be logged in");
+      throw new Meteor.Error(403, "Du musst eingelogged sein!");
     var id = Inquired.insert({
-      owner: options.courseOwner,
-      course: options.courseId,
+      owner: options.owner,
+      course: options.course,
       inquirer: this.userId,
       inquiredDates: options.dates,
       createdAt: new Date()
@@ -24,8 +24,8 @@ Meteor.methods({
     // date confirmed so insert into current
     Current.insert({
       _id: options.id,
-      course: options.courseId,
-    	owner: options.courseOwner,
+      course: options.course,
+    	owner: options.owner,
       participants: [options.inquirer],
       courseDate: options.confirmedDate
     });
@@ -35,19 +35,32 @@ Meteor.methods({
 
   },
   currentCourseDone: function (options) {
-  	// course happend so insert into elapsed
-  	var current = Current.findOne({_id: options.id});
+    // course happend so insert into elapsed
+    var current = Current.findOne({_id: options.id});
 
     Elapsed.insert({
-      _id: current.id,
-    	owner: current.courseOwner,
-      course: current.courseId,
+      _id: current._id,
+      owner: current.owner,
+      course: current.course,
       participants: current.participants,
-      courseDate: current.confirmedDate
+      courseDate: current.courseDate
     });
 
-  	//remove from Current:
+    //remove from Current:
     Current.remove({_id: options.id});
+  },
+  createCurrent: function (options) {
+
+    Current.insert({
+      course: options.course,
+      owner: options.owner,
+      participants: [],
+      courseDate: options.courseDate
+    });
+
+  },
+  deleteCurrent: function (id) {
+    Current.remove({_id: id});
   }
 })
 

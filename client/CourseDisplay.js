@@ -82,12 +82,8 @@ Template.courseDetail.events({
   // },
   'click .joinCourseButton': function (event, template) {
     // convert string object containing date into proper date object:
-    // var date =  new Date( this.slice(6,10) +'.'+ this.slice(3,6) + this.slice(0,2) )
-
-    // return false
-    // var instanceId = this._id;
-    Session.set("courseDate", this);
-    // $("#bookCourseButton").attr('name',instanceId); // pass the instanceId to modal through name
+    var date =  new Date( this.slice(6,10) +'.'+ this.slice(3,6) + this.slice(0,2) )
+    Session.set("courseDate", date);
     $('#paymentModal').modal('show');
   }
 });

@@ -45,17 +45,13 @@
 
 Template.paymentModal.events({
   'click #bookCourseButton': function (event, template) {
+    var date = Session.get("courseDate");
+    console.log(date)
+    return false
+
     var instanceId = event.target.name;
     var currentCourse = _.findWhere(this.current, {instanceId: instanceId});
     // data context is still course: access using 'this.'
-    if (Meteor.userId() === this.owner) {
-      Session.set('errorMessage', 'You cannot book your own course!');
-      return false
-    }
-    if (_.contains(currentCourse.participants, Meteor.userId())) {
-      Session.set('errorMessage', 'You already booked this course!');
-      return false
-    }
 
     var courseId = this._id;
     Session.set("bookingMessage",
@@ -96,5 +92,8 @@ Template.paymentModal.helpers({
   },
   errorMessage: function () {
     return Session.get("errorMessage");
+  },
+  courseDate: function () {
+    return Session.get("courseDate").toLocaleDateString();
   }
 });  
