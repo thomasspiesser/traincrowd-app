@@ -23,8 +23,9 @@ Template.courseDetail.helpers({
     return Meteor.users.findOne( {_id: id}, {fields: {"profile.profilePicture": 1}} ).profile.profilePicture;
   },
   datesArray: function () {
-    if (this.dates)
+    if (this.dates) {
       return this.dates.split(","); 
+    }
   },
   feePP: function () {
     return (this.fee / parseInt(this.minParticipants)).toFixed(2);
@@ -80,10 +81,13 @@ Template.courseDetail.events({
   //   // send mail to inquirer that was not suitable
   // },
   'click .joinCourseButton': function (event, template) {
-    console.log(this)
-    return false
-    var instanceId = this._id;
-    $("#bookCourseButton").attr('name',instanceId); // pass the instanceId to modal through name
+    // convert string object containing date into proper date object:
+    // var date =  new Date( this.slice(6,10) +'.'+ this.slice(3,6) + this.slice(0,2) )
+
+    // return false
+    // var instanceId = this._id;
+    Session.set("courseDate", this);
+    // $("#bookCourseButton").attr('name',instanceId); // pass the instanceId to modal through name
     $('#paymentModal').modal('show');
   }
 });
