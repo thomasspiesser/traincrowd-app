@@ -162,6 +162,7 @@ $.fn.datepicker.dates['de'] = {
     clear: "Löschen",
     weekStart: 1,
     format: "dd.mm.yyyy"
+    // format: "yyyy.mm.dd"
   };
 
 Template.editCourseDates.rendered=function() {
@@ -189,30 +190,25 @@ Template.editCourseDates.helpers({
 
 Template.editCourseDates.events({
   'click #saveEditCourseDates': function (event, template) {
-    var DBdates = this.dates;
+    if (this.dates) // might be empty, handle:
+      var DBdates = this.dates;
+    else
+      var DBdates = "";
     var dates = template.find("#editCourseDates").value;
-    var allowInquiry = template.find("#editCourseAllowInquiry").checked;
-    var expires = template.find("#editCourseExpires").value;
-    modifier = {_id: this._id,
-                owner: this.owner,
-                dates: dates,
-                allowInquiry: allowInquiry,
-                expires: expires }
-    saveUpdates(modifier);
     var datesArray = dates.split(',')
     var DBdatesArray = DBdates.split(',')
     var removedDates = _.difference(DBdatesArray,datesArray) // geht was weg
     var addedDates = _.difference(datesArray,DBdatesArray) // kommt was hinzu
     if (removedDates.length && removedDates[0]!=="") {
       for (var i = 0; i < removedDates.length; i++) {
-        console.log(this)
-        var current = Current.findOne({course: this._id, courseDate: courseDate}, {fields: {participants:1}});
+        var current = Current.findOne({course: this._id, courseDate: removedDates[i]}, {fields: {participants:1}});
         if (! current.participants.length)
           Meteor.call('deleteCurrent', current._id, function (error, result) {});
         else {
           // or bootbox confirm delete coz there are already participants
-          Notifications.error('Fehler!', error, {timeout: 8000});
-          return false
+          var dates = dates+','+removedDates[i]; // just keep it and don't allow deletion of this date
+          $('#editCourseDates').datepicker('setDates', _.map(dates.split(','), function(date) {return new Date(reformatDate(date))} ) );
+          Notifications.error('Fehler!', 'Es gibt bereits Teilnehmer für diese Veranstalltung am '+  removedDates[i] +'.', {timeout: 8000});
         }
       }
     } 
@@ -224,6 +220,14 @@ Template.editCourseDates.events({
         Meteor.call('createCurrent', options, function (error, result) {});
       }
     }
+    var allowInquiry = template.find("#editCourseAllowInquiry").checked;
+    var expires = template.find("#editCourseExpires").value;
+    modifier = {_id: this._id,
+                owner: this.owner,
+                dates: dates,
+                allowInquiry: allowInquiry,
+                expires: expires }
+    saveUpdates(modifier);
   },
   'change #editCourseAllowInquiry': function (event) {
     Session.set("allowInquiry", event.target.checked);
