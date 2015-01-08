@@ -76,18 +76,15 @@
           <button type="submit" class="btn btn-primary btn-sm pull-right" id="editCourseButton">Bearbeiten <span class="glyphicon glyphicon-edit"></span></button>
         {{/if}}
         <h3 style="margin-top:0;">{{title}}</h3>
-        <p>{{description}}</p>
-        <p>{{maxParticipants}}</p>
-        <p>{{aims}}</p>
-        <p>{{methods}}</p>
-        <p>{{targetGroup}}</p>
-        <p>{{targetGroup}}</p>
-        <p>{{prerequisits}}</p>
-        <p>{{languages}}</p>
-        <p>{{duration}}</p>
-        <p>{{additionalServices}}</p>
-        
         <p>{{rating}}</p>
+        <p>{{description}}</p>
+        
+        <p><strong>Kursziele</strong> <br> {{aims}}</p>
+        <p><strong>Lernformen, Methodik und Didaktik</strong> <br> {{methods}}</p>
+        <p><strong>Zielgruppe</strong> <br> {{targetGroup}}</p>
+        <p><strong>Vorraussetzungen</strong> <br> {{prerequisites}}</p>
+        <p><strong>Sprachen</strong> <br> {{languages}}</p>
+        <p><strong>zusätzliche Leistungen</strong> <br> {{additionalServices}}</p>
 
 <!--         {{#if canEdit course.owner}}
           <div>Course inquiries (course owner only)</div>
