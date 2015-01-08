@@ -61,7 +61,7 @@
         <div id="location">
           <h4>Veranstalltungsort</h4>
           {{#if noLocation}}
-            <p>hat noch keinen Ort</p>
+            <p>steht noch nicht fest</p>
           {{else}}
             <p>{{street}}</p>
             <p>{{streetAdditionals}}</p>
@@ -71,8 +71,11 @@
           {{/if}}
         </div>
       </div>
-      <div class="col-md-6">
-        <h3>{{title}}</h3>
+      <div class="col-md-5" style="width:46%;">
+        {{#if canEdit owner}}
+          <button type="submit" class="btn btn-primary btn-sm pull-right" id="editCourseButton">Bearbeiten <span class="glyphicon glyphicon-edit"></span></button>
+        {{/if}}
+        <h3 style="margin-top:0;">{{title}}</h3>
         <p>{{description}}</p>
         <p>{{maxParticipants}}</p>
         <p>{{aims}}</p>
@@ -104,11 +107,8 @@
         {{/if}} -->
       </div>
               
-      <div class="col-md-3">
+      <div class="col-md-3" style="margin-left:15px; box-shadow: 0px 0px 10px #888;">
         <div class="affix">
-          {{#if canEdit owner}}
-            <button type="submit" class="btn btn-primary" id="editCourseButton">Edit course</button>
-          {{/if}}
           <!-- <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button> -->
           <h4 style="text-align: center;">Jetzt Kurs buchen:</h4>
           <div class="row">
@@ -142,8 +142,23 @@
           Kurs Buchen:
           <div class="list-group">
 
-            {{#each datesArray}}
-              <a href="#" class="joinCourseButton list-group-item">{{this}}</a>
+            {{#each getCurrent}}
+              <a href="#" class="joinCourseButton list-group-item {{#if participants}} list-group-item-success {{/if}}">
+              <div class="row">
+                <div class="col-xs-4">
+                  {{courseDate}}
+                </div>
+                <div class="col-xs-8">
+                  {{#if participants}}
+                    <div class="progress" style="margin-bottom: 0;">
+                      <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{percentFull ..}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFull ..}}%">
+                        {{percentFull ..}} %
+                      </div>
+                    </div>
+                  {{/if}}
+                </div>
+              </div>
+              </a>
             {{/each}}
 
           </div>

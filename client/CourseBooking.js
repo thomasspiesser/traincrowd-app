@@ -45,17 +45,12 @@
 
 Template.paymentModal.events({
   'click #bookCourseButton': function (event, template) {
-    var date = Session.get("courseDate");
-    console.log(date)
-    return false
-
-    var instanceId = event.target.name;
-    var currentCourse = _.findWhere(this.current, {instanceId: instanceId});
     // data context is still course: access using 'this.'
+    var currentId = Session.get("currentId");
 
     var courseId = this._id;
     Session.set("bookingMessage",
-                  "Contact external service, wait for callback success/error!");
+                  "Simulation der Bezahlfunktion, warten auf den Callback des Bezahlanbieters!");
     var clock = 5;
     timeLeft = function(){
       if (clock > 0) {
@@ -67,13 +62,13 @@ Template.paymentModal.events({
         Meteor.clearInterval(interval);
         Session.set('errorMessage', '');
         $('#paymentModal').modal('hide');
-        // assume success, push userId into current.participants if not already there
-        var options = {
-          courseId: courseId,
-          instanceId: instanceId,
-          userId: Meteor.userId()
-        }
-        Meteor.call('addParticipant', options);  
+        // assume success, push userId into current.participants 
+        Meteor.call('addParticipant', currentId, function (error, result) {
+          if (error)
+            Notifications.error('Fehler!', error, {timeout: 8000});
+          else
+            Notifications.info('', 'Buchung erfolgreich.', {timeout: 8000});
+        });
       }
     }
     var interval = Meteor.setInterval(timeLeft, 1000);
@@ -93,7 +88,7 @@ Template.paymentModal.helpers({
   errorMessage: function () {
     return Session.get("errorMessage");
   },
-  courseDate: function () {
-    return Session.get("courseDate").toLocaleDateString();
+  currentDate: function () {
+    return Session.get("currentDate");
   }
 });  

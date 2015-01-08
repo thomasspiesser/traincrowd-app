@@ -1,0 +1,24 @@
+<template name="gatekeeper">
+  <div class="container">
+    <div class="row" style="padding-top: 200px;">
+      <div class="col-md-4"></div>
+      <div class="col-md-4" style="text-align: center;">
+        <div class="form-group">
+          <label for="gatekey" class="control-label">Kennen wir uns?</label>
+          <input type="text" class="form-control" id="gatekey">
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-default" id="unlockWithKey"><i class="glyphicon glyphicon-send"></i> Absenden</button>
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="gatekeeperLayout">
+    {{> yield}}
+</template>

@@ -22,13 +22,15 @@ Template.courseDetail.helpers({
   trainerProfilePicture: function (id) {
     return Meteor.users.findOne( {_id: id}, {fields: {"profile.profilePicture": 1}} ).profile.profilePicture;
   },
-  datesArray: function () {
-    if (this.dates) {
-      return this.dates.split(","); 
-    }
+  getCurrent: function () {
+      return Current.find({course: this._id}, {fields: {participants: 1, courseDate:1} });
   },
   feePP: function () {
     return (this.fee / parseInt(this.minParticipants)).toFixed(2);
+  }, 
+  percentFull: function (course) {
+    // data context is current
+    return (this.participants.length / course.minParticipants ).toFixed(1) * 100;
   }
 });
 
@@ -81,9 +83,8 @@ Template.courseDetail.events({
   //   // send mail to inquirer that was not suitable
   // },
   'click .joinCourseButton': function (event, template) {
-    // convert string object containing date into proper date object:
-    var date =  new Date( this.slice(6,10) +'.'+ this.slice(3,6) + this.slice(0,2) )
-    Session.set("courseDate", date);
+    Session.set("currentId", this._id);
+    Session.set("currentDate", this.courseDate);
     $('#paymentModal').modal('show');
   }
 });
