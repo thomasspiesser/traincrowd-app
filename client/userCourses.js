@@ -1,3 +1,7 @@
+Template.userCourses.rendered = function () {
+  $('.rateit').rateit();
+};
+
 Template.userCourses.helpers({ 
   showDateOrNoOfParticipants: function (course, helperId) {
     var bookedCourse = _.find(course.current, function (item) { 
@@ -10,6 +14,7 @@ Template.userCourses.helpers({
     }
   },
   hostedCourses: function () {
+    console.log(Courses.find( { owner: Meteor.userId() }, {fields: {logo:1, title:1, rating:1}} ).fetch())
     return Courses.find( { owner: Meteor.userId() }, {fields: {logo:1, title:1, rating:1}} )
   },
   inquiredCourses: function () {
@@ -72,7 +77,7 @@ Template.userCourses.helpers({
 Template.userCourses.events({
   'click .rateCourse': function () {
     Session.set("rateId", this._id);
-    $('.rateit').rateit('value', Session.get(this._id));
+    $('.rateitModal').rateit('value', Session.get(this._id));
     $('#ratingModal').modal('show');
   }
 });

@@ -15,7 +15,7 @@
               {{/if}}
             </td>
             <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
-            <td>{{rating}}</td>
+            <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
           </tr>
         {{/each}}
       </tbody>
@@ -137,7 +137,7 @@
         </div>
         <div class="modal-body">
           <input type="range" value="0" id="backing">
-          <div class="rateit" data-rateit-backingfld="#backing" data-rateit-resetable="true" data-rateit-ispreset="true">
+          <div class="rateit rateitModal" data-rateit-backingfld="#backing" data-rateit-resetable="true" data-rateit-ispreset="true">
           </div>
           <button type="button" class="btn btn-default" id="saveRating"><i class="glyphicon glyphicon-save"></i> Speichern</button>
 
