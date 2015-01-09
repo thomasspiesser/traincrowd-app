@@ -63,6 +63,13 @@
           </div>
         </div>
       </div>
+      <div class="col-md-4">
+        {{#if showHoverText}}
+        <div class="editCourseHelperText">
+          {{showHoverText}}
+        </div>
+        {{/if}}
+      </div>
     <!-- div row -->
     </div>
   {{else}}
@@ -76,11 +83,11 @@
 <template name="editCourseDescription">
   <div class="form-group">
     <label for="editCourseTitle" class="control-label">Titel</label>
-    <input type="text" class="form-control" id="editCourseTitle" value="{{title}}">
+    <input type="text" class="form-control hoverCheck" id="editCourseTitle" value="{{title}}">
   </div>
   <div class="form-group">
     <label for="editCourseShortDescription" class="control-label">Kurzbeschreibung</label>
-    <textarea class="form-control" id="editCourseShortDescription" rows="6" value="{{description}}"></textarea>
+    <textarea class="form-control hoverCheck" id="editCourseShortDescription" rows="6" value="{{description}}"></textarea>
   </div>
 
   <div class="row">
@@ -88,9 +95,9 @@
       <div class="form-group">
       <label for="" class="control-label">Logo</label>
         {{#if logo}}
-        <img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive" style="margin-left:0px; width: 160px;">
+        <img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editCourseLogo" style="margin-left:0px; width: 160px;">
         {{else}}
-        <img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="margin-left:0px; width: 160px;">
+        <img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editCourseDefaultLogo" style="margin-left:0px; width: 160px;">
         {{/if}}
       </div>
     </div>
@@ -121,23 +128,23 @@
 <template name="editCourseDetails">
   <div class="form-group">
     <label for="editCourseAims" class="control-label">Lernziele</label>
-    <textarea class="form-control" id="editCourseAims" value="{{aims}}"></textarea>
+    <textarea class="form-control hoverCheck" id="editCourseAims" value="{{aims}}"></textarea>
   </div>
   <div class="form-group">
     <label for="editCourseMethods" class="control-label">Lernformen, Methodik und Didaktik</label>
-    <textarea class="form-control" id="editCourseMethods" value="{{methods}}"></textarea>
+    <textarea class="form-control hoverCheck" id="editCourseMethods" value="{{methods}}"></textarea>
   </div>
   <div class="form-group">
     <label for="editCourseTargetGroup" class="control-label">Zielgruppe</label>
-    <textarea class="form-control" id="editCourseTargetGroup" value="{{targetGroup}}"></textarea>
+    <textarea class="form-control hoverCheck" id="editCourseTargetGroup" value="{{targetGroup}}"></textarea>
   </div>
   <div class="form-group">
     <label for="editCoursePrerequisites" class="control-label">Vorraussetzungen</label>
-    <textarea class="form-control" id="editCoursePrerequisites" value="{{prerequisites}}"></textarea>
+    <textarea class="form-control hoverCheck" id="editCoursePrerequisites" value="{{prerequisites}}"></textarea>
   </div>
   <div class="form-group">
     <label for="editCourseLanguages" class="control-label">Sprachen</label>
-    <input type="text" class="form-control" id="editCourseLanguages" value="{{languages}}">
+    <input type="text" class="form-control hoverCheck" id="editCourseLanguages" value="{{languages}}">
   </div>
   <!-- buttons -->
   <div class="form-group">
@@ -150,7 +157,7 @@
 <template name="editCourseCosts">
   <div class="form-group">
     <label for="editCourseFee" class="control-label">Preis</label>
-    <input type="number" class="form-control" id="editCourseFee" value="{{fee}}">
+    <input type="number" class="form-control hoverCheck" id="editCourseFee" value="{{fee}}">
   </div>
 
   <!-- buttons -->
@@ -164,15 +171,15 @@
 <template name="editCourseServices">
   <div class="form-group">
     <label for="editCourseMinParticipants" class="control-label">Mindestteilnehmeranzahl</label>
-    <input type="number" class="form-control" id="editCourseMinParticipants" value="{{minParticipants}}">
+    <input type="number" class="form-control hoverCheck" id="editCourseMinParticipants" value="{{minParticipants}}">
   </div>
   <div class="form-group">
     <label for="editCourseMaxParticipants" class="control-label">Maximale Gruppengröße</label>
-    <input type="number" class="form-control" id="editCourseMaxParticipants" value="{{maxParticipants}}">
+    <input type="number" class="form-control hoverCheck" id="editCourseMaxParticipants" value="{{maxParticipants}}">
   </div>
   <div class="form-group">
     <label for="editCourseDuration" class="control-label">Kursdauer</label>
-    <select class="form-control" id="editCourseDuration">
+    <select class="form-control hoverCheck" id="editCourseDuration">
       <option value="" {{selected '' duration}}></option>
       <option value="1" {{selected '1' duration}}>1 Tag</option>
       <option value="2" {{selected '2' duration}}>2 Tage</option>
@@ -182,7 +189,7 @@
   </div>
   <div class="form-group">
     <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
-    <textarea class="form-control" id="editCourseAdditionalServices" value="{{additionalServices}}"></textarea>
+    <textarea class="form-control hoverCheck" id="editCourseAdditionalServices" value="{{additionalServices}}"></textarea>
   </div>
   <!-- buttons -->
   <div class="form-group">
@@ -197,18 +204,18 @@
 
     <label for="editCourseDates" class="control-label">Termine und Anfragen</label>
     <div class="input-group">
-      <input type="text" class="form-control" id="editCourseDates" placeholder="tt.mm.yyyy" value="{{dates}}"><div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+      <input type="text" class="form-control hoverCheck" id="editCourseDates" placeholder="tt.mm.yyyy" value="{{dates}}"><div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
     </div>
   </div>
   <div class="checkbox">
     <label>
-    <input type="checkbox" id="editCourseAllowInquiry" checked="{{allowInquiry}}">Traincrowd-Nutzer dürfen Anfragen für individuelle Termine stellen.
+    <input type="checkbox" class="hoverCheck" id="editCourseAllowInquiry" checked="{{allowInquiry}}">Traincrowd-Nutzer dürfen Anfragen für individuelle Termine stellen.
     </label>
   </div>
   <hr>
   <div class="form-group">
     <label for="editCourseExpires" class="control-label">Wie viele Wochen vorher muss der Kurs verbindlich gebucht werden?</label>
-    <select class="form-control" id="editCourseExpires">
+    <select class="form-control hoverCheck" id="editCourseExpires">
       <option value="" {{selected '' expires}}></option>
       <option value="1" {{selected '1' expires}}>1 Woche</option>
       <option value="2" {{selected '2' expires}}>2 Wochen</option>

@@ -1,5 +1,85 @@
 //////////// editCourse template /////////
 
+var getText = function(id) {
+  var text;
+  switch (id) {
+    case 'editCourseTitle': 
+      text = Fake.paragraph(4);
+      return text;
+      break;
+    case 'editCourseShortDescription':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseLogo':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseDefaultLogo':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseAims': 
+      text = Fake.paragraph(4);
+      return text;
+      break;
+    case 'editCourseMethods':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseTargetGroup':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCoursePrerequisites':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseLanguages': 
+      text = Fake.paragraph(4);
+      return text;
+      break;
+    case 'editCourseFee':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseMinParticipants':
+    case 'editCourseMaxParticipants':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseDuration':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseAdditionalServices':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseDates':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseAllowInquiry':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    case 'editCourseExpires':
+      text = Fake.paragraph(6);
+      return text;
+      break;
+    default:
+      text = "";
+      return text;
+  }
+}
+
+Template.editCourse.helpers({
+  showHoverText: function () {
+    return getText(Session.get( 'showHoverText' ));
+  }
+});
+
 Template.editCourse.events({ 
   'click #removeCourseButton': function (event, template) {
     Courses.remove(this._id);
@@ -70,6 +150,9 @@ Template.editCourseDescription.events({
         saveUpdates(modifier);
       }
     });
+  },
+  'mouseover .hoverCheck': function (event, template) {
+    Session.set('showHoverText', event.currentTarget.id); 
   }
 });
 
@@ -92,6 +175,9 @@ Template.editCourseDetails.events({
                 languages: languages }
 
     saveUpdates(modifier);
+  },
+  'mouseover .hoverCheck': function (event, template) {
+    Session.set('showHoverText', event.currentTarget.id); 
   }
 });
 
@@ -110,6 +196,9 @@ Template.editCourseCosts.events({
                 owner: this.owner,
                 fee: fee }
     saveUpdates(modifier);
+  },
+  'mouseover .hoverCheck': function (event, template) {
+    Session.set('showHoverText', event.currentTarget.id); 
   }
 });
 
@@ -147,6 +236,9 @@ Template.editCourseServices.events({
                 duration: duration,
                 additionalServices: additionalServices }
     saveUpdates(modifier);
+  },
+  'mouseover .hoverCheck': function (event, template) {
+    Session.set('showHoverText', event.currentTarget.id); 
   }
 });
 
@@ -231,6 +323,9 @@ Template.editCourseDates.events({
   },
   'change #editCourseAllowInquiry': function (event) {
     Session.set("allowInquiry", event.target.checked);
+  },
+  'mouseover .hoverCheck': function (event, template) {
+    Session.set('showHoverText', event.currentTarget.id); 
   }
 });
 
