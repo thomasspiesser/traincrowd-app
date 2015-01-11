@@ -14,7 +14,6 @@ Template.userCourses.helpers({
     }
   },
   hostedCourses: function () {
-    console.log(Courses.find( { owner: Meteor.userId() }, {fields: {logo:1, title:1, rating:1}} ).fetch())
     return Courses.find( { owner: Meteor.userId() }, {fields: {logo:1, title:1, rating:1}} )
   },
   inquiredCourses: function () {
@@ -89,6 +88,7 @@ Template.ratingModal.rendered = function () {
 Template.ratingModal.events({
   'click #saveRating': function (event, template) {
     var ratedValue = template.find('#backing').value;
+    ratedValue = parseFloat(ratedValue);
     modifier = {_id: Session.get("rateId"),
                 ratedValue: ratedValue }
     Meteor.call('rateCourse', modifier, function (error, result) {

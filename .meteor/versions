@@ -21,7 +21,7 @@ email@1.0.5
 fastclick@1.0.2
 follower-livedata@1.0.3
 geojson-utils@1.0.2
-gfk:notifications@1.1.0
+gfk:notifications@1.1.1
 houston:admin@2.0.0
 html-tools@1.0.3
 htmljs@1.0.3
@@ -42,7 +42,7 @@ less@1.0.12
 livedata@1.0.12
 localstorage@1.0.2
 logging@1.0.6
-matteodem:easy-search@1.4.5
+matteodem:easy-search@1.4.6
 meteor@1.1.4
 meteor-platform@1.2.1
 meteorhacks:kadira@2.15.2
@@ -73,7 +73,6 @@ sha@1.0.2
 spacebars@1.0.4
 spacebars-compiler@1.0.4
 srp@1.0.2
-standard-app-packages@1.0.4
 templating@1.0.10
 tmeasday:paginated-subscription@0.2.4
 tracker@1.0.4

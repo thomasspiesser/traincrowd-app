@@ -4,7 +4,6 @@
 //       Roles.addUsersToRoles("YczQPZnjzD56mvyKZ", ['admin']);
 // });
 
-
 Meteor.methods({
 	createInquired: function (options) {
     if (! this.userId)
