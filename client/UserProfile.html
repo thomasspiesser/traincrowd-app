@@ -1,7 +1,7 @@
 <template name="userProfile">
   <div class="container notHome">
     <div class="row">
-      <div class="col-md-8 col-md-offset-2 col-xs-10">
+      <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
         {{#if canEdit}}
         <button type="button" class="btn btn-sm pull-right" id="editUserProfileButton">Edit <span class="glyphicon glyphicon-edit"></span></button>
         {{/if}}
@@ -14,7 +14,9 @@
                 {{else}}
                 <img src="/dummyUser.jpg" alt="" class="center-block img-circle img-thumbnail img-responsive">
                 {{/if}}
+                {{#if isTrainerProfile}}
                 <span class="rateit" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span>
+                {{/if}}
               </div>
               <div class="col-xs-12 col-sm-8">
                 <h2>{{profile.name}}</h2>
@@ -37,6 +39,28 @@
         </div>
       </div>
     </div>
+    {{#if isTrainerProfile}}
+      {{#if hostedCourses.count}}
+        <h3>Angebotene Kurse</h3>
+        <table class='table table-striped'>
+          <tbody>
+            {{#each hostedCourses}}
+              <tr>
+                <td>
+                  {{#if logo}}
+                  <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
+                  {{else}}
+                  <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
+                  {{/if}}
+                </td>
+                <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
+                <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      {{/if}}
+    {{/if}}
   </div>
 </template>
 

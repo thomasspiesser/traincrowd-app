@@ -5,9 +5,12 @@ Template.userProfile.rendered = function () {
 Template.userProfile.helpers({
   canEdit: function () {
     return this._id === Meteor.userId();
-  }, 
-  show: function () {
-    console.log(this)
+  },
+  isTrainerProfile: function () {
+    return Roles.userIsInRole(this._id, 'trainer');
+  },
+  hostedCourses: function () {
+    return Courses.find( { owner: this._id }, {fields: {logo:1, title:1, rating:1}} );
   }
 });
 
