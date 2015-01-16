@@ -27,3 +27,7 @@ Meteor.publish('userData', function () {
 Meteor.publish('trainer', function () {
   return Meteor.users.find({roles: 'trainer'});
 });
+
+Meteor.publish('images', function () {
+	return Images.find();
+});

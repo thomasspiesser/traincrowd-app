@@ -33,3 +33,7 @@ displayName = function (user) {
     return user.profile.name;
   return user.emails[0].address;
 };
+
+UI.registerHelper('image', function(imageId) {
+  return Images.findOne({_id: imageId}).data;
+});

@@ -76,6 +76,7 @@ Houston.add_collection(Courses);
 Houston.add_collection(Inquired);
 Houston.add_collection(Current);
 Houston.add_collection(Elapsed);
+Houston.add_collection(Images);
 
 Houston.methods(Courses, {
   Publish: function (course) {

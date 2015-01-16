@@ -93,25 +93,25 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-      <label for="" class="control-label">Logo</label>
-        {{#if logo}}
-        <img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editCourseLogo" style="margin-left:0px; width: 160px;">
+      <label for="" class="control-label">Bild</label>
+        {{#if imageId}}
+        <img src="{{image imageId}}" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editCourseImage" style="margin-left:0px; width: 160px;">
         {{else}}
-        <img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editCourseDefaultLogo" style="margin-left:0px; width: 160px;">
+        <img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editCourseDefaultImage" style="margin-left:0px; width: 160px;">
         {{/if}}
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">    
-        <label for="newCourseLogoDummy" class="control-label">Ändern</label>
+        <label for="newCourseImageDummy" class="control-label">Ändern</label>
         <br>
 
-        <button type="button" class="btn btn-sm btn-default" id="newCourseLogoDummy"><i class="glyphicon glyphicon-upload"></i> Neues Logo</button>
+        <button type="button" class="btn btn-sm btn-default" id="newCourseImageDummy"><i class="glyphicon glyphicon-upload"></i> Neues Bild</button>
 
         <br>
-        <input type="file" id="newCourseLogoReal" style="display:none;">
+        <input type="file" id="newCourseImageReal" style="display:none;">
 
-        <button type="button" class="btn btn-sm btn-danger" id="deleteCourseLogo" style="margin-top:5px;"> <i class="glyphicon glyphicon-remove-sign"></i> Logo Löschen</button>
+        <button type="button" class="btn btn-sm btn-danger" id="deleteCourseImage" style="margin-top:5px;"> <i class="glyphicon glyphicon-remove-sign"></i> Bild Löschen</button>
       </div>
     </div>
   </div>

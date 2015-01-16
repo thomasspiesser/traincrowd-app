@@ -11,11 +11,11 @@ var getText = function(id) {
       text = Fake.paragraph(6);
       return text;
       break;
-    case 'editCourseLogo':
+    case 'editCourseImage':
       text = Fake.paragraph(6);
       return text;
       break;
-    case 'editCourseDefaultLogo':
+    case 'editCourseDefaultImage':
       text = Fake.paragraph(6);
       return text;
       break;
@@ -108,7 +108,7 @@ Template.editCourseDescription.events({
   'click #saveEditCourseDescription': function (event, template) {
     var title = template.find("#editCourseTitle").value;
     var description = template.find("#editCourseShortDescription").value;
-    var logo = template.find("#newCourseLogoReal").files[0];
+    var newImage = template.find("#newCourseImageReal").files[0];
 
     if (! title.length) {
       Notifications.error('Fehler!', "Der Kurs braucht einen Titel.", {timeout: 8000});
@@ -119,35 +119,59 @@ Template.editCourseDescription.events({
                 owner: this.owner,
                 title: title,
                 description: description }
+    saveUpdates(modifier);
 
-    if (logo) {
+    if (newImage) {
+      var self = this;
       var reader = new FileReader();
       reader.onload = function(event) {
-        modifier.logo = event.target.result;
-
-        saveUpdates(modifier);
+        if (self.imageId) {
+          var modifier = {_id: self.imageId,
+                          data: event.target.result }
+          Meteor.call('updateImage', modifier, function (error, result) {
+            if (error)
+              Notifications.error('Fehler!', error, {timeout: 8000});
+          });
+        } 
+        else {
+          var modifier = {data: event.target.result,
+                          course: self._id}
+          Meteor.call('insertCourseImage', modifier, function (error, imageId) {
+            if (error)
+              Notifications.error('Fehler!', error, {timeout: 8000});
+            else {
+              var modifier = {_id: self._id,
+                              owner: self.owner,
+                              imageId: imageId}
+              saveUpdates(modifier);
+            }
+          });
+        }
       };
-      reader.readAsDataURL(logo);
-    }
-    else {
-      saveUpdates(modifier);
+      reader.readAsDataURL(newImage);
     }
     return false;
     
     // check all for appropriate type
     // provide user feedback if error from one of the above checks
   },
-  'click #newCourseLogoDummy': function () {
-    $('#newCourseLogoReal').click();
+  'click #newCourseImageDummy': function () {
+    $('#newCourseImageReal').click();
   },
-  'click #deleteCourseLogo': function () {
+  'click #deleteCourseImage': function () {
+    if (! this.imageId) //if there is nothing to delete
+      return false;
     var self = this; // needed, coz this in bootbox is bootbox object
-    bootbox.confirm('Logo löschen?', function(result) {
+    bootbox.confirm('Image löschen?', function(result) {
       if (result) {
         modifier = {_id: self._id,
                     owner: self.owner,
-                    logo: '' }
+                    imageId: '' }
         saveUpdates(modifier);
+        Meteor.call('removeImage', self.imageId, function (error, result) {
+          if (error)
+            Notifications.error('Fehler!', error, {timeout: 8000});
+        });
       }
     });
   },
