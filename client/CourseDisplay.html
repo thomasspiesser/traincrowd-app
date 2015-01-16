@@ -18,9 +18,9 @@
 <template name="coursePreview">
   <div class="row">
     <div class="col-md-3">
-      <div id="logo">
-        {{#if logo}}
-          <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;"></a>
+      <div id="image">
+        {{#if imageId}}
+          <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;"></a>
           {{else}}
           <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;"></a>
           {{/if}}
@@ -42,9 +42,9 @@
   <div class="container notHome">
     <div class="row">
       <div class="col-md-3">
-        <div id="logo">
-        {{#if logo}}
-          <img src="{{logo}}" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;">
+        <div id="image">
+        {{#if imageId}}
+          <img src="{{image imageId}}" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;">
           {{else}}
           <img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;">
           {{/if}}

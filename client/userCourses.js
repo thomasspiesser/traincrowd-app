@@ -14,14 +14,14 @@ Template.userCourses.helpers({
     }
   },
   hostedCourses: function () {
-    return Courses.find( { owner: Meteor.userId() }, {fields: {logo:1, title:1, rating:1}} )
+    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, rating:1}} )
   },
   inquiredCourses: function () {
     var inquired = Inquired.find( { inquirer: Meteor.userId() }, {fields: {course:1, inquiredDates:1}} ).fetch();
     if (inquired.length) {
       for (var i = 0; i < inquired.length; i++) {
         var courseId = inquired[i].course
-        var course = Courses.findOne( { _id: courseId }, {fields: {logo:1, title:1, rating:1}} )
+        var course = Courses.findOne( { _id: courseId }, {fields: {imageId:1, title:1, rating:1}} )
         delete course._id;
         _.extend(inquired[i],course);
       }
@@ -36,7 +36,7 @@ Template.userCourses.helpers({
     if (current.length) {
       for (var i = 0; i < current.length; i++) {
         var courseId = current[i].course
-        var course = Courses.findOne( { _id: courseId }, {fields: {logo:1, title:1, rating:1}} )
+        var course = Courses.findOne( { _id: courseId }, {fields: {imageId:1, title:1, rating:1}} )
         delete course._id;
         _.extend(current[i],course);
       }
@@ -50,7 +50,7 @@ Template.userCourses.helpers({
     if (elapsed.length) {
       for (var i = 0; i < elapsed.length; i++) {
         var courseId = elapsed[i].course
-        var course = Courses.findOne( { _id: courseId }, {fields: {logo:1, title:1, rating:1}} )
+        var course = Courses.findOne( { _id: courseId }, {fields: {imageId:1, title:1, rating:1}} )
         delete course._id;
         _.extend(elapsed[i],course);
       }

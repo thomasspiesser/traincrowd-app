@@ -51,16 +51,16 @@
   </li>
   {{#if currentUser}}
     <li>
-    <a href="{{ pathFor 'userProfile.show' data=currentUser }}" style="padding-bottom:5px; padding-top:5px; padding-right:0px">
+    <div style="padding-bottom:5px; padding-top:5px; padding-left:15px">
     {{#if currentUser.profile.profilePicture}}
-      <img class="img-circle" src="{{currentUser.profile.profilePicture}}" alt="{{currentUser.profile.name}}" style="width:40px">
+      <img class="img-circle" src="{{currentUser.profile.profilePicture}}" alt="{{ownerName currentUser._id}}" style="width:40px">
     {{else}}
       <img class="img-circle" src="/dummyUser.jpg" alt="" style="width:40px">
     {{/if}}
-    </a>
+    </div>
     </li>
     <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ownerName currentUser._id}} <span class="caret"></span></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:5px;">{{ownerName currentUser._id}} <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
         <li><a href="{{ pathFor 'userProfile.show' data=currentUser }}">Mein Profil</a></li>
         <li><a href="{{pathFor 'userCourses'}}">Meine Kurse</a></li>

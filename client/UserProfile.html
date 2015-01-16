@@ -47,8 +47,8 @@
             {{#each hostedCourses}}
               <tr>
                 <td>
-                  {{#if logo}}
-                  <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{logo}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
+                  {{#if imageId}}
+                  <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
                   {{else}}
                   <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
                   {{/if}}
