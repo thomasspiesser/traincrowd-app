@@ -134,9 +134,7 @@ Template.editCourseDescription.events({
           });
         } 
         else {
-          var modifier = {data: event.target.result,
-                          course: self._id}
-          Meteor.call('insertCourseImage', modifier, function (error, imageId) {
+          Meteor.call('insertImage', event.target.result, function (error, imageId) {
             if (error)
               Notifications.error('Fehler!', error, {timeout: 8000});
             else {
