@@ -1,5 +1,9 @@
 //////////// coursePreview template /////////
 
+Template.coursePreview.rendered = function () {
+  $('.rateit').rateit();
+};
+
 Template.coursePreview.helpers({
   descriptionPreview: function () {
     if (! this.description)
@@ -16,6 +20,7 @@ Template.coursePreview.helpers({
 
 Template.courseDetail.rendered = function() {
    $('[data-toggle="tooltip"]').tooltip() //initialize all tooltips in this template
+   $('.rateit').rateit();
 };
 
 Template.courseDetail.helpers({

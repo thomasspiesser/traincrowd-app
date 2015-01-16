@@ -1,3 +1,5 @@
+// TODO: specify return fields
+
 Meteor.publish('courses', function () {
 	return Courses.find();
 });
@@ -15,5 +17,13 @@ Meteor.publish('elapsed', function () {
 });
 
 Meteor.publish('userData', function () {
-	return Meteor.users.find();
+	if (! this.userId ) {
+		this.stop();
+	  return;
+	}
+	return Meteor.users.find({_id: this.userId});
+});
+
+Meteor.publish('trainer', function () {
+  return Meteor.users.find({roles: 'trainer'});
 });

@@ -1,3 +1,7 @@
+Template.userProfile.rendered = function () {
+  $('.rateit').rateit();
+};
+
 Template.userProfile.helpers({
   canEdit: function () {
     return this._id === Meteor.userId();

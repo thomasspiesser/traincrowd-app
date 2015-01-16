@@ -25,7 +25,7 @@
           <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;"></a>
           {{/if}}
         </div>
-        <p>{{rating}}</p>
+        <p><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></p>
       </div>
     <div class="col-md-9">
       <a href="{{ pathFor route='course.show' _id=this._id }}"><h4>{{title}}</h4></a>
@@ -76,7 +76,7 @@
           <button type="submit" class="btn btn-primary btn-sm pull-right" id="editCourseButton">Bearbeiten <span class="glyphicon glyphicon-edit"></span></button>
         {{/if}}
         <h3 style="margin-top:0;">{{title}}</h3>
-        <p>{{rating}}</p>
+        <p><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></p>
         <p>{{description}}</p>
         
         <p><strong>Kursziele</strong> <br> {{aims}}</p>

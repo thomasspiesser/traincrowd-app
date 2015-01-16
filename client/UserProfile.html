@@ -14,6 +14,7 @@
                 {{else}}
                 <img src="/dummyUser.jpg" alt="" class="center-block img-circle img-thumbnail img-responsive">
                 {{/if}}
+                <span class="rateit" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span>
               </div>
               <div class="col-xs-12 col-sm-8">
                 <h2>{{profile.name}}</h2>
@@ -49,6 +50,12 @@
         {{#if error}}
           <div class="alert alert-danger">{{error}}</div>
         {{/if}}
+
+        {{#unless isInRole 'trainer'}}
+          funky user
+        {{else}}
+          funky trainer
+        {{/unless}}
 
         <div class="form-group">
           <label for="profilePicture" class="col-sm-3 control-label">Profile picture</label>

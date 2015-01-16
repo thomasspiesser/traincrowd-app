@@ -1,10 +1,28 @@
 Template.becomeTrainerLanding.events({
 	'click #startCourseButton': function (event, template) {
-    if (Meteor.userId())
-		  Router.go('becomeTrainer');
+    if (Meteor.userId()) {
+      Meteor.call('updateRoles', function (error, results) {
+        if (error)
+          Notifications.error('Fehler', error, {timeout:8000});
+        else 
+		      Router.go('becomeTrainer');
+      });
+    }
     else 
       $('#loginModal').modal('show');
-	}
+	},
+  'click #startProfileButton': function (event, template) {
+    if (Meteor.userId()) {
+      Meteor.call('updateRoles', function (error, results) {
+        if (error)
+          Notifications.error('Fehler', error, {timeout:8000});
+        else 
+          Router.go('userProfile.edit', {_id: Meteor.userId()});
+      });
+    }
+    else 
+      $('#loginModal').modal('show');
+  }
 });
 
 Template.becomeTrainer.events({
@@ -17,7 +35,7 @@ Template.becomeTrainer.events({
       	if (error) {
       		Notifications.error('Fehler!', error, {timeout: 8000});
       	} else {
-      		Notifications.info('Kurs erstellt!', 'Bitte noch ein paar zusätzliche Infos.', {timeout: 8000});
+      		Notifications.info('Kurs erstellt!', 'Wir bitten noch um ein paar zusätzliche Infos.', {timeout: 8000});
       		Router.go("course.edit", {_id: id} );
       	}
       });  

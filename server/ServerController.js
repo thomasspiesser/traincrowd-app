@@ -60,6 +60,11 @@ Meteor.methods({
   },
   deleteCurrent: function (id) {
     Current.remove({_id: id});
+  }, 
+  updateRoles: function () {
+    if (! this.userId)
+      throw new Meteor.Error(403, "Du musst eingelogged sein!");
+    Roles.setUserRoles(this.userId, 'trainer')
   }
 })
 
