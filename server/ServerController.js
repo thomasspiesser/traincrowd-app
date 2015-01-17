@@ -81,10 +81,10 @@ Houston.add_collection(Images);
 Houston.methods(Courses, {
   Publish: function (course) {
     Courses.update(course._id, {$set: {public: true}});
-    return course.title + " published successfully.";
+    return "Der Kurs: '"+ course.title + "' ist jetzt online!";
   },
   Unpublish: function (course) {
   	Courses.update(course._id, {$set: {public: false}});
-    return course.title + " unpublished successfully.";
+    return "Ok, der Kurs: '"+ course.title + "' ist offline.";
   }
 });

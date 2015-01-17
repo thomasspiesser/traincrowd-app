@@ -3,10 +3,10 @@
   <div class="container notHome">
     {{#if hostedCourses.count}}
     <h3>Angebotene Kurse</h3>
-    <table class='table table-striped'>
+    <table class='table table-hover'>
       <tbody>
         {{#each hostedCourses}}
-          <tr>
+          <tr class="{{#unless public}}{{else}}info{{/unless}}">
             <td>
               {{#if imageId}}
               <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
@@ -16,6 +16,7 @@
             </td>
             <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
             <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
+            <td>{{#if public}}<span style="color: green;"><i class="glyphicon glyphicon-ok"></i> online</span>{{else}}<span style="color: red;"><i class="glyphicon glyphicon-remove"></i> offline</span>{{/if}}</td>
           </tr>
         {{/each}}
       </tbody>

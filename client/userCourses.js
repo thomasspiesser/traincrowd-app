@@ -3,18 +3,8 @@ Template.userCourses.rendered = function () {
 };
 
 Template.userCourses.helpers({ 
-  showDateOrNoOfParticipants: function (course, helperId) {
-    var bookedCourse = _.find(course.current, function (item) { 
-      return _.contains(item.participants, Meteor.userId() )
-    });
-    if (helperId === 1) {
-      return bookedCourse.courseDate;
-    } else if (helperId === 2) {
-      return bookedCourse.participants.length;
-    }
-  },
   hostedCourses: function () {
-    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, rating:1}} )
+    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, rating:1, public:1}} )
   },
   inquiredCourses: function () {
     var inquired = Inquired.find( { inquirer: Meteor.userId() }, {fields: {course:1, inquiredDates:1}} ).fetch();

@@ -1,7 +1,7 @@
 // TODO: specify return fields
 
 Meteor.publish('courses', function () {
-	return Courses.find();
+	return Courses.find({ $or: [ {public: true}, {owner: this.userId} ] });
 });
 
 Meteor.publish('inquired', function () {
