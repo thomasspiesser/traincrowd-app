@@ -33,21 +33,6 @@ Meteor.methods({
     Inquired.remove({_id: options.id});
 
   },
-  currentCourseDone: function (options) {
-    // course happend so insert into elapsed
-    var current = Current.findOne({_id: options.id});
-
-    Elapsed.insert({
-      _id: current._id,
-      owner: current.owner,
-      course: current.course,
-      participants: current.participants,
-      courseDate: current.courseDate
-    });
-
-    //remove from Current:
-    Current.remove({_id: options.id});
-  },
   createCurrent: function (options) {
 
     Current.insert({
