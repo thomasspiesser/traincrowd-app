@@ -1,0 +1,274 @@
+<template name="editUserProfile">
+  <div class="container notHome">
+    {{#if canEdit _id}}
+    <div class="row">
+      <div class="col-sm-8"></div>
+
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" id="showProfileButton">Profil Anzeigen <i class="glyphicon glyphicon-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      <div class="tabbable tabs-left" >
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#profileDescription" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Profil</a>
+          </li>
+          <li >
+            <a href="#profileContact" data-toggle="tab"><span class="glyphicon glyphicon-eye-open"></span> Kontakt</a>
+          </li>
+          <li>
+            <a href="#profileQualification" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Qualifikationen</a>
+          </li>
+          <li>
+            <a href="#profileAccount" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Account</a>
+          </li>
+        </ul>
+      </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tab-content">
+          <div class="tab-pane active" id="profileDescription">
+            {{> editProfileDescription}}
+          </div>
+          <div class="tab-pane" id="profileContact">
+            {{> editProfileContact}}
+          </div>
+          <div class="tab-pane" id="profileQualification">
+            {{> editProfileQualification}}
+          </div>
+          <div class="tab-pane" id="profileAccount">
+            {{> editProfileAccount}}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        {{#if showHoverText}}
+        <div class="editHelperText">
+          {{showHoverText}}
+        </div>
+        {{/if}}
+      </div>
+    <!-- div row -->
+    </div>
+  {{else}}
+    <div class="alert alert-danger">Sie können nur Ihre eigenes Profil bearbeiten.</div>
+  {{/if}}
+
+
+    {{#unless isInRole 'trainer'}}
+      funky user
+    {{else}}
+      funky trainer
+    {{/unless}}
+
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="editProfileDescription">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="editProfileTitle" class="control-label">Titel</label>
+        <select class="form-control" id="editProfileTitle">
+          <option value="" {{selected '' profile.title}}></option>
+          <option value="Frau" {{selected 'Frau' profile.title}}>Frau</option>
+          <option value="Herr" {{selected 'Herr' profile.title}}>Herr</option>
+          <option value="Dr." {{selected 'Dr.' profile.title}}>Dr.</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="form-group">
+        <label for="editProfileName" class="control-label">Name</label>
+        <input type="text" class="form-control hoverCheck" id="editProfileName" value="{{profile.name}}">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="editProfileShortDescription" class="control-label">Kurzbeschreibung</label>
+    <textarea class="form-control hoverCheck" id="editProfileShortDescription" rows="6" value="{{profile.description}}"></textarea>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+      <label for="" class="control-label">Profilbild</label>
+        {{#if profile.imageId}}
+        <img src="{{image profile.imageId}}" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editProfileImage" style="margin-left:0px; width: 160px;">
+        {{else}}
+        <img src="/dummyUser.jpg" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editProfileDefaultImage" style="margin-left:0px; width: 160px;">
+        {{/if}}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">    
+        <label for="newCourseImageDummy" class="control-label">Ändern</label>
+        <br>
+
+        <button type="button" class="btn btn-sm btn-default" id="newProfileImageDummy"><i class="glyphicon glyphicon-upload"></i> Neues Bild</button>
+
+        <br>
+        <input type="file" id="newProfileImageReal" style="display:none;">
+
+        <button type="button" class="btn btn-sm btn-danger" id="deleteProfileImage" style="margin-top:5px;"> <i class="glyphicon glyphicon-remove-sign"></i> Bild Löschen</button>
+      </div>
+    </div>
+  </div>
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileDescription"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="editProfileContact">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editProfilePhone" class="control-label">Telefonnummer</label>
+        <input type="text" class="form-control hoverCheck" id="editProfilePhone" value="{{profile.phone}}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editProfileMobile" class="control-label">Mobil</label>
+        <input type="text" class="form-control hoverCheck" id="editProfileMobile" value="{{profile.mobile}}">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="editProfileStreet" class="control-label">Strasse</label>
+    <input type="text" class="form-control hoverCheck" id="editProfileStreet" value="{{profile.street}}">
+  </div>
+  <div class="form-group">
+    <label for="editProfileStreetAdditional" class="control-label">Adresszusatz</label>
+    <input type="text" class="form-control hoverCheck" id="editProfileStreetAdditional" value="{{profile.streetAdditional}}">
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editProfilePLZ" class="control-label">PLZ</label>
+        <input type="number" class="form-control hoverCheck" id="editProfilePLZ" value="{{profile.plz}}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editProfileCity" class="control-label">Stadt</label>
+        <select class="form-control hoverCheck" id="editProfileCity" >
+          <option value="Berlin">Berlin</option>
+        </select>
+      </div>
+    </div>
+  </div>
+<!-- 
+  <div class="form-group">
+    <label for="editProfileNoLocation" class="control-label">Verfügen Sie über eigene Räumlichkeiten für Weiterbildungen?</label>
+    <select class="form-control hoverCheck" id="editProfileNoLocation">
+      <option value="" {{selected '' duration}}></option>
+      <option value="yes" {{selected '1' duration}}>Ja</option>
+      <option value="no" {{selected '2' duration}}>Nein</option>
+    </select>
+  </div>
+
+  {{#unless noLocation}}
+  <div class="checkbox">
+    <label>
+    <input type="checkbox" id="editProfileNoLocation" checked="{{noLocation}}">Dürfen wir Sie bei der Suche nach passenden Räumlichkeiten unterstützen?
+    </label>
+  </div>
+  {{else}}
+  <div class="checkbox">
+    <label>
+    <input type="checkbox" id="editProfileBarrierFree" checked="{{barrierFree}}">Gibt es einen barrierefreien Zugang zu den Räumen?
+    </label>
+  </div>
+  {{/unless}} -->
+
+
+  <!-- button -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileContact"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="editProfileQualification">
+  <div class="form-group">
+    <label for="editProfileLanguages" class="control-label">In welchen Sprachen bieten Sie Ihre Weiterbildungen an</label>
+    <input type="text" class="form-control hoverCheck" id="editProfileLanguages" value="{{profile.languages}}">
+  </div>
+  <div class="form-group">
+    <label for="editProfileCertificates" class="control-label">Zertifikate, die Sie als Anbieter von Weiterbildungen qualifizieren</label>
+    <input type="text" class="form-control hoverCheck" id="editProfileCertificates" value="{{profile.certificates}}">
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="editProfileExperienceGeneral" class="control-label">Jahre Berufserfahrung</label>
+        <input type="number" class="form-control hoverCheck" id="editProfileExperienceGeneral" value="{{profile.experienceGeneral}}">
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="form-group">
+        <label for="editProfileExperienceTrainer" class="control-label">Wie viele Jahre Berufserfahrung als Trainer/in?</label>
+        <input type="number" class="form-control hoverCheck" id="editProfileExperienceTrainer" value="{{profile.experienceTrainer}}">
+      </div>
+    </div>
+  </div>
+
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileQualification"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="editProfileAccount">
+  <div class="form-group">
+    <label for="editProfileEmail" class="control-label">Email</label>
+    <input type="text" class="form-control" id="editProfileEmail" value="{{email}}">
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editProfilePasswordNew" class="control-label">Neues Passwort</label>
+        <input type="password" class="form-control" id="editProfilePasswordNew">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editProfilePasswordNewAgain" class="control-label">Neues Passwort Wiederholen</label>
+        <input type="password" class="form-control" id="editProfilePasswordNewAgain">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editProfilePasswordOld" class="control-label">Altes Passwort</label>
+        <input type="password" class="form-control" id="editProfilePasswordOld">
+      </div>
+    </div>
+  </div>
+
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileAccount"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+  </div>
+
+  <hr style="margin-top:10%;">
+
+  <a href="#" class="text-danger" id="deleteAccount"> Mein Benutzerkonto Löschen</a>
+</template>

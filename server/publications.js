@@ -21,11 +21,11 @@ Meteor.publish('userData', function () {
 		this.stop();
 	  return;
 	}
-	return Meteor.users.find({_id: this.userId});
+	return Meteor.users.find({_id: this.userId},{fields: {services:0, createdAt: 0}});
 });
 
 Meteor.publish('trainer', function () {
-  return Meteor.users.find({roles: 'trainer'});
+  return Meteor.users.find({roles: 'trainer'},{fields: {services:0, createdAt: 0}});
 });
 
 Meteor.publish('images', function () {

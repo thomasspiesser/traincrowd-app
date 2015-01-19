@@ -86,7 +86,6 @@ Template.editCourse.events({ 
     Router.go("/courses");
   },
   'click #previewCourseButton': function (event, template) {
-    // TODO: publish is false but owner can see the course
     Router.go("course.show", {_id: this._id} );
   }
 });
@@ -115,7 +114,7 @@ Template.editCourseDescription.events({
       return false
     }
 
-    modifier = {_id: this._id,
+    var modifier = {_id: this._id,
                 owner: this.owner,
                 title: title,
                 description: description }
@@ -160,9 +159,9 @@ Template.editCourseDescription.events({
     if (! this.imageId) //if there is nothing to delete
       return false;
     var self = this; // needed, coz this in bootbox is bootbox object
-    bootbox.confirm('Image löschen?', function(result) {
+    bootbox.confirm('Bild löschen?', function(result) {
       if (result) {
-        modifier = {_id: self._id,
+        var modifier = {_id: self._id,
                     owner: self.owner,
                     imageId: '' }
         saveUpdates(modifier);
@@ -188,7 +187,7 @@ Template.editCourseDetails.events({
     var prerequisites = template.find("#editCoursePrerequisites").value;
     var languages = template.find("#editCourseLanguages").value;
 
-    modifier = {_id: this._id,
+    var modifier = {_id: this._id,
                 owner: this.owner,
                 aims: aims,
                 methods: methods,
@@ -214,7 +213,7 @@ Template.editCourseCosts.events({
       return false
     }
     var fee = parseFloat(fee).toFixed(2); // rounded to 2 digits
-    modifier = {_id: this._id,
+    var modifier = {_id: this._id,
                 owner: this.owner,
                 fee: fee }
     saveUpdates(modifier);
@@ -251,7 +250,7 @@ Template.editCourseServices.events({
 
     var duration = template.find("#editCourseDuration").value;
     var additionalServices = template.find("#editCourseAdditionalServices").value;
-    modifier = {_id: this._id,
+    var modifier = {_id: this._id,
                 owner: this.owner,
                 minParticipants: minParticipants,
                 maxParticipants: maxParticipants,
@@ -336,7 +335,7 @@ Template.editCourseDates.events({
     }
     var allowInquiry = template.find("#editCourseAllowInquiry").checked;
     var expires = template.find("#editCourseExpires").value;
-    modifier = {_id: this._id,
+    var modifier = {_id: this._id,
                 owner: this.owner,
                 dates: dates,
                 allowInquiry: allowInquiry,
@@ -366,7 +365,7 @@ Template.editCourseLogistics.helpers({
 Template.editCourseLogistics.events({
   'click #saveEditCourseLogistics': function (event, template) {
     var noLocation = template.find("#editCourseNoLocation").checked;
-    modifier = {_id: this._id,
+    var modifier = {_id: this._id,
                 owner: this.owner,
                 noLocation: noLocation }
     if (noLocation) {
