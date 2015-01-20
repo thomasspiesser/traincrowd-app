@@ -1,78 +1,86 @@
-Schedule = new Meteor.Collection('schedule');
-
-function removeExpiredCurrent(options) {
-  // id of current to be removed
-  // var current = Current.findOne(id);
-  // email current.participants
-  // remove from current
-  // remove from course.dates
-}
-
-function setCurrentElapsed(options) {
-  // course event happend so insert into elapsed
-  var current = Current.findOne({_id: options.id});
-
-  Elapsed.insert({
-    _id: current._id,
-    owner: current.owner,
-    course: current.course,
-    participants: current.participants,
-    courseDate: current.courseDate
-  });
-  // email current.participants: Aufforderung bewertung
-
-  //remove from Current:
-  Current.remove({_id: options.id});
-  // remove from course.dates
-}
-
-function addTask(id, options) {
-
-  SyncedCron.add({
-    name: id,
-    schedule: function(parser) {
-      return parser.recur().on(options.date).fullDate();
-    },
-    job: function() {
-      if (options.remove)
-        removeExpiredCurrent(options);
-      if (options.setElapsed)
-        setCurrentElapsed(options);
-      Schedule.remove(id);
-      SyncedCron.remove(id);
-      return id;
+function setExpired() {
+  var expiredEvents = [];
+  Current.find().forEach(function (current) {
+    var date = new Date(reformatDate(current.courseDate)) // transform into date object
+    var course = Courses.findOne({_id: current.course}, {fields: {expires:1, dates: 1}});
+    if (course.expires) {
+      // calc when the event expires: courseDate - no.of weeks before
+      var date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * parseInt(course.expires)); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
     }
-  });
+    if (date < new Date()) {
+      // TODO: security check that is not fully booked / confirmed already
+      if (! current.confirmed) {
+        expiredEvents.push(current._id) // for the record
 
+        // email current.participants: Bescheid sagen, dass leider nicht voll geworden ist. evtl vorschlag von neuem datum
+        // email owner: Bescheid sagen, dass leider nicht voll geworden ist.
+
+        // remove from course.dates
+        var datesArr = course.dates.split(',');
+        var newDatesArr = _.without(datesArr,current.courseDate);
+        var newDates = newDatesArr.join();
+        Courses.update({_id: current.course}, {$set: {dates: newDates}});
+        // remove from Current:
+        Current.remove(current._id);
+      }
+    }
+    return expiredEvents;
+  }); 
 }
 
-function scheduleTask(options) { 
+function setElapsed() {
+  var elapsedEvents = [];
+  Current.find().forEach(function (current) {
+    var date = new Date(reformatDate(current.courseDate)) // transform into date object, TODO: this should be the last day of the event
+    if (date < new Date()) {
+      Elapsed.insert({
+        _id: current._id,
+        owner: current.owner,
+        course: current.course,
+        participants: current.participants,
+        courseDate: current.courseDate
+      });
+      elapsedEvents.push(current._id) // for the record
 
-  if (options.date < new Date()) {
-    if (options.remove)
-      removeExpiredCurrent(options);
-    if (options.setElapsed)
-      setCurrentElapsed(options);
-  } else {
-    var thisId = Schedule.insert(options);
-    addTask(thisId, options);
+      // email current.participants: Aufforderung bewertung
+
+      // remove from course.dates
+      var course = Courses.findOne({_id: current.course}, {fields: {dates: 1}});
+      var datesArr = course.dates.split(',');
+      var newDatesArr = _.without(datesArr,current.courseDate);
+      var newDates = newDatesArr.join();
+      Courses.update({_id: current.course}, {$set: {dates: newDates}});
+      // remove from Current:
+      Current.remove(current._id);
+    }
+    return elapsedEvents;
+  }); 
+}
+
+SyncedCron.add({
+  name: 'Scan for elapsed',
+  schedule: function(parser) {
+    return parser.text('at 03:00 pm'); // run at 3 in the morning every day
+  }, 
+  job: function() {
+    var elapsedEvents = setElapsed();
+    return elapsedEvents;
   }
-  return true;
+});
 
-}
+SyncedCron.add({
+  name: 'Scan for expired',
+  schedule: function(parser) {
+    return parser.text('at 03:10 am'); // run at 10 past 3 in the morning every day
+  }, 
+  job: function() {
+    var expiredEvents = setExpired();
+    return expiredEvents;
+  }
+});
 
 Meteor.startup(function() {
 
-  Schedule.find().forEach(function(task) {
-    if (task.date < new Date()) {
-      if (options.remove)
-        removeExpiredCurrent(options);
-      if (options.setElapsed)
-        setCurrentElapsed(options);
-    } else {
-      addTask(task._id, task);
-    }
-  });
   SyncedCron.start();
 
 });

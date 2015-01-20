@@ -292,13 +292,13 @@ Template.editCourseDates.helpers({
   selected: function (one, two) {
     return one === two ? 'selected' : '';
   },
-  allowInquiry: function () {
-    if (typeof this.allowInquiry !== 'undefined')
-      Session.setDefault("allowInquiry", this.allowInquiry);
-    else
-      Session.setDefault("allowInquiry", false);
-    return Session.get("allowInquiry");
-  }
+  // allowInquiry: function () {
+  //   if (typeof this.allowInquiry !== 'undefined')
+  //     Session.setDefault("allowInquiry", this.allowInquiry);
+  //   else
+  //     Session.setDefault("allowInquiry", false);
+  //   return Session.get("allowInquiry");
+  // }
 });
 
 Template.editCourseDates.events({
@@ -333,18 +333,18 @@ Template.editCourseDates.events({
         Meteor.call('createCurrent', options, function (error, result) {});
       }
     }
-    var allowInquiry = template.find("#editCourseAllowInquiry").checked;
+    // var allowInquiry = template.find("#editCourseAllowInquiry").checked;
     var expires = template.find("#editCourseExpires").value;
     var modifier = {_id: this._id,
                 owner: this.owner,
                 dates: dates,
-                allowInquiry: allowInquiry,
+                // allowInquiry: allowInquiry,
                 expires: expires }
     saveUpdates(modifier);
   },
-  'change #editCourseAllowInquiry': function (event) {
-    Session.set("allowInquiry", event.target.checked);
-  },
+  // 'change #editCourseAllowInquiry': function (event) {
+  //   Session.set("allowInquiry", event.target.checked);
+  // },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
   }

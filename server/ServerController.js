@@ -1,8 +1,4 @@
-// Meteor.startup(function () {
-//   // bootstrap the admin user if they exist -- You'll be replacing the id later
-//   if (Meteor.users.findOne("YczQPZnjzD56mvyKZ"))
-//       Roles.addUsersToRoles("YczQPZnjzD56mvyKZ", ['admin']);
-// });
+
 
 Meteor.methods({
 	createInquired: function (options) {
@@ -35,12 +31,13 @@ Meteor.methods({
   },
   createCurrent: function (options) {
 
-    Current.insert({
+    var id = Current.insert({
       course: options.course,
       owner: options.owner,
       participants: [],
       courseDate: options.courseDate
     });
+
 
   },
   deleteCurrent: function (id) {
