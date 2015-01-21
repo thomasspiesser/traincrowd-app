@@ -31,3 +31,7 @@ Meteor.publish('trainer', function () {
 Meteor.publish('images', function () {
 	return Images.find();
 });
+
+Meteor.publish('categories', function () {
+	return Categories.find();
+});

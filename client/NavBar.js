@@ -1,5 +1,6 @@
 Template.navItemsLeft.helpers({
 	isMember: function () {
+		return true
 		if (Meteor.userId()) {
 			if (Meteor.user().emails[0].address === 'thomas@traincrowd.de')
 				return true

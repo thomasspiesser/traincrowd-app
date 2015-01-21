@@ -103,10 +103,20 @@ var saveUpdates = function (modifier) {
 
 //////////// editCourse DESCRIPTION template /////////
 
+Template.editCourseDescription.rendered = function () {
+  var categories = Categories.findOne();
+  if (categories) {
+    $('#editCourseCategories').select2({
+      tags: categories.categories
+    });
+  }
+};
+
 Template.editCourseDescription.events({
   'click #saveEditCourseDescription': function (event, template) {
     var title = template.find("#editCourseTitle").value;
     var description = template.find("#editCourseShortDescription").value;
+    var categories = template.find("#editCourseCategories").value.split(',');
     var newImage = template.find("#newCourseImageReal").files[0];
 
     if (! title.length) {
@@ -117,8 +127,14 @@ Template.editCourseDescription.events({
     var modifier = {_id: this._id,
                 owner: this.owner,
                 title: title,
-                description: description }
+                description: description,
+                categories: categories }
     saveUpdates(modifier);
+
+    Meteor.call('updateCategories', categories, function (error, result) {
+      if (error)
+        Notifications.error('Fehler!', error, {timeout: 8000});
+    });
 
     if (newImage) {
       var self = this;
