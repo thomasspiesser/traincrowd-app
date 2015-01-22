@@ -24,11 +24,14 @@ Template.courseDetail.rendered = function() {
 };
 
 Template.courseDetail.helpers({
-  trainerProfilePicture: function (id) {
-    return Meteor.users.findOne( {_id: id}, {fields: {"profile.profilePicture": 1}} ).profile.profilePicture;
+  trainerImageId: function (id) {
+    var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );
+    if (trainer.profile && trainer.profile.imageId)
+      return trainer.profile.imageId;
+    return false;
   },
   getCurrent: function () {
-      return Current.find({course: this._id}, {fields: {participants: 1, courseDate:1} });
+    return Current.find({course: this._id}, {fields: {participants: 1, courseDate:1} });
   },
   feePP: function () {
     return (this.fee / parseInt(this.minParticipants)).toFixed(2);

@@ -9,8 +9,8 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-12 col-sm-4 text-center">
-                {{#if profile.profilePicture}}
-                <img src="{{profile.profilePicture}}" alt="" class="center-block img-circle img-thumbnail img-responsive">
+                {{#if profile.imageId}}
+                <img src="{{image profile.imageId}}" alt="" class="center-block img-circle img-thumbnail img-responsive">
                 {{else}}
                 <img src="/dummyUser.jpg" alt="" class="center-block img-circle img-thumbnail img-responsive">
                 {{/if}}

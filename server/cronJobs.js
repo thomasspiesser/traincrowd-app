@@ -60,7 +60,7 @@ function setElapsed() {
 SyncedCron.add({
   name: 'Scan for elapsed',
   schedule: function(parser) {
-    return parser.text('at 03:00 pm'); // run at 3 in the morning every day
+    return parser.text('at 03:00 am'); // run at 3 in the morning every day
   }, 
   job: function() {
     var elapsedEvents = setElapsed();

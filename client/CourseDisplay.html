@@ -51,8 +51,10 @@
         </div>
         <div id="trainer" style="text-align: center;">
           <h4>Trainer</h4>
-          {{#if trainerProfilePicture owner}}
-          <img src="{{trainerProfilePicture owner}}" alt="" class="center-block img-circle img-thumbnail img-responsive" style="width: 160px;">
+          {{#if trainerImageId owner}}
+            {{#with trainerImageId owner}}
+            <img src="{{image this}}" alt="" class="center-block img-circle img-thumbnail img-responsive" style="width: 160px;">
+            {{/with}}
           {{else}}
           <img src="/dummyUser.jpg" alt="" class="center-block img-circle img-thumbnail img-responsive" style="width: 160px;">
           {{/if}}

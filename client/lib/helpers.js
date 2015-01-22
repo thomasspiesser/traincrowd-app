@@ -39,5 +39,8 @@ displayName = function (user) {
 };
 
 UI.registerHelper('image', function(imageId) {
-  return Images.findOne({_id: imageId}).data;
+  var image = Images.findOne({_id: imageId})
+  if (image)
+    return image.data;
+  return false
 });
