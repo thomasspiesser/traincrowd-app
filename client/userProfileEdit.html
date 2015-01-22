@@ -19,9 +19,18 @@
           <li >
             <a href="#profileContact" data-toggle="tab"><span class="glyphicon glyphicon-eye-open"></span> Kontakt</a>
           </li>
-          <li>
-            <a href="#profileQualification" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Qualifikationen</a>
-          </li>
+          {{#if isInRole 'trainer'}}
+            <li>
+              <a href="#profileQualification" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Qualifikationen</a>
+            </li>
+          {{else}}
+            <li>
+              <a href="#profileOccupation" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Berufsfeld</a>
+            </li>
+            <li>
+              <a href="#profileExpectation" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Erwartungen</a>
+            </li>
+          {{/if}}
           <li>
             <a href="#profileAccount" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Account</a>
           </li>
@@ -36,9 +45,18 @@
           <div class="tab-pane" id="profileContact">
             {{> editProfileContact}}
           </div>
-          <div class="tab-pane" id="profileQualification">
-            {{> editProfileQualification}}
-          </div>
+          {{#if isInRole 'trainer'}}
+            <div class="tab-pane" id="profileQualification">
+              {{> editProfileQualification}}
+            </div>
+          {{else}}
+            <div class="tab-pane" id="profileOccupation">
+              {{> editProfileOccupation}}
+            </div>
+            <div class="tab-pane" id="profileExpectation">
+              {{> editProfileExpectation}}
+            </div>
+          {{/if}}
           <div class="tab-pane" id="profileAccount">
             {{> editProfileAccount}}
           </div>
@@ -56,13 +74,6 @@
   {{else}}
     <div class="alert alert-danger">Sie können nur Ihre eigenes Profil bearbeiten.</div>
   {{/if}}
-
-
-    {{#unless isInRole 'trainer'}}
-      funky user
-    {{else}}
-      funky trainer
-    {{/unless}}
 
   </div>
 </template>
@@ -228,6 +239,230 @@
   <!-- buttons -->
   <div class="form-group">
     <button type="button" class="btn btn-primary pull-right" id="saveEditProfileQualification"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="editProfileOccupation">
+
+  <div class="form-group">
+    <label for="editProfileEmployer" class="control-label">Arbeitgeber</label>
+    <input type="text" class="form-control hoverCheck" id="editProfileEmployer" value="{{profile.employer}}">
+  </div>
+
+  <div class="form-group">
+    <label for="editProfilePosition" class="control-label">Position</label>
+    <input type="text" class="form-control hoverCheck" id="editProfilePosition" value="{{profile.position}}">
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editProfileIndustry" class="control-label">Branche</label>
+        <input type="text" class="form-control hoverCheck" id="editProfileIndustry" value="{{profile.industry}}" style="width: 100%;">
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editProfileWorkExperience" class="control-label">Arbeitserfahrung</label>
+        <select class="form-control" id="editProfileWorkExperience">
+          <option value="0-5" {{selected '0-5' profile.workExperience}}>0-5 Jahre</option>
+          <option value="6-10" {{selected '6-10' profile.workExperience}}>6-10 Jahre</option>
+          <option value="11-15" {{selected '11-15' profile.workExperience}}>11-15 Jahre</option>
+          <option value="über 15" {{selected 'über 15' profile.workExperience}}>über 15 Jahre</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileOccupation"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="editProfileExpectation">
+
+  <div class="form-group">
+    <label class="control-label">Kommunikation im Vorfeld und Vorbereitung des Kurses durch den Anbieter:</label><br>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedCommunication" value="1" {{checked "1" profile.expectedCommunication}}> sehr wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedCommunication" value="2" {{checked "2" profile.expectedCommunication}}> eher wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedCommunication" value="3" {{checked "3" profile.expectedCommunication}}> eher unwichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedCommunication" value="4" {{checked "4" profile.expectedCommunication}}> unwichtig
+      </label>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label class="control-label">Erreichen der angegebenen Lernziele der Weiterbildung:</label><br>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedAims" value="1" {{checked "1" profile.expectedAims}}> sehr wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedAims" value="2" {{checked "2" profile.expectedAims}}> eher wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedAims" value="3" {{checked "3" profile.expectedAims}}> eher unwichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedAims" value="4" {{checked "4" profile.expectedAims}}> unwichtig
+      </label>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label class="control-label">Qualität und Angemessenheit der eingesetzten Methoden und Didaktik:</label><br>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedMethodQuality" value="1" {{checked "1" profile.expectedMethodQuality}}> sehr wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedMethodQuality" value="2" {{checked "2" profile.expectedMethodQuality}}> eher wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedMethodQuality" value="3" {{checked "3" profile.expectedMethodQuality}}> eher unwichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedMethodQuality" value="4" {{checked "4" profile.expectedMethodQuality}}> unwichtig
+      </label>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label class="control-label">Eingehen auf Vorwissen und individuellen Lernbedarf der Teilnehmer:</label><br>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedNeeds" value="1" {{checked "1" profile.expectedNeeds}}> sehr wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedNeeds" value="2" {{checked "2" profile.expectedNeeds}}> eher wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedNeeds" value="3" {{checked "3" profile.expectedNeeds}}> eher unwichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedNeeds" value="4" {{checked "4" profile.expectedNeeds}}> unwichtig
+      </label>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label class="control-label">Kompetenz des Trainers/der Trainerin:</label><br>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedSkills" value="1" {{checked "1" profile.expectedSkills}}> sehr wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedSkills" value="2" {{checked "2" profile.expectedSkills}}> eher wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedSkills" value="3" {{checked "3" profile.expectedSkills}}> eher unwichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedSkills" value="4" {{checked "4" profile.expectedSkills}}> unwichtig
+      </label>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label class="control-label">Logistik und Räumlichkeiten:</label><br>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedLogistics" value="1" {{checked "1" profile.expectedLogistics}}> sehr wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedLogistics" value="2" {{checked "2" profile.expectedLogistics}}> eher wichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedLogistics" value="3" {{checked "3" profile.expectedLogistics}}> eher unwichtig
+      </label>
+    </div>
+    <div class="radio-inline">
+      <label class="radio-inline">
+        <input type="radio" name="expectedLogistics" value="4" {{checked "4" profile.expectedLogistics}}> unwichtig
+      </label>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
+    <label for="editProfileExpectedOther" class="control-label">Sonstige Erwartungen?</label>
+    <textarea class="form-control hoverCheck" id="editProfileExpectedOther" rows="2" value="{{profile.expectedOther}}">
+    </textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="editProfileInterests" class="control-label">An welchen Weiterbildungsthemen sind Sie besonders interessiert?</label>
+    <input type="text" class="form-control hoverCheck" id="editProfileInterests" value="{{profile.interests}}" style="width: 100%;">
+  </div>
+
+  <div class="checkbox">
+    <label>
+    <input type="checkbox" class="hoverCheck" id="editProfileAllowNewsletter" checked="{{allowNewsletter}}">Dürfen wir Sie per E-Mail über neue Angebote in diesen Bereichen informieren?
+    </label>
+  </div>
+
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileExpectation"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
   </div>
 </template>
 

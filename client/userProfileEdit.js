@@ -187,6 +187,113 @@ Template.editProfileQualification.events({
   }
 });
 
+
+//////////// editUserProfile OCCUPATION template /////////
+
+Template.editProfileOccupation.rendered = function () {
+  $('#editProfileIndustry').select2({
+    tags: ['non-profit', 'Start-up', 'Sonstige']
+  });
+};
+
+Template.editProfileOccupation.helpers({
+  selected: function (one, two) {
+    return one === two ? 'selected' : '';
+  }
+});
+
+Template.editProfileOccupation.events({
+  'click #saveEditProfileOccupation': function (event, template) {
+    var employer = template.find("#editProfileEmployer").value;
+    var position = template.find("#editProfilePosition").value;
+    var industry = template.find("#editProfileIndustry").value;
+    var workExperience = template.find("#editProfileWorkExperience").value;
+
+    var modifier = {'profile.employer': employer,
+                    'profile.position': position,
+                    'profile.industry': industry,
+                    'profile.workExperience': workExperience }
+
+    saveUpdates(modifier);
+  },
+  'mouseover .hoverCheck': function (event, template) {
+    Session.set('showHoverText', event.currentTarget.id); 
+  }
+});
+
+
+//////////// editUserProfile EXPECTATION template /////////
+
+Template.editProfileExpectation.rendered = function () {
+  var categories = Categories.findOne();
+  if (categories) {
+    $('#editProfileInterests').select2({
+      tags: categories.categories
+    });
+  }
+};
+
+Template.editProfileExpectation.helpers({
+  checked: function (one, two) {
+    return one === two ? 'checked' : '';
+  },
+  allowNewsletter: function () {
+    if (this.profile && typeof this.profile.allowNewsletter !== 'undefined') 
+      Session.setDefault("allowNewsletter", this.profile.allowNewsletter);
+    else 
+      Session.setDefault("allowNewsletter", false);
+    return Session.get("allowNewsletter");
+  }
+});
+
+Template.editProfileExpectation.events({
+  'click #saveEditProfileExpectation': function (event, template) {
+    //radio buttons:
+    var expectedCommunication = template.find('input:radio[name=expectedCommunication]:checked');
+    var expectedAims = template.find('input:radio[name=expectedAims]:checked');
+    var expectedMethodQuality = template.find('input:radio[name=expectedMethodQuality]:checked');
+    var expectedNeeds = template.find('input:radio[name=expectedNeeds]:checked');
+    var expectedSkills = template.find('input:radio[name=expectedSkills]:checked');
+    var expectedLogistics = template.find('input:radio[name=expectedLogistics]:checked');
+
+    if (!expectedCommunication || !expectedAims || !expectedMethodQuality || !expectedNeeds || !expectedSkills || !expectedLogistics ) {
+      Notifications.error('Fehler!', "Bitte machen Sie überall angaben.", {timeout: 8000});
+      return false;
+    }
+    else {
+      expectedCommunication = expectedCommunication.value;
+      expectedAims = expectedAims.value;
+      expectedMethodQuality = expectedMethodQuality.value;
+      expectedNeeds = expectedNeeds.value;
+      expectedSkills = expectedSkills.value;
+      expectedLogistics = expectedLogistics.value;
+    }
+    var expectedOther = template.find("#editProfileExpectedOther").value;
+
+    var interests = template.find("#editProfileInterests").value;
+    var allowNewsletter = template.find("#editProfileAllowNewsletter").checked;
+
+    var modifier = {'profile.expectedCommunication': expectedCommunication,
+                    'profile.expectedAims': expectedAims,
+                    'profile.expectedMethodQuality': expectedMethodQuality,
+                    'profile.expectedNeeds': expectedNeeds,
+                    'profile.expectedSkills': expectedSkills,
+                    'profile.expectedLogistics': expectedLogistics,
+                    'profile.expectedOther': expectedOther,
+
+                    'profile.interests': interests,
+                    'profile.allowNewsletter': allowNewsletter }
+
+    saveUpdates(modifier);
+  },
+  'change #editProfileAllowNewsletter': function (event) {
+    Session.set("allowNewsletter", event.target.checked);
+  },
+  'mouseover .hoverCheck': function (event, template) {
+    Session.set('showHoverText', event.currentTarget.id); 
+  }
+});
+
 //////////// editUserProfile ACCOUNT template /////////
 
 Template.editProfileAccount.helpers({
