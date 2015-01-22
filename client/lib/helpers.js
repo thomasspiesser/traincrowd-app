@@ -18,6 +18,8 @@ UI.registerHelper('fakeParagraph', function (number) {
 });
 
 UI.registerHelper('canEdit', function(owner) {
+  if (!Meteor.userId())
+    return false;
   return owner === Meteor.userId();
 });
 
