@@ -1,4 +1,4 @@
-<template name="login">
+<!-- <template name="login">
     <form class="form-horizontal" role="form" id="loginForm">
 
         {{#if error}}
@@ -25,19 +25,53 @@
 
         <button type="submit" class="btn btn-block btn-info" id="signUpButton">Jetzt Registrieren</button>
     </form>
-</template>
+</template> -->
 
-<template name="Login">
+<!-- <template name="Login">
   <div class="container notHome">
     <div class="col-sm-4 col-sm-offset-4">
       {{> login}}
+      test
+      {{> atForm}}
+    </div>
+  </div>
+</template> -->
+
+<template name="signIn">
+  <div class="container notHome">
+    <div class="col-sm-4 col-sm-offset-4">
+      {{> atForm state='signIn'}}
+    </div>
+  </div>
+</template>
+
+<template name="signUp">
+  <div class="container notHome">
+    <div class="col-sm-4 col-sm-offset-4">
+      {{> atForm state='signUp'}}
+    </div>
+  </div>
+</template>
+
+<template name="forgotPwd">
+  <div class="container notHome">
+    <div class="col-sm-4 col-sm-offset-4">
+      {{> atForm state='forgotPwd'}}
+    </div>
+  </div>
+</template>
+
+<template name="verifyEmail">
+  <div class="container notHome">
+    <div class="col-sm-4 col-sm-offset-4">
+      {{> atForm state='verifyEmail'}}
     </div>
   </div>
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 
 
-<template name="loginModal">
+<!-- <template name="loginModal">
   <div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -46,9 +80,11 @@
         <h4 class="modal-title" id="myModalLabel">Anmelden</h4>
       </div>
       <div class="modal-body">
+        {{> atForm}}
+        test
         {{> login}}
       </div>
     </div>
     </div>
   </div>
-</template>
+</template> -->
