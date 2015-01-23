@@ -10,7 +10,7 @@ Template.userProfile.helpers({
     return Roles.userIsInRole(this._id, 'trainer');
   },
   hostedCourses: function () {
-    return Courses.find( { owner: this._id }, {fields: {imageId:1, title:1, rating:1}} );
+    return Courses.find( { owner: this._id, public: true }, {fields: {imageId:1, title:1, rating:1}} );
   }
 });
 

@@ -1,4 +1,7 @@
 
+// process.env.MAIL_URL="smtp://thomas.spiesser%40gmail.com:7%mau6d$@smtp.gmail.com:465/";
+// process.env.MAIL_URL="smtp://thomas%40traincrowd.de:7%mau6d$@smtp.strato.de:465/";
+// process.env.MAIL_URL='smtp://thomas%40traincrowd.de:' + encodeURIComponent("7%mau6d$") + '@smtp.strato.de:465/';
 
 Meteor.methods({
 	createInquired: function (options) {
