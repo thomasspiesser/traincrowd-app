@@ -3,7 +3,7 @@ Template.gatekeeper.events({
 		var key = template.find('#gatekey').value;
 		check(key, String);
     if (key === 'supersecretpassword') {
-      Session.set("gatekey", true);
+      Session.setPersistent("gatekey", true);
       Router.go('/')
     } 
     else {
