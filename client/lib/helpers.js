@@ -32,12 +32,6 @@ UI.registerHelper('ownerName', function(userId) {
 	return displayName(user);
 });
 
-displayName = function (user) {
-  if (user.profile && user.profile.name)
-    return user.profile.name;
-  return user.emails[0].address;
-};
-
 UI.registerHelper('image', function(imageId) {
   var image = Images.findOne({_id: imageId})
   if (image)

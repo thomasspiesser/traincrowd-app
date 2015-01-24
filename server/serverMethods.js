@@ -1,8 +1,3 @@
-
-// process.env.MAIL_URL="smtp://thomas.spiesser%40gmail.com:7%mau6d$@smtp.gmail.com:465/";
-// process.env.MAIL_URL="smtp://thomas%40traincrowd.de:7%mau6d$@smtp.strato.de:465/";
-// process.env.MAIL_URL='smtp://thomas%40traincrowd.de:' + encodeURIComponent("7%mau6d$") + '@smtp.strato.de:465/';
-
 Meteor.methods({
 	createInquired: function (options) {
     if (! this.userId)
@@ -50,6 +45,20 @@ Meteor.methods({
     if (! this.userId)
       throw new Meteor.Error(403, "Du musst eingelogged sein!");
     Roles.setUserRoles(this.userId, 'trainer')
+  },
+  sendEmail: function (to, subject, text) {
+    check([to, subject, text], [String]);
+
+    // Let other method calls from the same client start running,
+    // without waiting for the email sending to complete.
+    this.unblock();
+
+    Email.send({
+      to: to,
+      from: 'info@traincrowd.de',
+      subject: subject,
+      text: text
+    });
   }
 })
 

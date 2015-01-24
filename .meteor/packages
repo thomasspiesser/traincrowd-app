@@ -10,7 +10,6 @@ iron:router@1.0.0-pre4
 rajit:bootstrap3-datepicker
 gfk:notifications
 matteodem:easy-search
-meteorhacks:kadira
 alanning:roles
 houston:admin
 msavin:mongoinspector
@@ -25,3 +24,4 @@ email
 twbs:bootstrap
 useraccounts:bootstrap
 u2622:persistent-session
+meteorhacks:kadira
