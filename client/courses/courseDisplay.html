@@ -142,7 +142,7 @@
           <div class="list-group">
 
             {{#each getCurrent}}
-              <a href="#" class="joinCourseButton list-group-item {{#if participants}} list-group-item-success {{/if}}">
+              <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" class="joinCourseButton list-group-item {{#if participants}} list-group-item-success {{/if}}">
               <div class="row">
                 <div class="col-xs-4">
                   {{courseDate}}
