@@ -48,14 +48,14 @@ Template.courseDetail.events({
   },
   // 'click #inquireCourseDatesButton': function () {
   //   if (this.owner === Meteor.userId()) {
-  //     Notifications.error('Sorry', 'This is your own course', {timeout: 5000});
+  //     toastr.error('This is your own course' );
   //     return false
   //   }
   //   var bookedCourse = _.find(this.current, function (item) { 
   //     return _.contains(item.participants, Meteor.userId() )
   //   });
   //   if (bookedCourse) {
-  //     Notifications.error('Course already booked', 'You alreday booked this course for the '+bookedCourse.courseDate, {timeout: 5000});
+  //     toastr.error('You alreday booked this course for the '+bookedCourse.courseDate );
   //     return false
   //   } else {
   //     Router.go("course.inquire", {_id: this._id} );
@@ -73,16 +73,16 @@ Template.courseDetail.events({
   //     }
   //     Meteor.call('confirmInquired', options, function (error, result) {
   //       if(error) {
-  //         Notifications.error('Fehler!', error, {timeout: 5000});
+  //         toastr.error( error.reason );
   //       } else {
   //         // Session.set( "instanceId", result );
-  //         Notifications.info('Super!', 'Wenn sich genug Teilnehmer finden, findet Dein Kurs am' + date.value + 'statt.', {timeout: 5000});
+  //         toastr.success( 'Wenn sich genug Teilnehmer finden, findet Dein Kurs am' + date.value + 'statt.' );
   //       }
   //     });
   //     return false
   //   }
   //   else {
-  //     Notifications.error('Fehler!', 'Bitte einen Termin auswählen.', {timeout: 5000});
+  //     toastr.error( 'Bitte einen Termin auswählen.' );
   //   }
   //   return false
   // },

@@ -95,9 +95,9 @@ Template.editCourse.events({ 
 var saveUpdates = function (modifier) {
   Meteor.call('updateCourse', modifier, function (error, result) {
     if (error)
-      Notifications.error('Fehler!', error, {timeout: 8000});
+      toastr.error( error.reason );
     else
-      Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
+      toastr.success( 'Änderungen gespeichert.' );
   });
 }
 
@@ -120,7 +120,7 @@ Template.editCourseDescription.events({
     var newImage = template.find("#newCourseImageReal").files[0];
 
     if (! title.length) {
-      Notifications.error('Fehler!', "Der Kurs braucht einen Titel.", {timeout: 8000});
+      toastr.error( "Der Kurs braucht einen Titel." );
       return false
     }
 
@@ -133,7 +133,7 @@ Template.editCourseDescription.events({
 
     Meteor.call('updateCategories', categories, function (error, result) {
       if (error)
-        Notifications.error('Fehler!', error, {timeout: 8000});
+        toastr.error( error.reason );
     });
 
     if (newImage) {
@@ -145,13 +145,13 @@ Template.editCourseDescription.events({
                           data: event.target.result }
           Meteor.call('updateImage', modifier, function (error, result) {
             if (error)
-              Notifications.error('Fehler!', error, {timeout: 8000});
+              toastr.error( error.reason );
           });
         } 
         else {
           Meteor.call('insertImage', event.target.result, function (error, imageId) {
             if (error)
-              Notifications.error('Fehler!', error, {timeout: 8000});
+              toastr.error( error.reason );
             else {
               var modifier = {_id: self._id,
                               owner: self.owner,
@@ -183,7 +183,7 @@ Template.editCourseDescription.events({
         saveUpdates(modifier);
         Meteor.call('removeImage', self.imageId, function (error, result) {
           if (error)
-            Notifications.error('Fehler!', error, {timeout: 8000});
+            toastr.error( error.reason );
         });
       }
     });
@@ -225,7 +225,7 @@ Template.editCourseCosts.events({
     var fee = template.find("#editCourseFee").value;
 
     if (! fee.length) {
-      Notifications.error('Fehler!', "Sie müssen einen Preis angeben.", {timeout: 8000});
+      toastr.error( "Sie müssen einen Preis angeben." );
       return false
     }
     var fee = parseFloat(fee).toFixed(2); // rounded to 2 digits
@@ -253,14 +253,14 @@ Template.editCourseServices.events({
     var maxParticipants = template.find("#editCourseMaxParticipants").value;
 
     if (! minParticipants.length || ! maxParticipants.length) {
-      Notifications.error('Fehler!', "Sie müssen die Teilnehmerzahlen angeben.", {timeout: 8000});
+      toastr.error( "Sie müssen die Teilnehmerzahlen angeben." );
       return false
     }
     var minParticipants = parseInt(minParticipants);
     var maxParticipants = parseInt(maxParticipants);
 
     if (minParticipants > maxParticipants) {
-      Notifications.error('Fehler!', "Die maximale Gruppengröße muss mindestens "+minParticipants+" sein.", {timeout: 8000});
+      toastr.error( "Die maximale Gruppengröße muss mindestens "+minParticipants+" sein." );
       return false
     }
 
@@ -337,7 +337,7 @@ Template.editCourseDates.events({
           // or bootbox confirm delete coz there are already participants
           var dates = dates+','+removedDates[i]; // just keep it and don't allow deletion of this date
           $('#editCourseDates').datepicker('setDates', _.map(dates.split(','), function(date) {return new Date(reformatDate(date))} ) );
-          Notifications.error('Fehler!', 'Es gibt bereits Teilnehmer für diese Veranstalltung am '+  removedDates[i] +'.', {timeout: 8000});
+          toastr.error( 'Es gibt bereits Teilnehmer für diese Veranstalltung am '+ removedDates[i] +'.' );
         }
       }
     } 
@@ -394,7 +394,7 @@ Template.editCourseLogistics.events({
       // var city = template.find("#editCourseCity").value;
 
       if (! street.length || plz.length < 5) {
-        Notifications.error('Fehler!', "Bitte geben Sie ein vollständige Adresse an.", {timeout: 8000});
+        toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
         return false
       }
       modifier.street = street;

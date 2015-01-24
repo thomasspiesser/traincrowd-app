@@ -27,15 +27,15 @@
 //       }
 //       Meteor.call('createInquired', options, function (error, result) {
 //         if(error) {
-//           Notifications.error('Fehler!', error, {timeout: 5000});
+//           toastr.error(error.reason);
 //         } else {
 //           // Session.set( "instanceId", result );
 //           Router.go("course.show", {_id: courseId} );
-//           Notifications.info('Course date inquiry!', 'Successfully submitted dates to trainer.', {timeout: 5000});
+//           toastr.success('Successfully submitted dates to trainer.');
 //         }
 //       });
 //     } else {
-//       Notifications.error('Error!', 'Please, choose at least one date!', {timeout: 5000});
+//       toastr.error('Please, choose at least one date!');
 //     }
 //     return false
 //   }
@@ -65,9 +65,9 @@ Template.paymentModal.events({
         // assume success, push userId into current.participants 
         Meteor.call('addParticipant', currentId, function (error, result) {
           if (error)
-            Notifications.error('Fehler!', error, {timeout: 8000});
+            toastr.error(error.reason);
           else
-            Notifications.info('', 'Buchung erfolgreich.', {timeout: 8000});
+            toastr.success('Buchung erfolgreich.');
         });
       }
     }

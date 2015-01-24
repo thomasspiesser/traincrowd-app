@@ -8,7 +8,6 @@ accounts-password
 natestrauser:animate-css
 iron:router@1.0.0-pre4
 rajit:bootstrap3-datepicker
-gfk:notifications
 matteodem:easy-search
 alanning:roles
 houston:admin
@@ -25,3 +24,4 @@ twbs:bootstrap
 useraccounts:bootstrap
 u2622:persistent-session
 meteorhacks:kadira
+chrismbeckett:toastr

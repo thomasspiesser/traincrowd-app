@@ -3,7 +3,7 @@ Template.becomeTrainerLanding.events({
     // if (Meteor.userId()) {
       Meteor.call('updateRoles', function (error, results) {
         if (error)
-          Notifications.error('Fehler', error, {timeout:8000});
+          toastr.error( error.reason );
         else 
 		      Router.go('createCourse');
       });
@@ -15,7 +15,7 @@ Template.becomeTrainerLanding.events({
     // if (Meteor.userId()) {
       Meteor.call('updateRoles', function (error, results) {
         if (error)
-          Notifications.error('Fehler', error, {timeout:8000});
+          toastr.error( error.reason );
         else 
           Router.go('userProfile.edit', {_id: Meteor.userId()});
       });
@@ -33,14 +33,14 @@ Template.createCourse.events({
     if (title.length) {
       Meteor.call('createCourse', title, function (error, id) {
       	if (error) {
-      		Notifications.error('Fehler!', error, {timeout: 8000});
+      		toastr.error( error.reason );
       	} else {
-      		Notifications.info('Kurs erstellt!', 'Wir bitten noch um ein paar zusätzliche Infos.', {timeout: 8000});
+      		toastr.success('Wir bitten nun noch um ein paar zusätzliche Infos.' );
       		Router.go("course.edit", {_id: id} );
       	}
       });  
     } else {
-      Notifications.error('Fehler!', "Bitte gib deinem Kurs einen Titel!", {timeout: 8000});
+      toastr.error( "Bitte gib deinem Kurs einen Titel!" );
     }
     return false
   }

@@ -63,9 +63,9 @@ Template.editUserProfile.events({ 
 var saveUpdates = function (modifier) {
   Meteor.call('updateUser', modifier, function (error, result) {
     if (error)
-      Notifications.error('Fehler!', error, {timeout: 8000});
+      toastr.error( error.reason );
     else
-      Notifications.info('', 'Änderungen gespeichert.', {timeout: 8000});
+      toastr.success( 'Änderungen gespeichert.' );
   });
 }
 
@@ -98,13 +98,13 @@ Template.editProfileDescription.events({
                           data: event.target.result }
           Meteor.call('updateImage', modifier, function (error, result) {
             if (error)
-              Notifications.error('Fehler!', error, {timeout: 8000});
+              toastr.error( error.reason );
           });
         } 
         else {
           Meteor.call('insertImage', event.target.result, function (error, imageId) {
             if (error)
-              Notifications.error('Fehler!', error, {timeout: 8000});
+              toastr.error( error.reason );
             else {
               var modifier = {'profile.imageId': imageId}
               saveUpdates(modifier);
@@ -128,7 +128,7 @@ Template.editProfileDescription.events({
         saveUpdates(modifier);
         Meteor.call('removeImage', self.profile.imageId, function (error, result) {
           if (error)
-            Notifications.error('Fehler!', error, {timeout: 8000});
+            toastr.error( error.reason );
         });
       }
     });
@@ -156,7 +156,7 @@ Template.editProfileContact.events({
                     'profile.plz': plz }
 
     if (! street.length || plz.length < 5) {
-      Notifications.error('Fehler!', "Bitte geben Sie ein vollständige Adresse an.", {timeout: 8000});
+      toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
       return false;
     }
     saveUpdates(modifier);
@@ -257,7 +257,7 @@ Template.editProfileExpectation.events({
     var expectedLogistics = template.find('input:radio[name=expectedLogistics]:checked');
 
     if (!expectedCommunication || !expectedAims || !expectedMethodQuality || !expectedNeeds || !expectedSkills || !expectedLogistics ) {
-      Notifications.error('Fehler!', "Bitte machen Sie überall angaben.", {timeout: 8000});
+      toastr.error( "Bitte machen Sie überall angaben." );
       return false;
     }
     else {
@@ -310,12 +310,12 @@ Template.editProfileAccount.events({
     var passwordOld = template.find("#editProfilePasswordOld").value;
 
     if (! EMAIL_REGEX.test(email)) {
-      Notifications.error('Fehler!', "Bitte überprüfen Sie, ob Sie eine echte Email Adresse eingegeben haben.", {timeout: 8000});
+      toastr.error( "Bitte überprüfen Sie, ob Sie eine echte Email Adresse eingegeben haben." );
       return false;
     } 
 
     if (passwordNew.length && passwordNew !== passwordNewAgain) {
-      Notifications.error('Änderung Fehlgeschlagen!', "Bitte überprüfen Sie, ob Sie tatsächlich zweimal das gleich Passwort eingegeben haben.", {timeout: 8000});
+      toastr.error( "Bitte überprüfen Sie, ob Sie tatsächlich zweimal das gleich Passwort eingegeben haben." );
       $('#editProfilePasswordNew').val('');
       $('#editProfilePasswordNewAgain').val('');
       $('#editProfilePasswordOld').val('');
@@ -328,14 +328,14 @@ Template.editProfileAccount.events({
     if (passwordNew.length) {
       Accounts.changePassword(passwordOld, passwordNew, function (error, result) {
         if (error) {
-          Notifications.error('Fehler!', error.reason, {timeout: 8000});
+          toastr.error( error.reason );
           $('#editProfilePasswordNew').val('');
           $('#editProfilePasswordNewAgain').val('');
           $('#editProfilePasswordOld').val('');
           return false;
         }
         else {
-          Notifications.info('', "Passwort geändert.", {timeout: 8000});
+          toastr.success( "Passwort geändert." );
           $('#editProfilePasswordNew').val('');
           $('#editProfilePasswordNewAgain').val('');
           $('#editProfilePasswordOld').val('');

@@ -15,7 +15,7 @@ Template.navItemsRight.events({
 	'click #sendTestMail': function (event, template) {
 		var email = template.find('#testMail').value;
 		if (! EMAIL_REGEX.test(email)) {
-      Notifications.error('Fehler!', "Bitte überprüfen Sie, ob Sie eine echte Email Adresse eingegeben haben.", {timeout: 8000});
+      toastr.error('Bitte überprüfen Sie, ob Sie eine echte Email Adresse eingegeben haben.');
       return false;
     }
 
@@ -24,9 +24,9 @@ Template.navItemsRight.events({
 			'Traincrowd beta sagt Hallo!',
 			'Das ist eine Test-Email.', function (error, result) {
 			if (error)
-				Notifications.error('Fehler!', error.reason, {timeout: 8000});
+				toastr.error(error.reason);
 			else {
-				Notifications.success('Super!', 'Email versandt. Bitte schau in Dein Postfach.', {timeout: 8000});
+				toastr.success('Email versandt. Bitte schau in Dein Postfach.');
 				$('#testMail').val("");
 			}
 

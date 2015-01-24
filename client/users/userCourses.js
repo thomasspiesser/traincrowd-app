@@ -83,9 +83,9 @@ Template.ratingModal.events({
                 ratedValue: ratedValue }
     Meteor.call('rateCourse', modifier, function (error, result) {
       if (error)
-        Notifications.error('Fehler!', error, {timeout: 8000});
+        toastr.error( error.reason );
       else {
-        Notifications.info('', 'Gespeichert.', {timeout: 8000});
+        toastr.success( 'Gespeichert.' );
         Session.set("rateId", "");
         $('#ratingModal').modal('hide');
       }

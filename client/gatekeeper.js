@@ -7,7 +7,7 @@ Template.gatekeeper.events({
       Router.go('/')
     } 
     else {
-      Notifications.error('Fehler!', "Anscheinend kennen wir uns nicht!", {timeout: 8000});
+      toastr.error( "Anscheinend kennen wir uns nicht!" );
     }
 	}
 });
