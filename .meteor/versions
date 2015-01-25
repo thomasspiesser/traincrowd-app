@@ -16,6 +16,7 @@ chrismbeckett:toastr@2.1.0
 coffeescript@1.0.5
 dandv:jquery-rateit@1.0.22_2
 dburles:mongo-collection-instances@0.2.6
+dburles:spacebars-tohtml@1.0.0
 ddp@1.0.14
 deps@1.0.6
 ejson@1.0.5

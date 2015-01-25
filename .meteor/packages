@@ -25,3 +25,4 @@ useraccounts:bootstrap
 u2622:persistent-session
 meteorhacks:kadira
 chrismbeckett:toastr
+dburles:spacebars-tohtml

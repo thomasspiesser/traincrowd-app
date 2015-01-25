@@ -18,11 +18,13 @@ Template.navItemsRight.events({
       toastr.error('Bitte überprüfen Sie, ob Sie eine echte Email Adresse eingegeben haben.');
       return false;
     }
+    var options = {
+    	to: email,
+    	subject: 'Traincrowd beta sagt Hallo!',
+    	task: 'testHtmlMail'
+    };
 
-		Meteor.call('sendEmail', 
-			email, 
-			'Traincrowd beta sagt Hallo!',
-			'Das ist eine Test-Email.', function (error, result) {
+		Meteor.call('sendEmail', options, function (error, result) {
 			if (error)
 				toastr.error(error.reason);
 			else {

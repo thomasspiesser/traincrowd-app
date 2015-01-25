@@ -46,18 +46,26 @@ Meteor.methods({
       throw new Meteor.Error(403, "Du musst eingelogged sein!");
     Roles.setUserRoles(this.userId, 'trainer')
   },
-  sendEmail: function (to, subject, text) {
-    check([to, subject, text], [String]);
+  sendEmail: function (options) {
+    check(options, {
+      to: String,
+      subject: String, 
+      task: String
+      // text: String 
+    });
+    if (options.task==='testHtmlMail') {
+      var html = Spacebars.toHTML({ name: 'Thomasito' }, Assets.getText('exampleHtmlEmail.html'));
+    }
 
     // Let other method calls from the same client start running,
     // without waiting for the email sending to complete.
     this.unblock();
 
     Email.send({
-      to: to,
+      to: options.to,
       from: 'info@traincrowd.de',
-      subject: subject,
-      text: text
+      subject: options.subject,
+      html: html
     });
   }
 })
