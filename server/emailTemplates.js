@@ -27,3 +27,79 @@ Meteor.startup(function() {
   //   return 'bitte den folgenden link anklicken, um Ihre Email Adresse zu bestätigen: ' + url;
   // };
 });
+
+Meteor.methods({
+  sendRateCourseEmail: function (options) {
+    check(options, {
+      course: String,
+      participants: [String]
+    });
+
+    var course = Courses.findOne({_id: options.course}, {fields: {title: 1}});
+    if (!course)
+        throw new Meteor.Error("Can't find course: "+options.course);
+    if (!course.title)
+        throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
+    var url = Meteor.absoluteUrl('user-courses');
+    _.each(options.participants, function(participant) {
+      var user = Meteor.users.findOne( participant );
+      if (!user) {
+        // throw new Meteor.Error("Can't find user");
+        // still wanna email the others
+        console.log("Can't find user: "+participant)
+        return; // jump out of current iteration, keeps looping
+      }
+      var name = displayName(user);
+      if (user.emails && user.emails[0])
+        var email = user.emails[0].address;
+      else {
+        // throw new Meteor.Error("Don't have an Email for user: "+participant);
+        console.log("Don't have an Email for user: "+participant)
+        return; // jump out of current iteration, keeps looping
+      }
+
+      var dataContext = {
+        name: name,
+        title: course.title,
+        url: url
+      }
+      var subject = "Bewerten Sie den Kurs: '" + course.title +"'";
+      var html = Spacebars.toHTML(dataContext, Assets.getText('rateCourseEmail.html'));
+
+      options = _.extend({ to: email, subject: subject, html: html }, options);
+      
+      Meteor.call('sendEmail', options);
+    })
+  },
+  sendTestEmail: function (options) {
+    check(options, {
+      to: String
+    });
+    if (this.userId) {
+      var user = Meteor.users.findOne( this.userId );
+      var name = displayName(user);
+    }
+    else {
+      var name = options.to;
+    }
+    var subject = 'Traincrowd beta sagt Hallo!';
+    var html = Spacebars.toHTML({ name: name }, Assets.getText('exampleHtmlEmail.html'));
+    options = _.extend({ subject: subject, html: html }, options);
+    
+    Meteor.call('sendEmail', options);
+  },
+  sendEmail: function (options) {
+    // checks are done in higher-level-functions
+
+    // TODO: assure server-side-calling only!!!!!
+
+    this.unblock();
+
+    Email.send({
+      to: options.to,
+      from: 'info@traincrowd.de',
+      subject: options.subject,
+      html: options.html
+    });
+  }
+})

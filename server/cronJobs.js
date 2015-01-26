@@ -43,6 +43,7 @@ function setElapsed() {
       elapsedEvents.push(current._id) // for the record
 
       // email current.participants: Aufforderung bewertung
+      Meteor.call('sendRateCourseEmail', {course: current.course, participants: current.participants});
 
       // remove from course.dates
       var course = Courses.findOne({_id: current.course}, {fields: {dates: 1}});

@@ -45,37 +45,6 @@ Meteor.methods({
     if (! this.userId)
       throw new Meteor.Error(403, "Du musst eingelogged sein!");
     Roles.setUserRoles(this.userId, 'trainer')
-  },
-  sendTestEmail: function (options) {
-    check(options, {
-      to: String
-    });
-    if (this.userId) {
-      var user = Meteor.users.findOne( this.userId );
-      var name = displayName(user);
-    }
-    else {
-      var name = options.to;
-    }
-    var subject = 'Traincrowd beta sagt Hallo!';
-    var html = Spacebars.toHTML({ name: name }, Assets.getText('exampleHtmlEmail.html'));
-    options = _.extend({ subject: subject, html: html }, options);
-    
-    Meteor.call('sendEmail', options);
-  },
-  sendEmail: function (options) {
-    // checks are done in higher-level-functions
-
-    // TODO: assure server-side-calling only!!!!!
-
-    this.unblock();
-
-    Email.send({
-      to: options.to,
-      from: 'info@traincrowd.de',
-      subject: options.subject,
-      html: options.html
-    });
   }
 })
 
