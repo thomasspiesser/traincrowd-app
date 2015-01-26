@@ -11,7 +11,6 @@ rajit:bootstrap3-datepicker
 matteodem:easy-search
 alanning:roles
 houston:admin
-msavin:mongoinspector
 
 anti:fake
 mizzao:bootboxjs
@@ -26,3 +25,5 @@ u2622:persistent-session
 meteorhacks:kadira
 chrismbeckett:toastr
 dburles:spacebars-tohtml
+msavin:mongoinspector
+gfk:notifications

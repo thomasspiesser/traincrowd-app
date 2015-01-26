@@ -1,0 +1,22 @@
+<html>
+<head>
+  <title>Buchungsbestätigung</title>
+</head>
+<body>
+
+
+  <p>Hallo {{ name }},</p>
+  <p>Vielen Dank, dass Sie über Traincrowd den Kurs '{{course.title}}' gebucht haben.</p>
+  <p>Hier ist nochmal ein Übersicht für Sie:</p>
+	<h3 style="margin-top:0;">{{course.title}}</h3>
+    <p>{{course.description}}</p>
+    
+    <p><strong>Kursziele</strong> <br> {{course.aims}}</p>
+    <p><strong>Lernformen, Methodik und Didaktik</strong> <br> {{course.methods}}</p>
+    <p><strong>Zielgruppe</strong> <br> {{course.targetGroup}}</p>
+    <p><strong>Vorraussetzungen</strong> <br> {{course.prerequisites}}</p>
+    <p><strong>Sprachen</strong> <br> {{course.languages}}</p>
+    <p><strong>zusätzliche Leistungen</strong> <br> {{course.additionalServices}}</p>
+  <a href="{{ url }}">{{course.title}}</a>
+</body>
+</html>

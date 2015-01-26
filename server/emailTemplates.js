@@ -37,9 +37,9 @@ Meteor.methods({
 
     var course = Courses.findOne({_id: options.course}, {fields: {title: 1}});
     if (!course)
-        throw new Meteor.Error("Can't find course: "+options.course);
+      throw new Meteor.Error("Can't find course: "+options.course);
     if (!course.title)
-        throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
+      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
     var url = Meteor.absoluteUrl('user-courses');
     _.each(options.participants, function(participant) {
       var user = Meteor.users.findOne( participant );
@@ -66,10 +66,49 @@ Meteor.methods({
       var subject = "Bewerten Sie den Kurs: '" + course.title +"'";
       var html = Spacebars.toHTML(dataContext, Assets.getText('rateCourseEmail.html'));
 
-      options = _.extend({ to: email, subject: subject, html: html }, options);
+      var options = { 
+        to: email, 
+        subject: subject, 
+        html: html 
+      }
       
       Meteor.call('sendEmail', options);
     })
+  },
+  sendBookingConfirmationEmail: function (options) {
+    check(options, {
+      currentId: String,
+      userId: String
+    });
+    var user = Meteor.users.findOne( options.userId );
+    var name = displayName(user);
+    if (user.emails && user.emails[0])
+      var email = user.emails[0].address;
+    else
+      throw new Meteor.Error("Don't have an Email for user: "+participant);
+
+    var current = Current.findOne( {_id: options.currentId}, {fields: { course: 1 } } );
+    var course = Courses.findOne( {_id: current.course} ); // specify fields to return or omit
+    if (!course)
+      throw new Meteor.Error("Can't find course: "+current.course);
+    if (!course.title)
+      throw new Meteor.Error("Course: " + current.course + " doesn't have a title.");
+    var url = Meteor.absoluteUrl('course/'+current.course);
+    var dataContext = {
+      name: name,
+      course: course,
+      url: url
+    }
+
+    var subject = "Buchungsbestätigung: '" + course.title +"'";
+    var html = Spacebars.toHTML(dataContext, Assets.getText('bookingConfirmationEmail.html'));
+    var options = { 
+        to: email, 
+        subject: subject, 
+        html: html 
+      }
+    
+    Meteor.call('sendEmail', options);
   },
   sendTestEmail: function (options) {
     check(options, {
