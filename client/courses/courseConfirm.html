@@ -1,0 +1,73 @@
+<template name="courseConfirm">
+  <div class="container notHome">
+    <div class="row">
+      
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="well all-courses-wrapper">
+            <h2>Event Bestätigen</h2>
+            <h4>Kurs '{{course.title}}' findet statt am {{current.courseDate}}.</h4>
+            {{> courseConfirmForm}}
+          </div>
+        </div>
+    </div>
+  </div>
+</template>
+
+<template name="courseConfirmForm">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="confirmCourseNameResponsible" class="control-label">Ansprechperson Name</label>
+        <input type="text" class="form-control" id="confirmCourseNameResponsible" value="{{ownerName course.owner}}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="confirmCourseEmailResponsible" class="control-label">Email</label>
+        <input type="text" class="form-control" id="confirmCourseEmailResponsible" value="{{email course.owner}}">
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="confirmCourseStreet" class="control-label">Strasse</label>
+        <input type="text" class="form-control" id="confirmCourseStreet" value="{{course.street}}">
+      </div>
+      <div class="form-group">
+        <label for="confirmCourseStreetAdditional" class="control-label">Adresszusatz</label>
+        <input type="text" class="form-control" id="confirmCourseStreetAdditional" value="{{course.streetAdditional}}">
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="confirmCoursePLZ" class="control-label">PLZ</label>
+            <input type="number" class="form-control" id="confirmCoursePLZ" value="{{course.plz}}">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="confirmCourseCity" class="control-label">Stadt</label>
+            <select class="form-control">
+              <option value="Berlin">Berlin</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="confirmCoursePersonalMessage" class="control-label">Persönliche Nachricht and die Teilnehmer</label>
+        <textarea class="form-control" id="confirmCoursePersonalMessage" rows="8"></textarea>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="form-group" style="margin-bottom:5%;">
+    <button type="button" class="btn btn-primary pull-right" id="saveConfirmCourse"><i class="glyphicon glyphicon-ok-sign"></i> Bestätigen</button>
+  </div>
+</template>

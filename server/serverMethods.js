@@ -41,6 +41,22 @@ Meteor.methods({
   deleteCurrent: function (id) {
     Current.remove({_id: id});
   }, 
+  confirmCurrent: function (token) {
+    check(token, NonEmptyString);
+
+    if (! this.userId)
+      throw new Meteor.Error(403, "Du musst eingelogged sein!");
+
+    var current = Current.findOne({token: token}, {fields: {owner:1}});
+
+    if (!current || !current.owner) 
+      throw new Meteor.Error(407, "Event oder Trainer nicht gefunden.");
+
+    if (this.userId !== current.owner)
+      throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
+
+    Current.update( { token: token }, { $set: {confirmed: true, token: ""} } )
+  },
   updateRoles: function () {
     if (! this.userId)
       throw new Meteor.Error(403, "Du musst eingelogged sein!");

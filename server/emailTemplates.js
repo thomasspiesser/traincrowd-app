@@ -44,19 +44,19 @@ Meteor.methods({
     _.each(options.participants, function(participant) {
       var user = Meteor.users.findOne( participant );
       if (!user) {
-        // throw new Meteor.Error("Can't find user");
+        // don't throw new Meteor.Error("Can't find user");
         // still wanna email the others
         console.log("Can't find user: "+participant)
         return; // jump out of current iteration, keeps looping
       }
-      var name = displayName(user);
       if (user.emails && user.emails[0])
         var email = user.emails[0].address;
       else {
-        // throw new Meteor.Error("Don't have an Email for user: "+participant);
+        // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
         console.log("Don't have an Email for user: "+participant)
-        return; // jump out of current iteration, keeps looping
+        return;
       }
+      var name = displayName(user);
 
       var dataContext = {
         name: name,
@@ -77,23 +77,22 @@ Meteor.methods({
   },
   sendBookingConfirmationEmail: function (options) {
     check(options, {
-      currentId: String,
+      course: String,
       userId: String
     });
     var user = Meteor.users.findOne( options.userId );
-    var name = displayName(user);
     if (user.emails && user.emails[0])
       var email = user.emails[0].address;
     else
       throw new Meteor.Error("Don't have an Email for user: "+participant);
+    var name = displayName(user);
 
-    var current = Current.findOne( {_id: options.currentId}, {fields: { course: 1 } } );
-    var course = Courses.findOne( {_id: current.course} ); // specify fields to return or omit
+    var course = Courses.findOne( {_id: options.course} ); // specify fields to return or omit
     if (!course)
-      throw new Meteor.Error("Can't find course: "+current.course);
+      throw new Meteor.Error("Can't find course: "+options.course);
     if (!course.title)
-      throw new Meteor.Error("Course: " + current.course + " doesn't have a title.");
-    var url = Meteor.absoluteUrl('course/'+current.course);
+      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
+    var url = Meteor.absoluteUrl('course/'+options.course);
     var dataContext = {
       name: name,
       course: course,
@@ -109,6 +108,120 @@ Meteor.methods({
       }
     
     Meteor.call('sendEmail', options);
+  },
+  sendCourseFullTrainerEmail: function (options) {
+    check(options, {
+      currentId: String,
+      course: String,
+      token: String
+    });
+
+    var course = Courses.findOne( {_id: options.course} ); // specify fields to return or omit
+    if (!course)
+      throw new Meteor.Error("Can't find course: "+options.course);
+    if (!course.title)
+      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
+    if (!course.owner)
+      throw new Meteor.Error("Course: " + options.course + " doesn't have an owner.");
+    
+    var owner = Meteor.users.findOne( course.owner );
+    if (owner.emails && owner.emails[0])
+      var email = owner.emails[0].address;
+    else
+      throw new Meteor.Error("Don't have an Email for course.owner: "+owner);
+    var name = displayName(owner);
+
+    var current = Current.findOne({_id: options.currentId}, { fields: { courseDate:1 } });
+    if (!current)
+      throw new Meteor.Error("Can't find current: "+options.currentId);
+    if (!current.courseDate)
+      throw new Meteor.Error("Current: " + options.currentId + " doesn't have a courseDate.");
+
+    var url = Meteor.absoluteUrl('course/'+options.course+'/confirm-event/'+options.token);
+    var dataContext = {
+      name: name,
+      course: course,
+      courseDate: current.courseDate,
+      url: url
+    }
+
+    var subject = "Event Bestätigung: '" + course.title +"'";
+    var html = Spacebars.toHTML(dataContext, Assets.getText('courseFullTrainerEmail.html'));
+    var options = { 
+        to: email, 
+        subject: subject, 
+        html: html 
+      }
+    
+    Meteor.call('sendEmail', options);
+  },
+  sendCourseFullParticipantsEmail: function (options) {
+    check(options, {
+      currentId: String,
+      course: String,
+      trainerEmail: String,
+      trainerName: String,
+      street: String,
+      streetAdditional: String,
+      plz: String,
+      personalMessage: String
+    });
+
+    var course = Courses.findOne( {_id: options.course} ); // specify fields to return or omit
+    if (!course)
+      throw new Meteor.Error("Can't find course: "+options.course);
+    if (!course.title)
+      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
+    
+    var current = Current.findOne({_id: options.currentId}, { fields: { courseDate:1, participants:1 } });
+    if (!current)
+      throw new Meteor.Error("Can't find current: "+options.currentId);
+    if (!current.courseDate)
+      throw new Meteor.Error("Current: " + options.currentId + " doesn't have a courseDate.");
+    if (!current.participants)
+      throw new Meteor.Error("Current: " + options.currentId + " doesn't have participant.");
+
+    var dataContext = {
+      course: course,
+      courseDate: current.courseDate,
+      trainerEmail: options.trainerEmail,
+      trainerName: options.trainerName,
+      street: options.street,
+      streetAdditional: options.streetAdditional,
+      plz: options.plz,
+      personalMessage: options.personalMessage
+    }
+
+    _.each(current.participants, function(participant) {
+      var user = Meteor.users.findOne( participant );
+      if (!user) {
+        // don't throw new Meteor.Error("Can't find user");
+        // still wanna email the others
+        console.log("Can't find user: "+participant)
+        return; // jump out of current iteration, keeps looping
+      }
+      if (user.emails && user.emails[0])
+        var email = user.emails[0].address;
+      else {
+        // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
+        console.log("Don't have an Email for user: "+participant)
+        return;
+      }
+      var name = displayName(user);
+
+      dataContext.name = name
+
+      var subject = "Event Bestätigung: '" + course.title +"'";
+      var html = Spacebars.toHTML(dataContext, Assets.getText('courseFullParticipantsEmail.html'));
+
+      var options = { 
+        to: email, 
+        subject: subject, 
+        html: html 
+      }
+      
+      Meteor.call('sendEmail', options);
+    })
   },
   sendTestEmail: function (options) {
     check(options, {

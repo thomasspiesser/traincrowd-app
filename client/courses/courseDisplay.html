@@ -138,23 +138,23 @@
           
           <hr>
           
-          Kurs Buchen:
+          Event auswählen:
           <div class="list-group">
 
             {{#each getCurrent}}
-              <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" class="joinCourseButton list-group-item {{#if participants}} list-group-item-success {{/if}}">
+              <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" class="joinCourseButton list-group-item list-group-item-success ">
               <div class="row">
                 <div class="col-xs-4">
                   {{courseDate}}
                 </div>
                 <div class="col-xs-8">
-                  {{#if participants}}
+                  <!-- {{#if participants}} -->
                     <div class="progress" style="margin-bottom: 0;">
                       <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{percentFull ..}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFull ..}}%">
                         {{percentFull ..}} %
                       </div>
                     </div>
-                  {{/if}}
+                  <!-- {{/if}} -->
                 </div>
               </div>
               </a>
