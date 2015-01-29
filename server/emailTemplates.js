@@ -30,6 +30,7 @@ Meteor.startup(function() {
 
 Meteor.methods({
   sendRateCourseEmail: function (options) {
+    this.unblock();
     check(options, {
       course: String,
       participants: [String]
@@ -71,11 +72,11 @@ Meteor.methods({
         subject: subject, 
         html: html 
       }
-      
-      Meteor.call('sendEmail', options);
+      sendEmail(options);
     })
   },
   sendBookingConfirmationEmail: function (options) {
+    this.unblock();
     check(options, {
       course: String,
       userId: String
@@ -107,9 +108,10 @@ Meteor.methods({
         html: html 
       }
     
-    Meteor.call('sendEmail', options);
+    sendEmail(options);
   },
   sendCourseFullTrainerEmail: function (options) {
+    this.unblock();
     check(options, {
       currentId: String,
       course: String,
@@ -153,9 +155,10 @@ Meteor.methods({
         html: html 
       }
     
-    Meteor.call('sendEmail', options);
+    sendEmail(options);
   },
   sendCourseFullParticipantsEmail: function (options) {
+    this.unblock();
     check(options, {
       currentId: String,
       course: String,
@@ -220,10 +223,11 @@ Meteor.methods({
         html: html 
       }
       
-      Meteor.call('sendEmail', options);
+      sendEmail(options);
     })
   },
   sendTestEmail: function (options) {
+    this.unblock();
     check(options, {
       to: String
     });
@@ -238,15 +242,12 @@ Meteor.methods({
     var html = Spacebars.toHTML({ name: name }, Assets.getText('exampleHtmlEmail.html'));
     options = _.extend({ subject: subject, html: html }, options);
     
-    Meteor.call('sendEmail', options);
-  },
-  sendEmail: function (options) {
-    // checks are done in higher-level-functions
+    sendEmail(options);
+  }
+})
 
-    // TODO: assure server-side-calling only!!!!!
-
-    this.unblock();
-
+var sendEmail = function (options) {
+    // can only be called in this file! 
     Email.send({
       to: options.to,
       from: 'info@traincrowd.de',
@@ -254,4 +255,3 @@ Meteor.methods({
       html: options.html
     });
   }
-})

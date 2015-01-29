@@ -54,11 +54,11 @@ Template.userCourses.helpers({
     var myRating = _.find(elapsed.ratings, function (item) { return item.participant === Meteor.userId(); });
     if (myRating) {
       Session.set(id, myRating.rating);
-      return true
+      return true;
     }
     else {
-      Session.set(id, 0);
-      return false
+      Session.set(id, [0,0,0,0,0]);
+      return false;
     }
   }
 });
@@ -66,7 +66,12 @@ Template.userCourses.helpers({
 Template.userCourses.events({
   'click .rateCourse': function () {
     Session.set("rateId", this._id);
-    $('.rateitModal').rateit('value', Session.get(this._id));
+    var ratedValues = Session.get(this._id); // [1,2,3,4,5]
+    $('.rateitModal0').rateit('value', ratedValues[0]);
+    $('.rateitModal1').rateit('value', ratedValues[1]);
+    $('.rateitModal2').rateit('value', ratedValues[2]);
+    $('.rateitModal3').rateit('value', ratedValues[3]);
+    $('.rateitModal4').rateit('value', ratedValues[4]);
     $('#ratingModal').modal('show');
   }
 });
@@ -77,10 +82,15 @@ Template.ratingModal.rendered = function () {
 
 Template.ratingModal.events({
   'click #saveRating': function (event, template) {
-    var ratedValue = template.find('#backing').value;
-    ratedValue = parseFloat(ratedValue);
+    var ratedValue0 = parseFloat(template.find('#backing0').value);
+    var ratedValue1 = parseFloat(template.find('#backing1').value);
+    var ratedValue2 = parseFloat(template.find('#backing2').value);
+    var ratedValue3 = parseFloat(template.find('#backing3').value);
+    var ratedValue4 = parseFloat(template.find('#backing4').value);
+    ratedValues = [ratedValue0, ratedValue1, ratedValue2, ratedValue3, ratedValue4];
+
     modifier = {_id: Session.get("rateId"),
-                ratedValue: ratedValue }
+                ratedValues: ratedValues }
     Meteor.call('rateCourse', modifier, function (error, result) {
       if (error)
         toastr.error( error.reason );
