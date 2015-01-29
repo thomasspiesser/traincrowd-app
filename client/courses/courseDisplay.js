@@ -37,8 +37,11 @@ Template.courseDetail.helpers({
     return (this.fee / parseInt(this.minParticipants)).toFixed(2);
   }, 
   percentFull: function (course) {
-    // data context is current
-    return (this.participants.length / course.minParticipants ).toFixed(1) * 100;
+    // data context is current, which is why function get par: course
+    return (this.participants.length / course.maxParticipants ).toFixed(1) * 100;
+  },
+  bookedOut: function (course) {
+    return this.participants.length === course.maxParticipants;
   }
 });
 

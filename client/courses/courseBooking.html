@@ -38,17 +38,12 @@
         <h4 class="modal-title" id="myModalLabel">Simulation Bezahlung</h4>
       </div>
       <div class="modal-body">
+        
+        {{#if bookedOut}}
+          <h4>Dieses Event ist leider schon ausgebucht.</h4>
+        {{else}}
         <h4>Kurs Buchen</h4>
         <p>{{currentDate}}</p>
-        
-        {{#unless currentUser}}
-          <h4>Please, sign in/up to book courses on <i>traincroud</i></h4>
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-              <!-- {{> login}} -->
-            </div>
-          </div>
-        {{else}}
         <h4>External service communication here</h4>
 
           {{#if message}}
@@ -77,7 +72,7 @@
             </div>
           </div>
         </form>
-        {{/unless}}
+        {{/if}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" id="modalCloseButton" data-dismiss="modal">Close</button>

@@ -48,7 +48,6 @@ Template.paymentModal.events({
     // data context is still course: access using 'this.'
     var currentId = Session.get("currentId");
 
-    var courseId = this._id;
     Session.set("bookingMessage",
                   "Simulation der Bezahlfunktion, warten auf den Callback des Bezahlanbieters!");
     var clock = 5;
@@ -79,8 +78,15 @@ Template.paymentModal.events({
 });
 
 Template.paymentModal.helpers({
+  bookedOut: function () {
+    var current = Current.findOne({_id: Session.get('currentId')}, {fields: {participants:1}});
+    if (current && current.participants) {
+      return current.participants.length === this.maxParticipants;
+    }
+    return false;
+  },
   countdown: function () {
-    return "wait for it: "+Session.get('time');
+    return "bitte warten: "+Session.get('time');
   },
   message: function () {
     return Session.get("bookingMessage");
