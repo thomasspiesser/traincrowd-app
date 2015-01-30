@@ -19,10 +19,11 @@ percolate:synced-cron
 natestrauser:select2
 zimme:select2-bootstrap3-css
 email
-twbs:bootstrap
 useraccounts:bootstrap
 u2622:persistent-session
 meteorhacks:kadira
 chrismbeckett:toastr
 dburles:spacebars-tohtml
 msavin:mongoinspector
+fortawesome:fontawesome
+twbs:bootstrap-noglyph

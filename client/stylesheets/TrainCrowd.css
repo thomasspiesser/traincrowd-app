@@ -1,12 +1,27 @@
+/*@import url("//fonts.googleapis.com/css?family=Roboto:300,400,500");*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600);
+/*@import url(http://fonts.googleapis.com/css?family=Khula);*/
 /* CSS declarations go here */
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
+  /*font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.82857143;
+  /*font-family: 'Khula', sans-serif;*/
   height: 100%;
   padding-bottom: 40px;
   color: #5a5a5a;
+  padding-top: 70px;
 }
 
 footer {
@@ -15,10 +30,6 @@ footer {
 
 .pfooter {
   margin: 20px 0;
-}
-
-.notHome {
-  padding-top: 100px;
 }
 
 .all-courses-wrapper {
@@ -51,7 +62,7 @@ footer {
 position: relative;
 }
 
-/* custom inclusion of right, left and below tabs */
+/* custom inclusion of left tabs */
 
 .tabs-left > .nav-tabs {
   border-bottom: 0;
@@ -167,25 +178,22 @@ position: relative;
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 
-/* Special class on .container surrounding .navbar, used for positioning it into place. */
-.navbar-wrapper {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 20;
-}
-
 /* Flip around the padding for proper display in narrow viewports */
-.navbar-wrapper > .container {
+/*.navbar-wrapper > .container {
   padding-right: 0;
   padding-left: 0;
 }
 .navbar-wrapper .navbar {
   padding-right: 15px;
   padding-left: 15px;
+}*/
+
+.navbar-default {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-color: #eeeeee;
 }
-.navbar-wrapper .navbar .container {
+
+.navbar .container {
   width: auto;
 }
 
