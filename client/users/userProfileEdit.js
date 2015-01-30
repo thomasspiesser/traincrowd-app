@@ -172,13 +172,14 @@ Template.editProfileQualification.events({
   'click #saveEditProfileQualification': function (event, template) {
     var languages = template.find("#editProfileLanguages").value;
     var certificates = template.find("#editProfileCertificates").value;
-    var experienceGeneral = template.find("#editProfileExperienceGeneral").value;
-    var experienceTrainer = template.find("#editProfileExperienceTrainer").value;
+    // var experienceGeneral = template.find("#editProfileExperienceGeneral").value;
+    // var experienceTrainer = template.find("#editProfileExperienceTrainer").value;
 
     var modifier = {'profile.languages': languages,
-                    'profile.certificates': certificates,
-                    'profile.experienceGeneral': experienceGeneral,
-                    'profile.experienceTrainer': experienceTrainer }
+                    // 'profile.experienceGeneral': experienceGeneral,
+                    // 'profile.experienceTrainer': experienceTrainer, 
+                    'profile.certificates': certificates
+                  }
 
     saveUpdates(modifier);
   },

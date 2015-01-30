@@ -373,7 +373,7 @@ Template.editCourseLogistics.helpers({
     if (typeof this.noLocation !== 'undefined')
       Session.setDefault("noLocation", this.noLocation);
     else
-      Session.setDefault("noLocation", true);
+      Session.setDefault("noLocation", false);
     return Session.get("noLocation");
   }
 });
