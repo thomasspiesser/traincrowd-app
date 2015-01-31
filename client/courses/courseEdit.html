@@ -5,14 +5,14 @@
     <div class="row">
       <div class="col-sm-8">
         <ol class="breadcrumb" style="background-color: #fff;">
-          <li><a href="{{pathFor 'userCourses'}}">Meine Kurse</a></li>
+          <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
           <li class="active">{{title}}</li>
         </ol>
       </div>
 
       <div class="col-sm-4">
-        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" id="previewCourseButton">Vorschau <i class="glyphicon glyphicon-arrow-right"></i></button>
-        <button type="button" class="btn btn-danger pull-right" style="margin-right: 15px;" id="deleteCourseButton"><i class="glyphicon glyphicon-remove-sign"></i> Kurs Löschen</button>
+        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" id="previewCourseButton">Vorschau <i class="fa fa-arrow-right"></i></button>
+        <button type="button" class="btn btn-danger pull-right" style="margin-right: 15px;" id="deleteCourseButton"><i class="fa fa-trash-o"></i> Kurs Löschen</button>
       </div>
     </div>
 
@@ -21,22 +21,22 @@
       <div class="tabbable tabs-left" >
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#courseDescription" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Beschreibung</a>
+            <a href="#courseDescription" data-toggle="tab"><span class="fa fa-list-alt fa-fw"></span>&nbsp; Beschreibung</a>
           </li>
           <li >
-            <a href="#courseDetails" data-toggle="tab"><span class="glyphicon glyphicon-eye-open"></span> Details</a>
+            <a href="#courseDetails" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp; Details</a>
           </li>
           <li>
-            <a href="#courseCosts" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Kosten</a>
+            <a href="#courseCosts" data-toggle="tab"><span class="fa fa-euro fa-fw"></span>&nbsp; Kosten</a>
           </li>
           <li>
-            <a href="#courseServices" data-toggle="tab"><span class="glyphicon glyphicon-random"></span> Leistungen</a>
+            <a href="#courseServices" data-toggle="tab"><span class="fa fa-random fa-fw"></span>&nbsp; Leistungen</a>
           </li>
           <li>
-            <a href="#courseDates" data-toggle="tab"><span class="glyphicon glyphicon-calendar"></span> Termine</a>
+            <a href="#courseDates" data-toggle="tab"><span class="fa fa-calendar fa-fw"></span>&nbsp; Termine</a>
           </li>
           <li>
-            <a href="#courseLogistics" data-toggle="tab"><span class="glyphicon glyphicon-road"></span> Logistik</a>
+            <a href="#courseLogistics" data-toggle="tab"><span class="fa fa-road fa-fw"></span>&nbsp; Logistik</a>
           </li>
         </ul>
       </div>
@@ -112,12 +112,12 @@
         <label for="newCourseImageDummy" class="control-label">Ändern</label>
         <br>
 
-        <button type="button" class="btn btn-sm btn-default" id="newCourseImageDummy"><i class="glyphicon glyphicon-upload"></i> Neues Bild</button>
+        <button type="button" class="btn btn-sm btn-default" id="newCourseImageDummy"><i class="fa fa-upload"></i> Neues Bild</button>
 
         <br>
         <input type="file" id="newCourseImageReal" style="display:none;">
 
-        <button type="button" class="btn btn-sm btn-danger" id="deleteCourseImage" style="margin-top:5px;"> <i class="glyphicon glyphicon-remove-sign"></i> Bild Löschen</button>
+        <button type="button" class="btn btn-sm btn-danger" id="deleteCourseImage" style="margin-top:5px;"> <i class="fa fa-trash-o"></i> Bild Löschen</button>
       </div>
     </div>
   </div>
@@ -125,7 +125,7 @@
 
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDescription"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDescription"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -154,7 +154,7 @@
   </div>
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDetails"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDetails"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -168,7 +168,7 @@
 
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseCosts"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseCosts"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -199,7 +199,7 @@
   </div>
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseServices"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseServices"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -211,7 +211,7 @@
     <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
     <label for="editCourseDates" class="control-label">Termine</label>
     <div class="input-group">
-      <input type="text" class="form-control hoverCheck" id="editCourseDates" placeholder="tt.mm.yyyy" value="{{dates}}"><div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+      <input type="text" class="form-control hoverCheck" id="editCourseDates" placeholder="tt.mm.yyyy" value="{{dates}}"><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
     </div>
   </div>
   <!-- <div class="checkbox"> -->
@@ -232,7 +232,7 @@
   </div>
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDates"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDates"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -273,6 +273,6 @@
   {{/unless}}
   <!-- button -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseLogistics"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseLogistics"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>

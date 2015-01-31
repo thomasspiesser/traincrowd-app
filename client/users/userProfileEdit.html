@@ -6,7 +6,7 @@
       <div class="col-sm-8"></div>
 
       <div class="col-sm-4">
-        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" id="showProfileButton">Profil Anzeigen <i class="glyphicon glyphicon-arrow-right"></i></button>
+        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" id="showProfileButton">Profil Anzeigen <i class="fa fa-arrow-right"></i></button>
       </div>
     </div>
     {{/if}}
@@ -16,25 +16,25 @@
       <div class="tabbable tabs-left" >
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#profileDescription" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Profil</a>
+            <a href="#profileDescription" data-toggle="tab"><span class="fa fa-list-alt fa-fw"></span>&nbsp; Profil</a>
           </li>
           <li >
-            <a href="#profileContact" data-toggle="tab"><span class="glyphicon glyphicon-eye-open"></span> Kontakt</a>
+            <a href="#profileContact" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp; Kontakt</a>
           </li>
           {{#if isInRole 'trainer'}}
             <li>
-              <a href="#profileQualification" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Qualifikationen</a>
+              <a href="#profileQualification" data-toggle="tab"><span class="fa fa-euro fa-fw"></span>&nbsp; Qualifikation</a>
             </li>
           {{else}}
             <li>
-              <a href="#profileOccupation" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Berufsfeld</a>
+              <a href="#profileOccupation" data-toggle="tab"><span class="fa fa-laptop fa-fw"></span>&nbsp; Berufsfeld</a>
             </li>
             <li>
-              <a href="#profileExpectation" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Erwartungen</a>
+              <a href="#profileExpectation" data-toggle="tab"><span class="fa fa-question-circle fa-fw"></span>&nbsp; Erwartung</a>
             </li>
           {{/if}}
           <li>
-            <a href="#profileAccount" data-toggle="tab"><span class="glyphicon glyphicon-euro"></span> Account</a>
+            <a href="#profileAccount" data-toggle="tab"><span class="fa fa-cogs fa-fw"></span>&nbsp; Account</a>
           </li>
         </ul>
       </div>
@@ -124,18 +124,18 @@
         <label for="newCourseImageDummy" class="control-label">Ändern</label>
         <br>
 
-        <button type="button" class="btn btn-sm btn-default" id="newProfileImageDummy"><i class="glyphicon glyphicon-upload"></i> Neues Bild</button>
+        <button type="button" class="btn btn-sm btn-default" id="newProfileImageDummy"><i class="fa fa-upload"></i> Neues Bild</button>
 
         <br>
         <input type="file" id="newProfileImageReal" style="display:none;">
 
-        <button type="button" class="btn btn-sm btn-danger" id="deleteProfileImage" style="margin-top:5px;"> <i class="glyphicon glyphicon-remove-sign"></i> Bild Löschen</button>
+        <button type="button" class="btn btn-sm btn-danger" id="deleteProfileImage" style="margin-top:5px;"> <i class="fa fa-trash-o"></i> Bild Löschen</button>
       </div>
     </div>
   </div>
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileDescription"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileDescription"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -208,7 +208,7 @@
 
   <!-- button -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileContact"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileContact"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -240,7 +240,7 @@
 
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileQualification"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileQualification"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -281,7 +281,7 @@
 
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileOccupation"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileOccupation"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -464,7 +464,7 @@
 
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileExpectation"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileExpectation"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>
 
@@ -502,10 +502,10 @@
 
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileAccount"><i class="glyphicon glyphicon-ok-sign"></i> Speichern</button>
+    <button type="button" class="btn btn-primary pull-right" id="saveEditProfileAccount"><i class="fa fa-save"></i> Speichern</button>
   </div>
 
   <hr style="margin-top:10%;">
 
-  <a href="#" class="text-danger" id="deleteAccount"> Mein Benutzerkonto Löschen</a>
+  <a href="#" class="text-danger" id="deleteAccount"> Mein Benutzerkonto Löschen </a>
 </template>

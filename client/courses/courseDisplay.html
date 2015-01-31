@@ -75,7 +75,7 @@
       </div>
       <div class="col-md-5" style="width:46%;">
         {{#if canEdit owner}}
-          <button type="submit" class="btn btn-primary btn-sm pull-right" id="editCourseButton">Bearbeiten <span class="glyphicon glyphicon-edit"></span></button>
+          <button type="submit" class="btn btn-primary btn-sm pull-right" id="editCourseButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
         {{/if}}
         <h3 style="margin-top:0;">{{title}}</h3>
         <p><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></p>
@@ -113,13 +113,13 @@
           <div class="row">
             <div class="col-xs-6">
               <span data-toggle="tooltip" title="Kursdauer">
-              <i class="glyphicon glyphicon-time" ></i>
+              <i class="fa fa-clock-o" ></i>
                 {{duration}} Tage
               </span>
             </div>
             <div class="col-xs-6">
               <span class="pull-right" data-toggle="tooltip" title="Anzahl Kursplätze">
-              <i class="glyphicon glyphicon-user" ></i>
+              <i class="fa fa-user" ></i>
               {{minParticipants}}-{{maxParticipants}} Plätze
               </span>
             </div>
@@ -130,7 +130,7 @@
           <div class="row">
             <div class="col-xs-12">
               <span data-toggle="tooltip" title="Kurspreis pro Person">
-              <i class="glyphicon glyphicon-euro" ></i>
+              <i class="fa fa-euro" ></i>
               {{feePP}} pP
               </span>
             </div>
@@ -167,6 +167,8 @@
             {{/each}}
 
           </div>
+
+          <button type="button" class="btn btn-default btn-block" id="bookCourseButton"> Jetzt Buchen</button>
 
         </div>
 

@@ -45,6 +45,11 @@ color: #ffffff;
 text-decoration: none;
 }
 
+.main-chevron {
+    position:absolute;
+    top:40%;
+}
+
 .all-courses-wrapper {
   /*margin-bottom: 10px;*/
   /*background-color: #f5f5f5;*/
@@ -73,7 +78,7 @@ text-decoration: none;
 
 .affix{
   /*position: static;*/
-  width: 15%;
+  width: 20%;
   margin-left:15px; 
   padding: 10px;
   box-shadow: 0px 0px 10px #888;
