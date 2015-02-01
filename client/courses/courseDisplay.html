@@ -3,10 +3,7 @@
     <div class="row">
         {{#each courses}}
         <div class="col-lg-8 col-lg-offset-2">
-          <div class="well all-courses-wrapper">
             {{> coursePreview}}
-            <!-- <a href="{{ pathFor route='course.show' data=getPost }}">check me out!</a> -->
-          </div>
         </div>
         {{/each}}
     </div>
@@ -16,21 +13,36 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="coursePreview">
-  <div class="row">
-    <div class="col-md-3">
-      <div id="image">
-        {{#if imageId}}
-          <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;"></a>
+  <div class="well all-courses-wrapper">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="course-preview-image">
+          {{#if imageId}}
+            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" alt="" class="img-responsive"></a>
           {{else}}
-          <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class="center-block img-thumbnail img-responsive" style="width: 220px;"></a>
+            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class="img-responsive"></a>
           {{/if}}
         </div>
-        <p><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></p>
       </div>
-    <div class="col-md-9">
-      <a href="{{ pathFor route='course.show' _id=this._id }}"><h4>{{title}}</h4></a>
-      <p>{{descriptionPreview}}</p>
-      <!-- <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName this.owner}}</a> -->
+      <div class="col-md-10">
+        <div class="course-preview-content">
+          <a href="{{ pathFor route='course.show' _id=this._id }}"><h4>{{titlePreview}}</h4></a>
+          <p class="course-description-preview">{{descriptionPreview}}</p>
+          <div class="row">
+            <div class="col-md-5">
+              <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName this.owner}}</a>
+            </div>
+            <div class="col-md-4">
+              <span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span>
+            </div>
+            <div class="col-md-3">
+              {{feePP}} <i class="fa fa-euro"></i> pro Person
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
     </div>
   </div>
 </template>

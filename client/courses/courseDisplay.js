@@ -5,12 +5,24 @@ Template.coursePreview.rendered = function () {
 };
 
 Template.coursePreview.helpers({
+  feePP: function () {
+    return (this.fee / this.maxParticipants).toFixed(2);
+  },
+  titlePreview: function () {
+    if (! this.title)
+      return false;
+    var titlePreview = this.title.replace("\n"," "); // remove linebreaks
+    if (titlePreview.length > 70)
+      return titlePreview.slice(0,70)+"...";
+    else
+      return titlePreview;
+  },
   descriptionPreview: function () {
     if (! this.description)
-      return false
+      return false;
     var descriptionPreview = this.description.replace("\n"," "); // remove linebreaks
-    if (descriptionPreview.length > 100)
-      return descriptionPreview.slice(0,100)+"...";
+    if (descriptionPreview.length > 150)
+      return descriptionPreview.slice(0,150)+"...";
     else
       return descriptionPreview;
   }
