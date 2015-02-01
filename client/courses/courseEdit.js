@@ -2,9 +2,10 @@
 
 var getText = function(id) {
   var text;
+  console.log(id)
   switch (id) {
     case 'editCourseTitle': 
-      text = Fake.paragraph(4);
+      text = "Beschreibt der Titel den Kursinhalt? Und klingt er zudem auch noch interessant? Potentielle Teilnehmer beurteilen anhand des Kurstitels ob ein Training relevant für sie ist.";
       return text;
       break;
     case 'editCourseShortDescription':
@@ -19,45 +20,52 @@ var getText = function(id) {
       text = Fake.paragraph(6);
       return text;
       break;
+    case 'editCourseCategories':
+      text = "Ihr Kurs wird auf im Kursüberblick in allen von Ihnen ausgewählten Kategorien angezeigt. Bitte wählen Sie nur Kategorien aus, die genau auf Ihren Kurs zutreffen. Es gibt für Leute die einen Kurs suchen nichts frustrierenderes als in der Kategorie 'Management' auf einen Kurs zu 'Content-Management von Datenbaken' zu stoßen...";
+      return text;
+      break;
     case 'editCourseAims': 
-      text = Fake.paragraph(4);
+      text = "Was ist eigentlich ein Ziel: ein in der Zukunft liegender, gegenüber dem Gegenwärtigen im Allgemeinen veränderter, erstrebenswerter und angestrebter Zustand (Zielvorgabe)... Lernziele sind also ein definierter und angestrebter Zustand den die Teilnehmer nach der Teilnahme an Ihrem Training erreichen sollen.";
       return text;
       break;
     case 'editCourseMethods':
-      text = Fake.paragraph(6);
+      text = "Helfen Sie potentiellen Teilnehmern anhand von Schlagworten einzuschätzen, ob sie die Methoden, Übungen, etc. mögen.";
       return text;
       break;
     case 'editCourseTargetGroup':
-      text = Fake.paragraph(6);
+      text = "Welche Berufsgruppen können besonders von ihrem Kurs profitieren?";
       return text;
       break;
     case 'editCoursePrerequisites':
-      text = Fake.paragraph(6);
+      text = "Soweit zutreffend geben Sie bitte in Schlagworten an, welche Voraussatzungen Teilnehmer für den Kurs mitbringen müssen.";
       return text;
       break;
     case 'editCourseLanguages': 
-      text = Fake.paragraph(4);
+      text = "Viele Teilnehmer sind an Weiterbildung auf Englisch, Spanisch und anderen Sprachen interessiert. Bitte geben Sie die Sprachen an, in denen Sie den Kurse anbieten. Trennen sie die Sprachen durch Kommata.";
       return text;
       break;
     case 'editCourseFee':
-      text = Fake.paragraph(6);
+      text = "Geben Sie hier an wie viel Geld Sie für den Kurs haben wollen. traincrowd schlägt auf diesen Preis eine Kommission von 15% auf. Aus dem Gesamtpreis und der Mindestanzahl der Teilnehmer ergibt sich der Preis pro Teilnehmer, der auf der Kursseite angezeigt wird.";
       return text;
       break;
     case 'editCourseMinParticipants':
+      text = "Vorsicht: Aus der Mindestteilnehmeranzahl berechnet sich der Preis pro Teilnehmer, der auf der Kursseite angezeigt wird. Je niedriger die Mindestteilnehmeranzahl ist, desto teurer wird der Kurs also für den einzelnen Teilnehmer.";
+      return text;
+      break;
     case 'editCourseMaxParticipants':
-      text = Fake.paragraph(6);
+      text = "Geben Sie bitte hier die maximale Anzahl von Teilnehmern für den Kurs an. Wenn mehr Teilnehmer als die Mindestteilnehmeranzahl ihren Kurs buchen erhalten Sie je Teilnehmer zusätzlich Einnahmen: und zwar den Kurspreis pro Teilnehmer abzüglich der traincrowd Kommission bis die Maximale Gruppengröße erreicht ist.";
       return text;
       break;
     case 'editCourseDuration':
-      text = Fake.paragraph(6);
+      text = "Bitte Runden Sie die Kursdauer auf halbe Tage auf oder ab.";
       return text;
       break;
     case 'editCourseAdditionalServices':
-      text = Fake.paragraph(6);
+      text = "Geben Sie hier bitte an ob Teilnehmer ein Zertifikat, etc. erhalten und welche weiteren Leistungen (wie Essen, Unterkunft, Snacks, etc.) in dem Kurspreis enthalten sind.";
       return text;
       break;
     case 'editCourseDates':
-      text = Fake.paragraph(6);
+      text = "Geben Sie bitte für jeden Kurstermin alle Kurstage an.";
       return text;
       break;
     case 'editCourseAllowInquiry':
@@ -65,7 +73,7 @@ var getText = function(id) {
       return text;
       break;
     case 'editCourseExpires':
-      text = Fake.paragraph(6);
+      text = "Geben Sie hier bitte an wie viele Wochen im Voraus Sie eine Bestätigung haben wollen, ob ein Kurs zu Ihrem Terminvorschlag verbindlich gebucht wird. Diese Angabe funktioniert wie eine Deadline: Bis X Wochen vor dem Kurstermin können Teilnehmer ihren Kurs buchen. Spätestens zu ihrer Deadline erhalten Sie eine Mail, die Sie darüber informiert ob genügend Teilnehmer (die Mindestteilnehmeranzahl) den Kurs gebucht haben. Wenn dies nicht der Fall ist verschwindet der Kurstermin von der Kursseite.";
       return text;
       break;
     default:

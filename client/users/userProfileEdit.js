@@ -1,42 +1,45 @@
 var getText = function(id) {
   var text;
   switch (id) {
-    case 'editProfileName': 
-      text = Fake.paragraph(4);
-      return text;
-      break;
+    // case 'editProfileName': 
+    //   text = Fake.paragraph(4);
+    //   return text;
+    //   break;
     case 'editProfileShortDescription':
       text = "Geht aus Ihrer Beschreibung klar hervor, was Ihr Alleinstellungsmerkmal gegenüber anderen Anbietern ist? Was macht Sie für Ihre Kunden interessant? Sind Sie eher Spezialist oder Generalist? So zutreffend, haben Sie spezielle Branchenerfahrung erwähnt?"
       return text;
       break;
-    case 'editProfileImage':
-      text = Fake.paragraph(6);
-      return text;
-      break;
-    case 'editProfileDefaultImage':
-      text = Fake.paragraph(6);
-      return text;
-      break;
+    // case 'editProfileImage':
+    //   text = Fake.paragraph(6);
+    //   return text;
+    //   break;
+    // case 'editProfileDefaultImage':
+    //   text = Fake.paragraph(6);
+    //   return text;
+    //   break;
     case 'editProfilePhone': 
+      text = "Bitte geben Sie Ihre Telefonnummer samt Städtevorwahl an. Wir geben ihre Telefonnummern natürlich nicht weiter.";
+      return text;
+      break;
     case 'editProfileStreet':
-    case 'editProfileMobile':
     case 'editProfileStreetAdditional':
+      text = "Wenn Sie möchten, dass Ihre Anschrift oder die ihrer Firma auf ihrem Profil angezeigt wird geben Sie bitte ihre Adressdaten ein. Wieso? Teilnehmer möchten evtl. nachschauen, wo Sie zu finden sind...";
+      return text;
+      break;
+    case 'editProfileMobile':
+      text = "Wir benötigen Ihre Handynummer, damit wir Sie erreichen können, wenn sich Teilnehmer wegen eines Ihrer Kurse an uns wenden - z.B. weil Sie die Räumlichkeiten nicht finden oder ähnliches. Wir geben ihre Telefonnummern natürlich nicht weiter.";
+      return text;
+      break;
     case 'editProfilePLZ':
     case 'editProfileCity':
-      text = Fake.paragraph(4);
+      text = "Teilnehmer suchen Weiterbildungen in ihrer Nähe. Damit Sie unsere Such-funktion Sie auch über örtliche Angaben findet geben Sie bitte ihre PLZ und Stadt ein. ";
       return text;
       break;
-
     case 'editProfileLanguages': 
-      text = Fake.paragraph(4);
+      text = "Viele Teilnehmer sind an Weiterbildung auf Englisch, Spanisch und anderen Sprachen interessiert. Bitte geben Sie die Sprachen an, in denen sie Ihre Kurse anbieten. Trennen sie die Sprachen durch Kommata.";
       return text;
       break;
     case 'editProfileCertificates':
-      text = Fake.paragraph(6);
-      return text;
-      break;
-    case 'editProfileExperienceGeneral':
-    case 'editProfileExperienceTrainer':
       text = Fake.paragraph(6);
       return text;
       break;
