@@ -2,7 +2,7 @@
 
 var getText = function(id) {
   var text;
-  console.log(id)
+  // console.log(id)
   switch (id) {
     case 'editCourseTitle': 
       text = "Beschreibt der Titel den Kursinhalt? Und klingt er zudem auch noch interessant? Potentielle Teilnehmer beurteilen anhand des Kurstitels ob ein Training relevant für sie ist.";
@@ -228,15 +228,29 @@ Template.editCourseDetails.events({
 
 //////////// editCourse COSTS template /////////
 
+Template.editCourseCosts.helpers({
+  feePP: function () {
+    if (this.fee)
+      Session.setDefault("courseFee", this.fee);
+    else
+      Session.setDefault("courseFee", 0);
+    return ( Session.get("courseFee") / this.maxParticipants ).toFixed(2);
+  },
+  serviceFee: function () {
+    return ( Session.get("courseFee") / 100 * 15 ).toFixed(2);
+  }
+});
+
 Template.editCourseCosts.events({
   'click #saveEditCourseCosts': function (event, template) {
     var fee = template.find("#editCourseFee").value;
 
     if (! fee.length) {
       toastr.error( "Sie müssen einen Preis angeben." );
-      return false
+      return false;
     }
-    var fee = parseFloat(fee).toFixed(2); // rounded to 2 digits
+    fee = parseFloat(fee.replace(',','.'))
+    fee = +fee.toFixed(2); // rounded to 2 digits returns number coz of +
     var modifier = {_id: this._id,
                 owner: this.owner,
                 fee: fee }
@@ -244,6 +258,9 @@ Template.editCourseCosts.events({
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'input #editCourseFee': function (event, template) {
+    Session.set("courseFee", event.currentTarget.value);
   }
 });
 
