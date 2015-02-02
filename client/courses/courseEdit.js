@@ -13,11 +13,8 @@ var getText = function(id) {
       return text;
       break;
     case 'editCourseImage':
-      text = Fake.paragraph(6);
-      return text;
-      break;
     case 'editCourseDefaultImage':
-      text = Fake.paragraph(6);
+      text = "Wenn vorhanden, können Sie hier ein Bild für Ihren Kurs hochladen. Wenn Sie kein Bild hochladen, wird automatisch Ihr Profilbild angezeigt.";
       return text;
       break;
     case 'editCourseCategories':

@@ -59,13 +59,13 @@ text-decoration: none;
   /*border-top: 5px solid #505b65;*/
   /*border-bottom: 5px solid #505b65;*/
   padding: 0px;
-  height: 120px;
+  height: 150px;
   box-shadow: 0px 0px 10px #888;
 }
 
 .course-preview-image {
-  height: 120px;
-  width: 120px;
+  height: 150px;
+  width: 150px;
   overflow: hidden;
 }
 .course-preview-image img {

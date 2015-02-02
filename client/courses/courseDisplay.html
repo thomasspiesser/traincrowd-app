@@ -1,8 +1,8 @@
 <template name="courses">
-  <div class="container notHome">
-    <div class="row">
+  <div class="container notHome" >
+    <div class="row" style="background-image: url('/tafel.jpg');" >
         {{#each courses}}
-        <div class="col-lg-8 col-lg-offset-2">
+        <div class="col-lg-6 col-lg-offset-3">
             {{> coursePreview}}
         </div>
         {{/each}}
@@ -15,7 +15,7 @@
 <template name="coursePreview">
   <div class="well all-courses-wrapper">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="course-preview-image">
           {{#if imageId}}
             <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" alt="" class="img-responsive"></a>
@@ -24,7 +24,7 @@
           {{/if}}
         </div>
       </div>
-      <div class="col-md-10">
+      <div class="col-md-9">
         <div class="course-preview-content">
           <a href="{{ pathFor route='course.show' _id=this._id }}"><h4>{{titlePreview}}</h4></a>
           <p class="course-description-preview">{{descriptionPreview}}</p>
