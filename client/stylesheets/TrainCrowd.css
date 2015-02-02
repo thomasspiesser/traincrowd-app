@@ -139,7 +139,14 @@ text-decoration: none;
   padding-top: 15px;
 }
 
-/*************** Course Preview ***************/
+/*************** Profile ***************/
+
+.profile-left img {
+  width: 60%;
+  margin-top: 26px;
+}
+
+/***************  ***************/
 
 .editHelperText {
   width: 100%;
@@ -163,9 +170,8 @@ text-decoration: none;
   box-shadow: 0px 0px 8px #888;
 }
 
-.pre {
-  white-space: pre;
-  word-wrap: break-word; 
+.contain-format {
+  white-space: pre-wrap;
 }
 
 /* custom inclusion of left tabs */

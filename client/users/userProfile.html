@@ -1,65 +1,38 @@
 <template name="userProfile">
-  <div class="container notHome">
+  <div class="container">
     <div class="row">
-      <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
-        {{#if canEdit}}
-        <button type="button" class="btn btn-sm pull-right" id="editUserProfileButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
+
+      <div class="col-md-5 profile-left">
+        {{#if profile.imageId}}
+          <img src="{{image profile.imageId}}" alt="" class="center-block img-circle img-responsive">
+        {{else}}
+          <img src="/dummyUser.jpg" alt="" class="center-block img-circle img-responsive">
         {{/if}}
-        <div class="well panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-xs-12 col-sm-4 text-center">
-                {{#if profile.imageId}}
-                <img src="{{image profile.imageId}}" alt="" class="center-block img-circle img-thumbnail img-responsive">
-                {{else}}
-                <img src="/dummyUser.jpg" alt="" class="center-block img-circle img-thumbnail img-responsive">
-                {{/if}}
-                {{#if isTrainerProfile}}
-                <span class="rateit" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span>
-                {{/if}}
-              </div>
-              <div class="col-xs-12 col-sm-8">
-                <h2>{{profile.name}}</h2>
-                <p><strong>About: </strong> {{profile.about}} </p>
-                <p><strong>Phone: </strong> {{profile.phone}} </p>
-                <p><strong>Skills: </strong>
-                  {{#each profile.skills}}
-                  <span class="label label-info tags">{{this}}</span> 
-                  {{/each}}
-                </p>
-              </div>                  
-              <div class="clearfix"></div>
-              <hr>
-              <div class="col-xs-12">
-                <p><strong> Description: </strong></p>
-                <p class="text-justify">{{profile.description}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-    {{#if isTrainerProfile}}
-      {{#if hostedCourses.count}}
-        <h3>Angebotene Kurse</h3>
-        <table class='table table-striped'>
-          <tbody>
+
+      <div class="col-md-7">
+        {{#if canEdit}}
+          <button type="button" class="btn btn-sm pull-right" id="editUserProfileButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
+        {{/if}}
+        <h2>{{profile.title}} {{profile.name}}</h2>
+        <p><div class="contain-format">{{profile.description}}</div></p>
+        <p><strong>Bewertung:</strong> <br> <span class="rateit" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></p>
+        <p>
+        {{#if hostedCourses.count}}
+          <strong>Meine Kurse:</strong>
+          <ul>
             {{#each hostedCourses}}
-              <tr>
-                <td>
-                  {{#if imageId}}
-                  <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
-                  {{else}}
-                  <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
-                  {{/if}}
-                </td>
-                <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
-                <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
-              </tr>
+              <li>
+                <a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a>
+              </li>
             {{/each}}
-          </tbody>
-        </table>
-      {{/if}}
-    {{/if}}
+          </ul>
+        {{/if}}
+        </p>
+        <p><strong>Sprachen:</strong> <br> {{profile.languages}}</p>
+        <p><strong>Zertifikate:</strong> <br> {{profile.certificates}}</p>
+      </div>
+
+    </div>
   </div>
 </template>
