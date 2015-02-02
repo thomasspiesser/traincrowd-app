@@ -18,6 +18,7 @@
 <template name="coursePreview">
   <div class="all-courses-wrapper">
     <div class="row">
+
       <div class="col-md-3">
         <div class="course-preview-image">
           {{#if imageId}}
@@ -33,6 +34,7 @@
           {{/if}}
         </div>
       </div>
+
       <div class="col-md-9">
         <div class="course-preview-content">
           <a href="{{ pathFor route='course.show' _id=this._id }}"><h4 class="course-title-preview">{{titlePreview}}</h4></a>
@@ -48,10 +50,9 @@
               {{feePP}} <i class="fa fa-euro"></i> pro Person
             </div>
           </div>
-
-          
         </div>
       </div>
+      
     </div>
   </div>
 </template>
