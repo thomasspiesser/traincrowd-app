@@ -5,6 +5,12 @@ Template.coursePreview.rendered = function () {
 };
 
 Template.coursePreview.helpers({
+  trainerImageId: function (id) {
+    var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );
+    if (trainer.profile && trainer.profile.imageId)
+      return trainer.profile.imageId;
+    return false;
+  },
   feePP: function () {
     return (this.fee / this.maxParticipants).toFixed(2);
   },
@@ -12,8 +18,9 @@ Template.coursePreview.helpers({
     if (! this.title)
       return false;
     var titlePreview = this.title.replace("\n"," "); // remove linebreaks
-    if (titlePreview.length > 70)
-      return titlePreview.slice(0,70)+"...";
+    var breaker = 85;
+    if (titlePreview.length > breaker)
+      return titlePreview.slice(0,breaker)+"...";
     else
       return titlePreview;
   },
@@ -21,8 +28,9 @@ Template.coursePreview.helpers({
     if (! this.description)
       return false;
     var descriptionPreview = this.description.replace("\n"," "); // remove linebreaks
-    if (descriptionPreview.length > 150)
-      return descriptionPreview.slice(0,150)+"...";
+    var breaker = 100;
+    if (descriptionPreview.length > breaker)
+      return descriptionPreview.slice(0,breaker)+"...";
     else
       return descriptionPreview;
   }

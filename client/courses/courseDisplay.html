@@ -1,6 +1,9 @@
 <template name="courses">
-  <div class="container notHome" >
-    <div class="row" style="background-image: url('/tafel.jpg');" >
+<div class="all-courses-background">
+  <img src="/tafel.jpg" alt="">
+</div>
+  <div class="container" >
+    <div class="row">
         {{#each courses}}
         <div class="col-lg-6 col-lg-offset-3">
             {{> coursePreview}}
@@ -13,29 +16,35 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="coursePreview">
-  <div class="well all-courses-wrapper">
+  <div class="all-courses-wrapper">
     <div class="row">
       <div class="col-md-3">
         <div class="course-preview-image">
           {{#if imageId}}
-            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" alt="" class="img-responsive"></a>
+            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" class="img-responsive"></a>
           {{else}}
-            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class="img-responsive"></a>
+            {{#if trainerImageId owner}}
+              {{#with trainerImageId owner}}
+                <a href="{{ pathFor route='course.show' _id=../_id }}"><img src="{{image this}}" alt="" class="img-responsive"></a>
+              {{/with}}
+            {{else}}
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" class="img-responsive"></a>
+            {{/if}}
           {{/if}}
         </div>
       </div>
       <div class="col-md-9">
         <div class="course-preview-content">
-          <a href="{{ pathFor route='course.show' _id=this._id }}"><h4>{{titlePreview}}</h4></a>
+          <a href="{{ pathFor route='course.show' _id=this._id }}"><h4 class="course-title-preview">{{titlePreview}}</h4></a>
           <p class="course-description-preview">{{descriptionPreview}}</p>
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
               <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName this.owner}}</a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5 course-fee-preview">
               {{feePP}} <i class="fa fa-euro"></i> pro Person
             </div>
           </div>
@@ -57,7 +66,7 @@
       <div class="col-md-2 course-detail-head">
         <div class="course-detail-head-image-wrapper">
         {{#if imageId}}
-          <img src="{{image imageId}}" alt="" class="img-responsive">
+          <img src="{{image imageId}}" alt="{{title}}" class="img-responsive">
         {{else}}
           {{#if trainerImageId owner}}
             {{#with trainerImageId owner}}
