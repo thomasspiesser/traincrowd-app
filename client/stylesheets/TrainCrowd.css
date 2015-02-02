@@ -85,6 +85,10 @@ text-decoration: none;
   width: 100%;
 }
 
+.course-preview-content {
+  padding-left: 10px;
+}
+
 .course-title-preview {
   height: 40px;
 }

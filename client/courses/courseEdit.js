@@ -17,7 +17,7 @@ var getText = function(id) {
       text = "Wenn vorhanden, können Sie hier ein Bild für Ihren Kurs hochladen. Wenn Sie kein Bild hochladen, wird automatisch Ihr Profilbild angezeigt.";
       return text;
       break;
-    case 'editCourseCategories':
+    case 's2id_editCourseCategories':
       text = "Ihr Kurs wird auf im Kursüberblick in allen von Ihnen ausgewählten Kategorien angezeigt. Bitte wählen Sie nur Kategorien aus, die genau auf Ihren Kurs zutreffen. Es gibt für Leute die einen Kurs suchen nichts frustrierenderes als in der Kategorie 'Management' auf einen Kurs zu 'Content-Management von Datenbaken' zu stoßen...";
       return text;
       break;

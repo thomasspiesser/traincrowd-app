@@ -49,9 +49,15 @@
     </div>
     <button type="button" class="btn btn-default" id="sendTestMail">Sende Testmail</button>
   </form>
+  {{#unless isInRole 'trainer'}}
   <li>
     <a href="{{ pathFor 'becomeTrainerLanding' }}">Werde Anbieter</a>
   </li>
+  {{else}}
+  <li>
+    <a href="{{ pathFor 'createCourse' }}">Neuen Kurs Erstellen</a>
+  </li>
+  {{/unless}}
   {{#if currentUser}}
     <li>
     <div style="padding-bottom:5px; padding-top:5px; padding-left:15px;">
