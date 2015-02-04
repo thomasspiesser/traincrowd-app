@@ -1,12 +1,16 @@
 <template name="becomeTrainerLanding">
-  <div class="container notHome">
-    <button type="button" class="btn btn-primary" id="startCourseButton">Jetzt loslegen und einen Kurs erstellen</button>
-    <button type="button" class="btn btn-primary" id="startProfileButton">Jetzt loslegen und ein Anbieter-Profil anlegen</button>
+  <div class="container">
+    <!-- <button type="button" class="btn btn-primary" id="startCourseButton">Jetzt loslegen und einen Kurs erstellen</button> -->
+    <!-- <button type="button" class="btn btn-primary" id="startProfileButton">Jetzt loslegen und ein Anbieter-Profil anlegen</button> -->
+    <div>
+      Werde Anbieter auf traincrowd - Leben Sie für und von Weiterbildung? Sie sind überzeugt von Ihrem Trainingsportfolio und davon, dass Ihre Seminare eine Bereicherung im Alltag sind und Teilnehmer professionell weiterbringt? Dann herzlich willkommen auf traincrowd! Erstellen Sie ein Trainerprofil und bieten Sie Ihre Kurse kostenlos an. traincrowd besorgt Ihnen die Teilnehmer.
+    </div>
+    Schritt 1: <a href="{{ pathFor 'new.trainer' }}" >Jetzt ein Profil anlegen</a>
   </div>
 </template>
 
 <template name="createCourse">
-  <div class="container notHome">
+  <div class="container">
     <form class="form-horizontal" role="form" id="createCourseFormSmall">
       <legend>Kurs Title</legend>
 
@@ -24,4 +28,8 @@
       </div>
     </form>
   </div>
+</template>
+
+<template name="newTrainer">
+
 </template>
