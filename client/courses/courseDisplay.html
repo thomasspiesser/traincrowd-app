@@ -37,10 +37,10 @@
           <a href="{{ pathFor route='course.show' _id=this._id }}"><h4 class="course-title-preview">{{titlePreview}}</h4></a>
           <p class="course-description-preview">{{descriptionPreview}}</p>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
               <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName this.owner}}</a>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span>
             </div>
             <div class="col-md-5 course-fee-preview">
