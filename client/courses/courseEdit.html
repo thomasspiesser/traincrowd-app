@@ -210,14 +210,27 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDates">
-  <div class="form-group">
+  <div id="courseDatesGroup">
+    <div class="form-group" >
 
-    <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
-    <label for="editCourseDates" class="control-label">Termine</label>
-    <div class="input-group">
-      <input type="text" class="form-control hoverCheck" id="editCourseDates" placeholder="tt.mm.yyyy" value="{{dates}}"><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+      <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
+      <label for="editCourseDates" class="control-label">Termine</label>
+      <div class="input-group">
+        <input type="text" class="form-control editCourseDates hoverCheck" id="" placeholder="tt.mm.jjjj" value="{{dates}}"><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+      </div>
     </div>
   </div>
+
+  <div class="form-group">
+    <button type="button" class="btn btn-default" id="addDateField"><i class="fa fa-plus"></i></button>
+  </div>
+
+
+  
+  
+  
+  
+
   <!-- <div class="checkbox"> -->
     <!-- <label> -->
     <!-- <input type="checkbox" class="hoverCheck" id="editCourseAllowInquiry" checked="{{allowInquiry}}">Traincrowd-Nutzer dürfen Anfragen für individuelle Termine stellen. -->
