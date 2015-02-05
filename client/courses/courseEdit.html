@@ -22,29 +22,29 @@
       <div class="tabbable tabs-left" >
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#courseDescription" data-toggle="tab"><span class="fa fa-list-alt fa-fw"></span>&nbsp; Beschreibung</a>
+            <a href="#courseDescription" data-toggle="tab"><span class="fa fa-list-alt fa-fw"></span>&nbsp;Beschreibung</a>
           </li>
           <li >
-            <a href="#courseDetails" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp; Details</a>
+            <a href="#courseDetails" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp;Details</a>
           </li>
           <li>
-            <a href="#courseCosts" data-toggle="tab"><span class="fa fa-euro fa-fw"></span>&nbsp; Kosten</a>
+            <a href="#courseCosts" data-toggle="tab"><span class="fa fa-euro fa-fw"></span>&nbsp;Kosten</a>
           </li>
           <li>
-            <a href="#courseServices" data-toggle="tab"><span class="fa fa-random fa-fw"></span>&nbsp; Leistungen</a>
+            <a href="#courseServices" data-toggle="tab"><span class="fa fa-random fa-fw"></span>&nbsp;Leistungen</a>
           </li>
           <li>
-            <a href="#courseDates" data-toggle="tab"><span class="fa fa-calendar fa-fw"></span>&nbsp; Termine</a>
+            <a href="#courseDates" data-toggle="tab"><span class="fa fa-calendar fa-fw"></span>&nbsp;Termine</a>
           </li>
           <li>
-            <a href="#courseLogistics" data-toggle="tab"><span class="fa fa-road fa-fw"></span>&nbsp; Logistik</a>
+            <a href="#courseLogistics" data-toggle="tab"><span class="fa fa-road fa-fw"></span>&nbsp;Logistik</a>
           </li>
         </ul>
       </div>
       </div>
       <div class="col-md-6">
         <div class="tab-content">
-          <div class="tab-pane active" id="courseDescription">
+          <div class="tab-pane " id="courseDescription">
             {{> editCourseDescription}}
           </div>
           <div class="tab-pane" id="courseDetails">
@@ -56,7 +56,7 @@
           <div class="tab-pane" id="courseServices">
             {{> editCourseServices}}
           </div>
-          <div class="tab-pane" id="courseDates">
+          <div class="tab-pane active" id="courseDates">
             {{> editCourseDates}} 
           </div>
           <div class="tab-pane" id="courseLogistics">
@@ -210,20 +210,27 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDates">
-  <div id="courseDatesGroup">
-    <div class="form-group" >
+  <ul>
+  {{#each dates}}
+    <li>{{#each this}} {{niceDate}} {{/each}}</li>
+  {{/each}}
+  </ul>
+  <form id="editCourseDatesForm">
+    <div id="courseDatesGroup">
+      <div class="form-group" >
 
-      <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
-      <label for="editCourseDates" class="control-label">Termine</label>
-      <div class="input-group">
-        <input type="text" class="form-control editCourseDates hoverCheck" id="" placeholder="tt.mm.jjjj" value="{{dates}}"><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+        <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
+        <label for="editCourseDates" class="control-label">Termine</label>
+        <div class="input-group">
+          <input type="text" class="form-control editCourseDates hoverCheck" name="standardDateField" id="" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <button type="button" class="btn btn-default" id="addDateField"><i class="fa fa-plus"></i></button>
-  </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-default" id="addDateField"><i class="fa fa-plus"></i></button>
+    </div>
+  </form>
 
 
   

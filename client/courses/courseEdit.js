@@ -321,7 +321,7 @@ Template.editCourseDates.rendered=function() {
       startDate: "-0d",
       language: "de",
       todayBtn: true,
-      multidate: 6,
+      multidate: true,
       todayHighlight: true
     });
 };
@@ -330,6 +330,9 @@ Template.editCourseDates.helpers({
   selected: function (one, two) {
     return one === two ? 'selected' : '';
   },
+  niceDate: function () {
+    return this.toLocaleDateString();
+  }
   // allowInquiry: function () {
   //   if (typeof this.allowInquiry !== 'undefined')
   //     Session.setDefault("allowInquiry", this.allowInquiry);
@@ -341,53 +344,82 @@ Template.editCourseDates.helpers({
 
 Template.editCourseDates.events({
   'click #saveEditCourseDates': function (event, template) {
-    if (this.dates) // might be empty, handle:
-      var DBdates = this.dates;
-    else
-      var DBdates = "";
-    var dates = template.find("#editCourseDates").value;
-    var datesArray = dates.split(',')
-    var DBdatesArray = DBdates.split(',')
-    var removedDates = _.difference(DBdatesArray,datesArray) // geht was weg
-    var addedDates = _.difference(datesArray,DBdatesArray) // kommt was hinzu
-    if (removedDates.length && removedDates[0]!=="") {
-      for (var i = 0; i < removedDates.length; i++) {
-        var current = Current.findOne({course: this._id, courseDate: removedDates[i]}, {fields: {participants:1}});
-        if (! current.participants.length)
-          Meteor.call('deleteCurrent', current._id, function (error, result) {});
-        else {
-          // or bootbox confirm delete coz there are already participants
-          var dates = dates+','+removedDates[i]; // just keep it and don't allow deletion of this date
-          $('#editCourseDates').datepicker('setDates', _.map(dates.split(','), function(date) {return new Date(reformatDate(date))} ) );
-          toastr.error( 'Es gibt bereits Teilnehmer für diese Veranstalltung am '+ removedDates[i] +'.' );
-        }
-      }
-    } 
-    if (addedDates.length && addedDates[0]!=="") {
-      for (var i = 0; i < addedDates.length; i++) {
-        options = {course: this._id,
+    var newEvents = $('#editCourseDatesForm').serializeArray();
+    var dates = [];
+
+    if ( newEvents.length > 1 || newEvents[0].value ) {
+      for (var i = 0; i < newEvents.length; i++) {
+        var datesArray = newEvents[i].value.split(',');
+        var dateObjectsArray = _.map(datesArray, function(date) {return new Date(reformatDate(date))} )
+        dateObjectsArray.sort(function (a,b) { return a-b }) // sort dates
+
+        var options = {course: this._id,
                   owner: this.owner,
-                  courseDate: addedDates[i]}
-        Meteor.call('createCurrent', options, function (error, result) {});
+                  courseDate: dateObjectsArray }
+
+        Meteor.call('createCurrent', options, function (error, result) {
+          if (error)
+            toastr.error( error.reason );
+          else
+            $('.editCourseDates').datepicker('setDate', null);
+        });
+        dates.push( dateObjectsArray );
       }
+      var options = {_id: this._id,
+                    dates: dates }
+      Meteor.call('addToCourseDates', options, function (error, result) {
+        if (error)
+          toastr.error( error.reason );
+      });
     }
     // var allowInquiry = template.find("#editCourseAllowInquiry").checked;
+
     var expires = template.find("#editCourseExpires").value;
     var modifier = {_id: this._id,
                 owner: this.owner,
-                dates: dates,
                 // allowInquiry: allowInquiry,
                 expires: expires }
     saveUpdates(modifier);
+    return false;
+    // if (this.dates) // might be empty, handle:
+    //   var DBdates = this.dates;
+    // else
+    //   var DBdates = "";
+    // var dates = template.find("#editCourseDates").value;
+    // var datesArray = dates.split(',')
+    // var DBdatesArray = DBdates.split(',')
+    // var removedDates = _.difference(DBdatesArray,datesArray) // geht was weg
+    // var addedDates = _.difference(datesArray,DBdatesArray) // kommt was hinzu
+    // if (removedDates.length && removedDates[0]!=="") {
+    //   for (var i = 0; i < removedDates.length; i++) {
+    //     var current = Current.findOne({course: this._id, courseDate: removedDates[i]}, {fields: {participants:1}});
+    //     if (! current.participants.length)
+    //       Meteor.call('deleteCurrent', current._id, function (error, result) {});
+    //     else {
+    //       // or bootbox confirm delete coz there are already participants
+    //       var dates = dates+','+removedDates[i]; // just keep it and don't allow deletion of this date
+    //       $('#editCourseDates').datepicker('setDates', _.map(dates.split(','), function(date) {return new Date(reformatDate(date))} ) );
+    //       toastr.error( 'Es gibt bereits Teilnehmer für diese Veranstalltung am '+ removedDates[i] +'.' );
+    //     }
+    //   }
+    // } 
+    // if (addedDates.length && addedDates[0]!=="") {
+    //   for (var i = 0; i < addedDates.length; i++) {
+    //     options = {course: this._id,
+    //               owner: this.owner,
+    //               courseDate: addedDates[i]}
+    //     Meteor.call('createCurrent', options, function (error, result) {});
+    //   }
+    // }
   },
   'click #addDateField': function () {
-    var newdDateField = '<div class="row"><div class="col-md-11"><div class="form-group"><div class="input-group"><input type="text" class="form-control editCourseDates hoverCheck" id="" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div></div></div><div class="col-md-1"><button type="button" class="btn btn-default pull-right removeDateField"><i class="fa fa-minus"></i></button></div></div>';
+    var newdDateField = '<div class="row"><div class="col-md-11"><div class="form-group"><div class="input-group"><input type="text" class="form-control editCourseDates hoverCheck" id="" name="dateField"  placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div></div></div><div class="col-md-1"><button type="button" class="btn btn-default pull-right removeDateField"><i class="fa fa-minus"></i></button></div></div>';
     $("#courseDatesGroup").append(newdDateField);
     $('.editCourseDates').datepicker({
       startDate: "-0d",
       language: "de",
       todayBtn: true,
-      multidate: 6,
+      multidate: true,
       todayHighlight: true
     });
   },
