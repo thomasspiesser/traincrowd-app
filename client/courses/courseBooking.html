@@ -43,7 +43,7 @@
           <h4>Dieses Event ist leider schon ausgebucht.</h4>
         {{else}}
         <h4>Kurs Buchen</h4>
-        <p>{{currentDate}}</p>
+        <p>{{#each formatedDates}}{{this}} {{/each}}</p>
         <h4>External service communication here</h4>
 
           {{#if message}}

@@ -53,12 +53,21 @@ Template.courseDetail.helpers({
   getCurrent: function () {
     return Current.find({course: this._id}, {fields: {participants: 1, courseDate:1} });
   },
+  courseDateRange: function () {
+    // context is current
+    if (this.courseDate.length === 1)
+      return moment(this.courseDate[0]).format("DD.MM.YYYY");
+    if (this.courseDate.length > 1)
+      return moment(_.first(this.courseDate) ).format("DD.MM.YYYY") + '-' + moment(_.last(this.courseDate) ).format("DD.MM.YYYY");
+  },
   feePP: function () {
     return (this.fee / parseInt(this.minParticipants)).toFixed(2);
   }, 
   percentFull: function (course) {
     // data context is current, which is why function get par: course
-    return (this.participants.length / course.maxParticipants ).toFixed(1) * 100;
+    if (course.maxParticipants)
+      return (this.participants.length / course.maxParticipants ).toFixed(1) * 100;
+    return 0;
   },
   bookedOut: function (course) {
     return this.participants.length === course.maxParticipants;

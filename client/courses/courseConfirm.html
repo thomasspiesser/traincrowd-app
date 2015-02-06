@@ -3,9 +3,9 @@
     <div class="row">
       
         <div class="col-lg-8 col-lg-offset-2">
-          <div class="well all-courses-wrapper">
+          <div style="box-shadow: 0px 0px 8px #4C4E61; padding:15px;">
             <h2>Event Bestätigen</h2>
-            <h4>Kurs '{{course.title}}' findet statt am {{current.courseDate}}.</h4>
+            <h4>Kurs '{{course.title}}' findet statt am {{#each formatedDates}}{{this}} {{/each}}.</h4>
             {{> courseConfirmForm}}
           </div>
         </div>

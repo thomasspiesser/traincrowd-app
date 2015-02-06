@@ -94,7 +94,11 @@ Template.paymentModal.helpers({
   errorMessage: function () {
     return Session.get("errorMessage");
   },
-  currentDate: function () {
-    return Session.get("currentDate");
+  formatedDates: function () {
+    var courseDate = Session.get("currentDate");
+    var formatedDates = _.map(courseDate, function(date){
+      return moment(date).format("DD.MM.YYYY")
+    })
+    return formatedDates;
   }
 });  

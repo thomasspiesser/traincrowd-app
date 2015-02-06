@@ -143,7 +143,7 @@ Meteor.methods({
     var dataContext = {
       name: name,
       course: course,
-      courseDate: current.courseDate,
+      courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
       url: url
     }
 

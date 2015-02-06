@@ -28,15 +28,12 @@ Meteor.methods({
 
   },
   createCurrent: function (options) {
-
     var id = Current.insert({
       course: options.course,
       owner: options.owner,
       participants: [],
       courseDate: options.courseDate
     });
-
-
   },
   deleteCurrent: function (id) {
     Current.remove({_id: id});

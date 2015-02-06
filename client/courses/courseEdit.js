@@ -331,7 +331,7 @@ Template.editCourseDates.helpers({
     return one === two ? 'selected' : '';
   },
   niceDate: function () {
-    return this.toLocaleDateString();
+    return moment(this).format("DD.MM.YYYY");
   }
   // allowInquiry: function () {
   //   if (typeof this.allowInquiry !== 'undefined')
@@ -350,12 +350,12 @@ Template.editCourseDates.events({
     if ( newEvents.length > 1 || newEvents[0].value ) {
       for (var i = 0; i < newEvents.length; i++) {
         var datesArray = newEvents[i].value.split(',');
-        var dateObjectsArray = _.map(datesArray, function(date) {return new Date(reformatDate(date))} )
+        var dateObjectsArray = _.map(datesArray, function(date) { return moment(date, "DD.MM.YYYY")._d } ) // returns the date object - thats what we will store in the DB
         dateObjectsArray.sort(function (a,b) { return a-b }) // sort dates
 
         var options = {course: this._id,
-                  owner: this.owner,
-                  courseDate: dateObjectsArray }
+                      owner: this.owner,
+                      courseDate: dateObjectsArray }
 
         Meteor.call('createCurrent', options, function (error, result) {
           if (error)
