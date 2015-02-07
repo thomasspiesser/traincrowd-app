@@ -76,7 +76,7 @@
               {{/if}}
             </td>
             <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
-            <td>{{courseDate}}</td>
+            <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
             <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
           </tr>
         {{/each}}
@@ -108,7 +108,7 @@
               {{/if}}
             </td>
             <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
-            <td>{{courseDate}}</td>
+            <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
             <td>
               {{#if myRating _id}}
                 <span style="color: green;"><i class="fa fa-check"></i> Bewertung abgegeben</span> 

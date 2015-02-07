@@ -21,12 +21,12 @@ Template.userCourses.helpers({
       return false
   },
   currentCourses: function () {
-    var current = Current.find( { participants: Meteor.userId() }, {fields: {course:1, courseDate:1}} ).fetch();
+    var current = Current.find( { participants: Meteor.userId() }, { fields: { course: 1, courseDate: 1 } } ).fetch();
 
     if (current.length) {
       for (var i = 0; i < current.length; i++) {
         var courseId = current[i].course
-        var course = Courses.findOne( { _id: courseId }, {fields: {imageId:1, title:1, rating:1}} )
+        var course = Courses.findOne( { _id: courseId }, { fields: { imageId: 1, title: 1, rating:1 } } )
         delete course._id;
         _.extend(current[i],course);
       }
@@ -36,18 +36,21 @@ Template.userCourses.helpers({
       return false
   },
   elapsedCourses: function () {
-    var elapsed = Elapsed.find( { participants: Meteor.userId() }, {fields: {course:1, courseDate:1}} ).fetch();
+    var elapsed = Elapsed.find( { participants: Meteor.userId() }, { fields: { course: 1, courseDate: 1 } } ).fetch();
     if (elapsed.length) {
       for (var i = 0; i < elapsed.length; i++) {
         var courseId = elapsed[i].course
-        var course = Courses.findOne( { _id: courseId }, {fields: {imageId:1, title:1, rating:1}} )
+        var course = Courses.findOne( { _id: courseId }, { fields: { imageId: 1, title: 1, rating: 1 } } );
         delete course._id;
-        _.extend(elapsed[i],course);
+        _.extend( elapsed[i], course );
       }
       return elapsed;
     }
     else
       return false
+  },
+  formated: function (courseDate) {
+    return _.map(courseDate, function(date) {return moment(date).format("DD.MM.YYYY"); } );
   },
   myRating: function (id) {
     var elapsed = Elapsed.findOne( {_id: id }, {fields: {ratings:1}} );
