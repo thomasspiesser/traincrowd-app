@@ -186,7 +186,7 @@ Meteor.methods({
 
     var dataContext = {
       course: course,
-      courseDate: current.courseDate,
+      courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
       trainerEmail: options.trainerEmail,
       trainerName: options.trainerName,
       street: options.street,

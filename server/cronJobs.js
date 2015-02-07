@@ -1,28 +1,31 @@
 function setExpired() {
   var expiredEvents = [];
+  // TODO: what to do with those that are just karteileichen (nicht fertig ausgefüllt etc) - sollten removed werden aber werfen evtl Fehler. Abfangen - und löschen!
   Current.find().forEach(function (current) {
-    var date = new Date(reformatDate(current.courseDate)) // transform into date object
-    var course = Courses.findOne({_id: current.course}, {fields: {expires:1, dates: 1}});
+    if ( current.confirmed )
+      return;
+
+    var course = Courses.findOne( { _id: current.course }, { fields: { expires: 1, dates: 1, maxParticipants: 1 } } );
+
+    if ( current.participants.length === course.maxParticipants )
+      return;
+
+    var date = _.first(current.courseDate) // first day of the event
+
     if (course.expires) {
       // calc when the event expires: courseDate - no.of weeks before
       var date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * parseInt(course.expires)); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
     }
     if (date < new Date()) {
-      // TODO: security check that is not fully booked / confirmed already
-      if (! current.confirmed) {
-        expiredEvents.push(current._id) // for the record
+      expiredEvents.push(current._id) // for the record
 
-        // email current.participants: Bescheid sagen, dass leider nicht voll geworden ist. evtl vorschlag von neuem datum
-        // email owner: Bescheid sagen, dass leider nicht voll geworden ist.
+      // email current.participants: Bescheid sagen, dass leider nicht voll geworden ist. evtl vorschlag von neuem datum
+      // email owner: Bescheid sagen, dass leider nicht voll geworden ist.
 
-        // remove from course.dates
-        var datesArr = course.dates.split(',');
-        var newDatesArr = _.without(datesArr,current.courseDate);
-        var newDates = newDatesArr.join();
-        Courses.update({_id: current.course}, {$set: {dates: newDates}});
-        // remove from Current:
-        Current.remove(current._id);
-      }
+      // remove from course.dates
+      Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
+      // remove from Current:
+      Current.remove(current._id);
     }
     return expiredEvents;
   }); 
@@ -31,7 +34,7 @@ function setExpired() {
 function setElapsed() {
   var elapsedEvents = [];
   Current.find().forEach(function (current) {
-    var date = new Date(reformatDate(current.courseDate)) // transform into date object, TODO: this should be the last day of the event
+    var date = _.last(current.courseDate) // last day of the event
     if (date < new Date()) {
       Elapsed.insert({
         _id: current._id,
@@ -46,11 +49,7 @@ function setElapsed() {
       Meteor.call('sendRateCourseEmail', {course: current.course, participants: current.participants});
 
       // remove from course.dates
-      var course = Courses.findOne({_id: current.course}, {fields: {dates: 1}});
-      var datesArr = course.dates.split(',');
-      var newDatesArr = _.without(datesArr,current.courseDate);
-      var newDates = newDatesArr.join();
-      Courses.update({_id: current.course}, {$set: {dates: newDates}});
+      Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
       // remove from Current:
       Current.remove(current._id);
     }
