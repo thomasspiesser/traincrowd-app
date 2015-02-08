@@ -27,11 +27,11 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name='navItemsLeft'>
-  {{#if isMember}}
+
   <li>
     <a href="/admin">Admin</a>
   </li>
-  {{/if}}
+
   <li>
     <a href="{{pathFor 'courses'}}">Alle Kurse</a>
   </li>
@@ -43,12 +43,12 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name='navItemsRight'>
-  <form class="navbar-form navbar-left">
+<!--   <form class="navbar-form navbar-left">
     <div class="form-group">
       <input type="text" class="form-control" id="testMail" placeholder="Email">
     </div>
     <button type="button" class="btn btn-default" id="sendTestMail">Sende Testmail</button>
-  </form>
+  </form> -->
   {{#unless isInRole 'trainer'}}
   <li>
     <a href="{{ pathFor 'becomeTrainerLanding' }}">Werde Anbieter</a>
@@ -71,7 +71,11 @@
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:5px;">{{ownerName currentUser._id}} <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
+        {{#if isInRole 'trainer'}}
+        <li><a href="{{ pathFor 'userProfile.show' data=currentUser }}">Mein Profil</a></li>
+        {{else}}
         <li><a href="{{ pathFor 'userProfile.edit' data=currentUser }}">Mein Profil</a></li>
+        {{/if}}
         <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
         <li class="divider"></li>
         <li><a href="#" id="logout">Ausloggen</a></li>
