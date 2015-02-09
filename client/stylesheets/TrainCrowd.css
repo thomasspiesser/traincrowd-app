@@ -34,18 +34,24 @@ footer {
   bottom: 0;
   left: 0;
   height: 180px;
-  padding: 80px;
+  padding: 20px;
   background-color: #4C4E61;
   color: #787985;
+  /*color: #ffffff;*/
 }
 footer a {
   text-decoration: none;
   color: #787985;
 }
-footer a:hover {
-color: #ffffff;
-text-decoration: none;
+footer a:visited {
+  color: #787985;
+  text-decoration: none;
 }
+footer a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 
 .main-chevron {
     position:absolute;

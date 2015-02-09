@@ -145,6 +145,7 @@ Template.editProfileDescription.events({
 
 Template.editProfileContact.events({
   'click #saveEditProfileContact': function (event, template) {
+    var homepage = template.find('#editProfileHomepage').value;
     var phone = template.find("#editProfilePhone").value;
     var mobile = template.find("#editProfileMobile").value;
     var street = template.find("#editProfileStreet").value;
@@ -152,16 +153,18 @@ Template.editProfileContact.events({
     var plz = template.find("#editProfilePLZ").value;
     // var city = template.find("#editProfileCity").value;
 
-    var modifier = {'profile.phone': phone,
+    if (! street.length || plz.length < 5) {
+      toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
+      return false;
+    }
+    
+    var modifier = {'profile.homepage': homepage,
+                    'profile.phone': phone,
                     'profile.mobile': mobile,
                     'profile.street': street,
                     'profile.streetAdditional': streetAdditional,
                     'profile.plz': plz }
 
-    if (! street.length || plz.length < 5) {
-      toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
-      return false;
-    }
     saveUpdates(modifier);
   },
   'mouseover .hoverCheck': function (event, template) {
