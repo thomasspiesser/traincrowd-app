@@ -52,7 +52,6 @@ footer a:hover {
   text-decoration: none;
 }
 
-
 .main-chevron {
     position:absolute;
     top:40%;
@@ -60,59 +59,66 @@ footer a:hover {
 
 /*************** Course Preview ***************/
 
-
-
 .all-courses-wrapper {
-  /*margin-bottom: 10px;*/
-  /*background-color: #f5f5f5;*/
   background-color: #fff;
   border: 0px solid #e3e3e3;
   border-radius: 0px;
   /*border-top: 5px solid #505b65;*/
   /*border-bottom: 5px solid #505b65;*/
-  padding-right: 5px;
-  height: 140px;
+  /*border: 1px solid;*/
+  height: 180px;
   box-shadow: 0px 0px 8px #4C4E61;
   margin-bottom: 15px; 
 }
 
-.course-preview-image {
-  height: 140px;
-  width: 140px;
-  /*margin: 0 auto;*/
-  position: relative;
-  overflow: hidden;
-
+.col-preview-image {
+  padding-right: 0;
 }
-.course-preview-image img {
-  max-height: 98%;
-  max-width: 98%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-/*  margin-left: auto; center horizontally, display full height
-  margin-right: auto;
-  max-height: 100%;
-  max-width: none;*/
 
+.course-preview-image {
+  height: 180px;
+  width: 180px;
+  overflow: hidden;
+  /*border: 1px solid;*/
+}
 
+.course-preview-image img.portrait {
+  width: 100%;
+  height: auto;
+}
+.course-preview-image img.landscape {
+  width: auto;
+  height: 100%;
 }
 
 .course-preview-content {
-  padding-left: 10px;
+  margin-right: 5px;
+  /*border: 1px solid;*/
 }
 
 .course-title-preview {
-  height: 40px;
+  height: 38px;
+  margin-top: 5px;
 }
 
 .course-description-preview {
   height: 45px;
 }
 
-.course-fee-preview {
-  text-align: right;
+.col-preview-content-left {
+  /*margin-right: */
+}
+.col-preview-content-right {
+  padding-left: 0px;
+}
+.course-preview-rateit {
+  padding-top: 3px;
+}
+
+.course-preview-item-list {
+  margin: 3px 0px;
+  padding: 2px 4px;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /*************** Course Detail ***************/

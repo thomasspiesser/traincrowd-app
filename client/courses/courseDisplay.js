@@ -2,6 +2,9 @@
 
 Template.coursePreview.rendered = function () {
   $('.rateit').rateit();
+  $('.course-preview-image img').each(function(){
+    $(this).addClass(this.width > this.height ? 'landscape' : 'portrait');
+});
 };
 
 Template.coursePreview.helpers({
@@ -18,7 +21,7 @@ Template.coursePreview.helpers({
     if (! this.title)
       return false;
     var titlePreview = this.title.replace("\n"," "); // remove linebreaks
-    var breaker = 85;
+    var breaker = 120;
     if (titlePreview.length > breaker)
       return titlePreview.slice(0,breaker)+"...";
     else
@@ -28,7 +31,7 @@ Template.coursePreview.helpers({
     if (! this.description)
       return false;
     var descriptionPreview = this.description.replace("\n"," "); // remove linebreaks
-    var breaker = 100;
+    var breaker = 200;
     if (descriptionPreview.length > breaker)
       return descriptionPreview.slice(0,breaker)+"...";
     else

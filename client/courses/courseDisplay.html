@@ -2,7 +2,7 @@
   <div class="container" >
     <div class="row">
         {{#each courses}}
-        <div class="col-lg-6 col-lg-offset-3">
+        <div class="col-lg-8 col-lg-offset-2">
             {{> coursePreview}}
         </div>
         {{/each}}
@@ -16,17 +16,17 @@
   <div class="all-courses-wrapper">
     <div class="row">
 
-      <div class="col-md-3">
+      <div class="col-md-3 col-preview-image">
         <div class="course-preview-image">
           {{#if imageId}}
-            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" class="img-responsive img-circle img-thumbnail"></a>
+            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" class=""></a>
           {{else}}
             {{#if trainerImageId owner}}
               {{#with trainerImageId owner}}
-                <a href="{{ pathFor route='course.show' _id=../_id }}"><img src="{{image this}}" alt="" class="img-responsive img-circle img-thumbnail"></a>
+                <a href="{{ pathFor route='course.show' _id=../_id }}"><img src="{{image this}}" alt="" class=""></a>
               {{/with}}
             {{else}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" class="img-responsive img-circle img-thumbnail"></a>
+              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" class=""></a>
             {{/if}}
           {{/if}}
         </div>
@@ -34,19 +34,26 @@
 
       <div class="col-md-9">
         <div class="course-preview-content">
+
           <a href="{{ pathFor route='course.show' _id=this._id }}"><h4 class="course-title-preview">{{titlePreview}}</h4></a>
-          <p class="course-description-preview">{{descriptionPreview}}</p>
+
+
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-8 col-preview-content-left">
               <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName this.owner}}</a>
+              <p class="course-description-preview">{{descriptionPreview}}</p>
             </div>
-            <div class="col-md-2">
-              <span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span>
-            </div>
-            <div class="col-md-5 course-fee-preview">
-              {{feePP}} <i class="fa fa-euro"></i> pro Person
+            <div class="col-md-4 col-preview-content-right">
+              <div class="course-preview-item-list"><i class="fa fa-money"></i> <div class="pull-right">{{feePP}} <i class="fa fa-euro"></i> </div></div>
+              <div class="course-preview-item-list"> <i class="fa fa-thumbs-up"></i> <div class="rateit course-preview-rateit pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></div>
+              <div class="course-preview-item-list"><i class="fa fa-calendar"></i> <div class="pull-right">nächster termin</div>  </div>
+              <div class="course-preview-item-list"><i class="fa fa-location-arrow"></i> <div class="pull-right">Berlin</div>  </div>
             </div>
           </div>
+
+          
+            
+
         </div>
       </div>
 
