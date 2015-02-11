@@ -122,7 +122,6 @@ Template.editCourseDescription.events({
     var title = template.find("#editCourseTitle").value;
     var description = template.find("#editCourseShortDescription").value;
     var categories = template.find("#editCourseCategories").value.split(',');
-    var newImage = template.find("#newCourseImageReal").files[0];
 
     if (! title.length) {
       toastr.error( "Der Kurs braucht einen Titel." );
@@ -141,33 +140,6 @@ Template.editCourseDescription.events({
         toastr.error( error.reason );
     });
 
-    if (newImage) {
-      var self = this;
-      var reader = new FileReader();
-      reader.onload = function(event) {
-        if (self.imageId) {
-          var modifier = {_id: self.imageId,
-                          data: event.target.result }
-          Meteor.call('updateImage', modifier, function (error, result) {
-            if (error)
-              toastr.error( error.reason );
-          });
-        } 
-        else {
-          Meteor.call('insertImage', event.target.result, function (error, imageId) {
-            if (error)
-              toastr.error( error.reason );
-            else {
-              var modifier = {_id: self._id,
-                              owner: self.owner,
-                              imageId: imageId}
-              saveUpdates(modifier);
-            }
-          });
-        }
-      };
-      reader.readAsDataURL(newImage);
-    }
     return false;
     
     // check all for appropriate type
@@ -175,6 +147,53 @@ Template.editCourseDescription.events({
   },
   'click #newCourseImageDummy': function () {
     $('#newCourseImageReal').click();
+  },
+  'change #newCourseImageReal': function (event, template) {
+    var newImage = template.find("#newCourseImageReal").files[0];
+    if (!newImage.type.match('image.*')) {
+      toastr.error( "Das ist keine Bilddatei." );
+      return false;
+    }
+
+    var self = this;
+    var reader = new FileReader();
+    reader.readAsDataURL(newImage);
+
+    reader.onloadstart = function(e) {
+      $('#newCourseImageDummy i').removeClass('fa-upload');
+      $('#newCourseImageDummy i').addClass('fa-refresh fa-spin');
+      $('#newCourseImageDummy span').text(' Laden...');
+    };
+
+    reader.onloadend = function(e) {
+      $('#newCourseImageDummy i').addClass('fa-upload');
+      $('#newCourseImageDummy i').removeClass('fa-refresh fa-spin');
+      $('#newCourseImageDummy span').text(' Neues Bild');
+    };
+
+    reader.onload = function(event) {
+      if (self.imageId) {
+        var modifier = {_id: self.imageId,
+                        data: event.target.result }
+        Meteor.call('updateImage', modifier, function (error, result) {
+          if (error)
+            toastr.error( error.reason );
+        });
+      } 
+      else {
+        Meteor.call('insertImage', event.target.result, function (error, imageId) {
+          if (error)
+            toastr.error( error.reason );
+          else {
+            var modifier = {_id: self._id,
+                            owner: self.owner,
+                            imageId: imageId}
+            saveUpdates(modifier);
+          }
+        });
+      }
+    };
+    return false;
   },
   'click #deleteCourseImage': function () {
     if (! this.imageId) //if there is nothing to delete
