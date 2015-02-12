@@ -4,7 +4,7 @@ Template.coursePreview.rendered = function () {
   $('.rateit').rateit();
   $('.course-preview-image img').each(function(){
     $(this).addClass(this.width > this.height ? 'landscape' : 'portrait');
-});
+  });
 };
 
 Template.coursePreview.helpers({
@@ -21,7 +21,7 @@ Template.coursePreview.helpers({
     if (! this.title)
       return false;
     var titlePreview = this.title.replace("\n"," "); // remove linebreaks
-    var breaker = 120;
+    var breaker = 95;
     if (titlePreview.length > breaker)
       return titlePreview.slice(0,breaker)+"...";
     else
@@ -42,9 +42,12 @@ Template.coursePreview.helpers({
 //////////// courseDetail template /////////
 
 Template.courseDetail.rendered = function() {
-   $('[data-toggle="tooltip"]').tooltip() //initialize all tooltips in this template
-   $('.rateit').rateit();
+  $('[data-toggle="tooltip"]').tooltip() //initialize all tooltips in this template
+  $('.rateit').rateit();
+  $('.course-detail-head-image-wrapper img').addClass(function () {return this.width > this.height ? 'landscape' : 'portrait'});
 };
+
+
 
 Template.courseDetail.helpers({
   trainerImageId: function (id) {
@@ -61,7 +64,7 @@ Template.courseDetail.helpers({
     if (this.courseDate.length === 1)
       return moment(this.courseDate[0]).format("DD.MM.YYYY");
     if (this.courseDate.length > 1)
-      return moment(_.first(this.courseDate) ).format("DD.MM.YYYY") + '-' + moment(_.last(this.courseDate) ).format("DD.MM.YYYY");
+      return moment(_.first(this.courseDate) ).format("DD.MM") + ' - ' + moment(_.last(this.courseDate) ).format("DD.MM.YYYY");
   },
   feePP: function () {
     return (this.fee / parseInt(this.minParticipants)).toFixed(2);
@@ -74,6 +77,20 @@ Template.courseDetail.helpers({
   },
   bookedOut: function (course) {
     return this.participants.length === course.maxParticipants;
+  },
+  runtime: function (course) {
+    var date = _.first(this.courseDate) // first day of the event
+    if (course.expires) {
+      // calc when the event expires: courseDate - no.of weeks before
+      var date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * parseInt(course.expires)); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
+    }
+    date=moment(date)
+    var today = moment()
+    return date.diff(today, 'days');
+  },
+  openSpots: function (course) {
+    if (course.maxParticipants)
+      return course.maxParticipants - this.participants.length;
   }
 });
 

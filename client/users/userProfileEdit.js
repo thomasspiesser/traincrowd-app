@@ -120,6 +120,7 @@ Template.editProfileDescription.events({
     };
 
     reader.onload = function(event) {
+      // $('#newProfileImageDummy i').button('reset') 
       if (self.profile.imageId) {
         var modifier = {_id: self.profile.imageId,
                         data: event.target.result }
