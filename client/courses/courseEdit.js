@@ -162,7 +162,7 @@ Template.editCourseDescription.events({
     reader.onloadstart = function(e) {
       $('#newCourseImageDummy i').removeClass('fa-upload');
       $('#newCourseImageDummy i').addClass('fa-refresh fa-spin');
-      $('#newCourseImageDummy span').text(' Laden...');
+      $('#newCourseImageDummy span').text(' Läd...');
     };
 
     reader.onloadend = function(e) {

@@ -85,41 +85,61 @@ Template.editProfileDescription.events({
     var title = template.find("#editProfileTitle").value;
     var name = template.find("#editProfileName").value;
     var description = template.find("#editProfileShortDescription").value;
-    var newImage = template.find("#newProfileImageReal").files[0];
 
     var modifier = {'profile.title': title,
                     'profile.name': name,
                     'profile.description': description }
     saveUpdates(modifier);
 
-    if (newImage) {
-      var self = this; // needed, coz this is fileReader object
-      var reader = new FileReader();
-      reader.onload = function(event) {
-        if (self.profile.imageId) {
-          var modifier = {_id: self.profile.imageId,
-                          data: event.target.result }
-          Meteor.call('updateImage', modifier, function (error, result) {
-            if (error)
-              toastr.error( error.reason );
-          });
-        } 
-        else {
-          Meteor.call('insertImage', event.target.result, function (error, imageId) {
-            if (error)
-              toastr.error( error.reason );
-            else {
-              var modifier = {'profile.imageId': imageId}
-              saveUpdates(modifier);
-            }
-          });
-        }
-      };
-      reader.readAsDataURL(newImage);
-    }
+    return false;
   },
   'click #newProfileImageDummy': function () {
     $('#newProfileImageReal').click();
+  },
+  'change #newProfileImageReal': function (event, template) {
+    var newImage = template.find("#newProfileImageReal").files[0];
+    if (!newImage.type.match('image.*')) {
+      toastr.error( "Das ist keine Bilddatei." );
+      return false;
+    }
+
+    var self = this;
+    var reader = new FileReader();
+    reader.readAsDataURL(newImage);
+
+    reader.onloadstart = function(e) {
+      $('#newProfileImageDummy i').removeClass('fa-upload');
+      $('#newProfileImageDummy i').addClass('fa-refresh fa-spin');
+      $('#newProfileImageDummy span').text(' Läd...');
+    };
+
+    reader.onloadend = function(e) {
+      $('#newProfileImageDummy i').addClass('fa-upload');
+      $('#newProfileImageDummy i').removeClass('fa-refresh fa-spin');
+      $('#newProfileImageDummy span').text(' Neues Bild');
+    };
+
+    reader.onload = function(event) {
+      if (self.profile.imageId) {
+        var modifier = {_id: self.profile.imageId,
+                        data: event.target.result }
+        Meteor.call('updateImage', modifier, function (error, result) {
+          if (error)
+            toastr.error( error.reason );
+        });
+      } 
+      else {
+        Meteor.call('insertImage', event.target.result, function (error, imageId) {
+          if (error)
+            toastr.error( error.reason );
+          else {
+            var modifier = {'profile.imageId': imageId}
+            saveUpdates(modifier);
+          }
+        });
+      }
+    };
+    return false;
   },
   'click #deleteProfileImage': function () {
     if (! this.profile.imageId) //if there is nothing to delete
