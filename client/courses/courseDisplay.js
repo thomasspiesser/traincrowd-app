@@ -36,6 +36,10 @@ Template.coursePreview.helpers({
       return descriptionPreview.slice(0,breaker)+"...";
     else
       return descriptionPreview;
+  },
+  nextEvent: function ( ) {
+    var nextEvent = _.pluck(this.dates, 0) // get first date object for every event
+    return moment( _.min(nextEvent) ).format("DD.MM.YYYY");
   }
 });
 
@@ -57,7 +61,7 @@ Template.courseDetail.helpers({
     return false;
   },
   getCurrent: function () {
-    return Current.find({course: this._id}, {fields: {participants: 1, courseDate:1} });
+    return Current.find({course: this._id}, {sort:{courseDate: 1}, fields: {participants: 1, courseDate:1} });
   },
   courseDateRange: function () {
     // context is current
