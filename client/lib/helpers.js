@@ -27,7 +27,7 @@ UI.registerHelper('error', function() {
   return Session.get("createError");
 });
 
-UI.registerHelper('ownerName', function(userId) {
+UI.registerHelper('username', function(userId) {
 	var user = Meteor.users.findOne( userId )
 	return displayName(user);
 });
