@@ -155,6 +155,12 @@ Template.editCourseDescription.events({
       return false;
     }
 
+    var maxSize = 500000 // in byte, e.g. 20000 is 20KB
+    if (newImage.size > maxSize) {
+      toastr.error( "Die Bilddatei ist zu groß. Bitte wählen Sie eine Bilddatei, die kleiner als "+ maxSize / 1000 +" KB ist." );
+      return false;
+    }
+
     var self = this;
     var reader = new FileReader();
     reader.readAsDataURL(newImage);
