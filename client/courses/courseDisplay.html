@@ -67,7 +67,7 @@
   <div class="container">
     <div class="row">
 
-      <div class="col-md-2 course-detail-head">
+      <div class="col-md-2 course-detail-left">
         <div class="course-detail-head-image-wrapper">
         {{#if imageId}}
           <img src="{{image imageId}}" alt="{{title}}" class="">
@@ -81,9 +81,23 @@
           {{/if}}
         {{/if}}
         </div>
+
+        <div class="course-detail-body-location-wrapper">
+          <div id="location">
+            <strong>Ort</strong>
+            {{#if noLocation}}
+              <p>steht noch nicht fest</p>
+            {{else}}
+              <p>{{street}} <br>
+              {{#if streetAdditional}}<p>{{streetAdditional}}</p>{{/if}}
+              {{plz}} Berlin</p>
+            {{/if}}
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-6 course-detail-head course-detail-head-right">
+      <div class="col-md-6 course-detail-right">
+
         <div class="course-detail-head-text-wrapper">
         {{#if canEdit owner}}
           <button type="submit" class="btn btn-sm pull-right" id="editCourseButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
@@ -96,6 +110,18 @@
             {{/each}}
           </p>
           <p><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></p>
+        </div>
+
+        <div class="course-detail-body-text-wrapper">
+          <p><strong>Beschreibung</strong> <br>
+            <div class="contain-format">{{description}}</div>
+          </p>
+          <p><strong>Kursziele</strong> <br> {{aims}}</p>
+          <p><strong>Lernformen, Methodik und Didaktik</strong> <br> {{methods}}</p>
+          <p><strong>Zielgruppe</strong> <br> {{targetGroup}}</p>
+          <p><strong>Vorraussetzungen</strong> <br> {{prerequisites}}</p>
+          <p><strong>Sprachen</strong> <br> {{languages}}</p>
+          <p><strong>zusätzliche Leistungen</strong> <br> {{additionalServices}}</p>
         </div>
 <!--         {{#if canEdit course.owner}}
           <div>Course inquiries (course owner only)</div>
@@ -116,7 +142,6 @@
       </div>
               
       <div class="col-md-4 course-detail-event-panel">
-        <!-- <div class="affix"> -->
           <!-- <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button> -->
           <div class="row">
             <div class="col-xs-6">
@@ -155,8 +180,15 @@
             {{#each getCurrent}}
               <div class="row single-event">
                 <div class="col-md-4 single-event-left">
-                  <i class="fa fa-calendar"> Termin:</i> 
+                  <i class="fa fa-calendar"> </i> 
                   {{courseDateRange}}
+                  {{#if bookedOut ..}}
+                    
+                  {{else}}
+                    <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" type="button" class="btn btn-default btn-xs joinCourseButton">
+                      Jetzt Buchen
+                    </a>
+                  {{/if}}
                 </div>
                 <div class="col-md-8 single-event-right">
                   <div class="single-event-item-list">
@@ -185,48 +217,11 @@
                     <i class="fa fa-clock-o fa-fw"></i> Laufzeit:<span class="pull-right">noch {{runtime ..}} Tage</span>
                   </div>
                   <div style="text-align: center">
-                  {{#if bookedOut ..}}
-                    
-                  {{else}}
-                    <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" type="button" class="btn btn-default btn-xs joinCourseButton">
-                      Jetzt Buchen
-                    </a>
-                  {{/if}}
+                  
                   </div>
                 </div>
               </div>
             {{/each}}
-
-        <!-- </div> -->
-
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2 course-detail-body-location-wrapper">
-        <div id="location">
-          <strong>Ort</strong>
-          {{#if noLocation}}
-            <p>steht noch nicht fest</p>
-          {{else}}
-            <p>{{street}} <br>
-            {{#if streetAdditional}}<p>{{streetAdditional}}</p>{{/if}}
-            {{plz}} Berlin</p>
-          {{/if}}
-        </div>
-      </div>
-      <div class="col-md-7 course-detail-body-text-wrapper">
-        <div class="">
-          <p><strong>Beschreibung</strong> <br>
-            <div class="contain-format">{{description}}</div>
-          </p>
-          
-          <p><strong>Kursziele</strong> <br> {{aims}}</p>
-          <p><strong>Lernformen, Methodik und Didaktik</strong> <br> {{methods}}</p>
-          <p><strong>Zielgruppe</strong> <br> {{targetGroup}}</p>
-          <p><strong>Vorraussetzungen</strong> <br> {{prerequisites}}</p>
-          <p><strong>Sprachen</strong> <br> {{languages}}</p>
-          <p><strong>zusätzliche Leistungen</strong> <br> {{additionalServices}}</p>
-        </div>
       </div>
     </div>
   </div>
