@@ -28,3 +28,5 @@ fortawesome:fontawesome
 twbs:bootstrap-noglyph
 okgrow:iron-router-autoscroll
 momentjs:moment
+sacha:spin
+meteorhacks:subs-manager
