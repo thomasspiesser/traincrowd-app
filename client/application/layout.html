@@ -1,0 +1,30 @@
+<head>
+  <title>TrainCrowd</title>
+</head>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<body>
+</body>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="TCLayout">
+  <header>
+    {{> navBar}}
+  </header>
+  <div id="main">
+    {{> yield}}
+  </div>
+  <footer>
+    {{> footer}}
+  </footer>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="loadingTemplate">
+  {{>spinner}}
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 

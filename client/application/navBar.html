@@ -28,15 +28,11 @@
 
 <template name='navItemsLeft'>
 
-  <li>
-    <a href="/admin">Admin</a>
-  </li>
-
-  <li>
+  <!-- <li>
     <a href="{{pathFor 'courses'}}">Alle Kurse</a>
-  </li>
+  </li> -->
   <li>
-    <a href="{{pathFor 'search'}}">Suchen</a>
+    <a href="{{pathFor 'search'}}">Berlins Top Kurse</a>
   </li>
   <li>
     <a href="{{pathFor 'faq'}}">FAQ</a>
@@ -63,7 +59,7 @@
   {{/unless}}
   {{#if currentUser}}
     <li>
-    <div style="padding-bottom:5px; padding-top:5px; padding-left:15px;">
+    <div class="custom-nav-item" style="padding-left:15px;">
     {{#if currentUser.profile.imageId}}
       <img class="img-circle" src="{{image currentUser.profile.imageId}}" alt="{{username currentUser._id}}" style="width:40px; max-height:40px;">
     {{else}}

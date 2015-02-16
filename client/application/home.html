@@ -1,33 +1,3 @@
-<head>
-  <title>TrainCrowd</title>
-</head>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<body>
-
-</body>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<template name="TCLayout">
-  <header>
-    {{> navBar}}
-  </header>
-    {{> yield}}
-  <footer>
-    {{> footer}}
-  </footer>
-</template>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<template name="loadingTemplate">
-  {{>spinner}}
-</template>
-
-<!--  /////////////////////////////////////////////////// --> 
-
 <template name="home">
   <!-- Carousel
   ================================================== -->
@@ -41,13 +11,12 @@ top:-70px; ">
     </ol>
     <div class="carousel-inner">
       <div class="item active">
-        <img src="/titleImg7.jpg" alt="First slide" class="img-responsive">
+        <img src="/Landing-page.jpg" alt="First slide" class="img-responsive">
         <div class="container">
           <div class="carousel-caption">
-            <h1 id="firstHeadline">First headline.</h1>
-            <p id="firstSubHeadline">Landing: Looking for courses, wanna learn something, more catchi text here...</p>
-            <p><a class="btn btn-lg btn-default" id="firstHeadlineButton1" href="{{ pathFor 'courses' }}" role="button">Browse all Courses</a>
-            <a class="btn btn-lg btn-default" id="firstHeadlineButton2" href="{{ pathFor 'search' }}" role="button">Search for Courses</a></p>
+            <h1 id="firstHeadline">improve yourself. learn together.</h1>
+            <p id="firstSubHeadline">auf traincrowd finden Sie die richtige Weiterbildung und kaufen sie gemeinsam mit Anderen - viel günstiger als alleine</p>
+            <p><a class="btn btn-lg btn-default" id="firstHeadlineButton2" href="{{ pathFor 'search' }}" role="button">Jetzt Kurse finden</a></p>
           </div>
         </div>
       </div>
