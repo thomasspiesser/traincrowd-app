@@ -1,7 +1,7 @@
 Meteor.methods({
 	createInquired: function (options) {
     if (! this.userId)
-      throw new Meteor.Error(403, "Du musst eingelogged sein!");
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
     var id = Inquired.insert({
       owner: options.owner,
       course: options.course,
@@ -42,7 +42,7 @@ Meteor.methods({
     check(token, NonEmptyString);
 
     if (! this.userId)
-      throw new Meteor.Error(403, "Du musst eingelogged sein!");
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
 
     var current = Current.findOne({token: token}, {fields: {owner:1}});
 
@@ -56,7 +56,7 @@ Meteor.methods({
   },
   updateRoles: function () {
     if (! this.userId)
-      throw new Meteor.Error(403, "Du musst eingelogged sein!");
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
     Roles.setUserRoles(this.userId, 'trainer')
   }
 })

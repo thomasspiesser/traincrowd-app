@@ -117,6 +117,12 @@ Template.editCourseDescription.rendered = function () {
   }
 };
 
+// Template.editCourseDescription.helpers({
+//   imageId: function () {
+//     return this.uploader.url(true);
+//   }
+// });
+
 Template.editCourseDescription.events({
   'click #saveEditCourseDescription': function (event, template) {
     var title = template.find("#editCourseTitle").value;
@@ -141,65 +147,80 @@ Template.editCourseDescription.events({
     });
 
     return false;
-    
-    // check all for appropriate type
-    // provide user feedback if error from one of the above checks
   },
   'click #newCourseImageDummy': function () {
     $('#newCourseImageReal').click();
   },
   'change #newCourseImageReal': function (event, template) {
     var newImage = template.find("#newCourseImageReal").files[0];
-    if (!newImage.type.match('image.*')) {
-      toastr.error( "Das ist keine Bilddatei." );
-      return false;
-    }
 
-    var maxSize = 500000 // in byte, e.g. 20000 is 20KB
-    if (newImage.size > maxSize) {
-      toastr.error( "Die Bilddatei ist zu groß. Bitte wählen Sie eine Bilddatei, die kleiner als "+ maxSize / 1000 +" KB ist." );
-      return false;
-    }
+    var uploader = new Slingshot.Upload("coursePicture");
+
+    // if (!newImage.type.match('image.*')) {
+    //   toastr.error( "Das ist keine Bilddatei." );
+    //   return false;
+    // }
+    // var maxSize = 500000 // in byte, e.g. 20000 is 20KB
+    // if (newImage.size > maxSize) {
+    //   toastr.error( "Die Bilddatei ist zu groß. Bitte wählen Sie eine Bilddatei, die kleiner als "+ maxSize / 1000 +" KB ist." );
+    //   return false;
+    // }
 
     var self = this;
-    var reader = new FileReader();
-    reader.readAsDataURL(newImage);
 
-    reader.onloadstart = function(e) {
-      $('#newCourseImageDummy i').removeClass('fa-upload');
-      $('#newCourseImageDummy i').addClass('fa-refresh fa-spin');
-      $('#newCourseImageDummy span').text(' Läd...');
-    };
-
-    reader.onloadend = function(e) {
-      $('#newCourseImageDummy i').addClass('fa-upload');
-      $('#newCourseImageDummy i').removeClass('fa-refresh fa-spin');
-      $('#newCourseImageDummy span').text(' Neues Bild');
-    };
-
-    reader.onload = function(event) {
-      if (self.imageId) {
-        var modifier = {_id: self.imageId,
-                        data: event.target.result }
-        Meteor.call('updateImage', modifier, function (error, result) {
-          if (error)
-            toastr.error( error.reason );
-        });
-      } 
-      else {
-        Meteor.call('insertImage', event.target.result, function (error, imageId) {
-          if (error)
-            toastr.error( error.reason );
-          else {
-            var modifier = {_id: self._id,
-                            owner: self.owner,
-                            imageId: imageId}
-            saveUpdates(modifier);
-          }
-        });
+    uploader.send(newImage, function (error, downloadUrl) {
+      if (error) {
+        console.log(error)
+        toastr.error( error.message );
+        return false;
       }
-    };
+      var modifier = {_id: self._id,
+                      owner: self.owner,
+                      imageId: downloadUrl}
+      saveUpdates(modifier);
+    });
+
     return false;
+
+    // // manual upload and insert into MongoDB
+    // var reader = new FileReader();
+    // reader.readAsDataURL(newImage);
+
+    // reader.onloadstart = function(e) {
+    //   $('#newCourseImageDummy i').removeClass('fa-upload');
+    //   $('#newCourseImageDummy i').addClass('fa-refresh fa-spin');
+    //   $('#newCourseImageDummy span').text(' Läd...');
+    // };
+
+    // reader.onloadend = function(e) {
+    //   $('#newCourseImageDummy i').addClass('fa-upload');
+    //   $('#newCourseImageDummy i').removeClass('fa-refresh fa-spin');
+    //   $('#newCourseImageDummy span').text(' Neues Bild');
+    // };
+
+    // reader.onload = function(event) {
+    //   if (self.imageId) {
+    //     var modifier = {_id: self.imageId,
+    //                     data: event.target.result }
+    //     Meteor.call('updateImage', modifier, function (error, result) {
+    //       if (error)
+    //         toastr.error( error.reason );
+    //     });
+    //   } 
+    //   else {
+    //     Meteor.call('insertImage', event.target.result, function (error, imageId) {
+    //       if (error)
+    //         toastr.error( error.reason );
+    //       else {
+    //         var modifier = {_id: self._id,
+    //                         owner: self.owner,
+    //                         imageId: imageId}
+    //         saveUpdates(modifier);
+    //       }
+    //     });
+    //   }
+    // };
+    // return false;
   },
   'click #deleteCourseImage': function () {
     if (! this.imageId) //if there is nothing to delete
