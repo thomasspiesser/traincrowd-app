@@ -7,13 +7,6 @@
       <tbody>
         {{#each hostedCourses}}
           <tr class="{{#unless public}}{{else}}info{{/unless}}">
-<!--             <td>
-              {{#if imageId}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{imageId}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
-              {{else}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
-              {{/if}}
-            </td> -->
             <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
             <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
             <td>{{#if public}}<span style="color: green;"><i class="fa fa-check"></i> online</span>{{else}}<span style="color: red;"><i class="fa fa-times"></i> offline</span>{{/if}}</td>
@@ -37,13 +30,6 @@
       <tbody>
         {{#each inquiredCourses}}
           <tr>
-<!--             <td>
-              {{#if imageId}}
-              <a href="{{ pathFor route='course.show' _id=course }}"><img src="{{imageId}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
-              {{else}}
-              <a href="{{ pathFor route='course.show' _id=course }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
-              {{/if}}
-            </td> -->
             <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
             <td>{{inquiredDates}}</td>
             <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
@@ -58,7 +44,6 @@
     <table class='table table-striped'>
     <thead>
         <tr>
-          <!-- <td></td> -->
           <td>Titel</td>
           <td>Kurs Datum</td>
           <td>Bewertung</td>
@@ -68,13 +53,6 @@
       <tbody>
         {{#each currentCourses}}
           <tr>
-<!--             <td>
-              {{#if imageId}}
-              <a href="{{ pathFor route='course.show' _id=course }}"><img src="{{imageId}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
-              {{else}}
-              <a href="{{ pathFor route='course.show' _id=course }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
-              {{/if}}
-            </td> -->
             <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
             <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
             <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
@@ -89,7 +67,6 @@
     <table class='table table-striped'>
     <thead>
         <tr>
-          <!-- <td></td> -->
           <td>Titel</td>
           <td>Datum</td>
           <td>Meine Bewertung</td>
@@ -100,13 +77,6 @@
       <tbody>
         {{#each elapsedCourses}}
           <tr>
-<!--             <td>
-              {{#if imageId}}
-              <a href="{{ pathFor route='course.show' _id=course }}"><img src="{{imageId}}" alt="" class="img-thumbnail img-responsive" style="height: 40px;"></a>
-              {{else}}
-              <a href="{{ pathFor route='course.show' _id=course }}"><img src="/iconTeach.png" alt="" class=" img-thumbnail img-responsive" style="height: 40px;"></a>
-              {{/if}}
-            </td> -->
             <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
             <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
             <td>

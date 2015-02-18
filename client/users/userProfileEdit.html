@@ -12,33 +12,35 @@
     {{/if}}
 
     <div class="row">
+
       <div class="col-md-2">
-      <div class="tabbable tabs-left" >
-        <ul class="nav nav-tabs">
-          <li class="active">
-            <a href="#profileDescription" data-toggle="tab"><span class="fa fa-list-alt fa-fw"></span>&nbsp; Profil</a>
-          </li>
-          <li >
-            <a href="#profileContact" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp; Kontakt</a>
-          </li>
-          {{#if isInRole 'trainer'}}
-            <li>
-              <a href="#profileQualification" data-toggle="tab"><span class="fa fa-euro fa-fw"></span>&nbsp; Qualifikation</a>
+        <div class="tabbable tabs-left" >
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="#profileDescription" data-toggle="tab"><span class="fa fa-list-alt fa-fw"></span>&nbsp; Profil</a>
             </li>
-          {{else}}
-            <li>
-              <a href="#profileOccupation" data-toggle="tab"><span class="fa fa-laptop fa-fw"></span>&nbsp; Berufsfeld</a>
+            <li >
+              <a href="#profileContact" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp; Kontakt</a>
             </li>
+            {{#if isInRole 'trainer'}}
+              <li>
+                <a href="#profileQualification" data-toggle="tab"><span class="fa fa-euro fa-fw"></span>&nbsp; Qualifikation</a>
+              </li>
+            {{else}}
+              <li>
+                <a href="#profileOccupation" data-toggle="tab"><span class="fa fa-laptop fa-fw"></span>&nbsp; Berufsfeld</a>
+              </li>
+              <li>
+                <a href="#profileExpectation" data-toggle="tab"><span class="fa fa-question-circle fa-fw"></span>&nbsp; Erwartung</a>
+              </li>
+            {{/if}}
             <li>
-              <a href="#profileExpectation" data-toggle="tab"><span class="fa fa-question-circle fa-fw"></span>&nbsp; Erwartung</a>
+              <a href="#profileAccount" data-toggle="tab"><span class="fa fa-cogs fa-fw"></span>&nbsp; Account</a>
             </li>
-          {{/if}}
-          <li>
-            <a href="#profileAccount" data-toggle="tab"><span class="fa fa-cogs fa-fw"></span>&nbsp; Account</a>
-          </li>
-        </ul>
+          </ul>
+        </div>
       </div>
-      </div>
+
       <div class="col-md-6">
         <div class="tab-content">
           <div class="tab-pane active" id="profileDescription">
@@ -64,6 +66,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-md-4">
         {{#if showHoverText}}
         <div class="editHelperText">
@@ -71,6 +74,7 @@
         </div>
         {{/if}}
       </div>
+
     <!-- div row -->
     </div>
   {{else}}
@@ -197,30 +201,6 @@
       </div>
     </div>
   </div>
-<!-- 
-  <div class="form-group">
-    <label for="editProfileNoLocation" class="control-label">Verfügen Sie über eigene Räumlichkeiten für Weiterbildungen?</label>
-    <select class="form-control hoverCheck" id="editProfileNoLocation">
-      <option value="" {{selected '' duration}}></option>
-      <option value="yes" {{selected '1' duration}}>Ja</option>
-      <option value="no" {{selected '2' duration}}>Nein</option>
-    </select>
-  </div>
-
-  {{#unless noLocation}}
-  <div class="checkbox">
-    <label>
-    <input type="checkbox" id="editProfileNoLocation" checked="{{noLocation}}">Dürfen wir Sie bei der Suche nach passenden Räumlichkeiten unterstützen?
-    </label>
-  </div>
-  {{else}}
-  <div class="checkbox">
-    <label>
-    <input type="checkbox" id="editProfileBarrierFree" checked="{{barrierFree}}">Gibt es einen barrierefreien Zugang zu den Räumen?
-    </label>
-  </div>
-  {{/unless}} -->
-
 
   <!-- button -->
   <div class="form-group">

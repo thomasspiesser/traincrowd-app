@@ -278,14 +278,6 @@ footer a:hover {
   margin-bottom: 25px;
 }
 
-.affix{
-
-  /*position: static;*/
-  width: 20%;
-  padding: 25px 10px;
-  box-shadow: 0px 0px 8px #888;
-}
-
 .contain-format {
   white-space: pre-wrap;
 }
@@ -341,80 +333,8 @@ footer a:hover {
   *border-right-color: #ffffff;
 }
 
-/*#firstHeadline {
-  -webkit-animation-name: fadeIn;
-  -webkit-animation-duration: 1.2s;
-  -webkit-animation-delay: 1s;
-  -webkit-animation-iteration-count: 1;
-}
-
-#firstSubHeadline {
-  -webkit-animation-name: fadeInLeftBig;
-  -webkit-animation-duration: 1.1s;
-  -webkit-animation-delay: 1.1s;
-}
-
-#firstHeadlineButton1 {
-  -webkit-animation-name: fadeInDownBig;
-  -webkit-animation-duration: 1.2s;
-  -webkit-animation-delay: 0.95s;
-}
-
-#firstHeadlineButton2 {
-  -webkit-animation-name: fadeInRightBig;
-  -webkit-animation-duration: 1.3s;
-  -webkit-animation-delay: 1.15s;
-}
-
-#secondHeadline {
-  -webkit-animation-name: fadeIn;
-  -webkit-animation-duration: 1.2s;
-  -webkit-animation-delay: 1s;
-}
-
-#secondSubHeadline {
-  -webkit-animation-name: fadeInUpBig;
-  -webkit-animation-duration: 1.1s;
-  -webkit-animation-delay: 0.8s;
-}
-
-#secondHeadlineButton {
-  -webkit-animation-name: fadeInRightBig;
-  -webkit-animation-duration: 1.2s;
-  -webkit-animation-delay: 0.85s;
-}
-
-
-#thirdHeadline {
-  -webkit-animation-name: fadeIn;
-  -webkit-animation-duration: 1.2s;
-  -webkit-animation-delay: 1s;
-}
-
-#thirdSubHeadline {
-  -webkit-animation-name: fadeInRightBig;
-  -webkit-animation-duration: 1.1s;
-  -webkit-animation-delay: 1.1s;
-}
-
-#thirdHeadlineButton {
-  -webkit-animation-name: fadeInDownBig;
-  -webkit-animation-duration: 1.2s;
-  -webkit-animation-delay: 0.95s;
-}*/
-
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
-
-/* Flip around the padding for proper display in narrow viewports */
-/*.navbar-wrapper > .container {
-  padding-right: 0;
-  padding-left: 0;
-}
-.navbar-wrapper .navbar {
-  padding-right: 15px;
-  padding-left: 15px;
-}*/
 
 .navbar-default {
   background-color: rgba(255, 255, 255, 0.9);
@@ -424,7 +344,6 @@ footer a:hover {
 .navbar .container {
   width: auto;
 }
-
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -453,8 +372,6 @@ footer a:hover {
   height: 700px;
 }
 
-
-
 /* MARKETING CONTENT
 -------------------------------------------------- */
 
@@ -470,7 +387,6 @@ footer a:hover {
   margin-right: 10px;
   margin-left: 10px;
 }
-
 
 /* Featurettes
 ------------------------- */

@@ -64,7 +64,5 @@ Template.courseConfirmForm.events({
 		    });
       }
     });
-
-    
 	}
 });

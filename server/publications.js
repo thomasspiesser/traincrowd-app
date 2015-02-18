@@ -44,9 +44,9 @@ Meteor.publish('trainer', function () {
 //   return Meteor.users.find({_id: id, roles: 'trainer'}, {fields: {services:0, createdAt: 0}});
 // });
 
-Meteor.publish('images', function () {
-	return Images.find();
-});
+// Meteor.publish('images', function () {
+// 	return Images.find();
+// });
 
 Meteor.publish('categories', function () {
 	return Categories.find();

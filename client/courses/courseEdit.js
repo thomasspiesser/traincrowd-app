@@ -375,7 +375,6 @@ $.fn.datepicker.dates['de'] = {
     clear: "Löschen",
     weekStart: 1,
     format: "dd.mm.yyyy"
-    // format: "yyyy.mm.dd"
   };
 
 Template.editCourseDates.rendered=function() {

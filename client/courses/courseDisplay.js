@@ -55,8 +55,6 @@ Template.courseDetail.rendered = function() {
   $('.course-detail-head-image-wrapper img').addClass(function () {return this.width > this.height ? 'landscape' : 'portrait'});
 };
 
-
-
 Template.courseDetail.helpers({
   trainerImageId: function (id) {
     var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );
@@ -145,10 +143,6 @@ Template.courseDetail.events({
   //     toastr.error( 'Bitte einen Termin auswählen.' );
   //   }
   //   return false
-  // },
-  // 'click #declineDateButton': function () {
-  //   // remove from inquired
-  //   // send mail to inquirer that was not suitable
   // },
   'click .joinCourseButton': function (event, template) {
     Session.set("currentId", this._id);

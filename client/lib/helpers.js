@@ -9,14 +9,6 @@ trimInput = function(val) {
 
 EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-UI.registerHelper('show', function () {
-  console.log(this);
-});
-
-UI.registerHelper('fakeParagraph', function (number) {
-  return Fake.paragraph(number);
-});
-
 UI.registerHelper('canEdit', function(owner) {
   if (!Meteor.userId())
     return false;
