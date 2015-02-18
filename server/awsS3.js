@@ -13,10 +13,11 @@ Slingshot.createDirective("coursePicture", Slingshot.S3Storage, {
     return true;
   },
 
-  key: function (file) {
+  key: function (file, metaContext) {
     //Store file by the user's Id.
     //TODO make non-redundant names
-    return this.userId + "_" + "course" + "_"+ file.name;
+    // var fileExtension = file.name.split('.').pop();
+    return this.userId + "_course_" + metaContext.course + "_" + file.name;
   }
 });
 
@@ -37,6 +38,7 @@ Slingshot.createDirective("profilePicture", Slingshot.S3Storage, {
 
   key: function (file) {
     //Store file by the user's Id.
-    return this.userId + "_" + "profile" + "_"+ file.name;
+    // var fileExtension = file.name.split('.').pop();
+    return this.userId + "_profile_" + file.name;
   }
 });

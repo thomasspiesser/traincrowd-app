@@ -117,11 +117,21 @@ Template.editCourseDescription.rendered = function () {
   }
 };
 
-// Template.editCourseDescription.helpers({
-//   imageId: function () {
-//     return this.uploader.url(true);
-//   }
-// });
+var uploader = new ReactiveVar();
+
+Template.editCourseDescription.helpers({
+  isUploading: function () {
+    return Boolean(uploader.get());
+  }, 
+  progress: function () {
+    var upload = uploader.get();
+    if (upload)
+      return Math.round(upload.progress() * 100) || 0;
+  }
+  // imageId: function () {
+  //   return this.uploader.url(true);
+  // }
+});
 
 Template.editCourseDescription.events({
   'click #saveEditCourseDescription': function (event, template) {
@@ -154,7 +164,8 @@ Template.editCourseDescription.events({
   'change #newCourseImageReal': function (event, template) {
     var newImage = template.find("#newCourseImageReal").files[0];
 
-    var uploader = new Slingshot.Upload("coursePicture");
+    var metaContext = {course: this._id}
+    var upload = new Slingshot.Upload("coursePicture", metaContext);
 
     // if (!newImage.type.match('image.*')) {
     //   toastr.error( "Das ist keine Bilddatei." );
@@ -168,19 +179,24 @@ Template.editCourseDescription.events({
 
     var self = this;
 
-    uploader.send(newImage, function (error, downloadUrl) {
-      if (error) {
-        console.log(error)
-        toastr.error( error.message );
-        return false;
-      }
-      var modifier = {_id: self._id,
-                      owner: self.owner,
-                      imageId: downloadUrl}
-      saveUpdates(modifier);
-    });
+    if (newImage) {
+      upload.send(newImage, function (error, downloadUrl) {
+        uploader.set();
+        if (error) {
+          console.log(error)
+          toastr.error( error.message );
+        }
+        else {
+          var modifier = {_id: self._id,
+                          owner: self.owner,
+                          imageId: downloadUrl}
+          saveUpdates(modifier);
+        }
+      });
+    }
 
-    return false;
+    uploader.set(upload);
+
 
     // // manual upload and insert into MongoDB
     // var reader = new FileReader();
@@ -222,23 +238,23 @@ Template.editCourseDescription.events({
     // };
     // return false;
   },
-  'click #deleteCourseImage': function () {
-    if (! this.imageId) //if there is nothing to delete
-      return false;
-    var self = this; // needed, coz this in bootbox is bootbox object
-    bootbox.confirm('Bild löschen?', function(result) {
-      if (result) {
-        var modifier = {_id: self._id,
-                    owner: self.owner,
-                    imageId: '' }
-        saveUpdates(modifier);
-        Meteor.call('removeImage', self.imageId, function (error, result) {
-          if (error)
-            toastr.error( error.reason );
-        });
-      }
-    });
-  },
+  // 'click #deleteCourseImage': function () {
+  //   if (! this.imageId) //if there is nothing to delete
+  //     return false;
+  //   var self = this; // needed, coz this in bootbox is bootbox object
+  //   bootbox.confirm('Bild löschen?', function(result) {
+  //     if (result) {
+  //       var modifier = {_id: self._id,
+  //                   owner: self.owner,
+  //                   imageId: '' }
+  //       saveUpdates(modifier);
+  //       Meteor.call('removeImage', self.imageId, function (error, result) {
+  //         if (error)
+  //           toastr.error( error.reason );
+  //       });
+  //     }
+  //   });
+  // },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
   }
