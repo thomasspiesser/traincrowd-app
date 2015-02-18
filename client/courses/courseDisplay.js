@@ -39,8 +39,10 @@ Template.coursePreview.helpers({
   },
   nextEvent: function ( ) {
     var nextEvent = _.pluck(this.dates, 0) // get first date object for every event
-    if (nextEvent.length)
-      return moment( _.min(nextEvent) ).format("DD.MM.YYYY");
+    if (nextEvent.length) {
+      nextEvent = _.min( _.map( nextEvent, function (date) {return moment(date)} ) );
+      return nextEvent.format("DD.MM.YYYY");
+    }
     return 'Kein Event'
   }
 });
