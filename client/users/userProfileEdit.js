@@ -74,9 +74,19 @@ var saveUpdates = function (modifier) {
 
 //////////// editUserProfile DESCRIPTION template /////////
 
+var uploader = new ReactiveVar();
+
 Template.editProfileDescription.helpers({
   selected: function (one, two) {
     return one === two ? 'selected' : '';
+  },
+  isUploading: function () {
+    return Boolean(uploader.get());
+  }, 
+  progress: function () {
+    var upload = uploader.get();
+    if (upload)
+      return Math.round(upload.progress() * 100) || 0;
   }
 });
 
@@ -98,55 +108,75 @@ Template.editProfileDescription.events({
   },
   'change #newProfileImageReal': function (event, template) {
     var newImage = template.find("#newProfileImageReal").files[0];
-    if (!newImage.type.match('image.*')) {
-      toastr.error( "Das ist keine Bilddatei." );
-      return false;
-    }
 
-    var maxSize = 500000 // in byte, e.g. 20000 is 20KB
-    if (newImage.size > maxSize) {
-      toastr.error( "Die Bilddatei ist zu groß. Bitte wählen Sie eine Bilddatei, die kleiner als "+ maxSize / 1000 +" KB ist." );
-      return false;
-    }
+    var upload = new Slingshot.Upload("profilePicture");
+
+    // if (!newImage.type.match('image.*')) {
+    //   toastr.error( "Das ist keine Bilddatei." );
+    //   return false;
+    // }
+
+    // var maxSize = 500000 // in byte, e.g. 20000 is 20KB
+    // if (newImage.size > maxSize) {
+    //   toastr.error( "Die Bilddatei ist zu groß. Bitte wählen Sie eine Bilddatei, die kleiner als "+ maxSize / 1000 +" KB ist." );
+    //   return false;
+    // }
 
     var self = this;
-    var reader = new FileReader();
-    reader.readAsDataURL(newImage);
 
-    reader.onloadstart = function(e) {
-      $('#newProfileImageDummy i').removeClass('fa-upload');
-      $('#newProfileImageDummy i').addClass('fa-refresh fa-spin');
-      $('#newProfileImageDummy span').text(' Läd...');
-    };
+    if (newImage) {
+      upload.send(newImage, function (error, downloadUrl) {
+        uploader.set();
+        if (error) {
+          console.log(error)
+          toastr.error( error.message );
+        }
+        else {
+          var modifier = {'profile.imageId': downloadUrl}
+          saveUpdates(modifier);
+        }
+      });
+    }
 
-    reader.onloadend = function(e) {
-      $('#newProfileImageDummy i').addClass('fa-upload');
-      $('#newProfileImageDummy i').removeClass('fa-refresh fa-spin');
-      $('#newProfileImageDummy span').text(' Neues Bild');
-    };
+    uploader.set(upload);
 
-    reader.onload = function(event) {
-      // $('#newProfileImageDummy i').button('reset') 
-      if (self.profile.imageId) {
-        var modifier = {_id: self.profile.imageId,
-                        data: event.target.result }
-        Meteor.call('updateImage', modifier, function (error, result) {
-          if (error)
-            toastr.error( error.reason );
-        });
-      } 
-      else {
-        Meteor.call('insertImage', event.target.result, function (error, imageId) {
-          if (error)
-            toastr.error( error.reason );
-          else {
-            var modifier = {'profile.imageId': imageId}
-            saveUpdates(modifier);
-          }
-        });
-      }
-    };
-    return false;
+    // var reader = new FileReader();
+    // reader.readAsDataURL(newImage);
+
+    // reader.onloadstart = function(e) {
+    //   $('#newProfileImageDummy i').removeClass('fa-upload');
+    //   $('#newProfileImageDummy i').addClass('fa-refresh fa-spin');
+    //   $('#newProfileImageDummy span').text(' Läd...');
+    // };
+
+    // reader.onloadend = function(e) {
+    //   $('#newProfileImageDummy i').addClass('fa-upload');
+    //   $('#newProfileImageDummy i').removeClass('fa-refresh fa-spin');
+    //   $('#newProfileImageDummy span').text(' Neues Bild');
+    // };
+
+    // reader.onload = function(event) {
+    //   // $('#newProfileImageDummy i').button('reset') 
+    //   if (self.profile.imageId) {
+    //     var modifier = {_id: self.profile.imageId,
+    //                     data: event.target.result }
+    //     Meteor.call('updateImage', modifier, function (error, result) {
+    //       if (error)
+    //         toastr.error( error.reason );
+    //     });
+    //   } 
+    //   else {
+    //     Meteor.call('insertImage', event.target.result, function (error, imageId) {
+    //       if (error)
+    //         toastr.error( error.reason );
+    //       else {
+    //         var modifier = {'profile.imageId': imageId}
+    //         saveUpdates(modifier);
+    //       }
+    //     });
+    //   }
+    // };
+    // return false;
   },
   'click #deleteProfileImage': function () {
     if (! this.profile.imageId) //if there is nothing to delete

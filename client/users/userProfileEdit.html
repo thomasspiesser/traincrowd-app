@@ -113,7 +113,7 @@
       <div class="form-group">
       <label for="" class="control-label">Profilbild</label>
         {{#if profile.imageId}}
-        <img src="{{image profile.imageId}}" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editProfileImage" style="margin-left:0px; width: 160px;">
+        <img src="{{profile.imageId}}" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editProfileImage" style="margin-left:0px; width: 160px;">
         {{else}}
         <img src="/dummyUser.jpg" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editProfileDefaultImage" style="margin-left:0px; width: 160px;">
         {{/if}}
@@ -131,7 +131,16 @@
         <br>
         <input type="file" id="newProfileImageReal" style="display:none;">
 
-        <button type="button" class="btn btn-sm btn-danger" id="deleteProfileImage" style="margin-top:5px;"> <i class="fa fa-trash-o"></i> Bild Löschen</button>
+        <br>
+        {{#if isUploading}}
+          <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+              <span class="sr-only">{{progress}}%</span>
+            </div>
+          </div>
+        {{/if}}
+
+        <!-- <button type="button" class="btn btn-sm btn-danger" id="deleteProfileImage" style="margin-top:5px;"> <i class="fa fa-trash-o"></i> Bild Löschen</button> -->
       </div>
     </div>
   </div>
