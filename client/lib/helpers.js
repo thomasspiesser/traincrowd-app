@@ -32,9 +32,9 @@ UI.registerHelper('username', function(userId) {
 	return displayName(user);
 });
 
-UI.registerHelper('image', function(imageId) {
-  var image = Images.findOne({_id: imageId})
-  if (image)
-    return image.data;
-  return false
-});
+// UI.registerHelper('image', function(imageId) {
+//   var image = Images.findOne({_id: imageId})
+//   if (image)
+//     return image.data;
+//   return false
+// });

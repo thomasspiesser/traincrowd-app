@@ -19,11 +19,11 @@
       <div class="col-md-3 col-preview-image">
         <div class="course-preview-image">
           {{#if imageId}}
-            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{image imageId}}" class=""></a>
+            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{imageId}}" class=""></a>
           {{else}}
             {{#if trainerImageId owner}}
               {{#with trainerImageId owner}}
-                <a href="{{ pathFor route='course.show' _id=../_id }}"><img src="{{image this}}" alt="" class=""></a>
+                <a href="{{ pathFor route='course.show' _id=../_id }}"><img src="{{this}}" alt="" class=""></a>
               {{/with}}
             {{else}}
               <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" class=""></a>
@@ -70,11 +70,11 @@
       <div class="col-md-2 course-detail-left">
         <div class="course-detail-head-image-wrapper">
         {{#if imageId}}
-          <img src="{{image imageId}}" alt="{{title}}" class="">
+          <img src="{{imageId}}" alt="{{title}}" class="">
         {{else}}
           {{#if trainerImageId owner}}
             {{#with trainerImageId owner}}
-              <img src="{{image this}}" alt="" class="">
+              <img src="{{this}}" alt="" class="">
             {{/with}}
           {{else}}
             <img src="/iconTeach.png" alt="" class="">
