@@ -170,8 +170,16 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseCosts">
+<!--   <div class="form-group">
+    <label for="editCourseMinParticipants" class="control-label">Mindestteilnehmeranzahl</label>
+    <input type="number" class="form-control hoverCheck" id="editCourseMinParticipants" value="{{minParticipants}}">
+  </div> -->
   <div class="form-group">
-    <label for="editCourseFee" class="control-label">Preis</label>
+    <label for="editCourseMaxParticipants" class="control-label">Teilnehmerzahl</label>
+    <input type="number" class="form-control hoverCheck" id="editCourseMaxParticipants" value="{{maxParticipants}}">
+  </div>
+  <div class="form-group">
+    <label for="editCourseFee" class="control-label">Gesamt Preis</label>
     <input type="number" class="form-control hoverCheck" id="editCourseFee" value="{{fee}}">
   </div>
 
@@ -187,14 +195,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseServices">
-  <div class="form-group">
-    <label for="editCourseMinParticipants" class="control-label">Mindestteilnehmeranzahl</label>
-    <input type="number" class="form-control hoverCheck" id="editCourseMinParticipants" value="{{minParticipants}}">
-  </div>
-  <div class="form-group">
-    <label for="editCourseMaxParticipants" class="control-label">Maximale Gruppengröße</label>
-    <input type="number" class="form-control hoverCheck" id="editCourseMaxParticipants" value="{{maxParticipants}}">
-  </div>
+
   <div class="form-group">
     <label for="editCourseDuration" class="control-label">Kursdauer</label>
     <select class="form-control hoverCheck" id="editCourseDuration">

@@ -303,15 +303,26 @@ Template.editCourseCosts.helpers({
 Template.editCourseCosts.events({
   'click #saveEditCourseCosts': function (event, template) {
     var fee = template.find("#editCourseFee").value;
+    // var minParticipants = template.find("#editCourseMinParticipants").value;
+    var maxParticipants = template.find("#editCourseMaxParticipants").value;
 
-    if (! fee.length) {
-      toastr.error( "Sie müssen einen Preis angeben." );
-      return false;
+    if (! fee.length || ! maxParticipants.length) {
+      toastr.error( "Sie müssen einen Preis und die Teilnehmerzahl angeben." );
+      return false
     }
+    // var minParticipants = parseInt(minParticipants);
+    var maxParticipants = parseInt(maxParticipants);
+    // if (minParticipants > maxParticipants) {
+    //   toastr.error( "Die maximale Gruppengröße muss mindestens "+minParticipants+" sein." );
+    //   return false
+    // }
+
     fee = parseFloat(fee.replace(',','.'))
     fee = +fee.toFixed(2); // rounded to 2 digits returns number coz of +
     var modifier = {_id: this._id,
                 owner: this.owner,
+                // minParticipants: minParticipants,
+                maxParticipants: maxParticipants,
                 fee: fee }
     saveUpdates(modifier);
   },
@@ -333,27 +344,11 @@ Template.editCourseServices.helpers({
 
 Template.editCourseServices.events({
   'click #saveEditCourseServices': function (event, template) {
-    var minParticipants = template.find("#editCourseMinParticipants").value;
-    var maxParticipants = template.find("#editCourseMaxParticipants").value;
-
-    if (! minParticipants.length || ! maxParticipants.length) {
-      toastr.error( "Sie müssen die Teilnehmerzahlen angeben." );
-      return false
-    }
-    var minParticipants = parseInt(minParticipants);
-    var maxParticipants = parseInt(maxParticipants);
-
-    if (minParticipants > maxParticipants) {
-      toastr.error( "Die maximale Gruppengröße muss mindestens "+minParticipants+" sein." );
-      return false
-    }
 
     var duration = template.find("#editCourseDuration").value;
     var additionalServices = template.find("#editCourseAdditionalServices").value;
     var modifier = {_id: this._id,
                 owner: this.owner,
-                minParticipants: minParticipants,
-                maxParticipants: maxParticipants,
                 duration: duration,
                 additionalServices: additionalServices }
     saveUpdates(modifier);

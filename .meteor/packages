@@ -12,7 +12,6 @@ alanning:roles
 houston:admin
 
 anti:fake
-mizzao:bootboxjs
 dandv:jquery-rateit
 percolate:synced-cron
 natestrauser:select2
@@ -23,7 +22,6 @@ u2622:persistent-session
 meteorhacks:kadira
 chrismbeckett:toastr
 dburles:spacebars-tohtml
-msavin:mongoinspector
 fortawesome:fontawesome
 twbs:bootstrap-noglyph
 okgrow:iron-router-autoscroll
@@ -32,3 +30,4 @@ sacha:spin
 meteorhacks:subs-manager
 edgee:slingshot
 reactive-var
+msavin:mongol
