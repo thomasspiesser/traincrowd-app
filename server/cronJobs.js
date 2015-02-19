@@ -14,7 +14,7 @@ function setExpired() {
 
     if (course.expires) {
       // calc when the event expires: courseDate - no.of weeks before
-      var date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * parseInt(course.expires)); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
+      var date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * course.expires); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
     }
     if (date < new Date()) {
       expiredEvents.push(current._id) // for the record

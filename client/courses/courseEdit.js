@@ -287,15 +287,28 @@ Template.editCourseDetails.events({
 
 //////////// editCourse COSTS template /////////
 
+Template.editCourseCosts.rendered = function () {
+  if (this.data.fee)
+    Session.set("courseFee", this.data.fee);
+  else
+    Session.set("courseFee", 0);
+  if (this.data.maxParticipants)
+    Session.set("courseMaxParticipants", this.data.maxParticipants);
+  else
+    Session.set("courseMaxParticipants", false);
+};
+
 Template.editCourseCosts.helpers({
   feePP: function () {
-    if (this.fee)
-      Session.setDefault("courseFee", this.fee);
-    else
-      Session.setDefault("courseFee", 0);
-    return ( Session.get("courseFee") / this.maxParticipants ).toFixed(2);
+    if (Session.equals("courseMaxParticipants", false) )
+      return;
+    var commision = +( Session.get("courseFee") / 100 * 15 ).toFixed(2);
+    var fee = parseFloat(Session.get("courseFee"));
+    return ( ( fee + commision ) / Session.get("courseMaxParticipants") ).toFixed(2);
   },
   serviceFee: function () {
+    if (Session.equals("courseMaxParticipants", false) )
+      return;
     return ( Session.get("courseFee") / 100 * 15 ).toFixed(2);
   }
 });
@@ -331,25 +344,20 @@ Template.editCourseCosts.events({
   },
   'input #editCourseFee': function (event, template) {
     Session.set("courseFee", event.currentTarget.value);
+  },
+  'input #editCourseMaxParticipants': function (event, template) {
+    Session.set("courseMaxParticipants", event.currentTarget.value);
   }
 });
 
 //////////// editCourse SERVICES template /////////
 
-Template.editCourseServices.helpers({
-  selected: function (one, two) {
-    return one === two ? 'selected' : '';
-  }
-});
-
 Template.editCourseServices.events({
   'click #saveEditCourseServices': function (event, template) {
 
-    var duration = template.find("#editCourseDuration").value;
     var additionalServices = template.find("#editCourseAdditionalServices").value;
     var modifier = {_id: this._id,
                 owner: this.owner,
-                duration: duration,
                 additionalServices: additionalServices }
     saveUpdates(modifier);
   },
@@ -400,14 +408,36 @@ Template.editCourseDates.helpers({
 
 Template.editCourseDates.events({
   'click #saveEditCourseDates': function (event, template) {
+    var duration = template.find("#editCourseDuration").value;
+    var expires = template.find("#editCourseExpires").value;
+
+    if (! duration || ! expires) {
+      toastr.error( "Sie müssen angeben wie viele Tage der Kurs dauert und bis wann er vollständig gebucht sein muss." );
+      return false
+    }
+    duration = parseInt(duration);
+    expires = parseInt(expires);
+    
     var newEvents = $('#editCourseDatesForm').serializeArray();
     var dates = [];
 
     if ( newEvents.length > 1 || newEvents[0].value ) {
       for (var i = 0; i < newEvents.length; i++) {
         var datesArray = newEvents[i].value.split(',');
+        if (datesArray.length !== duration) {
+          var j = i+1;
+          toastr.error( "Kursdauer und Anzahl der Kurstage von Terminoption " + j + " stimmen nicht überein." );
+          return false
+        }
         var dateObjectsArray = _.map(datesArray, function(date) { return moment(date, "DD.MM.YYYY")._d } ) // returns the date object - thats what we will store in the DB
         dateObjectsArray.sort(function (a,b) { return a-b }) // sort dates
+
+        var expiredAt = new Date(+dateObjectsArray[0] - 1000 * 60 * 60 * 24 * 7 * expires);
+        if (expiredAt < new Date()) {
+          var j = i+1;
+          toastr.error( "Terminoption " + j + " ist bereits abgelaufen." );
+          return false
+        }
 
         var options = {course: this._id,
                       owner: this.owner,
@@ -429,10 +459,9 @@ Template.editCourseDates.events({
       });
     }
     // var allowInquiry = template.find("#editCourseAllowInquiry").checked;
-
-    var expires = template.find("#editCourseExpires").value;
     var modifier = {_id: this._id,
                 owner: this.owner,
+                duration: duration,
                 // allowInquiry: allowInquiry,
                 expires: expires }
     saveUpdates(modifier);
@@ -481,7 +510,6 @@ Template.editCourseDates.events({
   },
   'click .removeDateField': function (event, template) {
     $(event.currentTarget).parent().parent().remove();
-    
   },
   // 'change #editCourseAllowInquiry': function (event) {
   //   Session.set("allowInquiry", event.target.checked);

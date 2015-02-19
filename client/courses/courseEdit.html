@@ -179,7 +179,7 @@
     <input type="number" class="form-control hoverCheck" id="editCourseMaxParticipants" value="{{maxParticipants}}">
   </div>
   <div class="form-group">
-    <label for="editCourseFee" class="control-label">Gesamt Preis</label>
+    <label for="editCourseFee" class="control-label">Preis (Total)</label>
     <input type="number" class="form-control hoverCheck" id="editCourseFee" value="{{fee}}">
   </div>
 
@@ -187,7 +187,7 @@
   <div class="form-group">
     <button type="button" class="btn btn-primary pull-right" id="saveEditCourseCosts"><i class="fa fa-save"></i> Speichern</button>
   </div>
-
+  
   <p>Gebühr 15%: {{serviceFee}} <i class="fa fa-euro"></i></p>
   <p>Kurspreis: {{feePP}}  <i class="fa fa-euro"></i> pro Person</p>
 </template>
@@ -196,16 +196,6 @@
 
 <template name="editCourseServices">
 
-  <div class="form-group">
-    <label for="editCourseDuration" class="control-label">Kursdauer</label>
-    <select class="form-control hoverCheck" id="editCourseDuration">
-      <option value="" {{selected '' duration}}></option>
-      <option value="1" {{selected '1' duration}}>1 Tag</option>
-      <option value="2" {{selected '2' duration}}>2 Tage</option>
-      <option value="3" {{selected '3' duration}}>3 Tage</option>
-      <option value="4" {{selected '4' duration}}>4 Tage</option>
-    </select>
-  </div>
   <div class="form-group">
     <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
     <textarea class="form-control hoverCheck" id="editCourseAdditionalServices" value="{{additionalServices}}"></textarea>
@@ -224,6 +214,37 @@
     <li>{{#each this}} {{niceDate}} {{/each}}</li>
   {{/each}}
   </ul>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="editCourseDuration" class="control-label">Kursdauer (Tage)</label>
+        <input type="number" class="form-control hoverCheck" id="editCourseDuration" value="{{duration}}">
+<!--         <select class="form-control hoverCheck" id="editCourseDuration">
+          <option value="" {{selected '' duration}}></option>
+          <option value="1" {{selected '1' duration}}>1 Tag</option>
+          <option value="2" {{selected '2' duration}}>2 Tage</option>
+          <option value="3" {{selected '3' duration}}>3 Tage</option>
+          <option value="4" {{selected '4' duration}}>4 Tage</option>
+        </select> -->
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="form-group">
+        <label for="editCourseExpires" class="control-label">Wann muss der Kurs verbindlich gebucht werden?</label>
+        <select class="form-control hoverCheck" id="editCourseExpires">
+          <option value="" {{selected '' expires}}></option>
+          <option value="1" {{selected 1 expires}}>1 Woche vorher</option>
+          <option value="2" {{selected 2 expires}}>2 Wochen vorher</option>
+          <option value="3" {{selected 3 expires}}>3 Wochen vorher</option>
+          <option value="4" {{selected 4 expires}}>4 Wochen vorher</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
   <form id="editCourseDatesForm">
     <div id="courseDatesGroup">
       <div class="form-group" >
@@ -246,17 +267,6 @@
     <!-- <input type="checkbox" class="hoverCheck" id="editCourseAllowInquiry" checked="{{allowInquiry}}">Traincrowd-Nutzer dürfen Anfragen für individuelle Termine stellen. -->
     <!-- </label> -->
   <!-- </div> -->
-  <hr>
-  <div class="form-group">
-    <label for="editCourseExpires" class="control-label">Wie viele Wochen vorher muss der Kurs verbindlich gebucht werden?</label>
-    <select class="form-control hoverCheck" id="editCourseExpires">
-      <option value="" {{selected '' expires}}></option>
-      <option value="1" {{selected '1' expires}}>1 Woche</option>
-      <option value="2" {{selected '2' expires}}>2 Wochen</option>
-      <option value="3" {{selected '3' expires}}>3 Wochen</option>
-      <option value="4" {{selected '4' expires}}>4 Wochen</option>
-    </select>
-  </div>
   <!-- buttons -->
   <div class="form-group">
     <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDates"><i class="fa fa-save"></i> Speichern</button>
