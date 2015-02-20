@@ -81,6 +81,9 @@
 
 <template name="editCourseDescription">
   <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
+
+  <hr>
+
   <div class="form-group">
     <label for="editCourseTitle" class="control-label">Titel</label>
     <input type="text" class="form-control hoverCheck" id="editCourseTitle" value="{{title}}">
@@ -141,6 +144,9 @@
 
 <template name="editCourseDetails">
   <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
+
+  <hr>
+
   <div class="form-group">
     <label for="editCourseAims" class="control-label">Lernziele</label>
     <textarea class="form-control hoverCheck" id="editCourseAims" value="{{aims}}"></textarea>
@@ -170,18 +176,50 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseCosts">
-  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
+  <h4 class="editCourseTitles">Was kostet Ihr Kurs?</h4>
+
+  <hr>
+
 <!--   <div class="form-group">
     <label for="editCourseMinParticipants" class="control-label">Mindestteilnehmeranzahl</label>
     <input type="number" class="form-control hoverCheck" id="editCourseMinParticipants" value="{{minParticipants}}">
   </div> -->
-  <div class="form-group">
-    <label for="editCourseMaxParticipants" class="control-label">Teilnehmerzahl</label>
-    <input type="number" class="form-control hoverCheck" id="editCourseMaxParticipants" value="{{maxParticipants}}">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editCourseMaxParticipants" class="control-label">Teilnehmerzahl</label>
+        <input type="number" class="form-control hoverCheck" id="editCourseMaxParticipants" value="{{maxParticipants}}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="editCourseFee" class="control-label">Gesamtpreis</label>
+        <div class="input-group">
+          <input type="number" class="form-control hoverCheck" id="editCourseFee" value="{{fee}}">
+          <div class="input-group-addon"><i class="fa fa-euro"></i></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="editCourseFee" class="control-label">Preis (Total)</label>
-    <input type="number" class="form-control hoverCheck" id="editCourseFee" value="{{fee}}">
+  
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-6">
+      <div class="form-group">
+        <label for="showCommission" class="control-label">15% traincrowd Kommission</label>
+        <div class="input-group">
+          <input type="number" class="form-control hoverCheck" id="showCommission" value="{{serviceFee}}" readonly>
+          <div class="input-group-addon"><i class="fa fa-euro"></i></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="showFeePP" class="control-label">Kurspreis pro Person</label>
+        <div class="input-group">
+          <input type="number" class="form-control hoverCheck" id="showFeePP" value="{{feePP}}" readonly>
+          <div class="input-group-addon"><i class="fa fa-euro"></i></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- buttons -->
@@ -189,14 +227,17 @@
     <button type="button" class="btn btn-primary pull-right" id="saveEditCourseCosts"><i class="fa fa-save"></i> Speichern</button>
   </div>
   
-  <p>Gebühr 15%: {{serviceFee}} <i class="fa fa-euro"></i></p>
-  <p>Kurspreis: {{feePP}}  <i class="fa fa-euro"></i> pro Person</p>
+  
+  
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseServices">
-  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
+  <h4 class="editCourseTitles">Bieten Sie noch zusätzliche Leistungen an?</h4>
+
+  <hr>
+
   <div class="form-group">
     <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
     <textarea class="form-control hoverCheck" id="editCourseAdditionalServices" value="{{additionalServices}}"></textarea>
@@ -211,6 +252,8 @@
 
 <template name="editCourseDates">
   <h4 class="editCourseTitles">Wann können Sie diesen Kurs anbieten?</h4>
+
+  <hr>
   
   <div class="row">
     <div class="col-md-4">
@@ -256,7 +299,8 @@
       <button type="button" class="btn btn-default" id="addDateField"><i class="fa fa-plus"></i></button>
     </div> -->
   </form>
-
+  
+  <label for="" class="control-label">Angegebene Termine:</label>
   <ul>
   {{#each dates}}
     <li>{{#each this}} {{niceDate}} {{/each}}</li>
@@ -277,7 +321,10 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseLogistics">
-  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
+  <h4 class="editCourseTitles">Wo findet Ihr Kurs statt?</h4>
+
+  <hr>
+
   <div class="checkbox">
     <label>
     <input type="checkbox" id="editCourseNoLocation" checked="{{noLocation}}">Ort steht noch nicht fest.
