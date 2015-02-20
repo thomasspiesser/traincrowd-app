@@ -62,6 +62,25 @@ footer a:hover {
   top:40%;
 }
 
+/*************** Course Edit ***************/
+
+#editCourseHeader {
+  height: 39px;
+}
+
+.breadcrumb {
+  margin-bottom: 0;
+}
+#previewCourseButton {
+  position: relative;
+  top: -35px;
+  left: -5px;
+}
+
+.editCourseTitles {
+  margin-top: 15px;
+  text-align: center;
+}
 
 /*************** Course Preview ***************/
 
@@ -284,8 +303,16 @@ footer a:hover {
 
 /* custom inclusion of left tabs */
 
-.tabs-left > .nav-tabs {
-  border-bottom: 0;
+.tabs-content {
+  /*border-top: 1px solid #ddd;*/
+}
+
+.tabs-content.col-md-6 {
+  padding-left: 0;
+}
+
+.tabs-content-menu {
+  /*padding-right: 0;*/
 }
 
 .tab-content > .tab-pane,
@@ -304,14 +331,17 @@ footer a:hover {
 
 .tabs-left > .nav-tabs > li > a {
   min-width: 74px;
+  /*min-width: 100%;*/
   margin-right: 0;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .tabs-left > .nav-tabs {
   float: left;
-  margin-right: 19px;
+  margin-right: 0;
   border-right: 1px solid #ddd;
+  border-bottom: 0;
 }
 
 .tabs-left > .nav-tabs > li > a {

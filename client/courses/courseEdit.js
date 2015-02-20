@@ -54,7 +54,7 @@ var getText = function(id) {
       return text;
       break;
     case 'editCourseDuration':
-      text = "Bitte Runden Sie die Kursdauer auf halbe Tage auf oder ab.";
+      text = "Bitte Runden Sie die Kursdauer auf ganze Tage auf oder ab.";
       return text;
       break;
     case 'editCourseAdditionalServices':

@@ -1,24 +1,22 @@
 <template name="editCourse">
-  <div class="container notHome">
+  <div class="container">
   {{#if canEdit owner}}
 
-    <div class="row">
-      <div class="col-sm-8">
-        <ol class="breadcrumb" style="background-color: #fff;">
+    <div class="row" id="editCourseHeader">
+
+        <ol class="breadcrumb">
           <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
           <li class="active">{{title}}</li>
         </ol>
-      </div>
+        <button type="button" class="btn btn-default btn-sm pull-right" id="previewCourseButton">Vorschau <i class="fa fa-arrow-right"></i></button>
 
-      <div class="col-sm-4">
-        <button type="button" class="btn btn-default pull-right" style="margin-right: 10px;" id="previewCourseButton">Vorschau <i class="fa fa-arrow-right"></i></button>
-        <button type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" id="deleteCourseButton"><i class="fa fa-trash-o"></i> Löschen</button>
-        <button type="button" class="btn btn-info" id="publishRequestCourseButton"><i class="fa fa-globe"></i> Publizieren</button>
-      </div>
+        <!-- <button type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" id="deleteCourseButton"><i class="fa fa-trash-o"></i> Löschen</button> -->
+        <!-- <button type="button" class="btn btn-info" id="publishRequestCourseButton"><i class="fa fa-globe"></i> Publizieren</button> -->
+
     </div>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-2 tabs-content-menu">
       <div class="tabbable tabs-left" >
         <ul class="nav nav-tabs">
           <li class="active">
@@ -42,7 +40,7 @@
         </ul>
       </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 tabs-content">
         <div class="tab-content">
           <div class="tab-pane active" id="courseDescription">
             {{> editCourseDescription}}
@@ -64,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 tabs-content">
         {{#if showHoverText}}
         <div class="editHelperText">
           {{showHoverText}}
@@ -82,6 +80,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDescription">
+  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
   <div class="form-group">
     <label for="editCourseTitle" class="control-label">Titel</label>
     <input type="text" class="form-control hoverCheck" id="editCourseTitle" value="{{title}}">
@@ -141,6 +140,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDetails">
+  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
   <div class="form-group">
     <label for="editCourseAims" class="control-label">Lernziele</label>
     <textarea class="form-control hoverCheck" id="editCourseAims" value="{{aims}}"></textarea>
@@ -170,6 +170,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseCosts">
+  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
 <!--   <div class="form-group">
     <label for="editCourseMinParticipants" class="control-label">Mindestteilnehmeranzahl</label>
     <input type="number" class="form-control hoverCheck" id="editCourseMinParticipants" value="{{minParticipants}}">
@@ -195,7 +196,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseServices">
-
+  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
   <div class="form-group">
     <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
     <textarea class="form-control hoverCheck" id="editCourseAdditionalServices" value="{{additionalServices}}"></textarea>
@@ -209,12 +210,8 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDates">
-  <ul>
-  {{#each dates}}
-    <li>{{#each this}} {{niceDate}} {{/each}}</li>
-  {{/each}}
-  </ul>
-
+  <h4 class="editCourseTitles">Wann können Sie diesen Kurs anbieten?</h4>
+  
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
@@ -233,7 +230,7 @@
       <div class="form-group">
         <label for="editCourseExpires" class="control-label">Wann muss der Kurs verbindlich gebucht werden?</label>
         <select class="form-control hoverCheck" id="editCourseExpires">
-          <option value="" {{selected '' expires}}></option>
+          <option value="0" {{selected 0 expires}}></option>
           <option value="1" {{selected 1 expires}}>1 Woche vorher</option>
           <option value="2" {{selected 2 expires}}>2 Wochen vorher</option>
           <option value="3" {{selected 3 expires}}>3 Wochen vorher</option>
@@ -243,24 +240,28 @@
     </div>
   </div>
 
-  <hr>
-
   <form id="editCourseDatesForm">
     <div id="courseDatesGroup">
       <div class="form-group" >
 
         <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
-        <label for="editCourseDates" class="control-label">Termine</label>
+        <label for="editCourseDates" class="control-label">Termin hinzufügen</label>
         <div class="input-group">
           <input type="text" class="form-control editCourseDates hoverCheck" name="standardDateField" id="" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
         </div>
       </div>
     </div>
 
-    <div class="form-group">
+<!--     <div class="form-group">
       <button type="button" class="btn btn-default" id="addDateField"><i class="fa fa-plus"></i></button>
-    </div>
+    </div> -->
   </form>
+
+  <ul>
+  {{#each dates}}
+    <li>{{#each this}} {{niceDate}} {{/each}}</li>
+  {{/each}}
+  </ul>
 
   <!-- <div class="checkbox"> -->
     <!-- <label> -->
@@ -276,7 +277,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseLogistics">
-  <h4>wo findet der kurs statt?</h4>
+  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
   <div class="checkbox">
     <label>
     <input type="checkbox" id="editCourseNoLocation" checked="{{noLocation}}">Ort steht noch nicht fest.
