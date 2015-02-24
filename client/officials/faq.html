@@ -1,3 +1,67 @@
 <template name="faq">
-  
+  <div class="container">
+    <h3 class="text-center">Häufig gestellte Fragen</h3>
+
+    <h4 class="text-uppercase"><strong>Allgemein</strong></h4>
+    <div class="panel-group" role="tablist" aria-multiselectable="false">
+      {{#each generalFAQs}}
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="general-heading-{{number}}">
+          <h4 class="panel-title">
+            <a class="collapsed" data-toggle="collapse" href="#general-collapse-{{number}}" aria-expanded="false" aria-controls="general-collapse-{{number}}">
+              {{question}}
+            </a>
+          </h4>
+        </div>
+        <div id="general-collapse-{{number}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="general-heading-{{number}}">
+          <div class="panel-body">
+            {{{answer}}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <h4 class="text-uppercase"><strong>Buchungen</strong></h4>
+    <div class="panel-group" role="tablist" aria-multiselectable="false">
+      {{#each bookingFAQs}}
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="booking-heading-{{number}}">
+          <h4 class="panel-title">
+            <a class="collapsed" data-toggle="collapse" href="#booking-collapse-{{number}}" aria-expanded="false" aria-controls="booking-collapse-{{number}}">
+              {{question}}
+            </a>
+          </h4>
+        </div>
+        <div id="booking-collapse-{{number}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="booking-heading-{{number}}">
+          <div class="panel-body">
+            {{{answer}}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <h4 class="text-uppercase"><strong>Kurse Anbieten</strong></h4>
+    <div class="panel-group" role="tablist" aria-multiselectable="false">
+      {{#each offerCoursesFAQs}}
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="offerCourses-heading-{{number}}">
+          <h4 class="panel-title">
+            <a class="collapsed" data-toggle="collapse" href="#offerCourses-collapse-{{number}}" aria-expanded="false" aria-controls="offerCourses-collapse-{{number}}">
+              {{question}}
+            </a>
+          </h4>
+        </div>
+        <div id="offerCourses-collapse-{{number}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="offerCourses-heading-{{number}}">
+          <div class="panel-body">
+            {{{answer}}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+
+  </div>
 </template>
