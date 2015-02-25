@@ -52,6 +52,23 @@ footer a:hover {
   text-decoration: none;
 }
 
+.ghost-btn {
+  background: transparent;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 15px 41px;
+  color: #F2F2F2;
+  border: 2px solid;
+  border-radius: 90px;
+}
+
+.ghost-btn:hover {
+  background: transparent;
+  color: #F2F2F2;
+  border-color: #F2F2F2;
+  box-shadow: 0px 0px 8px #F2F2F2;
+}
+
 .custom-nav-item {
   padding-bottom:5px;
   padding-top:5px;
