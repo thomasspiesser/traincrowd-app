@@ -68,14 +68,14 @@ Template.paymentModal.events({
           else {
             toastr.success('Buchung erfolgreich.');
             toastr.success('Bitte vervollständigen Sie jetzt Ihr Profil und teilen Sie uns Ihre Erwartungen mit. So kann sich ihr Trainer optimal auf Sie vorbereiten.');
-            Meteor.setTimeout( redirect , 3000 )
+            Meteor.setTimeout( redirect , 3000 );
           }
         });
       }
-    }
+    };
     redirect = function( ) {
       Router.go('userProfile.edit', {_id: Meteor.userId()});
-    }
+    };
     var interval = Meteor.setInterval(timeLeft, 1000);
   },
   'click #modalCloseButton': function () {
@@ -85,14 +85,14 @@ Template.paymentModal.events({
 
 Template.paymentModal.helpers({
   bookedOut: function () {
-    var current = Current.findOne({_id: Session.get('currentId')}, {fields: {participants:1}});
+    var current = Current.findOne({_id: Session.get('currentId')}, {fields: {participants: 1}});
     if (current && current.participants) {
       return current.participants.length === this.maxParticipants;
     }
     return false;
   },
   countdown: function () {
-    return "bitte warten: "+Session.get('time');
+    return "bitte warten: " + Session.get('time');
   },
   message: function () {
     return Session.get("bookingMessage");
@@ -103,8 +103,8 @@ Template.paymentModal.helpers({
   formatedDates: function () {
     var courseDate = Session.get("currentDate");
     var formatedDates = _.map(courseDate, function(date){
-      return moment(date).format("DD.MM.YYYY")
-    })
+      return moment(date).format("DD.MM.YYYY");
+    });
     return formatedDates;
   }
 });  

@@ -59,6 +59,10 @@ Template.courseDetail.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip(); //initialize all tooltips in this template
   $('.rateit').rateit();
   $('.course-detail-head-image-wrapper img').addClass(function () { return this.width > this.height ? '' : 'portrait'; });
+  if ( Session.get('showBookingModalOnReturn') ) {
+    Session.set('showBookingModalOnReturn', false);
+    $('#paymentModal').modal('show');
+  }
 };
 
 Template.courseDetail.helpers({
@@ -153,6 +157,14 @@ Template.courseDetail.events({
   'click .joinCourseButton': function (event, template) {
     Session.set("currentId", this._id);
     Session.set("currentDate", this.courseDate);
-    $('#paymentModal').modal('show');
+    if ( !Meteor.userId() ) {
+      Session.set('showBookingModalOnReturn', true);
+      Router.go('atSignUp');
+      return false;
+    }
+    else {
+      $('#paymentModal').modal('show');
+      return false;
+    }
   }
 });
