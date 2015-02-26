@@ -3,7 +3,7 @@
 Template.coursePreview.rendered = function () {
   $('.rateit').rateit();
   $('.course-preview-image img').each(function(){
-    $(this).addClass(this.width > this.height ? 'landscape' : 'portrait');
+    $(this).addClass(this.width > this.height ? '' : 'portrait');
   });
 };
 
@@ -18,32 +18,38 @@ Template.coursePreview.helpers({
     return (this.fee / this.maxParticipants).toFixed(2);
   },
   titlePreview: function () {
-    if (! this.title)
+    if ( !this.title ) {
       return false;
-    var titlePreview = this.title.replace("\n"," "); // remove linebreaks
+    }
+    var titlePreview = this.title.replace("\n", " "); // remove linebreaks
     var breaker = 95;
-    if (titlePreview.length > breaker)
-      return titlePreview.slice(0,breaker)+"...";
-    else
+    if ( titlePreview.length > breaker ) {
+      return titlePreview.slice(0, breaker) + "...";
+    }
+    else {
       return titlePreview;
+    }
   },
   descriptionPreview: function () {
-    if (! this.description)
+    if ( !this.description ) {
       return false;
-    var descriptionPreview = this.description.replace("\n"," "); // remove linebreaks
+    }
+    var descriptionPreview = this.description.replace("\n", " "); // remove linebreaks
     var breaker = 200;
-    if (descriptionPreview.length > breaker)
-      return descriptionPreview.slice(0,breaker)+"...";
-    else
+    if (descriptionPreview.length > breaker) {
+      return descriptionPreview.slice(0, breaker) + "...";
+    }
+    else {
       return descriptionPreview;
+    }
   },
-  nextEvent: function ( ) {
+  nextEvent: function () {
     var nextEvent = _.pluck(this.dates, 0) // get first date object for every event
     if (nextEvent.length) {
       nextEvent = _.min( _.map( nextEvent, function (date) {return moment(date)} ) );
       return nextEvent.format("DD.MM.YYYY");
     }
-    return 'Kein Event'
+    return 'Kein Event';
   }
 });
 
@@ -52,7 +58,7 @@ Template.coursePreview.helpers({
 Template.courseDetail.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip() //initialize all tooltips in this template
   $('.rateit').rateit();
-  $('.course-detail-head-image-wrapper img').addClass(function () {return this.width > this.height ? 'landscape' : 'portrait'});
+  $('.course-detail-head-image-wrapper img').addClass(function () {return this.width > this.height ? '' : 'portrait'});
 };
 
 Template.courseDetail.helpers({

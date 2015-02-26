@@ -130,19 +130,27 @@ footer a:hover {
 }
 
 .course-preview-image {
+  position: relative;
   height: 180px;
   width: 180px;
   overflow: hidden;
   /*border: 1px solid;*/
 }
 
+.course-preview-image img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+  width: auto;
+  height: 100%;
+}
+
 .course-preview-image img.portrait {
   width: 100%;
   height: auto;
-}
-.course-preview-image img.landscape {
-  width: auto;
-  height: 100%;
 }
 
 .course-preview-content {
@@ -222,18 +230,26 @@ footer a:hover {
 }
 
 .course-detail-head-image-wrapper {
+  position: relative;
   height: 175px;
   width: 175px;
   overflow: hidden;
 }
 
+.course-detail-head-image-wrapper img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+  width: auto;
+  height: 100%;
+}
+
 .course-detail-head-image-wrapper img.portrait {
   width: 100%;
   height: auto;
-}
-.course-detail-head-image-wrapper img.landscape {
-  width: auto;
-  height: 100%;
 }
 
 .course-detail-body-text-wrapper {
