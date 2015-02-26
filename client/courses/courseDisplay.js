@@ -44,9 +44,9 @@ Template.coursePreview.helpers({
     }
   },
   nextEvent: function () {
-    var nextEvent = _.pluck(this.dates, 0) // get first date object for every event
+    var nextEvent = _.pluck(this.dates, 0); // get first date object for every event
     if (nextEvent.length) {
-      nextEvent = _.min( _.map( nextEvent, function (date) {return moment(date)} ) );
+      nextEvent = _.min( _.map( nextEvent, function (date) { return moment(date); } ) );
       return nextEvent.format("DD.MM.YYYY");
     }
     return 'Kein Event';
@@ -56,9 +56,9 @@ Template.coursePreview.helpers({
 //////////// courseDetail template /////////
 
 Template.courseDetail.rendered = function() {
-  $('[data-toggle="tooltip"]').tooltip() //initialize all tooltips in this template
+  $('[data-toggle="tooltip"]').tooltip(); //initialize all tooltips in this template
   $('.rateit').rateit();
-  $('.course-detail-head-image-wrapper img').addClass(function () {return this.width > this.height ? '' : 'portrait'});
+  $('.course-detail-head-image-wrapper img').addClass(function () { return this.width > this.height ? '' : 'portrait'; });
 };
 
 Template.courseDetail.helpers({
@@ -91,13 +91,13 @@ Template.courseDetail.helpers({
     return this.participants.length === course.maxParticipants;
   },
   runtime: function (course) {
-    var date = _.first(this.courseDate) // first day of the event
+    var date = _.first(this.courseDate); // first day of the event
     if (course.expires) {
       // calc when the event expires: courseDate - no.of weeks before
-      var date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * parseInt(course.expires)); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
+      date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * parseInt(course.expires)); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
     }
-    date=moment(date)
-    var today = moment()
+    date=moment(date);
+    var today = moment();
     return date.diff(today, 'days');
   },
   openSpots: function (course) {
