@@ -67,7 +67,7 @@ Template.paymentModal.events({
             toastr.error(error.reason);
           else {
             toastr.success('Buchung erfolgreich.');
-            toastr.success('Bitte vervollständigen Sie jetzt Ihr Profil und teilen Sie uns Ihre Erwartungen mit. So kann sich ihr Trainer optimal auf Sie vorbereiten.');
+            // toastr.success('Bitte vervollständigen Sie jetzt Ihr Profil und teilen Sie uns Ihre Erwartungen mit. So kann sich ihr Trainer optimal auf Sie vorbereiten.');
             Meteor.setTimeout( redirect , 3000 );
           }
         });

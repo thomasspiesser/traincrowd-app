@@ -146,7 +146,7 @@ Template.faq.helpers({
         question: "Was bedeutet Mindest- und Maximalteilnehmerzahl?",
         answer: "Die Mindestteilnehmerzahl gibt an, ab welcher Gruppengrößte die Veranstaltung garantiert stattfinden soll. Die Maximalteilnehmerzahl gibt an, wie groß die Gruppe maximal sein soll. Für die Berechnung des Preises pro Person ist die Mindestteilnehmeranzahl ausschlaggebend. Je nach Art der Veranstaltung sind unterschiedliche Gruppengrößen zu empfehlen. Vertrauen Sie auf Ihre Erfahrung bei der Festlegung der Gruppengröße – oder fragen Sie uns, wenn Sie unsicher sind. "
       }
-    ]
+    ];
     return faqs;
   }
 });

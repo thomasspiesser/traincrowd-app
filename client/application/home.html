@@ -6,21 +6,21 @@ top:-70px; ">
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
+      <!-- <li data-target="#myCarousel" data-slide-to="1"></li> -->
+      <!-- <li data-target="#myCarousel" data-slide-to="2"></li> -->
     </ol>
     <div class="carousel-inner">
       <div class="item active">
         <img src="/Landing-page.jpg" alt="First slide" class="img-responsive">
         <div class="container">
           <div class="carousel-caption">
-            <h1 id="firstHeadline">improve yourself. learn together.</h1>
-            <p id="firstSubHeadline">auf traincrowd finden Sie die richtige Weiterbildung und kaufen sie gemeinsam mit Anderen - viel günstiger als alleine</p>
+            <h1 id="firstHeadline">Improve Yourself. Learn Together.</h1>
+            <p id="firstSubHeadline">Auf traincrowd finden Sie die richtige Weiterbildung und kaufen sie gemeinsam mit Anderen - viel günstiger als alleine.</p>
             <p><a class="btn ghost-btn ghost-btn-white btn-lg" id="firstHeadlineButton2" href="{{ pathFor 'search' }}" role="button">Jetzt Kurse finden</a></p>
           </div>
         </div>
       </div>
-      <div class="item">
+<!--       <div class="item">
         <img src="/titleImg4new.jpg" alt="Second slide" class="img-responsive">
         <div class="container">
           <div class="carousel-caption">
@@ -39,7 +39,7 @@ top:-70px; ">
             <p><a class="btn ghost-btn ghost-btn-white btn-lg" id="thirdHeadlineButton" href="#" role="button">Benjamin Button</a></p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"><i class=" main-chevron fa fa-chevron-left"></i></a>
     <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><i class=" main-chevron fa fa-chevron-right"></i></a>
@@ -52,25 +52,28 @@ top:-70px; ">
   <div class="container marketing">
 
     <!-- Three columns of text below the carousel -->
+    <h2 class="text-center" style="margin-bottom: 50px;">So funktioniert traincrowd</h2>
     <div class="row">
-      <div class="col-lg-4">
-        <img class="img-rounded" src="/iconBook.png" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-        <h2>Learning</h2>
-        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img class="img-thumbnail" src="/iconTeach.png" alt="Generic placeholder image" style="width: 180px; height: 140px;">
-        <h2>Teaching</h2>
-        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img class="img-rounded" src="/iconSave.png" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-        <h2>Saving</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-3 text-center">
+        <img class="img-circle img-thumbnail" src="/Lupe.png" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+        <h2>Kurs Finden</h2>
+        <p>Finden Sie einfach den richtigen Kurs in unserer Auswahl.</p>
+      </div><!-- /.col-lg-3 -->
+      <div class="col-lg-3 text-center">
+        <img class="img-circle img-thumbnail" src="/Gruppe-bilden.png" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+        <h2>Gruppe Bilden</h2>
+        <p>Sie buchen Ihren Platz, erzählen Ihren Kollegen davon und wir finden weitere Teilnehmer.</p>
+      </div><!-- /.col-lg-3 -->
+      <div class="col-lg-3 text-center">
+        <img class="img-circle img-thumbnail" src="/Kurs.jpg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+        <h2>Lernen</h2>
+        <p>Die optimale Gruppengröße ist erreicht und das gemeinsame Lernen kann beginnen.</p>
+      </div><!-- /.col-lg-3 -->
+      <div class="col-lg-3 text-center">
+        <img class="img-circle img-thumbnail" src="/Bewertung.jpg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+        <h2>Bewerten</h2>
+        <p>Sie berwerten Ihre Lernerfahrung und helfen anderen, den besten Kurs zu finden.</p>
+      </div><!-- /.col-lg-3 -->
     </div><!-- /.row -->
 
     <!-- START THE FEATURETTES -->
@@ -79,11 +82,11 @@ top:-70px; ">
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">Dasselbe Training Günstiger</h2>
+        <p class="lead">Einzelne Bildungsinteressierte finden sich auf traincrowd in einer Gruppe zusammen und buchen gemeinsam ganze Kurse, wie dies große Firmen bereits vielfach tun. traincrowd-Nutzer profitieren hierdurch von erheblich geringeren Kosten für die gleiche Weiterbildung.</p>
       </div>
       <div class="col-md-5">
-        <img class="featurette-image img-responsive" src="/placeholder1.jpg" alt="Generic placeholder image">
+        <img class="featurette-image img-rounded img-responsive" src="/Landing-guenstiger-bw.jpg" alt="Generic placeholder image" style="width:500px;">
       </div>
     </div>
 
@@ -91,11 +94,11 @@ top:-70px; ">
 
     <div class="row featurette">
       <div class="col-md-5">
-        <img class="featurette-image img-responsive" src="/placeholder1.jpg" alt="Generic placeholder image">
+        <img class="featurette-image img-rounded img-responsive" src="/Landing-qualitaet-bw.jpg" alt="Generic placeholder image" style="width:500px;">
       </div>
       <div class="col-md-7">
-        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">Der Beste Kurs für Sie</h2>
+        <p class="lead">Es gibt heute für Alles ein Seminar oder Training von selbsternannten Experten. Weil Ihre persönliche Zeit kostbar ist, bietet traincrowd transparente Bewertungen basierend auf unserem Qualitätsversprechen.</p>
       </div>
     </div>
 
@@ -103,11 +106,11 @@ top:-70px; ">
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">Kurse Anbieten</h2>
+        <p class="lead">Sie leben von und für Weiterbildung, aber verbringen wertvolle Zeit mit Akquise? Wir helfen Ihnen, diese Zeit in Inhalte und gemeinsames Lernen zu investieren. Werden Sie <a href="{{pathFor 'becomeTrainerLanding'}}">hier</a> kostenlos Anbieter auf traincrowd oder <a href='mailto:info&#64;traincrowd.de'>senden Sie uns eine Nachricht</a>.</p>
       </div>
       <div class="col-md-5">
-        <img class="featurette-image img-responsive" src="/placeholder1.jpg" alt="Generic placeholder image">
+        <img class="featurette-image img-rounded img-responsive" src="/Landing-anbieter-bw.jpg" alt="Generic placeholder image" style="width:500px;">
       </div>
     </div>
     <!-- /END THE FEATURETTES -->
