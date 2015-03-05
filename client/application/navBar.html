@@ -27,43 +27,35 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name='navItemsLeft'>
-  <li>
-    <a href="{{pathFor 'search'}}">Berlins Top Kurse</a>
-  </li>
-  <li>
-    <a href="{{pathFor 'faq'}}">FAQ</a>
-  </li>
+  <li><a href="{{pathFor 'search'}}">Berlins Top Kurse</a></li>
+  <li><a href="{{pathFor 'faq'}}">FAQ</a></li>
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name='navItemsRight'>
   {{#unless isInRole 'trainer'}}
-  <li>
-    <a href="{{ pathFor 'becomeTrainerLanding' }}">Werde Anbieter</a>
-  </li>
+    <li><a href="{{ pathFor 'becomeTrainerLanding' }}">Werde Anbieter</a></li>
   {{else}}
-  <li>
-    <a href="{{ pathFor 'createCourse' }}">Neuen Kurs Erstellen</a>
-  </li>
+    <li><a href="{{ pathFor 'createCourse' }}">Neuen Kurs Erstellen</a></li>
   {{/unless}}
   {{#if currentUser}}
     <li>
-    <div class="custom-nav-item" style="padding-left:15px;">
-    {{#if currentUser.profile.imageId}}
-      <img class="img-circle" src="{{currentUser.profile.imageId}}" alt="{{username currentUser._id}}" style="width:40px; max-height:40px;">
-    {{else}}
-      <img class="img-circle" src="/dummyUser.jpg" alt="" style="width:40px">
-    {{/if}}
-    </div>
+      <div class="custom-nav-item" style="padding-left:15px;">
+      {{#if currentUser.profile.imageId}}
+        <img class="img-circle" src="{{currentUser.profile.imageId}}" alt="{{username currentUser._id}}" style="width:40px; max-height:40px;">
+      {{else}}
+        <img class="img-circle" src="/dummyUser.jpg" alt="" style="width:40px">
+      {{/if}}
+      </div>
     </li>
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:5px;">{{username currentUser._id}} <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
         {{#if isInRole 'trainer'}}
-        <li><a href="{{ pathFor 'userProfile.show' data=currentUser }}">Mein Profil</a></li>
+          <li><a href="{{ pathFor 'userProfile.show' data=currentUser }}">Mein Profil</a></li>
         {{else}}
-        <li><a href="{{ pathFor 'userProfile.edit' data=currentUser }}">Mein Profil</a></li>
+          <li><a href="{{ pathFor 'userProfile.edit' data=currentUser }}">Mein Profil</a></li>
         {{/if}}
         <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
         <li class="divider"></li>
@@ -78,25 +70,25 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="footer">
-    <div class="container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-md-offset-2">
+        <h4>Fragen</h4>
+        <a href="{{pathFor 'faq'}}">FAQs</a><br>
+        <a href="{{pathFor 'contact'}}">Kontakt</a><br>
+      </div>
+      <div class="col-md-5">
+        <h4>Informationen</h4>
+        <a href="{{pathFor 'aboutUs'}}">Über uns</a><br>
+        <a href="{{pathFor 'agb'}}">AGB</a><br>
+        <a href="{{pathFor 'dataProtection'}}">Datenschutz</a><br>
+        <a href="{{pathFor 'impressum'}}">Impressum</a><br>
+      </div>
       <div class="row">
         <div class="col-md-5 col-md-offset-2">
-          <h4>Fragen</h4>
-          <a href="{{pathFor 'faq'}}">FAQs</a><br>
-          <a href="{{pathFor 'contact'}}">Kontakt</a><br>
-        </div>
-        <div class="col-md-5">
-         <h4>Informationen</h4>
-          <a href="{{pathFor 'aboutUs'}}">Über uns</a><br>
-          <a href="{{pathFor 'agb'}}">AGB</a><br>
-          <a href="{{pathFor 'dataProtection'}}">Datenschutz</a><br>
-          <a href="{{pathFor 'impressum'}}">Impressum</a><br>
-        </div>
-        <div class="row">
-          <div class="col-md-5 col-md-offset-2">
-            <p class="">&copy; 2015 traincrowd UG. All rights reserved </p>
-          </div>
+          <p class="">&copy; 2015 traincrowd UG. All rights reserved </p>
         </div>
       </div>
     </div>
+  </div>
 </template>
