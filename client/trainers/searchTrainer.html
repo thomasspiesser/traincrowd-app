@@ -20,7 +20,7 @@
         </div>
       {{/esEach}}
       <div class="col-md-2 col-md-offset-5">
-        {{> esLoadMoreButton index="trainer" class="btn btn-default btn-block" content="Mehr" howMany=5}}
+        {{> esLoadMoreButton index="trainer" class="btn btn-default btn-block" content="Mehr" howMany=8}}
       </div>
     {{/ifEsIsSearching}}
     </div>
@@ -40,7 +40,20 @@
 
     <div class="trainer-preview-caption">
       <div class="trainer-preview-name">{{username this._id}}</div>
-      <div>noch was?</div>
+      <p>Berlin</p>
+
+      {{#if hostedCourses.count}}
+        <strong>Meine Kurse:</strong>
+        <ul>
+          {{#each hostedCourses}}
+            <li>
+              <a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a>
+            </li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <strong>Bietet zur Zeit keine Kurse an.</strong>
+      {{/if}}
     </div>
   </div>
 

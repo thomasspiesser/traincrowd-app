@@ -18,6 +18,7 @@ body {
   /*font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font-family: 'Open Sans', sans-serif;
   /*font-family: 'Quicksand', sans-serif;*/
+  -webkit-font-smoothing: antialiased;
   font-size: 13px;
   line-height: 1.8;
   /*font-family: 'Khula', sans-serif;*/
@@ -120,7 +121,9 @@ footer a:hover {
 
 .all-trainer-wrapper {
   box-shadow: 0px 0px 8px #4C4E61;
-  margin-bottom: 15px; 
+  margin-bottom: 15px;
+  max-height: 270px;
+  overflow-y: hidden;
 }
 
 .trainer-preview-image {
@@ -135,8 +138,24 @@ footer a:hover {
 }
 
 .trainer-preview-caption {
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 10px;
+  padding-bottom: 0px;
+  height: 220px;
+  overflow-y: hidden;
+
+  -webkit-transition: transform 0.8s;
+  -moz-transition: transform 0.8s;
+  -o-transition: transform 0.8s;
+  transition: transform 0.8s;
 }
+
+.trainer-preview-caption:hover {
+  transform:  translateY(-150px);
+  overflow-y: scroll;
+  
+}
+
 
 .trainer-preview-name {
   font-weight: bold;
