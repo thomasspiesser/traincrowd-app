@@ -1,0 +1,47 @@
+<template name="searchTrainer">
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="searchInput">
+          {{> esInput index="trainer" placeholder="Suchen..." class="form-control" allDocsOnEmpty=true }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+    {{#ifEsIsSearching index="trainer"}}
+      <div>Suche...</div>
+    {{else}}
+      {{#esEach index="trainer"}}
+        <div class="col-md-3">
+          {{> trainerPreview}}
+        </div>
+      {{/esEach}}
+      <div class="col-md-2 col-md-offset-5">
+        {{> esLoadMoreButton index="trainer" class="btn btn-default btn-block" content="Mehr" howMany=5}}
+      </div>
+    {{/ifEsIsSearching}}
+    </div>
+
+    {{#ifEsHasNoResults index="trainer"}}
+      <div class="no-results">Keine Dokumente gefunden!</div>
+    {{/ifEsHasNoResults}}
+  </div>
+</template>
+
+<!--  /////////////////////////////////////////////////// --> 
+
+<template name="trainerPreview">
+
+  <div class="all-trainer-wrapper">
+    <a href="{{ pathFor 'userProfile.show' _id=this._id }}" class="trainer-preview-image" style="background-image: url( {{#if profile.imageId}} {{profile.imageId}} {{else}} '/dummyUser.jpg' {{/if}} );"></a>
+
+    <div class="trainer-preview-caption">
+      <div class="trainer-preview-name">{{username this._id}}</div>
+      <div>noch was?</div>
+    </div>
+  </div>
+
+</template>

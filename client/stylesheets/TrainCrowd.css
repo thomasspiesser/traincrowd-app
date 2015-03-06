@@ -116,6 +116,35 @@ footer a:hover {
   text-align: center;
 }
 
+/*************** Trainer Preview ***************/
+
+.all-trainer-wrapper {
+  box-shadow: 0px 0px 8px #4C4E61;
+  margin-bottom: 15px; 
+}
+
+.trainer-preview-image {
+  display: block;
+  height: 200px;
+  background: no-repeat center center;
+  background-color: transparent;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.trainer-preview-caption {
+  padding: 10px;
+}
+
+.trainer-preview-name {
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #A02828;
+  margin-bottom: 5px;
+}
+
 /*************** Course Preview ***************/
 
 /*.bgImage {
@@ -130,9 +159,9 @@ footer a:hover {
 }*/
 
 .all-courses-wrapper {
-  background-color: #fff;
-  border: 0px solid #e3e3e3;
-  border-radius: 0px;
+  /*background-color: #fff;*/
+  /*border: 0px solid #e3e3e3;*/
+  /*border-radius: 0px;*/
   /*border-top: 5px solid #505b65;*/
   /*border-bottom: 5px solid #505b65;*/
   /*border: 3px solid;*/
