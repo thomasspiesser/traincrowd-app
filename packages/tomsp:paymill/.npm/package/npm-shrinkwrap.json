@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "paymill-node": {
+      "version": "0.1.2"
+    }
+  }
+}
