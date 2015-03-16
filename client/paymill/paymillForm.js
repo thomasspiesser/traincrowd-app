@@ -130,32 +130,27 @@ Template.paymillForm.events({
 function paymillResponseHandler(error, result) {
   if (error) {
     // Displays the error above the form
-    console.log(error);
     $(".payment_errors").text(error.apierror);
     $(".payment_errors").css("display","inline-block");
   } else {
     $(".payment_errors").text("");
-    console.log('token created');
 
     // Output token
     var token = result.token;
     var amount = parseInt($('.amount').val().replace(/[\.,]/, '.') * 100);
-    console.log(token);
-    console.log(amount);
 
-    // Submit form
     var options = {
       token: token,
       amount: amount,
       currentId: Session.get("currentId")
     };
-    console.log(options);
-    Meteor.call('createTransaction', options, function (error, result) {
+
+    Meteor.call('createTransaction', options, function (error, response) {
       if (error) {
-        console.log(error);
+        console.log(error.error);
+        toastr.error(error.error);
       }
       else {
-        console.log(result);
         $('#paymentModal').modal('hide');
         toastr.success('Buchung erfolgreich.');
         $('#paymill-form')[0].reset();

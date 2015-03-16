@@ -37,6 +37,8 @@ Meteor.methods({
           description: 'user: ' + this.userId + ' course: ' + current.course + ' current: ' + currentId
         });
 
+        console.log(result);
+
         // insert transaction into Transactions.collection
         var user = Meteor.users.findOne( this.userId );
 
@@ -75,12 +77,13 @@ Meteor.methods({
         return result;
       }
       catch(error){
+        console.log(error);
         // remove Participant again - coz payment failed
         Current.update(
           {_id: currentId},
           {$pull: { participants: this.userId }});
+        throw new Meteor.Error(error.message);
 
-        return error;
       }
     }
     else {
