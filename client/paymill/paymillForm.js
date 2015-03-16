@@ -4,12 +4,15 @@ var formlang = 'de';
 
 Template.paymillForm.rendered = function () {
   translateForm(formlang);
-  // $('#tooltip').tooltip(); //initialize tooltip 
+  $('#cvc-popover').popover();
 };
 
 Template.paymillForm.helpers({
-  foo: function () {
-    // ...
+  currency: function () {
+    if (this.currency) {
+      return this.currency;
+    }
+    return "EUR";
   }
 });
 
@@ -29,7 +32,7 @@ function translateForm(language){
   $(".amount-label").text(lang["form"]["amount"]);
   $(".currency-label").text(lang["form"]["currency"]);
   $(".submit-button").text(lang["form"]["submit-button"]);
-  $("#tooltip").attr('title', lang["form"]["tooltip"]);
+  $("#cvc-popover").attr('data-content', lang["form"]["popover"]);
 }
 
 Template.paymillForm.events({
@@ -38,23 +41,6 @@ Template.paymillForm.events({
     // Deactivate submit button to avoid further clicks
     $('.submit-button').attr("disabled", "disabled");
 
-    if ( false === paymill.validateHolder( $('.card-holdername').val() )) {
-      $(".payment_errors").text(translation[formlang]["error"]["invalid-card-holdername"]);
-      $(".payment_errors").css("display","inline-block");
-      $(".submit-button").removeAttr("disabled");
-      return false;
-    }
-    if ( false === paymill.validateCvc( $('.card-cvc').val() )) {
-      if(VALIDATE_CVC){
-        $(".payment_errors").text(translation[formlang]["error"]["invalid-card-cvc"]);
-        $(".payment_errors").css("display","inline-block");
-        $(".submit-button").removeAttr("disabled");
-        return false;
-      } 
-      else {
-        $('.card-cvc').val("000");
-      }
-    }
     if ( false === paymill.validateCardNumber( $('.card-number').val() )) {
       $(".payment_errors").text(translation[formlang]["error"]["invalid-card-number"]);
       $(".payment_errors").css("display","inline-block");
@@ -71,6 +57,23 @@ Template.paymillForm.events({
       $(".payment_errors").css("display","inline-block");
       $(".submit-button").removeAttr("disabled");
       return false;
+    }
+    if ( false === paymill.validateHolder( $('.card-holdername').val() )) {
+      $(".payment_errors").text(translation[formlang]["error"]["invalid-card-holdername"]);
+      $(".payment_errors").css("display","inline-block");
+      $(".submit-button").removeAttr("disabled");
+      return false;
+    }
+    if ( false === paymill.validateCvc( $('.card-cvc').val() )) {
+      if(VALIDATE_CVC){
+        $(".payment_errors").text(translation[formlang]["error"]["invalid-card-cvc"]);
+        $(".payment_errors").css("display","inline-block");
+        $(".submit-button").removeAttr("disabled");
+        return false;
+      } 
+      else {
+        $('.card-cvc').val("000");
+      }
     }
 
     var params = {
@@ -132,26 +135,36 @@ function paymillResponseHandler(error, result) {
     $(".payment_errors").css("display","inline-block");
   } else {
     $(".payment_errors").text("");
-    console.log('success');
+    console.log('token created');
 
     // Output token
     var token = result.token;
     var amount = parseInt($('.amount').val().replace(/[\.,]/, '.') * 100);
+    console.log(token);
+    console.log(amount);
 
     // Submit form
     var options = {
       token: token,
-      amount: amount
+      amount: amount,
+      currentId: Session.get("currentId")
     };
+    console.log(options);
     Meteor.call('createTransaction', options, function (error, result) {
       if (error) {
         console.log(error);
       }
       else {
         console.log(result);
-        // $('#paymill-form')[0].reset();
+        toastr.success('Buchung erfolgreich.');
+        $('#paymill-form')[0].reset();
+        Meteor.setTimeout( redirect , 3000 );
       }
     });
+    redirect = function( ) {
+      $('#paymentModal').modal('hide');
+      Router.go('userProfile.edit', {_id: Meteor.userId()});
+    };
   }
   $(".submit-button").removeAttr("disabled");
 }
@@ -171,8 +184,8 @@ translation["de"]["form"]["amount"] = 'Betrag';
 translation["de"]["form"]["currency"] = 'Währung';
 translation["de"]["form"]["interval"] = 'Interval';
 translation["de"]["form"]["offer-name"] = 'Name des Angebots';
-translation["de"]["form"]["submit-button"] = 'Abschicken';
-translation["de"]["form"]["tooltip"] = "Hinter dem CVV-Code bzw. CVC verbirgt sich ein Sicherheitsmerkmal von Kreditkarten, üblicherweise handelt es sich dabei um eine drei- bis vierstelligen Nummer. Der CVV-Code befindet sich auf VISA-Kreditkarten. Der gleiche Code ist auch auf MasterCard-Kreditkarten zu finden, hier allerdings unter dem Namen CVC. Die Abkürzung CVC steht dabei für Card Validation Code. Bei VISA wird der Code als Card Verification Value-Code bezeichnet. Ähnlich wie bei Mastercard und VISA gibt es auch bei Diners Club, Discover und JCB eine dreistellige  Nummer, die meist auf der Rückseite der Karte zu finden ist. Bei Maestro-Karten gibt es mit und ohne dreistelligen CVV. Wird eine Maestro-Karte ohne CVV verwendet kann einfach 000 eingetragen werden. American Express verwendet die CID (Card Identification Number). Dabei handelt es sich um eine vierstellige Nummer, die meist auf der Vorderseite der Karte, rechts oberhalb der Kartennummer zu finden ist.";
+translation["de"]["form"]["submit-button"] = 'Bezahlen';
+translation["de"]["form"]["popover"] = "Hinter dem CVV-Code bzw. CVC verbirgt sich ein Sicherheitsmerkmal von Kreditkarten, üblicherweise handelt es sich dabei um eine drei- bis vierstelligen Nummer. Der CVV-Code befindet sich auf VISA-Kreditkarten. Der gleiche Code ist auch auf MasterCard-Kreditkarten zu finden, hier allerdings unter dem Namen CVC. Die Abkürzung CVC steht dabei für Card Validation Code. Bei VISA wird der Code als Card Verification Value-Code bezeichnet. Ähnlich wie bei Mastercard und VISA gibt es auch bei Diners Club, Discover und JCB eine dreistellige  Nummer, die meist auf der Rückseite der Karte zu finden ist. Bei Maestro-Karten gibt es mit und ohne dreistelligen CVV. Wird eine Maestro-Karte ohne CVV verwendet kann einfach 000 eingetragen werden. American Express verwendet die CID (Card Identification Number). Dabei handelt es sich um eine vierstellige Nummer, die meist auf der Vorderseite der Karte, rechts oberhalb der Kartennummer zu finden ist.";
 //Elv
 translation["de"]["form"]["elv-paymentname"] = 'ELV';
 translation["de"]["form"]["elv-paymentname-advanced"] = 'SEPA';
@@ -207,8 +220,8 @@ translation["en"]["form"]["amount"] = 'Amount';
 translation["en"]["form"]["currency"] = 'Currency';
 translation["en"]["form"]["interval"] = 'Interval';
 translation["en"]["form"]["offer-name"] = 'Offer Name';
-translation["en"]["form"]["submit-button"] = 'Submit';
-translation["en"]["form"]["tooltip"] = "What is a CVV/CVC number? Prospective credit cards will have a 3 to 4-digit number, usually on the back of the card. It ascertains that the payment is carried out by the credit card holder and the card account is legitimate. On Visa the CVV (Card Verification Value) appears after and to the right of your card number. Same goes for Mastercard's CVC (Card Verfication Code), which also appears after and to the right of  your card number, and has 3-digits. Diners Club, Discover, and JCB credit and debit cards have a three-digit card security code which also appears after and to the right of your card number. The American Express CID (Card Identification Number) is a 4-digit number printed on the front of your card. It appears above and to the right of your card number. On Maestro the CVV appears after and to the right of your number. If you don’t have a CVV for your Maestro card you can use 000.";
+translation["en"]["form"]["submit-button"] = 'Charge';
+translation["en"]["form"]["popover"] = "What is a CVV/CVC number? Prospective credit cards will have a 3 to 4-digit number, usually on the back of the card. It ascertains that the payment is carried out by the credit card holder and the card account is legitimate. On Visa the CVV (Card Verification Value) appears after and to the right of your card number. Same goes for Mastercard's CVC (Card Verfication Code), which also appears after and to the right of  your card number, and has 3-digits. Diners Club, Discover, and JCB credit and debit cards have a three-digit card security code which also appears after and to the right of your card number. The American Express CID (Card Identification Number) is a 4-digit number printed on the front of your card. It appears above and to the right of your card number. On Maestro the CVV appears after and to the right of your number. If you don’t have a CVV for your Maestro card you can use 000.";
 //Elv
 translation["en"]["form"]["elv-paymentname"] = 'Direct debit';
 translation["de"]["form"]["elv-paymentname-advanced"] = 'SEPA';
