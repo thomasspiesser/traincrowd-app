@@ -22,7 +22,6 @@ Meteor.methods({
     if (beforeBooking < course.maxParticipants) {
       // good, there are places available in this course
       // here i need to add the participant to block the course-place already for time of payment and remove the participant again if payment is no good (error) to unblock place (let others book this place)
-      // addParticipant
       Current.update(
         {_id: currentId},
         {$push: { participants: this.userId }});
@@ -37,18 +36,27 @@ Meteor.methods({
           token: options.token,
           description: 'user: ' + this.userId + ' course: ' + current.course + ' current: ' + currentId
         });
+
         // insert transaction into Transactions.collection
         var user = Meteor.users.findOne( this.userId );
+
         var trans = {
-          _id: result.id,
+          _id: result.data.id,
           userId: this.userId,
           userEmail: displayEmail( user ),
-          amount: result.amount,
-          date: result.created_at
+          amount: result.data.amount / 100,
+          date: result.data.created_at
         };
-        var transId = Transactions.insert(trans);
-        // inform participant via email
-        Meteor.call('sendBookingConfirmationEmail', { course: course._id, userId: this.userId } );
+
+        Transactions.insert(trans);
+
+        // inform participant via email - with callback: may return error but rest of try-block will be run anyway, w/o callback on error will invoke catch-block
+        Meteor.call('sendBookingConfirmationEmail', { course: course._id, userId: this.userId }, function (error, result) {
+          if (error) {
+            console.log(error);
+          }
+        });
+
         // check if course is full now:
         if (afterBooking === course.maxParticipants) {
           // generate token for trainer to confirm the event 
@@ -58,7 +66,11 @@ Meteor.methods({
             {_id: currentId},
             {$set: { token: token }});
           // inform trainer (owner) that current event is full so that he can confirm the event
-          Meteor.call('sendCourseFullTrainerEmail', {currentId: currentId, course: course._id, token: token } );
+          Meteor.call('sendCourseFullTrainerEmail', {currentId: currentId, course: course._id, token: token }, function (error, result) {
+            if (error) {
+              console.log(error);
+            }
+          });
         }
         return result;
       }

@@ -156,13 +156,13 @@ function paymillResponseHandler(error, result) {
       }
       else {
         console.log(result);
+        $('#paymentModal').modal('hide');
         toastr.success('Buchung erfolgreich.');
         $('#paymill-form')[0].reset();
         Meteor.setTimeout( redirect , 3000 );
       }
     });
     redirect = function( ) {
-      $('#paymentModal').modal('hide');
       Router.go('userProfile.edit', {_id: Meteor.userId()});
     };
   }

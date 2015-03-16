@@ -32,10 +32,10 @@ Template.courseConfirmForm.events({
 
     if (! street.length || plz.length < 5 || ! name.length ) {
       toastr.error( "Bitte geben Sie ein vollständige Adresse und einen Namen für die Ansprechperson an." );
-      return false
+      return false;
     }
     var currentId = this.current._id,
-        course = this.course._id
+        course = this.course._id;
 
     Meteor.call('confirmCurrent', Session.get('token'), function (error) {
       if (error) {
@@ -54,12 +54,12 @@ Template.courseConfirmForm.events({
       		streetAdditional: streetAdditional,
       		plz: plz,
       		personalMessage: personalMessage
-      	} 
+      	};
       	Meteor.call('sendCourseFullParticipantsEmail', options, function (error) {
 		      if (error)
 		        toastr.error( error.reason );
 		      else {
-		        Router.go('home')
+		        Router.go('home');
 		      }
 		    });
       }
