@@ -34,10 +34,8 @@ Meteor.methods({
           amount: options.amount,
           currency: 'EUR',
           token: options.token,
-          description: 'user: ' + this.userId + ' course: ' + current.course + ' current: ' + currentId
+          description: 'user: ' + this.userId + ' course: ' + current.course + ' event: ' + currentId
         });
-
-        console.log(result);
 
         // insert transaction into Transactions.collection
         var user = Meteor.users.findOne( this.userId );
@@ -46,8 +44,10 @@ Meteor.methods({
           _id: result.data.id,
           userId: this.userId,
           userEmail: displayEmail( user ),
+          courseId: current.course,
+          eventId: currentId,
           amount: result.data.amount / 100,
-          date: result.data.created_at
+          timestamp: new Date(result.data.created_at * 1000) // unix timestamp is in sec, need millisec, hence * 1000
         };
 
         Transactions.insert(trans);
