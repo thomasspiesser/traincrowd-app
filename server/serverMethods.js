@@ -51,14 +51,34 @@ Meteor.methods({
     if (this.userId !== current.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
-    Current.update( { token: token }, { $set: {confirmed: true, token: ""} } )
+    Current.update( { token: token }, { $set: {confirmed: true, token: ""} } );
   },
   updateRoles: function () {
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
-    Roles.setUserRoles(this.userId, 'trainer')
+    Roles.setUserRoles(this.userId, 'trainer');
+  },
+  deleteMyAccount: function () {
+    if (! this.userId)
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
+    // check if user and has courses booked
+
+    if ( Roles.userIsInRole( this.userId, 'trainer' ) ) {
+      // remove all of his offered courses
+      Courses.remove({ owner: this.userId });
+      // and remove all of the current events of the courses
+      Current.remove({ owner: this.userId });
+    }
+    else {
+      // check if user has open bookings:
+      var current = Current.find( { participants: this.userId }, { fields: { course: 1, courseDate: 1 } } );
+    }
+    // remove all events
+    var userId = this.userId;
+    Meteor.logout();
+    Meteor.users.remove({_id: userId});
   }
-})
+});
 
 //// custom admin methods
 
