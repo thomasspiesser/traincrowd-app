@@ -372,6 +372,17 @@ footer a:hover {
   transform: translateY(-50%);
   padding: 10px 0;
 }
+
+/*************** Course Payment ***************/
+
+#paymentModal .modal-body {
+  padding: 10px 50px ;
+}
+
+#paymentModal .modal-body h4 {
+  margin-top: 30px;
+}
+
 /*************** Profile ***************/
 
 .profile-left img {

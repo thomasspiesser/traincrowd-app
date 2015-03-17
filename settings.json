@@ -1,6 +1,30 @@
 {
-	"S3Bucket": "traincrowd-images",
-	"AWSRegion": "eu-central-1",
-	"AWSAccessKeyId": "AKIAJF45H2JR3OI32RQQ",
-	"AWSSecretAccessKey": "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"
+    "S3Bucket": "traincrowd-images",
+
+    "AWSRegion": "eu-central-1",
+
+    "AWSAccessKeyId": "AKIAJF45H2JR3OI32RQQ",
+
+    "AWSSecretAccessKey": "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",
+
+    "public": {
+
+        "paymill": {
+
+          "testPublicKey": "497686456145a467359061b929368ebd",
+
+          "livePublicKey": "pk_live_xxxxxxxxxxxxxxxxxxxxxxxx"
+
+        }
+
+      },
+
+    "paymill": {
+
+      "testPrivateKey": "b91f52f0719a592c8aac3331df7f86a8",
+
+      "livePrivateKey": "sk_live_xxxxxxxxxxxxxxxxxxxxxxxx"
+
+    }
+
 }

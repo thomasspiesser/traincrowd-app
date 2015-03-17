@@ -15,7 +15,8 @@ Template.coursePreview.helpers({
     return false;
   },
   feePP: function () {
-    return (this.fee / this.maxParticipants).toFixed(2);
+    var commision = +( this.fee / 100 * 15 ).toFixed(2);
+    return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(2);
   },
   titlePreview: function () {
     if ( !this.title ) {
@@ -83,7 +84,8 @@ Template.courseDetail.helpers({
       return moment(_.first(this.courseDate) ).format("DD.MM") + ' - ' + moment(_.last(this.courseDate) ).format("DD.MM.YYYY");
   },
   feePP: function () {
-    return (this.fee / parseInt(this.minParticipants)).toFixed(2);
+    var commision = +( this.fee / 100 * 15 ).toFixed(2);
+    return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(2);
   }, 
   percentFull: function (course) {
     // data context is current, which is why function get par: course
