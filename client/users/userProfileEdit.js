@@ -40,14 +40,14 @@ var getText = function(id) {
       return text;
       break;
     case 'editProfileCertificates':
-      text = Fake.paragraph(6);
+      text = "";
       return text;
       break;
     default:
       text = "";
       return text;
   }
-}
+};
 
 Template.editUserProfile.helpers({
   showHoverText: function () {
@@ -184,7 +184,7 @@ Template.editProfileDescription.events({
     var self = this; // needed, coz this in bootbox is bootbox object
     bootbox.confirm('Bild löschen?', function(result) {
       if (result) {
-        var modifier = { 'profile.imageId': '' }
+        var modifier = { 'profile.imageId': '' };
         saveUpdates(modifier);
         Meteor.call('removeImage', self.profile.imageId, function (error, result) {
           if (error)
@@ -195,6 +195,9 @@ Template.editProfileDescription.events({
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   }
 });
 
@@ -208,9 +211,9 @@ Template.editProfileContact.events({
     var street = template.find("#editProfileStreet").value;
     var streetAdditional = template.find("#editProfileStreetAdditional").value;
     var plz = template.find("#editProfilePLZ").value;
-    // var city = template.find("#editProfileCity").value;
+    var city = template.find("#editProfileCity").value;
 
-    if (! street.length || plz.length < 5) {
+    if (! street.length || ! city.length || plz.length < 5) {
       toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
       return false;
     }
@@ -220,12 +223,16 @@ Template.editProfileContact.events({
                     'profile.mobile': mobile,
                     'profile.street': street,
                     'profile.streetAdditional': streetAdditional,
-                    'profile.plz': plz }
+                    'profile.plz': plz,
+                    'profile.city': city };
 
     saveUpdates(modifier);
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   }
 });
 
@@ -242,12 +249,15 @@ Template.editProfileQualification.events({
                     // 'profile.experienceGeneral': experienceGeneral,
                     // 'profile.experienceTrainer': experienceTrainer, 
                     'profile.certificates': certificates
-                  }
+                  };
 
     saveUpdates(modifier);
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   }
 });
 
@@ -276,12 +286,15 @@ Template.editProfileOccupation.events({
     var modifier = {'profile.employer': employer,
                     'profile.position': position,
                     'profile.industry': industry,
-                    'profile.workExperience': workExperience }
+                    'profile.workExperience': workExperience };
 
     saveUpdates(modifier);
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   }
 });
 
@@ -346,7 +359,7 @@ Template.editProfileExpectation.events({
                     'profile.expectedOther': expectedOther,
 
                     'profile.interests': interests,
-                    'profile.allowNewsletter': allowNewsletter }
+                    'profile.allowNewsletter': allowNewsletter };
 
     saveUpdates(modifier);
   },
@@ -355,6 +368,9 @@ Template.editProfileExpectation.events({
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   }
 });
 
@@ -386,7 +402,7 @@ Template.editProfileAccount.events({
       return false;
     }
 
-    var modifier = { email: email }
+    var modifier = { email: email };
     saveUpdates(modifier);
 
     if (passwordNew.length) {
@@ -407,5 +423,16 @@ Template.editProfileAccount.events({
         }
       });
     }
+  },
+  'click #deleteMyAccount': function () {
+    confirm('Benutzer Konto wirklich löschen? \nDiese Aktion kann nicht rückgängig gemacht werden.', function(result) {
+      if (result) {
+        Meteor.call('deleteMyAccount', function (error, result) {
+          if (error)
+            toastr.error( error.reason );
+        });
+      }
+    });
+    
   }
 });

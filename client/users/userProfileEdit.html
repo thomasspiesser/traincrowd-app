@@ -198,9 +198,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="editProfileCity" class="control-label">Stadt</label>
-        <select class="form-control hoverCheck" id="editProfileCity" >
-          <option value="Berlin">Berlin</option>
-        </select>
+        <input type="text" class="form-control hoverCheck" id="editProfileCity" value="{{profile.city}}">
       </div>
     </div>
   </div>
@@ -506,5 +504,5 @@
 
   <hr style="margin-top:10%;">
 
-  <a href="#" class="text-danger" id="deleteAccount"> Mein Benutzerkonto Löschen </a>
+  <a href="#" class="text-danger" id="deleteMyAccount"> Mein Benutzerkonto Löschen </a>
 </template>
