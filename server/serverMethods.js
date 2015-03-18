@@ -61,9 +61,12 @@ Meteor.methods({
   deleteMyAccount: function () {
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
-    // check if user and has courses booked
 
     if ( Roles.userIsInRole( this.userId, 'trainer' ) ) {
+      // check if there are open bookings in his current events
+      if (Current.findOne( { owner: this.userId, 'participants.0': {$exists: true} }, { fields: { _id: 1 } } ) ) {
+        throw new Meteor.Error(421, "Sie haben offene Buchungen in einem Ihrer Kurse. Bitte kontaktieren Sie uns und wir finden gemeinsam eine Lösung.");
+      }
       // remove all of his offered courses
       Courses.remove({ owner: this.userId });
       // and remove all of the current events of the courses
@@ -71,12 +74,14 @@ Meteor.methods({
     }
     else {
       // check if user has open bookings:
-      var current = Current.find( { participants: this.userId }, { fields: { course: 1, courseDate: 1 } } );
+      if (Current.findOne( { participants: this.userId }, { fields: { _id: 1 } } ) ) {
+        throw new Meteor.Error(422, "Sie haben offene Buchungen. Bitte kontaktieren Sie uns und wir finden gemeinsam eine Lösung.");
+      }
     }
-    // remove all events
-    var userId = this.userId;
-    Meteor.logout();
-    Meteor.users.remove({_id: userId});
+
+    var thisUserId = this.userId;
+    Meteor.users.update(this.userId, { $set: { "services.resume.loginTokens": [] } }); // logout the user
+    Meteor.users.remove({_id: thisUserId});
   }
 });
 
