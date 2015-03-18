@@ -153,15 +153,18 @@ footer a:hover {
 .trainer-preview-caption:hover {
   transform:  translateY(-90px);
   overflow-y: scroll;
-  
 }
-
 
 .trainer-preview-name {
   font-weight: bold;
   letter-spacing: 2px;
   color: #A02828;
   margin-bottom: 5px;
+}
+
+.trainer-preview-name:hover {
+  text-decoration: none;
+  color: #A02828;
 }
 
 /*************** Course Preview ***************/
