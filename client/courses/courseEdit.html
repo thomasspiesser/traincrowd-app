@@ -29,9 +29,6 @@
             <a href="#courseCosts" data-toggle="tab"><span class="fa fa-euro fa-fw"></span>&nbsp;Kosten</a>
           </li>
           <li>
-            <a href="#courseServices" data-toggle="tab"><span class="fa fa-random fa-fw"></span>&nbsp;Leistungen</a>
-          </li>
-          <li>
             <a href="#courseDates" data-toggle="tab"><span class="fa fa-calendar fa-fw"></span>&nbsp;Termine</a>
           </li>
           <li>
@@ -50,9 +47,6 @@
           </div>
           <div class="tab-pane" id="courseCosts">
             {{> editCourseCosts}}
-          </div>
-          <div class="tab-pane" id="courseServices">
-            {{> editCourseServices}}
           </div>
           <div class="tab-pane" id="courseDates">
             {{> editCourseDates}} 
@@ -167,6 +161,10 @@
     <label for="editCourseLanguages" class="control-label">Sprachen</label>
     <input type="text" class="form-control hoverCheck" id="editCourseLanguages" value="{{languages}}">
   </div>
+  <div class="form-group">
+    <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
+    <textarea class="form-control hoverCheck" id="editCourseAdditionalServices" value="{{additionalServices}}"></textarea>
+  </div>
   <!-- buttons -->
   <div class="form-group">
     <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDetails"><i class="fa fa-save"></i> Speichern</button>
@@ -227,25 +225,6 @@
     <button type="button" class="btn btn-primary pull-right" id="saveEditCourseCosts"><i class="fa fa-save"></i> Speichern</button>
   </div>
   
-  
-  
-</template>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<template name="editCourseServices">
-  <h4 class="editCourseTitles">Bieten Sie noch zusätzliche Leistungen an?</h4>
-
-  <hr>
-
-  <div class="form-group">
-    <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
-    <textarea class="form-control hoverCheck" id="editCourseAdditionalServices" value="{{additionalServices}}"></textarea>
-  </div>
-  <!-- buttons -->
-  <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseServices"><i class="fa fa-save"></i> Speichern</button>
-  </div>
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 

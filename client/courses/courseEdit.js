@@ -272,6 +272,7 @@ Template.editCourseDetails.events({
     var targetGroup = template.find("#editCourseTargetGroup").value;
     var prerequisites = template.find("#editCoursePrerequisites").value;
     var languages = template.find("#editCourseLanguages").value;
+    var additionalServices = template.find("#editCourseAdditionalServices").value;
 
     var modifier = {_id: this._id,
                 owner: this.owner,
@@ -279,7 +280,8 @@ Template.editCourseDetails.events({
                 methods: methods,
                 targetGroup: targetGroup,
                 prerequisites: prerequisites,
-                languages: languages };
+                languages: languages,
+                additionalServices: additionalServices };
 
     saveUpdates(modifier);
   },
@@ -356,25 +358,6 @@ Template.editCourseCosts.events({
   },
   'input #editCourseMaxParticipants': function (event, template) {
     Session.set("courseMaxParticipants", event.currentTarget.value);
-  }
-});
-
-//////////// editCourse SERVICES template /////////
-
-Template.editCourseServices.events({
-  'click #saveEditCourseServices': function (event, template) {
-
-    var additionalServices = template.find("#editCourseAdditionalServices").value;
-    var modifier = {_id: this._id,
-                owner: this.owner,
-                additionalServices: additionalServices };
-    saveUpdates(modifier);
-  },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
   }
 });
 
