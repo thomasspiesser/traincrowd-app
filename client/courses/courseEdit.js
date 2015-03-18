@@ -9,7 +9,7 @@ var getText = function(id) {
       return text;
       break;
     case 'editCourseShortDescription':
-      text = Fake.paragraph(6);
+      text = "";
       return text;
       break;
     case 'editCourseImage':
@@ -66,7 +66,7 @@ var getText = function(id) {
       return text;
       break;
     case 'editCourseAllowInquiry':
-      text = Fake.paragraph(6);
+      text = "";
       return text;
       break;
     case 'editCourseExpires':
@@ -77,7 +77,7 @@ var getText = function(id) {
       text = "";
       return text;
   }
-}
+};
 
 Template.editCourse.helpers({
   showHoverText: function () {
@@ -104,7 +104,7 @@ var saveUpdates = function (modifier) {
     else
       toastr.success( 'Änderungen gespeichert.' );
   });
-}
+};
 
 //////////// editCourse DESCRIPTION template /////////
 
@@ -141,14 +141,14 @@ Template.editCourseDescription.events({
 
     if (! title.length) {
       toastr.error( "Der Kurs braucht einen Titel." );
-      return false
+      return false;
     }
 
     var modifier = {_id: this._id,
                 owner: this.owner,
                 title: title,
                 description: description,
-                categories: categories }
+                categories: categories };
     saveUpdates(modifier);
 
     Meteor.call('updateCategories', categories, function (error, result) {
@@ -164,7 +164,7 @@ Template.editCourseDescription.events({
   'change #newCourseImageReal': function (event, template) {
     var newImage = template.find("#newCourseImageReal").files[0];
 
-    var metaContext = {course: this._id}
+    var metaContext = {course: this._id};
     var upload = new Slingshot.Upload("coursePicture", metaContext);
 
     // if (!newImage.type.match('image.*')) {
@@ -183,13 +183,13 @@ Template.editCourseDescription.events({
       upload.send(newImage, function (error, downloadUrl) {
         uploader.set();
         if (error) {
-          console.log(error)
+          console.log(error);
           toastr.error( error.message );
         }
         else {
           var modifier = {_id: self._id,
                           owner: self.owner,
-                          imageId: downloadUrl}
+                          imageId: downloadUrl};
           saveUpdates(modifier);
         }
       });
@@ -257,6 +257,9 @@ Template.editCourseDescription.events({
   // },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   }
 });
 
@@ -276,12 +279,15 @@ Template.editCourseDetails.events({
                 methods: methods,
                 targetGroup: targetGroup,
                 prerequisites: prerequisites,
-                languages: languages }
+                languages: languages };
 
     saveUpdates(modifier);
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   }
 });
 
@@ -321,26 +327,29 @@ Template.editCourseCosts.events({
 
     if (! fee.length || ! maxParticipants.length) {
       toastr.error( "Sie müssen einen Preis und die Teilnehmerzahl angeben." );
-      return false
+      return false;
     }
     // var minParticipants = parseInt(minParticipants);
-    var maxParticipants = parseInt(maxParticipants);
+    maxParticipants = parseInt(maxParticipants);
     // if (minParticipants > maxParticipants) {
     //   toastr.error( "Die maximale Gruppengröße muss mindestens "+minParticipants+" sein." );
     //   return false
     // }
 
-    fee = parseFloat(fee.replace(',','.'))
+    fee = parseFloat(fee.replace(',','.'));
     fee = +fee.toFixed(2); // rounded to 2 digits returns number coz of +
     var modifier = {_id: this._id,
                 owner: this.owner,
                 // minParticipants: minParticipants,
                 maxParticipants: maxParticipants,
-                fee: fee }
+                fee: fee };
     saveUpdates(modifier);
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   },
   'input #editCourseFee': function (event, template) {
     Session.set("courseFee", event.currentTarget.value);
@@ -358,11 +367,14 @@ Template.editCourseServices.events({
     var additionalServices = template.find("#editCourseAdditionalServices").value;
     var modifier = {_id: this._id,
                 owner: this.owner,
-                additionalServices: additionalServices }
+                additionalServices: additionalServices };
     saveUpdates(modifier);
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   }
 });
 
@@ -413,7 +425,7 @@ Template.editCourseDates.events({
 
     if (! duration || ! expires) {
       toastr.error( "Sie müssen angeben wie viele Tage der Kurs dauert und bis wann er vollständig gebucht sein muss." );
-      return false
+      return false;
     }
     duration = parseInt(duration);
     expires = parseInt(expires);
@@ -427,21 +439,21 @@ Template.editCourseDates.events({
         if (datesArray.length !== duration) {
           var j = i+1;
           toastr.error( "Kursdauer und Anzahl der Kurstage von Terminoption " + j + " stimmen nicht überein." );
-          return false
+          return false;
         }
-        var dateObjectsArray = _.map(datesArray, function(date) { return moment(date, "DD.MM.YYYY")._d } ) // returns the date object - thats what we will store in the DB
-        dateObjectsArray.sort(function (a,b) { return a-b }) // sort dates
+        var dateObjectsArray = _.map(datesArray, function(date) { return moment(date, "DD.MM.YYYY")._d; } ); // returns the date object - thats what we will store in the DB
+        dateObjectsArray.sort(function (a,b) { return a-b; }); // sort dates
 
         var expiredAt = new Date(+dateObjectsArray[0] - 1000 * 60 * 60 * 24 * 7 * expires);
         if (expiredAt < new Date()) {
           var j = i+1;
           toastr.error( "Terminoption " + j + " ist bereits abgelaufen." );
-          return false
+          return false;
         }
 
         var options = {course: this._id,
                       owner: this.owner,
-                      courseDate: dateObjectsArray }
+                      courseDate: dateObjectsArray };
 
         Meteor.call('createCurrent', options, function (error, result) {
           if (error)
@@ -452,7 +464,7 @@ Template.editCourseDates.events({
         dates.push( dateObjectsArray );
       }
       var options = {_id: this._id,
-                    dates: dates }
+                    dates: dates };
       Meteor.call('addToCourseDates', options, function (error, result) {
         if (error)
           toastr.error( error.reason );
@@ -463,7 +475,7 @@ Template.editCourseDates.events({
                 owner: this.owner,
                 duration: duration,
                 // allowInquiry: allowInquiry,
-                expires: expires }
+                expires: expires };
     saveUpdates(modifier);
     return false;
     // if (this.dates) // might be empty, handle:
@@ -516,6 +528,9 @@ Template.editCourseDates.events({
   // },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
   }
 });
 
@@ -536,7 +551,7 @@ Template.editCourseLogistics.events({
     var noLocation = template.find("#editCourseNoLocation").checked;
     var modifier = {_id: this._id,
                 owner: this.owner,
-                noLocation: noLocation }
+                noLocation: noLocation };
     if (noLocation) {
       saveUpdates(modifier);
     } 
@@ -548,7 +563,7 @@ Template.editCourseLogistics.events({
 
       if (! street.length || plz.length < 5) {
         toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
-        return false
+        return false;
       }
       modifier.street = street;
       modifier.streetAdditional = streetAdditional;
