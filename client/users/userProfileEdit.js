@@ -70,7 +70,7 @@ var saveUpdates = function (modifier) {
     else
       toastr.success( 'Änderungen gespeichert.' );
   });
-}
+};
 
 //////////// editUserProfile DESCRIPTION template /////////
 
@@ -425,14 +425,15 @@ Template.editProfileAccount.events({
     }
   },
   'click #deleteMyAccount': function () {
-    confirm('Benutzer Konto wirklich löschen? \nDiese Aktion kann nicht rückgängig gemacht werden.', function(result) {
-      if (result) {
-        Meteor.call('deleteMyAccount', function (error, result) {
-          if (error)
-            toastr.error( error.reason );
-        });
-      }
-    });
-    
+    if (confirm('Benutzer Konto wirklich löschen? \nDiese Aktion kann nicht rückgängig gemacht werden.') ) {
+      Meteor.call('deleteMyAccount', function (error, result) {
+        if (error) {
+          toastr.error( error.reason );
+        }
+        else {
+          Router.go('home');
+        }
+      });
+    }
   }
 });
