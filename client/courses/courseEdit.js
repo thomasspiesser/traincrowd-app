@@ -91,7 +91,7 @@ Template.editCourse.events({ 
     Router.go("/courses");
   },
   'click #previewCourseButton': function (event, template) {
-    Router.go("course.show", {_id: this._id} );
+    Router.go("course.show", {slug: this.slug} );
   }
 });
 
@@ -149,7 +149,14 @@ Template.editCourseDescription.events({
                 title: title,
                 description: description,
                 categories: categories };
-    saveUpdates(modifier);
+    Meteor.call('updateCourse', modifier, function (error, result) {
+      if (error)
+        toastr.error( error.reason );
+      else {
+        Router.go('course.edit', {slug:slugify(title)} );
+        toastr.success( 'Änderungen gespeichert.' );
+      }
+    });
 
     Meteor.call('updateCategories', categories, function (error, result) {
       if (error)

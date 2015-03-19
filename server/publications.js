@@ -5,9 +5,9 @@ Meteor.publish('courses', function () {
 	// return Courses.find({ public: true });
 });
 
-Meteor.publish('singleCourse', function (id) {
-	check(id, String);
-	return Courses.find({_id: id});
+Meteor.publish('singleCourse', function (slug) {
+	check(slug, String);
+	return Courses.find({slug: slug});
 });
 
 // Meteor.publish('ownCourses', function () {

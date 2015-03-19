@@ -47,7 +47,7 @@
         <ul>
           {{#each hostedCourses}}
             <li>
-              <a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a>
+              <a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a>
             </li>
           {{/each}}
         </ul>

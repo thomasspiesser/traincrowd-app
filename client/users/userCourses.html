@@ -7,7 +7,7 @@
       <tbody>
         {{#each hostedCourses}}
           <tr class="{{#unless public}}{{else}}info{{/unless}}">
-            <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
+            <td><a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a></td>
             <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
             <td>{{#if public}}<span style="color: green;"><i class="fa fa-check"></i> online</span>{{else}}<span style="color: red;"><i class="fa fa-times"></i> offline</span>{{/if}}</td>
           </tr>
@@ -30,7 +30,7 @@
       <tbody>
         {{#each inquiredCourses}}
           <tr>
-            <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
+            <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
             <td>{{inquiredDates}}</td>
             <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
           </tr>
@@ -53,7 +53,7 @@
       <tbody>
         {{#each currentCourses}}
           <tr>
-            <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
+            <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
             <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
             <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
           </tr>
@@ -77,7 +77,7 @@
       <tbody>
         {{#each elapsedCourses}}
           <tr>
-            <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
+            <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
             <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
             <td>
               {{#if myRating _id}}

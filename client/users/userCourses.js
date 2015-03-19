@@ -4,50 +4,50 @@ Template.userCourses.rendered = function () {
 
 Template.userCourses.helpers({ 
   hostedCourses: function () {
-    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, rating:1, public:1}} )
+    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, rating:1, public:1, slug:1}} );
   },
   inquiredCourses: function () {
     var inquired = Inquired.find( { inquirer: Meteor.userId() }, {fields: {course:1, inquiredDates:1}} ).fetch();
     if (inquired.length) {
       for (var i = 0; i < inquired.length; i++) {
-        var courseId = inquired[i].course
-        var course = Courses.findOne( { _id: courseId }, {fields: {imageId:1, title:1, rating:1}} )
+        var courseId = inquired[i].course;
+        var course = Courses.findOne( { _id: courseId }, {fields: {imageId:1, title:1, rating:1, slug:1}} );
         delete course._id;
         _.extend(inquired[i],course);
       }
       return inquired;
     }
     else
-      return false
+      return false;
   },
   currentCourses: function () {
     var current = Current.find( { participants: Meteor.userId() }, { fields: { course: 1, courseDate: 1 } } ).fetch();
 
     if (current.length) {
       for (var i = 0; i < current.length; i++) {
-        var courseId = current[i].course
-        var course = Courses.findOne( { _id: courseId }, { fields: { imageId: 1, title: 1, rating:1 } } )
+        var courseId = current[i].course;
+        var course = Courses.findOne( { _id: courseId }, { fields: { imageId: 1, title: 1, rating:1, slug:1 } } );
         delete course._id;
         _.extend(current[i],course);
       }
       return current;
     }
     else
-      return false
+      return false;
   },
   elapsedCourses: function () {
     var elapsed = Elapsed.find( { participants: Meteor.userId() }, { fields: { course: 1, courseDate: 1 } } ).fetch();
     if (elapsed.length) {
       for (var i = 0; i < elapsed.length; i++) {
-        var courseId = elapsed[i].course
-        var course = Courses.findOne( { _id: courseId }, { fields: { imageId: 1, title: 1, rating: 1 } } );
+        var courseId = elapsed[i].course;
+        var course = Courses.findOne( { _id: courseId }, { fields: { imageId: 1, title: 1, rating: 1, slug:1 } } );
         delete course._id;
         _.extend( elapsed[i], course );
       }
       return elapsed;
     }
     else
-      return false
+      return false;
   },
   formated: function (courseDate) {
     return _.map(courseDate, function(date) {return moment(date).format("DD.MM.YYYY"); } );
@@ -93,7 +93,7 @@ Template.ratingModal.events({
     ratedValues = [ratedValue0, ratedValue1, ratedValue2, ratedValue3, ratedValue4];
 
     modifier = {_id: Session.get("rateId"),
-                ratedValues: ratedValues }
+                ratedValues: ratedValues };
     Meteor.call('rateCourse', modifier, function (error, result) {
       if (error)
         toastr.error( error.reason );

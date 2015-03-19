@@ -19,14 +19,14 @@
       <div class="col-md-3 col-preview-image">
         <div class="course-preview-image">
           {{#if imageId}}
-            <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="{{imageId}}" class=""></a>
+            <a href="{{ pathFor route='course.show' slug=this.slug }}"><img src="{{imageId}}" class=""></a>
           {{else}}
             {{#if trainerImageId owner}}
               {{#with trainerImageId owner}}
-                <a href="{{ pathFor route='course.show' _id=../_id }}"><img src="{{this}}" alt="" class=""></a>
+                <a href="{{ pathFor route='course.show' slug=../slug }}"><img src="{{this}}" alt="" class=""></a>
               {{/with}}
             {{else}}
-              <a href="{{ pathFor route='course.show' _id=this._id }}"><img src="/iconTeach.png" class=""></a>
+              <a href="{{ pathFor route='course.show' slug=this.slug }}"><img src="/iconTeach.png" class=""></a>
             {{/if}}
           {{/if}}
         </div>
@@ -35,7 +35,7 @@
       <div class="col-md-9">
         <div class="course-preview-content">
 
-          <a href="{{ pathFor route='course.show' _id=this._id }}"><h4 class="course-title-preview">{{titlePreview}}</h4></a>
+          <a href="{{ pathFor route='course.show' slug=this.slug }}"><h4 class="course-title-preview">{{titlePreview}}</h4></a>
 
           <div class="row">
             <div class="col-md-8 col-preview-content-left">
