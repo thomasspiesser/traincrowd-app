@@ -28,6 +28,7 @@ function setExpired() {
           {$set: { token: token }});
         // email owner: Fragen ob er den Kurs trotzdem machen will
         Meteor.call('sendAskIfEventExpiredTrainerEmail', { course: current.course, currentId: current._id, token: token } );
+        return;
       }
 
       else {
@@ -75,7 +76,7 @@ function setElapsed() {
 SyncedCron.add({
   name: 'Scan for elapsed',
   schedule: function(parser) {
-    return parser.text('at 03:00 am'); // run at 3 in the morning every day
+    return parser.text('at 17:17 am'); // run at 3 in the morning every day
   }, 
   job: function() {
     var elapsedEvents = setElapsed();
@@ -86,7 +87,7 @@ SyncedCron.add({
 SyncedCron.add({
   name: 'Scan for expired',
   schedule: function(parser) {
-    return parser.text('at 03:10 am'); // run at 10 past 3 in the morning every day
+    return parser.text('at 17:44 am'); // run at 10 past 3 in the morning every day
   }, 
   job: function() {
     var expiredEvents = setExpired();

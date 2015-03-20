@@ -7,7 +7,7 @@
   <p>Vielen Dank, dass Sie über Traincrowd den Kurs '{{course.title}}' gebucht haben.</p>
   <p>Hier ist nochmal ein Übersicht für Sie:</p>
 	<h3 style="margin-top:0;">{{course.title}}</h3>
-    <p>{{course.description}}</p>
+    {{#if course.description}}<p>{{course.description}}</p>{{/if}}
     
     {{#if course.aims}}<p><strong>Kursziele</strong> <br> {{course.aims}}</p>{{/if}}
     {{#if course.methods}}<p><strong>Lernformen, Methodik und Didaktik</strong> <br> {{course.methods}}</p>{{/if}}
@@ -16,7 +16,7 @@
     {{#if course.languages}}<p><strong>Sprachen</strong> <br> {{course.languages}}</p>{{/if}}
     {{#if course.additionalServices}}<p><strong>zusätzliche Leistungen</strong> <br> {{course.additionalServices}}</p>{{/if}}
   <a href="{{ url }}">{{course.title}}</a>
-  <p>Wir melden uns wieder bei Ihnen, sobald sich genügend Teilnehmer für den Kurs gefunden haben und wir bestätigen können, dass der Kurs stattfindet.<p>
+  <p>Wir melden uns wieder bei Ihnen, sobald sich genügend Teilnehmer für den Kurs gefunden haben und wir bestätigen können, dass der Kurs stattfindet.</p>
   <p>Mit freundlichen Grüßen,<br>
   das Traincrowd Team</p> 
 </body>

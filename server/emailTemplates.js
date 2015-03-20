@@ -45,6 +45,10 @@ Meteor.methods({
       throw new Meteor.Error("Course: " + options.course + " doesn't have an owner.");
     if (!course.slug)
       throw new Meteor.Error("Course: " + options.course + " doesn't have an URL slug.");
+    if (!course.fee)
+      throw new Meteor.Error("Course: " + options.course + " doesn't have a fee.");
+    if (!course.maxParticipants)
+      throw new Meteor.Error("Course: " + options.course + " doesn't have maxParticipants.");
     
     var owner = Meteor.users.findOne( course.owner );
     if (owner.emails && owner.emails[0])
@@ -68,6 +72,7 @@ Meteor.methods({
       course: course,
       courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
       participantsLength: current.participants.length,
+      feeReducedTotal: (course.fee / course.maxParticipants * current.participants.length).toFixed(2),
       urlYES: urlYES,
       urlNO: urlNO
     };
@@ -160,7 +165,7 @@ Meteor.methods({
 
       var dataContext = {
         name: name,
-        title: course.title,
+        course: course,
         url: url
       };
       var subject = "Der Kurs: '" + course.title + "'" + " findet leider nicht statt.";
