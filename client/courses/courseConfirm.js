@@ -2,15 +2,15 @@ Template.courseConfirm.helpers({
   formatedDates: function () {
     var courseDate = this.current.courseDate;
     var formatedDates = _.map(courseDate, function(date){
-      return moment(date).format("DD.MM.YYYY")
-    })
+      return moment(date).format("DD.MM.YYYY");
+    });
     return formatedDates;
   }
 });
 
 Template.courseConfirmForm.helpers({
   email: function (userId) {
-  	var user = Meteor.users.findOne( userId )
+  	var user = Meteor.users.findOne( userId );
     return displayEmail(user);
   }
 });

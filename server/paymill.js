@@ -53,7 +53,7 @@ Meteor.methods({
         Transactions.insert(trans);
 
         // inform participant via email - with callback: may return error but rest of try-block will be run anyway, w/o callback on error will invoke catch-block
-        Meteor.call('sendBookingConfirmationEmail', { course: course._id, userId: this.userId }, function (error, result) {
+        Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function (error, result) {
           if (error) {
             console.log(error);
           }

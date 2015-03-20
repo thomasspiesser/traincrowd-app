@@ -10,22 +10,37 @@ function setExpired() {
     if ( current.participants.length === course.maxParticipants )
       return;
 
-    var date = _.first(current.courseDate) // first day of the event
+    var date = _.first(current.courseDate); // first day of the event
 
     if (course.expires) {
       // calc when the event expires: courseDate - no.of weeks before
-      var date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * course.expires); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
+      date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * course.expires); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
     }
     if (date < new Date()) {
-      expiredEvents.push(current._id) // for the record
 
-      // email current.participants: Bescheid sagen, dass leider nicht voll geworden ist. evtl vorschlag von neuem datum
-      // email owner: Bescheid sagen, dass leider nicht voll geworden ist.
+      if ( current.participants.length ) {
+        // if there are participants at all, trainer should have the possibility to do it anyways
+        // generate token to confirm/decline the event 
+        var token = Random.hexString(64); 
+        // save in current
+        Current.update(
+          {_id: current._id},
+          {$set: { token: token }});
+        // email owner: Fragen ob er den Kurs trotzdem machen will
+        Meteor.call('sendAskIfEventExpiredTrainerEmail', { course: current.course, currentId: current._id, token: token } );
+      }
 
-      // remove from course.dates
-      Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
-      // remove from Current:
-      Current.remove(current._id);
+      else {
+        // inform trainer event expired
+        Meteor.call('sendInformEventExpiredTrainerEmail', { course: current.course, currentId: current._id } );
+        // for the record
+        expiredEvents.push(current._id); 
+        // remove from course.dates
+        Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
+        // remove from Current:
+        Current.remove(current._id);
+      }
+
     }
     return expiredEvents;
   }); 
@@ -34,7 +49,7 @@ function setExpired() {
 function setElapsed() {
   var elapsedEvents = [];
   Current.find().forEach(function (current) {
-    var date = _.last(current.courseDate) // last day of the event
+    var date = _.last(current.courseDate); // last day of the event
     if (date < new Date()) {
       Elapsed.insert({
         _id: current._id,
@@ -43,7 +58,7 @@ function setElapsed() {
         participants: current.participants,
         courseDate: current.courseDate
       });
-      elapsedEvents.push(current._id) // for the record
+      elapsedEvents.push(current._id); // for the record
 
       // email current.participants: Aufforderung bewertung
       Meteor.call('sendRateCourseEmail', {course: current.course, participants: current.participants});

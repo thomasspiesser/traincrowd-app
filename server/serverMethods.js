@@ -34,8 +34,29 @@ Meteor.methods({
       courseDate: options.courseDate
     });
   },
-  deleteCurrent: function (id) {
-    Current.remove({_id: id});
+  declineCurrent: function (token) {
+    check(token, NonEmptyString);
+
+    if (! this.userId)
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
+
+    var current = Current.findOne( { token: token }, { fields: { owner: 1, course: 1, participants: 1 } } );
+
+    if (!current || !current.owner) 
+      throw new Meteor.Error(407, "Event oder Trainer nicht gefunden.");
+
+    if (this.userId !== current.owner)
+      throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
+
+    if (!current.course)
+      throw new Meteor.Error("Kurs nicht gefunden");
+
+    if (!current.participants || !current.participants.length)
+      throw new Meteor.Error("Keine Teilnehmer nicht gefunden");
+
+    Meteor.call('sendEventDeclinedParticipantsEmail', {course: current.course, participants: current.participants} );
+
+    Current.remove( { token: token } );
   }, 
   confirmCurrent: function (token) {
     check(token, NonEmptyString);
