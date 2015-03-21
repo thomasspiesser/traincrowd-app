@@ -1,45 +1,45 @@
 var getText = function(id) {
   var text;
   switch (id) {
-    // case 'editUserProfileName': 
+    // case 'editTrainerProfileName': 
     //   text = Fake.paragraph(4);
     //   return text;
     //   break;
-    case 'editUserProfileShortDescription':
+    case 'editTrainerProfileShortDescription':
       text = "Geht aus Ihrer Beschreibung klar hervor, was Ihr Alleinstellungsmerkmal gegenüber anderen Anbietern ist? Was macht Sie für Ihre Kunden interessant? Sind Sie eher Spezialist oder Generalist? So zutreffend, haben Sie spezielle Branchenerfahrung erwähnt?"
       return text;
       break;
-    // case 'editUserProfileImage':
+    // case 'editTrainerProfileImage':
     //   text = Fake.paragraph(6);
     //   return text;
     //   break;
-    // case 'editUserProfileDefaultImage':
+    // case 'editTrainerProfileDefaultImage':
     //   text = Fake.paragraph(6);
     //   return text;
     //   break;
-    case 'editUserProfilePhone': 
+    case 'editTrainerProfilePhone': 
       text = "Bitte geben Sie Ihre Telefonnummer samt Städtevorwahl an. Wir geben ihre Telefonnummern natürlich nicht weiter.";
       return text;
       break;
-    case 'editUserProfileStreet':
-    case 'editUserProfileStreetAdditional':
+    case 'editTrainerProfileStreet':
+    case 'editTrainerProfileStreetAdditional':
       text = "Wenn Sie möchten, dass Ihre Anschrift oder die ihrer Firma auf ihrem Profil angezeigt wird geben Sie bitte ihre Adressdaten ein. Wieso? Teilnehmer möchten evtl. nachschauen, wo Sie zu finden sind...";
       return text;
       break;
-    case 'editUserProfileMobile':
+    case 'editTrainerProfileMobile':
       text = "Wir benötigen Ihre Handynummer, damit wir Sie erreichen können, wenn sich Teilnehmer wegen eines Ihrer Kurse an uns wenden - z.B. weil Sie die Räumlichkeiten nicht finden oder ähnliches. Wir geben ihre Telefonnummern natürlich nicht weiter.";
       return text;
       break;
-    case 'editUserProfilePLZ':
-    case 'editUserProfileCity':
+    case 'editTrainerProfilePLZ':
+    case 'editTrainerProfileCity':
       text = "Teilnehmer suchen Weiterbildungen in ihrer Nähe. Damit Sie unsere Such-funktion Sie auch über örtliche Angaben findet geben Sie bitte ihre PLZ und Stadt ein. ";
       return text;
       break;
-    case 'editUserProfileLanguages': 
+    case 'editTrainerProfileLanguages': 
       text = "Viele Teilnehmer sind an Weiterbildung auf Englisch, Spanisch und anderen Sprachen interessiert. Bitte geben Sie die Sprachen an, in denen sie Ihre Kurse anbieten. Trennen sie die Sprachen durch Kommata.";
       return text;
       break;
-    case 'editUserProfileCertificates':
+    case 'editTrainerProfileCertificates':
       text = "";
       return text;
       break;
@@ -49,13 +49,13 @@ var getText = function(id) {
   }
 };
 
-Template.editUserProfile.helpers({
+Template.editTrainerProfile.helpers({
   showHoverText: function () {
     return getText(Session.get( 'showHoverText' ));
   }
 });
 
-Template.editUserProfile.events({ 
+Template.editTrainerProfile.events({ 
   'click #showProfileButton': function () {
     Router.go("trainerProfile.show", {_id: this._id} );
   }
@@ -72,11 +72,11 @@ var saveUpdates = function (modifier) {
   });
 };
 
-//////////// editUserProfile DESCRIPTION template /////////
+//////////// editTrainerProfile DESCRIPTION template /////////
 
 var uploader = new ReactiveVar();
 
-Template.editUserProfileDescription.helpers({
+Template.editTrainerProfileDescription.helpers({
   selected: function (one, two) {
     return one === two ? 'selected' : '';
   },
@@ -90,13 +90,15 @@ Template.editUserProfileDescription.helpers({
   }
 });
 
-Template.editUserProfileDescription.events({
+Template.editTrainerProfileDescription.events({
   'click #saveEditProfileDescription': function (event, template) {
-    var title = template.find("#editUserProfileTitle").value;
-    var name = template.find("#editUserProfileName").value;
+    var title = template.find("#editTrainerProfileTitle").value;
+    var name = template.find("#editTrainerProfileName").value;
+    var description = template.find("#editTrainerProfileShortDescription").value;
 
     var modifier = {'profile.title': title,
-                    'profile.name': name };
+                    'profile.name': name,
+                    'profile.description': description }
     saveUpdates(modifier);
 
     return false;
@@ -199,23 +201,25 @@ Template.editUserProfileDescription.events({
   }
 });
 
-//////////// editUserProfile CONTACT template /////////
+//////////// editTrainerProfile CONTACT template /////////
 
-Template.editUserProfileContact.events({
+Template.editTrainerProfileContact.events({
   'click #saveEditProfileContact': function (event, template) {
-    var phone = template.find("#editUserProfilePhone").value;
-    var mobile = template.find("#editUserProfileMobile").value;
-    var street = template.find("#editUserProfileStreet").value;
-    var streetAdditional = template.find("#editUserProfileStreetAdditional").value;
-    var plz = template.find("#editUserProfilePLZ").value;
-    var city = template.find("#editUserProfileCity").value;
+    var homepage = template.find('#editTrainerProfileHomepage').value;
+    var phone = template.find("#editTrainerProfilePhone").value;
+    var mobile = template.find("#editTrainerProfileMobile").value;
+    var street = template.find("#editTrainerProfileStreet").value;
+    var streetAdditional = template.find("#editTrainerProfileStreetAdditional").value;
+    var plz = template.find("#editTrainerProfilePLZ").value;
+    var city = template.find("#editTrainerProfileCity").value;
 
     if (! street.length || ! city.length || plz.length < 5) {
       toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
       return false;
     }
     
-    var modifier = {'profile.phone': phone,
+    var modifier = {'profile.homepage': homepage,
+                    'profile.phone': phone,
                     'profile.mobile': mobile,
                     'profile.street': street,
                     'profile.streetAdditional': streetAdditional,
@@ -232,31 +236,20 @@ Template.editUserProfileContact.events({
   }
 });
 
-//////////// editUserProfile OCCUPATION template /////////
+//////////// editTrainerProfile QUALIFICATION template /////////
 
-Template.editUserProfileOccupation.rendered = function () {
-  $('#editUserProfileIndustry').select2({
-    tags: ['non-profit', 'Start-up', 'Sonstige']
-  });
-};
+Template.editTrainerProfileQualification.events({
+  'click #saveEditProfileQualification': function (event, template) {
+    var languages = template.find("#editTrainerProfileLanguages").value;
+    var certificates = template.find("#editTrainerProfileCertificates").value;
+    // var experienceGeneral = template.find("#editTrainerProfileExperienceGeneral").value;
+    // var experienceTrainer = template.find("#editTrainerProfileExperienceTrainer").value;
 
-Template.editUserProfileOccupation.helpers({
-  selected: function (one, two) {
-    return one === two ? 'selected' : '';
-  }
-});
-
-Template.editUserProfileOccupation.events({
-  'click #saveEditProfileOccupation': function (event, template) {
-    var employer = template.find("#editUserProfileEmployer").value;
-    var position = template.find("#editUserProfilePosition").value;
-    var industry = template.find("#editUserProfileIndustry").value;
-    var workExperience = template.find("#editUserProfileWorkExperience").value;
-
-    var modifier = {'profile.employer': employer,
-                    'profile.position': position,
-                    'profile.industry': industry,
-                    'profile.workExperience': workExperience };
+    var modifier = {'profile.languages': languages,
+                    // 'profile.experienceGeneral': experienceGeneral,
+                    // 'profile.experienceTrainer': experienceTrainer, 
+                    'profile.certificates': certificates
+                  };
 
     saveUpdates(modifier);
   },
@@ -268,96 +261,20 @@ Template.editUserProfileOccupation.events({
   }
 });
 
+//////////// editTrainerProfile ACCOUNT template /////////
 
-//////////// editUserProfile EXPECTATION template /////////
-
-Template.editUserProfileExpectation.rendered = function () {
-  var categories = Categories.findOne();
-  if (categories) {
-    $('#editUserProfileInterests').select2({
-      tags: categories.categories
-    });
-  }
-};
-
-Template.editUserProfileExpectation.helpers({
-  checked: function (one, two) {
-    return one === two ? 'checked' : '';
-  },
-  allowNewsletter: function () {
-    if (this.profile && typeof this.profile.allowNewsletter !== 'undefined') 
-      Session.setDefault("allowNewsletter", this.profile.allowNewsletter);
-    else 
-      Session.setDefault("allowNewsletter", false);
-    return Session.get("allowNewsletter");
-  }
-});
-
-Template.editUserProfileExpectation.events({
-  'click #saveEditProfileExpectation': function (event, template) {
-    //radio buttons:
-    var expectedCommunication = template.find('input:radio[name=expectedCommunication]:checked');
-    var expectedAims = template.find('input:radio[name=expectedAims]:checked');
-    var expectedMethodQuality = template.find('input:radio[name=expectedMethodQuality]:checked');
-    var expectedNeeds = template.find('input:radio[name=expectedNeeds]:checked');
-    var expectedSkills = template.find('input:radio[name=expectedSkills]:checked');
-    var expectedLogistics = template.find('input:radio[name=expectedLogistics]:checked');
-
-    if (!expectedCommunication || !expectedAims || !expectedMethodQuality || !expectedNeeds || !expectedSkills || !expectedLogistics ) {
-      toastr.error( "Bitte machen Sie überall angaben." );
-      return false;
-    }
-    else {
-      expectedCommunication = expectedCommunication.value;
-      expectedAims = expectedAims.value;
-      expectedMethodQuality = expectedMethodQuality.value;
-      expectedNeeds = expectedNeeds.value;
-      expectedSkills = expectedSkills.value;
-      expectedLogistics = expectedLogistics.value;
-    }
-    var expectedOther = template.find("#editUserProfileExpectedOther").value;
-
-    var interests = template.find("#editUserProfileInterests").value;
-    var allowNewsletter = template.find("#editUserProfileAllowNewsletter").checked;
-
-    var modifier = {'profile.expectedCommunication': expectedCommunication,
-                    'profile.expectedAims': expectedAims,
-                    'profile.expectedMethodQuality': expectedMethodQuality,
-                    'profile.expectedNeeds': expectedNeeds,
-                    'profile.expectedSkills': expectedSkills,
-                    'profile.expectedLogistics': expectedLogistics,
-                    'profile.expectedOther': expectedOther,
-
-                    'profile.interests': interests,
-                    'profile.allowNewsletter': allowNewsletter };
-
-    saveUpdates(modifier);
-  },
-  'change #editUserProfileAllowNewsletter': function (event) {
-    Session.set("allowNewsletter", event.target.checked);
-  },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
-  }
-});
-
-//////////// editUserProfile ACCOUNT template /////////
-
-Template.editUserProfileAccount.helpers({
+Template.editTrainerProfileAccount.helpers({
   email: function () {
     return Meteor.user().emails[0].address;
   }
 });
 
-Template.editUserProfileAccount.events({
+Template.editTrainerProfileAccount.events({
   'click #saveEditProfileAccount': function (event, template) {
-    var email = template.find("#editUserProfileEmail").value;
-    var passwordNew = template.find("#editUserProfilePasswordNew").value;
-    var passwordNewAgain = template.find("#editUserProfilePasswordNewAgain").value;
-    var passwordOld = template.find("#editUserProfilePasswordOld").value;
+    var email = template.find("#editTrainerProfileEmail").value;
+    var passwordNew = template.find("#editTrainerProfilePasswordNew").value;
+    var passwordNewAgain = template.find("#editTrainerProfilePasswordNewAgain").value;
+    var passwordOld = template.find("#editTrainerProfilePasswordOld").value;
 
     if (! EMAIL_REGEX.test(email)) {
       toastr.error( "Bitte überprüfen Sie, ob Sie eine echte Email Adresse eingegeben haben." );
@@ -366,9 +283,9 @@ Template.editUserProfileAccount.events({
 
     if (passwordNew.length && passwordNew !== passwordNewAgain) {
       toastr.error( "Bitte überprüfen Sie, ob Sie tatsächlich zweimal das gleich Passwort eingegeben haben." );
-      $('#editUserProfilePasswordNew').val('');
-      $('#editUserProfilePasswordNewAgain').val('');
-      $('#editUserProfilePasswordOld').val('');
+      $('#editTrainerProfilePasswordNew').val('');
+      $('#editTrainerProfilePasswordNewAgain').val('');
+      $('#editTrainerProfilePasswordOld').val('');
       return false;
     }
 
@@ -379,16 +296,16 @@ Template.editUserProfileAccount.events({
       Accounts.changePassword(passwordOld, passwordNew, function (error, result) {
         if (error) {
           toastr.error( error.reason );
-          $('#editUserProfilePasswordNew').val('');
-          $('#editUserProfilePasswordNewAgain').val('');
-          $('#editUserProfilePasswordOld').val('');
+          $('#editTrainerProfilePasswordNew').val('');
+          $('#editTrainerProfilePasswordNewAgain').val('');
+          $('#editTrainerProfilePasswordOld').val('');
           return false;
         }
         else {
           toastr.success( "Passwort geändert." );
-          $('#editUserProfilePasswordNew').val('');
-          $('#editUserProfilePasswordNewAgain').val('');
-          $('#editUserProfilePasswordOld').val('');
+          $('#editTrainerProfilePasswordNew').val('');
+          $('#editTrainerProfilePasswordNewAgain').val('');
+          $('#editTrainerProfilePasswordOld').val('');
           return false;
         }
       });

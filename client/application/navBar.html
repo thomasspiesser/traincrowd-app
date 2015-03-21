@@ -27,7 +27,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name='navItemsLeft'>
-  <li><a href="{{pathFor 'search'}}">Berlins Top Kurse</a></li>
+  <li><a href="{{pathFor 'search.course'}}">Berlins Top Kurse</a></li>
   <li><a href="{{pathFor 'search.trainer'}}">Die Anbieter</a></li>
   <li><a href="{{pathFor 'faq'}}">FAQ</a></li>
 </template>
@@ -54,7 +54,7 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:5px;">{{username currentUser._id}} <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
         {{#if isInRole 'trainer'}}
-          <li><a href="{{ pathFor 'userProfile.show' data=currentUser }}">Mein Profil</a></li>
+          <li><a href="{{ pathFor 'trainerProfile.show' data=currentUser }}">Mein Profil</a></li>
         {{else}}
           <li><a href="{{ pathFor 'userProfile.edit' data=currentUser }}">Mein Profil</a></li>
         {{/if}}

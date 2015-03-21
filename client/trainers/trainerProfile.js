@@ -1,8 +1,8 @@
-Template.userProfile.rendered = function () {
+Template.trainerProfile.rendered = function () {
   $('.rateit').rateit();
 };
 
-Template.userProfile.helpers({
+Template.trainerProfile.helpers({
   canEdit: function () {
     return this._id === Meteor.userId();
   },
@@ -14,9 +14,9 @@ Template.userProfile.helpers({
   }
 });
 
-Template.userProfile.events({
+Template.trainerProfile.events({
   'click #editUserProfileButton': function () {
-    Router.go("userProfile.edit", {_id: this._id} );
+    Router.go("trainerProfile.edit", {_id: this._id} );
   }
 });
 

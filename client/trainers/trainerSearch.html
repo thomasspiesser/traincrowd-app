@@ -36,10 +36,10 @@
 <template name="trainerPreview">
 
   <div class="all-trainer-wrapper">
-    <a href="{{ pathFor 'userProfile.show' _id=this._id }}" class="trainer-preview-image" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}} );"></a>
+    <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}" class="trainer-preview-image" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}} );"></a>
 
     <div class="trainer-preview-caption">
-      <a href="{{ pathFor 'userProfile.show' _id=this._id }}" class="trainer-preview-name">{{username this._id}}</a>
+      <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}" class="trainer-preview-name">{{username this._id}}</a>
       <p>Berlin</p>
 
       {{#if hostedCourses.count}}

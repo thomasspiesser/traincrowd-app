@@ -39,7 +39,7 @@
 
           <div class="row">
             <div class="col-md-8 col-preview-content-left">
-              <a href="{{ pathFor 'userProfile.show' _id=this.owner }}">{{ownerName}}</a>
+              <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}">{{ownerName}}</a>
               <p class="course-description-preview">{{descriptionPreview}}</p>
             </div>
             <div class="col-md-4 col-preview-content-right">
@@ -101,7 +101,7 @@
         {{#if canEdit owner}}
           <button type="submit" class="btn btn-sm pull-right" id="editCourseButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
         {{/if}}
-          <p><a href="{{ pathFor 'userProfile.show' _id = owner }}">{{ownerName}}</a></p>
+          <p><a href="{{ pathFor 'trainerProfile.show' _id = owner }}">{{ownerName}}</a></p>
           <h3 class="course-title-detail">{{title}}</h3>
           <p class="course-detail-head-categories">
             {{#each categories}}
