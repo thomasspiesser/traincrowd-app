@@ -42,19 +42,7 @@
     <div class="row">
 
       <div class="col-md-2 course-detail-left">
-        <div class="course-detail-head-image-wrapper">
-        {{#if imageId}}
-          <img src="{{imageId}}" alt="{{title}}" class="">
-        {{else}}
-          {{#if trainerImageId owner}}
-            {{#with trainerImageId owner}}
-              <img src="{{this}}" alt="" class="">
-            {{/with}}
-          {{else}}
-            <img src="/iconTeach.png" alt="" class="">
-          {{/if}}
-        {{/if}}
-        </div>
+        <div class="course-detail-head-image" style="background-image: url( {{#if imageId}} '{{imageId}}' {{else}} {{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}} '/dummyUser.jpg' {{/if}} {{/if}} );"></div>
 
         <div class="course-detail-body-location-wrapper">
           <div id="location">

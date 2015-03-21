@@ -258,19 +258,22 @@ footer a:hover {
 /*************** Course Detail ***************/
 
 .course-detail-left {
-  width: 175px;
   padding: 0;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
 .course-detail-right {
-  padding: 0;
+  padding: 0 10px 0 0;
 }
 
 .course-detail-head-text-wrapper {
   padding-left: 10px;
-  height: 175px;
+  height: 190px;
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.course-detail-head-text-wrapper p {
+  padding-top: 4px;
 }
 
 .course-detail-head-text-wrapper a {
@@ -287,34 +290,22 @@ footer a:hover {
 }
 
 .course-title-detail {
-  height: 60px;
+  height: 70px;
 }
 
 .course-detail-head-categories {
-  height: 25px;
+  height: 22px;
 }
 
-.course-detail-head-image-wrapper {
-  position: relative;
-  height: 175px;
-  width: 175px;
-  overflow: hidden;
-}
-
-.course-detail-head-image-wrapper img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-      -ms-transform: translate(-50%,-50%);
-          transform: translate(-50%,-50%);
-  width: auto;
-  height: 100%;
-}
-
-.course-detail-head-image-wrapper img.portrait {
-  width: 100%;
-  height: auto;
+.course-detail-head-image {
+  display: block;
+  height: 190px;
+  background: no-repeat center center;
+  background-color: transparent;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .course-detail-body-text-wrapper {
@@ -325,8 +316,6 @@ footer a:hover {
   margin: 15px;
 }
 .course-detail-event-panel {
-  width: 30%;
-  margin-left: 1%;
   padding: 25px 15px;
   box-shadow: 0px 0px 8px #888;
 }
