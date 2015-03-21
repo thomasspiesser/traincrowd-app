@@ -3,7 +3,7 @@
 Template.coursePreview.rendered = function () {
   $('.rateit').rateit();
   $('.course-preview-image img').each(function(){
-    $(this).addClass(this.width > this.height ? '' : 'portrait');
+    $(this).addClass(this.width > this.height ? 'landscape' : 'portrait');
   });
 };
 
@@ -59,7 +59,7 @@ Template.coursePreview.helpers({
 Template.courseDetail.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip(); //initialize all tooltips in this template
   $('.rateit').rateit();
-  $('.course-detail-head-image-wrapper img').addClass(function () { return this.width > this.height ? '' : 'portrait'; });
+  $('.course-detail-head-image-wrapper img').addClass(function () { return this.width > this.height ? 'landscape' : 'portrait'; });
   if ( Session.get('showBookingModalOnReturn') ) {
     Session.set('showBookingModalOnReturn', false);
     $('#paymentModal').modal('show');
