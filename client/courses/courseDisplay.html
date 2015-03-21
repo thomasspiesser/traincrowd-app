@@ -1,35 +1,9 @@
-<!-- <template name="courses">
-  <div class="container">
-    <div class="row">
-        {{#each courses}}
-        <div class="col-lg-8 col-lg-offset-2">
-            {{> coursePreview}}
-        </div>
-        {{/each}}
-    </div>
-  </div>
-</template> -->
-
-<!--  /////////////////////////////////////////////////// --> 
-
 <template name="coursePreview">
   <div class="all-courses-wrapper">
     <div class="row">
 
       <div class="col-md-3 col-preview-image">
-        <div class="course-preview-image">
-          {{#if imageId}}
-            <a href="{{ pathFor route='course.show' slug=this.slug }}"><img src="{{imageId}}" class=""></a>
-          {{else}}
-            {{#if trainerImageId owner}}
-              {{#with trainerImageId owner}}
-                <a href="{{ pathFor route='course.show' slug=../slug }}"><img src="{{this}}" alt="" class=""></a>
-              {{/with}}
-            {{else}}
-              <a href="{{ pathFor route='course.show' slug=this.slug }}"><img src="/iconTeach.png" class=""></a>
-            {{/if}}
-          {{/if}}
-        </div>
+        <a href="{{ pathFor 'course.show' slug=this.slug }}" class="course-preview-image" style="background-image: url( {{#if imageId}} '{{imageId}}' {{else}} {{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}} '/dummyUser.jpg' {{/if}} {{/if}} );"></a>
       </div>
 
       <div class="col-md-9">

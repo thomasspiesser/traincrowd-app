@@ -208,33 +208,14 @@ footer a:hover {
 }
 
 .course-preview-image {
-  position: relative;
+  display: block;
   height: 180px;
-  width: 180px;
-  overflow: hidden;
-  /*border: 1px solid;*/
-}
-
-.course-preview-image img.landscape {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-      -ms-transform: translate(-50%,-50%);
-          transform: translate(-50%,-50%);
-  width: auto;
-  height: 100%;
-}
-
-.course-preview-image img.portrait {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-      -ms-transform: translate(-50%,-50%);
-          transform: translate(-50%,-50%);
-  width: 100%;
-  height: auto;
+  background: no-repeat center center;
+  background-color: transparent;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .course-preview-content {

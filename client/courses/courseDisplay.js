@@ -2,9 +2,6 @@
 
 Template.coursePreview.rendered = function () {
   $('.rateit').rateit();
-  $('.course-preview-image img').each(function(){
-    $(this).addClass(this.width > this.height ? 'landscape' : 'portrait');
-  });
 };
 
 Template.coursePreview.helpers({
