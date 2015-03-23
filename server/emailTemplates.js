@@ -28,6 +28,23 @@ Meteor.startup(function() {
 });
 
 Meteor.methods({
+  sendRequestPublicationEmail: function (options) {
+    check(options, {
+      what: NonEmptyString,
+      itemId: NonEmptyString,
+      itemName: String
+    });
+
+    var subject = "Anfrage zur Freischaltung von " + options.what + ": " + options.itemName;
+    var html = Spacebars.toHTML(options, Assets.getText('requestPublicationEmail.html'));
+    options = { 
+      to: 'thomas@traincrowd.de', 
+      subject: subject, 
+      html: html 
+    };
+    
+    sendEmail(options);
+  },
   sendAskIfEventExpiredTrainerEmail: function (options) {
     this.unblock();
     check(options, {

@@ -1,5 +1,21 @@
 <template name="trainerProfile">
   <div class="container">
+    {{#if canEdit}}
+    <div class="row" id="editProfile">
+
+      <div class="well well-sm">
+        
+        {{#unless isPublic}}
+          <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="requestPublicProfileButton"> <span class="fa fa-globe"></span> Freigeben</button>
+        {{/unless}}
+        {{#if canEdit}}
+          <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="editTrainerProfileButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
+        {{/if}}
+      </div>
+
+    </div>
+    {{/if}}
+
     <div class="row">
 
       <div class="col-md-5 profile-left">
@@ -11,9 +27,7 @@
       </div>
 
       <div class="col-md-7">
-        {{#if canEdit}}
-          <button type="button" class="btn btn-sm pull-right" id="editUserProfileButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
-        {{/if}}
+        
         <h2>{{profile.name}}</h2>
         <p><div class="contain-format">{{profile.description}}</div></p>
         <strong>Homepage:</strong>

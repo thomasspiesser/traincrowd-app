@@ -3,6 +3,9 @@ Template.trainerProfile.rendered = function () {
 };
 
 Template.trainerProfile.helpers({
+  isPublic: function () {
+    return this.public;
+  },
   canEdit: function () {
     return this._id === Meteor.userId();
   },
@@ -15,8 +18,27 @@ Template.trainerProfile.helpers({
 });
 
 Template.trainerProfile.events({
-  'click #editUserProfileButton': function () {
+  'click #editTrainerProfileButton': function () {
     Router.go("trainerProfile.edit", {_id: this._id} );
+  },
+  'click #requestPublicProfileButton': function () {
+    if (confirm( "Anfrage zur Freigabe senden?" ) ) {
+      if (!this._id || !this.profile.name) {
+        toastr.error( "Sie müssen eingeloggt sein und Ihren Namen angeben." );
+        return false;
+      }
+      var options = {
+        what: 'Trainerprofil',
+        itemId: this._id,
+        itemName: this.profile.name
+      };
+      Meteor.call('sendRequestPublicationEmail', options, function (error, result) {
+        if (error) 
+          toastr.error( error.reason );
+        else
+          toastr.success( 'Anfrage zur Freigabe gesendet.' );
+      });
+    }
   }
 });
 

@@ -1,5 +1,6 @@
 <template name="coursePreview">
   <div class="all-courses-wrapper">
+
     <div class="row">
 
       <div class="col-md-3 col-preview-image">
@@ -39,6 +40,22 @@
 <template name="courseDetail">
  {{> paymentModal}}
   <div class="container">
+    {{#if canEdit owner}}
+    <div class="row" id="editProfile">
+
+      <div class="well well-sm">
+        
+        {{#unless isPublic}}
+          <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="requestPublicCourseButton"> <span class="fa fa-globe"></span> Freigeben</button>
+        {{/unless}}
+        {{#if canEdit owner}}
+          <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="editCourseButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
+        {{/if}}
+      </div>
+
+    </div>
+    {{/if}}
+
     <div class="row">
 
       <div class="col-md-2 course-detail-left">
@@ -60,9 +77,6 @@
 
       <div class="col-md-6 course-detail-right">
         <div class="course-detail-head-text-wrapper">
-        {{#if canEdit owner}}
-          <button type="submit" class="btn btn-sm pull-right" id="editCourseButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
-        {{/if}}
           <p><a href="{{ pathFor 'trainerProfile.show' _id = owner }}">{{ownerName}}</a></p>
           <h3 class="course-title-detail">{{title}}</h3>
           <p class="course-detail-head-categories">

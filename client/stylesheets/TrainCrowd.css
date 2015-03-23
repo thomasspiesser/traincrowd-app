@@ -96,6 +96,17 @@ footer a:hover {
   top:40%;
 }
 
+.well-sm {
+  border-radius: 4px;
+  min-height: 42px;
+  padding: 5px;
+  margin-bottom: 15px
+}
+
+.top-menu-btn {
+  margin-left: 5px;
+}
+
 /*************** Layout ***************/
 
 .not-found {
@@ -115,14 +126,20 @@ footer a:hover {
 
 .breadcrumb {
   margin-bottom: 0;
+  border: 1px solid #e3e3e3;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
 }
-#previewCourseButton {
+
+.breadcrumb-btn {
   position: relative;
   top: -35px;
   left: -5px;
+  margin-left: 5px;
 }
 
-.editCourseTitles {
+/*************** Content Edit ***************/
+
+.editContentTitles {
   margin-top: 20px;
   /*margin-bottom: 15px;*/
   text-align: center;
@@ -356,7 +373,6 @@ footer a:hover {
 }
 
 .joinCourseButton {
-
   position: relative;
   top: 50%;
   transform: translateY(-50%);
@@ -403,16 +419,8 @@ footer a:hover {
 
 /* custom inclusion of left tabs */
 
-.tabs-content {
-  /*border-top: 1px solid #ddd;*/
-}
-
 .tabs-content.col-md-6 {
   padding-left: 0;
-}
-
-.tabs-content-menu {
-  /*padding-right: 0;*/
 }
 
 .tab-content > .tab-pane,

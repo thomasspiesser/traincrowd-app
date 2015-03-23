@@ -8,10 +8,9 @@
           <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
           <li class="active">{{title}}</li>
         </ol>
-        <button type="button" class="btn btn-default btn-sm pull-right" id="previewCourseButton">Vorschau <i class="fa fa-arrow-right"></i></button>
+        <button type="button" class="btn btn-default btn-sm pull-right breadcrumb-btn" id="previewCourseButton">Anzeigen <i class="fa fa-arrow-right"></i></button>
 
         <!-- <button type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" id="deleteCourseButton"><i class="fa fa-trash-o"></i> Löschen</button> -->
-        <!-- <button type="button" class="btn btn-info" id="publishRequestCourseButton"><i class="fa fa-globe"></i> Publizieren</button> -->
 
     </div>
 
@@ -56,7 +55,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 tabs-content">
+      <div class="col-md-4 ">
         {{#if showHoverText}}
         <div class="editHelperText">
           {{showHoverText}}
@@ -74,7 +73,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDescription">
-  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
+  <h4 class="editContentTitles">Was für einen Kurs möchten Sie anbieten?</h4>
 
   <hr>
 
@@ -138,7 +137,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDetails">
-  <h4 class="editCourseTitles">Ich finde hier sollten noch title rein!</h4>
+  <h4 class="editContentTitles">Was Ihre Kunden wissen sollten?</h4>
 
   <hr>
 
@@ -175,7 +174,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseCosts">
-  <h4 class="editCourseTitles">Was kostet Ihr Kurs?</h4>
+  <h4 class="editContentTitles">Was kostet Ihr Kurs?</h4>
 
   <hr>
 
@@ -231,7 +230,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDates">
-  <h4 class="editCourseTitles">Wann können Sie diesen Kurs anbieten?</h4>
+  <h4 class="editContentTitles">Wann können Sie diesen Kurs anbieten?</h4>
 
   <hr>
   
@@ -301,7 +300,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseLogistics">
-  <h4 class="editCourseTitles">Wo findet Ihr Kurs statt?</h4>
+  <h4 class="editContentTitles">Wo findet Ihr Kurs statt?</h4>
 
   <hr>
 

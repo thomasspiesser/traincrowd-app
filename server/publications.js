@@ -31,12 +31,12 @@ Meteor.publish('userData', function () {
 		this.stop();
 	  return;
 	}
-	return Meteor.users.find({_id: this.userId},{fields: {services:0, createdAt: 0}});
+	return Meteor.users.find( { _id: this.userId }, { fields: {services:0, createdAt: 0 } } );
 });
 
 // TDOD: don't publish all the info from profile..make more specific here
 Meteor.publish('trainer', function () {
-  return Meteor.users.find({roles: 'trainer'},{fields: {services:0, createdAt: 0}});
+  return Meteor.users.find( { roles: 'trainer', public: true }, { fields: { services:0, createdAt: 0 } } );
 });
 
 // Meteor.publish('singleTrainer', function (id) {

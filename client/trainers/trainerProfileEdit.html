@@ -3,11 +3,12 @@
     {{#if canEdit _id}}
 
     <div class="row">
-      <div class="col-sm-8"></div>
+      <div class="well well-sm" style="margin-bottom:0;">
 
-      <div class="col-sm-4">
-        <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" id="showProfileButton">Profil Anzeigen <i class="fa fa-arrow-right"></i></button>
+        <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="showProfileButton" >Anzeigen <i class="fa fa-arrow-right"></i> </button>
+
       </div>
+
     </div>
 
     <div class="row">
@@ -50,7 +51,7 @@
 
       <div class="col-md-4">
         {{#if showHoverText}}
-        <div class="editHelperText">
+        <div class="editHelperText" style="margin-top:30px;">
           {{showHoverText}}
         </div>
         {{/if}}
@@ -68,6 +69,10 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editTrainerProfileDescription">
+  <h4 class="editContentTitles">Allgemeine Informationen</h4>
+
+  <hr>
+
   <div class="row">
     <div class="col-md-2">
       <div class="form-group">
@@ -138,6 +143,10 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editTrainerProfileContact">
+  <h4 class="editContentTitles">Wie erreichen wir Sie am besten?</h4>
+
+  <hr>
+
   <div class="form-group">
     <label for="editTrainerProfileHomepage" class="control-label">Homepage</label>
     <input type="text" class="form-control hoverCheck" id="editTrainerProfileHomepage" value="{{profile.homepage}}">
@@ -190,6 +199,10 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editTrainerProfileQualification">
+  <h4 class="editContentTitles">Ihre Qualifikation</h4>
+
+  <hr>
+
   <div class="form-group">
     <label for="editTrainerProfileLanguages" class="control-label">In welchen Sprachen bieten Sie Ihre Weiterbildungen an</label>
     <input type="text" class="form-control hoverCheck" id="editTrainerProfileLanguages" value="{{profile.languages}}">
@@ -222,6 +235,10 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editTrainerProfileAccount">
+  <h4 class="editContentTitles">Account Einstellungen</h4>
+
+  <hr>
+
   <div class="form-group">
     <label for="editTrainerProfileEmail" class="control-label">Email</label>
     <input type="text" class="form-control" id="editTrainerProfileEmail" value="{{email}}">

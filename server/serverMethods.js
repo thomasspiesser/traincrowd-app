@@ -126,3 +126,14 @@ Houston.methods(Courses, {
     return "Ok, der Kurs: '"+ course.title + "' ist offline.";
   }
 });
+
+Houston.methods(Meteor.users, {
+  Publish: function (user) {
+    Meteor.users.update(user._id, {$set: {public: true}});
+    return "Das Profil von: '"+ user.profile.name + "' ist jetzt online!";
+  },
+  Unpublish: function (user) {
+    Meteor.users.update(user._id, {$set: {public: false}});
+    return "Ok, das Profil von: '"+ user.profile.name + "' ist offline.";
+  }
+});

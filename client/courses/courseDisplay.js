@@ -56,7 +56,6 @@ Template.coursePreview.helpers({
 Template.courseDetail.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip(); //initialize all tooltips in this template
   $('.rateit').rateit();
-  $('.course-detail-head-image-wrapper img').addClass(function () { return this.width > this.height ? 'landscape' : 'portrait'; });
   if ( Session.get('showBookingModalOnReturn') ) {
     Session.set('showBookingModalOnReturn', false);
     $('#paymentModal').modal('show');
@@ -64,6 +63,9 @@ Template.courseDetail.rendered = function() {
 };
 
 Template.courseDetail.helpers({
+  isPublic: function () {
+    return this.public;
+  },
   trainerImageId: function (id) {
     var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );
     if (trainer.profile && trainer.profile.imageId)
@@ -112,6 +114,25 @@ Template.courseDetail.helpers({
 Template.courseDetail.events({
   'click #editCourseButton': function () {
     Router.go("course.edit", {slug: this.slug} );
+  },
+  'click #requestPublicCourseButton': function () {
+    if (confirm( "Anfrage zur Freigabe senden?" ) ) {
+      if (!this._id || !this.title) {
+        toastr.error( "Sie müssen eingeloggt sein und einen Kurstitel angeben." );
+        return false;
+      }
+      var options = {
+        what: 'Kurs',
+        itemId: this._id,
+        itemName: this.title
+      };
+      Meteor.call('sendRequestPublicationEmail', options, function (error, result) {
+        if (error) 
+          toastr.error( error.reason );
+        else
+          toastr.success( 'Anfrage zur Freigabe gesendet.' );
+      });
+    }
   },
   // 'click #inquireCourseDatesButton': function () {
   //   if (this.owner === Meteor.userId()) {
