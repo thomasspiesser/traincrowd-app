@@ -38,7 +38,7 @@ Meteor.methods({
     var subject = "Anfrage zur Freischaltung von " + options.what + ": " + options.itemName;
     var html = Spacebars.toHTML(options, Assets.getText('requestPublicationEmail.html'));
     options = { 
-      to: 'thomas@traincrowd.de', 
+      to: 'info@traincrowd.de', 
       subject: subject, 
       html: html 
     };

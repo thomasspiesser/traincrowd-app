@@ -4,9 +4,9 @@
 </head>
 <body>
   <p>Hallo {{ name }},</p>
-  <p>Vielen Dank, dass Sie über Traincrowd den Kurs '{{course.title}}' gebucht haben.</p>
-  <p>Hier ist nochmal ein Übersicht für Sie:</p>
-	<h3 style="margin-top:0;">{{course.title}}</h3>
+  <p>Vielen Dank, dass Sie über traincrowd den Kurs '{{course.title}}' gebucht haben.</p>
+  <p>Hier nochmals die wichtigsten Daten zu dieser Veranstaltung:</p>
+  <h3 style="margin-top:0;">{{course.title}}</h3>
     {{#if course.description}}<p>{{course.description}}</p>{{/if}}
     
     {{#if course.aims}}<p><strong>Kursziele</strong> <br> {{course.aims}}</p>{{/if}}
@@ -16,8 +16,10 @@
     {{#if course.languages}}<p><strong>Sprachen</strong> <br> {{course.languages}}</p>{{/if}}
     {{#if course.additionalServices}}<p><strong>zusätzliche Leistungen</strong> <br> {{course.additionalServices}}</p>{{/if}}
   <a href="{{ url }}">{{course.title}}</a>
-  <p>Wir melden uns wieder bei Ihnen, sobald sich genügend Teilnehmer für den Kurs gefunden haben und wir bestätigen können, dass der Kurs stattfindet.</p>
-  <p>Mit freundlichen Grüßen,<br>
-  das Traincrowd Team</p> 
+  
+  <p>Könnten Ihre Freunde und Kollegen Interesse an diesem Thema haben? Erzählen Sie Ihnen von diese Gelegenheit oder teilen Sie ganz einfach den link über Facebook, Outlook oder Linked-in. Wir melden uns bei Ihnen, sobald die notwendige Gruppengröße für den gewählten Termin erreicht ist und der Kurstermin bestätigt ist.</p>
+ 
+  <p>Mit den besten Grüßen<br>
+  das traincrowd Team</p> 
 </body>
 </html>

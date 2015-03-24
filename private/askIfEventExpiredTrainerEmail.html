@@ -1,19 +1,23 @@
 <html>
 <head>
-  <title>Ihr Kurs ist leider nicht voll geworden. Trotzdem anbieten?</title>
+  <title>Die Mindestteilnehmerzahl für Ihre Veranstaltung wurde noch nicht erreicht. Trotzdem umsetzen?</title>
 </head>
 <body>
 
   <p>Hallo {{ name }},</p>
-  <p>Vielen Dank, dass Sie Traincrowd benutzt haben, um Ihre Fortbildung anzubieten.</p>
-  <p>Leider haben sich nicht genügend Teilnehmer für Ihren Kurs '{{course.title}}' beginnend am {{courseDate}} zusammengefunden.</p>
+  <p>Vielen Dank, dass Sie eine Veranstaltung auf traincrowd anbieten.</p>
+  <p>Leider haben sich bisher nicht genügend Teilnehmer für Ihren Kurs '{{course.title}}' beginnend am {{courseDate}} angemeldet.</p>
 
-  <p>Es haben sich allerdings {{participantsLength}} Teilnehmer für die Veranstaltung angemeldet. Wir bieten Ihnen die Möglichkeit den Kurs trotz der geringeren Teilnehmerzahl anbieten. Ihr Honorar beläuft sich in diesem Fall auf {{feeReducedTotal}} Euro. <br> 
-  Wollen Sie den Kurs für {{participantsLength}} Teilnehmer zu einem Honorar von {{feeReducedTotal}} Euro durchführen?
-  <a href="{{ urlYES }}">Ja</a> oder <a href="{{ urlNO }}">Nein</a>? </p>
+  <p>Sie haben dennoch die Möglichkeit, die Veranstaltung mit der bisherigen Gruppe von {{participantsLength}} Personen umzusetzen. Ihr Honorar beläuft sich in diesem Fall auf {{feeReducedTotal}} Euro.<br> 
+  Wollen Sie den Kurs für diese Gruppe durchführen?
+  <a href="{{ urlYES }}">Ja, ich halte den Kurs auch für diese kleinere Gruppe</a> oder <a href="{{ urlNO }}">Nein, ich möchte den Kurs nicht durchführen.</a> </p>
 
-  <p>Falls Sie sich entschieden haben den Kurs nicht durchzuführen, informieren wir selbstverständlich alle zugebuchten Teilnehmer für Sie. </p>
+  <p>Falls Sie sich entschieden haben, den Kurs nicht durchzuführen, informieren wir alle bisher zugebuchten Teilnehmer für Sie.</p>
+
+  <p>Nutzen Sie bereits soziale Netzwerke, um Ihre Kurse zu bewerben? Wir sind bemüht, gemeinsam Ihre Erfolgschancen zu maximieren. Sprechen Sie uns also gerne an, wie wir in Zukunft mehr Teilnehmer erreichen können.</p>
+
+
   <p>Wir freuen uns auf ein Wiedersehen,<br>
-  das Traincrowd Team</p> 
+  das traincrowd Team</p> 
 </body>
 </html>

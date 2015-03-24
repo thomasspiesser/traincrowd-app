@@ -1,12 +1,16 @@
 <html>
 <head>
-  <title>Eventbestätigung</title>
+  <title>Mindestteilnehmerzahl erreicht, bestätigen Sie nun Ihren Kurs</title>
 </head>
 <body>
   <p>Hallo {{ name }},</p>
-  <p>Herzlichen Glückwunsch, es haben sich genügend Teilnehmer für Ihren Kurs '{{course.title}}' beginnend am {{courseDate}} über Traincrowd zusammengefunden.</p>
-  <p>Damit der Kurs stattfinden kann, müssen Sie die Veranstaltung bestätigen. Bitte, halten Sie für die Bestätigung die Adresse der Veranstaltung sowie den Name einer Ansprechperson bereit.</p>
+  <p>Herzlichen Glückwunsch, Ihr Kurs '{{course.title}}' stieß auf reges Interesse. Bis heute haben {{Mindestteilneherzahl}} Teilnehmer den Termin am {{courseDate}} über traincrowd gebucht.</p>
+  <p><bold>Damit der Kurs stattfinden kann, müssen Sie die Veranstaltung bestätigen.</bold> Bitte nutzen Sie dafür unser Formular und halten Sie die genaue Adresse der Veranstaltung sowie den Namen einer Ansprechperson bereit.</p>
   <p> <a href="{{ url }}">Jetzt Veranstaltung bestätigen</a></p>
-  
+
+   <p>Melden Sie sich gerne, falls noch Fragen offen sind. Wir wünschen eine erfolgreiche Veranstaltung!</p>
+ 
+  <p>Mit den besten Grüßen<br>
+  das traincrowd Team</p> 
 </body>
 </html>
