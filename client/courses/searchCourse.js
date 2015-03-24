@@ -21,3 +21,13 @@ Template.filter.events({
   	$(event.currentTarget).parent().addClass('active').siblings().removeClass('active');
   }
 });
+
+$(window).scroll(fixToTop);
+
+function fixToTop() {
+	if ($(window).scrollTop() > 20) {
+    $('.courses-left-menu-wrapper').addClass("fixed");
+  } else {
+    $('.courses-left-menu-wrapper').removeClass("fixed");
+  }
+}
