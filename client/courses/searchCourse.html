@@ -3,57 +3,63 @@
   <div class="container">
 
     <div class="row">
-      <div class="col-md-3">
-        <div class="courses-left-menu-wrapper">
-          
-          <div class="left-menu-title">
-            <span class="fa fa-search fa-fw"></span>&nbsp;Suchen
-          </div>
-          {{> esInput index="courses" placeholder="Suchen..." class="form-control left-menu-search" allDocsOnEmpty=true }}
-          
-          <div class="left-menu-title">
-            <span class="fa fa-filter fa-fw"></span>&nbsp;Filtern
-          </div>
-          {{> filter}}
-          
+
+      <div class="col-md-4 col-md-offset-4">
+        <div class="searchInput">
+          {{> esInput index="courses" placeholder="Suchen..." class="form-control" allDocsOnEmpty=true }}
         </div>
       </div>
+      <div class="col-md-2">
+        {{> filter}}
+      </div>
+
+    </div>
+
+    <div class="row">
 
       {{#ifEsIsSearching index="courses"}}
         <div>Suche...</div>
       {{else}}
+        <div class="col-lg-8 col-lg-offset-2">
+          {{#esEach index="courses"}}
+            {{> coursePreview}}
+          {{/esEach}}
+        </div>
 
-      <div class="col-lg-8">
-        {{#esEach index="courses"}}
-          {{> coursePreview}}
-        {{/esEach}}
-      </div>
-
-      <div class="col-lg-2 col-lg-offset-6">
-        {{> esLoadMoreButton index="courses" class="btn btn-default btn-block" content="Mehr" howMany=5}}
-      </div>
-
+        <div class="col-lg-2 col-lg-offset-5">
+          {{> esLoadMoreButton index="courses" class="btn btn-default btn-block" content="Mehr" howMany=5}}
+        </div>
       {{/ifEsIsSearching}}
       
       <div class="col-lg-8">
-      {{#ifEsHasNoResults index="courses"}}
-        <div class="no-results">Keine Dokumente gefunden!</div>
-      {{/ifEsHasNoResults}}
+        {{#ifEsHasNoResults index="courses"}}
+          <div class="no-results">Keine Dokumente gefunden!</div>
+        {{/ifEsHasNoResults}}
       </div>
+
     </div>
 
   </div>
 </template>
 
 <template name="filter">
-  <div class="left-menu-subtitle">
-    Kategorie:
-  </div>
+  <div class="filters pull-right">
+    <ul class="nav nav-pills">
 
-  <ul class="filters nav nav-pills nav-stacked">
-    <li role="presentation" class="filter left-menu-item"><a href="#" id="Alle">Alle</a></li>
-    {{#each categories}}
-      <li role="presentation" class="filter left-menu-item"><a href="#" id="{{this}}">{{this}}</a></li>
-    {{/each}}
-  </ul>
+      <li role="presentation" class="dropdown">
+
+        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+          Kategorien <span class="fa fa-caret-right"></span>
+        </a>
+
+        <ul class="dropdown-menu" role="menu">
+          <li role="presentation" class="filter left-menu-item"><a href="#" id="Alle">Alle</a></li>
+          {{#each categories}}
+            <li role="presentation" class="filter left-menu-item"><a href="#" id="{{this}}">{{this}}</a></li>
+          {{/each}}
+        </ul>
+      </li>
+
+    </ul>
+  </div>
 </template>
