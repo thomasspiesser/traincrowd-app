@@ -25,10 +25,11 @@ fortawesome:fontawesome
 twbs:bootstrap-noglyph
 okgrow:iron-router-autoscroll
 momentjs:moment
-sacha:spin
 meteorhacks:subs-manager
 edgee:slingshot
 reactive-var
 tomsp:paymill
 underscore
 yasaricli:slugify
+sacha:spin
+dburles:google-maps

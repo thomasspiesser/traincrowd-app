@@ -526,6 +526,39 @@ Template.editCourseDates.events({
 
 //////////// editCourse LOGISTICS template /////////
 
+var autocomplete = function() {
+  var DOMelement = $('#google-autocomplete')[0];
+  var autocomplete = new google.maps.places.Autocomplete(
+    ( DOMelement ), { types: ['geocode'] }
+  );
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    fillInAddress( autocomplete.getPlace() );
+  });
+};
+
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  // locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  postal_code: 'short_name'
+};
+
+var fillInAddress = function (place) {
+  for (var component in componentForm) {
+    document.getElementById(component).value = '';
+  }
+  // Get each component of the address from the place details
+  // and fill the corresponding field on the form.
+  for (var i = 0; i < place.address_components.length; i++) {
+    var addressType = place.address_components[i].types[0];
+    if (componentForm[addressType]) {
+      var val = place.address_components[i][componentForm[addressType]];
+      document.getElementById(addressType).value = val;
+    }
+  }
+};
+
 Template.editCourseLogistics.helpers({
   noLocation: function () {
     if (typeof this.noLocation !== 'undefined')
@@ -561,7 +594,14 @@ Template.editCourseLogistics.events({
       saveUpdates(modifier);
     }
   },
+  'focus #google-autocomplete': function () {
+    autocomplete();
+  },
   'change #editCourseNoLocation': function (event) {
     Session.set("noLocation", event.target.checked);
+  },
+  'submit #google-autocomplete-form': function (event) {
+    event.preventDefault();
+    google.maps.event.trigger(autocomplete, 'place_changed');
   }
 });

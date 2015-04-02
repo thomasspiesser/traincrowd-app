@@ -310,9 +310,27 @@
     </label>
   </div>
   {{#unless noLocation}}
+
+    <form id="google-autocomplete-form">
     <div class="form-group">
-      <label for="editCourseStreet" class="control-label">Straße und Hausnummer</label>
-      <input type="text" class="form-control" id="editCourseStreet" value="{{street}}">
+      <label for="editCourseAddress" class="control-label">Adresse</label>
+      <input class="form-control" id="google-autocomplete" placeholder="Adresse suchen..." type="text">
+    </div>
+    </form>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="route" class="control-label">Straße</label>
+          <input type="text" class="form-control" id="route" value="{{street}}" readonly>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="route" class="control-label">Hausnummer</label>
+          <input type="text" class="form-control" id="street_number" value="{{streetNumber}}" readonly>
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>
@@ -321,18 +339,25 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="editCoursePLZ" class="control-label">PLZ</label>
-          <input type="number" class="form-control" id="editCoursePLZ" value="{{plz}}">
+          <label for="postal_code" class="control-label">PLZ</label>
+          <input type="number" class="form-control" id="postal_code" value="{{plz}}" readonly>
         </div>
       </div>
       <div class="col-md-6">
+        <div class="form-group">
+          <label for="administrative_area_level_1" class="control-label">Stadt</label>
+          <input type="text" class="form-control" id="administrative_area_level_1" value="{{city}}" readonly>
+        </div>
+      </div>
+
+<!--       <div class="col-md-6">
         <div class="form-group">
           <label for="editCourseCity" class="control-label">Stadt</label>
           <select class="form-control">
             <option value="Berlin">Berlin</option>
           </select>
         </div>
-      </div>
+      </div> -->
     </div>
   {{/unless}}
   <!-- button -->
