@@ -67,10 +67,10 @@
             {{#if noLocation}}
               <p>steht noch nicht fest</p>
             {{else}}
-              <p> {{street}} </p>
-              {{#if streetAdditional}} <p> {{streetAdditional}} </p> {{/if}}
-              <p> {{plz}} Berlin </p>
-              <a href="https://www.google.de/maps/place/{{street}},{{plz}}" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?markers={{street}},{{plz}}&zoom=14&size=200x200&sensor=false" alt="" style="width: 100%;"></a>
+              <p> {{street}} {{streetNumber}} <br>
+              {{#if streetAdditional}} {{streetAdditional}} <br> {{/if}}
+              {{plz}} {{city}} </p>
+              <a href="https://www.google.de/maps/place/{{street}}+{{streetNumber}},{{plz}}" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?markers={{street}},{{plz}}&zoom=14&size=200x200&sensor=false" alt="" style="width: 100%;"></a>
             {{/if}}
           </div>
         </div>

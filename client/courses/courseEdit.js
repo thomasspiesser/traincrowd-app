@@ -532,6 +532,7 @@ var autocomplete = function() {
     ( DOMelement ), { types: ['geocode'] }
   );
   google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    // console.log( autocomplete.getPlace() );
     fillInAddress( autocomplete.getPlace() );
   });
 };
@@ -545,9 +546,13 @@ var componentForm = {
 };
 
 var fillInAddress = function (place) {
+  //clean form:
   for (var component in componentForm) {
     document.getElementById(component).value = '';
   }
+  document.getElementById('lat').value = '';
+  document.getElementById('lng').value = '';
+
   // Get each component of the address from the place details
   // and fill the corresponding field on the form.
   for (var i = 0; i < place.address_components.length; i++) {
@@ -557,6 +562,8 @@ var fillInAddress = function (place) {
       document.getElementById(addressType).value = val;
     }
   }
+  document.getElementById('lat').value = place.geometry.location.lat();
+  document.getElementById('lng').value = place.geometry.location.lng();
 };
 
 Template.editCourseLogistics.helpers({
@@ -579,18 +586,25 @@ Template.editCourseLogistics.events({
       saveUpdates(modifier);
     } 
     else {
-      var street = template.find("#editCourseStreet").value;
+      var street = template.find("#route").value;
+      var street_number = template.find("#street_number").value;
       var streetAdditional = template.find("#editCourseStreetAdditional").value;
-      var plz = template.find("#editCoursePLZ").value;
-      // var city = template.find("#editCourseCity").value;
+      var plz = template.find("#postal_code").value;
+      var city = template.find("#administrative_area_level_1").value;
+      var lat = template.find("#lat").value;
+      var lng = template.find("#lng").value;
 
-      if (! street.length || plz.length < 5) {
+      if (! street.length || ! street_number.length || plz.length < 5 || ! city.length ) {
         toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
         return false;
       }
       modifier.street = street;
+      modifier.streetNumber = street_number;
       modifier.streetAdditional = streetAdditional;
       modifier.plz = plz;
+      modifier.city = city;
+      modifier.lat = lat;
+      modifier.lng = lng;
       saveUpdates(modifier);
     }
   },

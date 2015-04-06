@@ -314,27 +314,23 @@
     <form id="google-autocomplete-form">
     <div class="form-group">
       <label for="editCourseAddress" class="control-label">Adresse</label>
-      <input class="form-control" id="google-autocomplete" placeholder="Adresse suchen..." type="text">
+      <input class="form-control" id="google-autocomplete" placeholder="Adresse finden..." type="text">
     </div>
     </form>
 
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-9">
         <div class="form-group">
           <label for="route" class="control-label">Straße</label>
           <input type="text" class="form-control" id="route" value="{{street}}" readonly>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="form-group">
-          <label for="route" class="control-label">Hausnummer</label>
+          <label for="street_number" class="control-label">Hausnummer</label>
           <input type="text" class="form-control" id="street_number" value="{{streetNumber}}" readonly>
         </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>
-      <input type="text" class="form-control" id="editCourseStreetAdditional" value="{{streetAdditional}}">
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -359,6 +355,12 @@
         </div>
       </div> -->
     </div>
+    <div class="form-group">
+      <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>
+      <input type="text" class="form-control" id="editCourseStreetAdditional" value="{{streetAdditional}}">
+    </div>
+    <input class="hidden" id="lat" type="text" value='test'>
+    <input class="hidden" id="lng" type="text" value='test2'>
   {{/unless}}
   <!-- button -->
   <div class="form-group">
