@@ -188,7 +188,7 @@ div.mystars div.rateit-selected {
   transition: transform 0.8s;
 }
 
-.trainer-preview-caption:hover {
+.all-trainer-wrapper:hover .trainer-preview-caption {
   transform:  translateY(-90px);
   overflow-y: scroll;
 }
