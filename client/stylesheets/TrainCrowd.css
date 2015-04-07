@@ -109,9 +109,23 @@ footer a:hover {
   text-align: center;
 }
 
-.not-found h2{
+.not-found h2 {
   font-size: 60px;
   font-weight: 100;
+}
+
+/*************** Rateit ***************/
+
+div.mystars div.rateit-range {
+  background: url(mygraystar.svg);
+}
+
+div.mystars div.rateit-hover {
+  background: url(myredstar.svg);
+}
+
+div.mystars div.rateit-selected {
+  background: url(myredstar.svg);
 }
 
 /*************** Course Edit ***************/
