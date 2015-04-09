@@ -225,6 +225,14 @@
 <template name="editUserProfileExpectation">
 
   <div class="form-group">
+    <label for="editUserProfileExpectedOther" class="control-label">Ihre Erwartungen</label>
+    <textarea class="form-control hoverCheck" id="editUserProfileExpectedOther" rows="2" value="{{profile.expectedOther}}">
+    </textarea>
+  </div>
+
+  <hr>
+
+  <div class="form-group">
     <label class="control-label">Kommunikation im Vorfeld und Vorbereitung des Kurses durch den Anbieter:</label><br>
     <div class="radio-inline">
       <label class="radio-inline">
@@ -379,12 +387,6 @@
   </div>
 
   <hr>
-
-  <div class="form-group">
-    <label for="editUserProfileExpectedOther" class="control-label">Sonstige Erwartungen?</label>
-    <textarea class="form-control hoverCheck" id="editUserProfileExpectedOther" rows="2" value="{{profile.expectedOther}}">
-    </textarea>
-  </div>
 
   <div class="form-group">
     <label for="editUserProfileInterests" class="control-label">An welchen Weiterbildungsthemen sind Sie besonders interessiert?</label>

@@ -6,7 +6,7 @@ var getText = function(id) {
     //   return text;
     //   break;
     case 'editUserProfileShortDescription':
-      text = "Geht aus Ihrer Beschreibung klar hervor, was Ihr Alleinstellungsmerkmal gegenüber anderen Anbietern ist? Was macht Sie für Ihre Kunden interessant? Sind Sie eher Spezialist oder Generalist? So zutreffend, haben Sie spezielle Branchenerfahrung erwähnt?"
+      text = ""
       return text;
       break;
     // case 'editUserProfileImage':
@@ -18,25 +18,21 @@ var getText = function(id) {
     //   return text;
     //   break;
     case 'editUserProfilePhone': 
-      text = "Bitte geben Sie Ihre Telefonnummer samt Städtevorwahl an. Wir geben ihre Telefonnummern natürlich nicht weiter.";
+      text = "";
       return text;
       break;
     case 'editUserProfileStreet':
     case 'editUserProfileStreetAdditional':
-      text = "Wenn Sie möchten, dass Ihre Anschrift oder die ihrer Firma auf ihrem Profil angezeigt wird geben Sie bitte ihre Adressdaten ein. Wieso? Teilnehmer möchten evtl. nachschauen, wo Sie zu finden sind...";
+      text = "";
       return text;
       break;
     case 'editUserProfileMobile':
-      text = "Wir benötigen Ihre Handynummer, damit wir Sie erreichen können, wenn sich Teilnehmer wegen eines Ihrer Kurse an uns wenden - z.B. weil Sie die Räumlichkeiten nicht finden oder ähnliches. Wir geben ihre Telefonnummern natürlich nicht weiter.";
+      text = "";
       return text;
       break;
     case 'editUserProfilePLZ':
     case 'editUserProfileCity':
-      text = "Teilnehmer suchen Weiterbildungen in ihrer Nähe. Damit Sie unsere Such-funktion Sie auch über örtliche Angaben findet geben Sie bitte ihre PLZ und Stadt ein. ";
-      return text;
-      break;
-    case 'editUserProfileLanguages': 
-      text = "Viele Teilnehmer sind an Weiterbildung auf Englisch, Spanisch und anderen Sprachen interessiert. Bitte geben Sie die Sprachen an, in denen sie Ihre Kurse anbieten. Trennen sie die Sprachen durch Kommata.";
+      text = "";
       return text;
       break;
     case 'editUserProfileCertificates':
