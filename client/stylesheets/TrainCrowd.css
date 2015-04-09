@@ -70,6 +70,10 @@ footer a:hover {
   color: #4C4E61;
 }
 
+.ghost-btn-red {
+  color: #A02828;
+}
+
 .ghost-btn-white:hover {
   color: #F2F2F2;
   border-color: #F2F2F2;
@@ -80,6 +84,12 @@ footer a:hover {
   color: #4C4E61;
   border-color: #4C4E61;
   box-shadow: 0px 0px 8px #4C4E61;
+}
+
+.ghost-btn-red:hover {
+  color: #A02828;
+  border-color: #A02828;
+  box-shadow: 0px 0px 8px #A02828;
 }
 
 .custom-nav-item {
@@ -580,6 +590,10 @@ div.mystars div.rateit-selected {
   letter-spacing: -1px;
 }
 
+.featurette .col-md-7 {
+  text-align: center;
+}
+
 
 
 /* RESPONSIVE CSS
@@ -613,12 +627,12 @@ div.mystars div.rateit-selected {
   }
 
   .featurette-heading {
-    font-size: 50px;
+    font-size: 45px;
   }
 }
 
 @media (min-width: 992px) {
   .featurette-heading {
-    margin-top: 120px;
+    margin-top: 100px;
   }
 }

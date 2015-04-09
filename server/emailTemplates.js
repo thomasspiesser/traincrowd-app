@@ -1,9 +1,9 @@
 Meteor.startup(function() {
 
-  Accounts.emailTemplates.from = 'Traincrowd <info@traincrowd.de>';
+  Accounts.emailTemplates.from = 'traincrowd <info@traincrowd.de>';
 
   // The public name of your application. Defaults to the DNS name of the application (eg: awesome.meteor.com).
-  Accounts.emailTemplates.siteName = 'Traincrowd';
+  Accounts.emailTemplates.siteName = 'traincrowd';
 
   // A Function that takes a user object and returns a String for the subject line of the email.
   Accounts.emailTemplates.verifyEmail.subject = function(user) {
