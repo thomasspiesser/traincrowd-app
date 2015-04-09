@@ -388,7 +388,8 @@ Template.editCourseDates.rendered=function() {
       language: "de",
       todayBtn: true,
       multidate: true,
-      todayHighlight: true
+      todayHighlight: true,
+      orientation: "top left"
     });
 };
 
