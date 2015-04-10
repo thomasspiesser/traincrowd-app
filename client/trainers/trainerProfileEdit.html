@@ -149,7 +149,10 @@
 
   <div class="form-group">
     <label for="editTrainerProfileHomepage" class="control-label">Homepage</label>
-    <input type="text" class="form-control hoverCheck" id="editTrainerProfileHomepage" value="{{profile.homepage}}">
+    <div class="input-group">
+    <div class="input-group-addon">http://</div>
+      <input type="text" class="form-control hoverCheck" id="editTrainerProfileHomepage" value="{{profile.homepage}}">
+    </div>
   </div>
 
   <div class="row">
