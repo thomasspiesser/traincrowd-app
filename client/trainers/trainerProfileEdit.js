@@ -206,7 +206,7 @@ Template.editTrainerProfileDescription.events({
 Template.editTrainerProfileContact.events({
   'click #saveEditProfileContact': function (event, template) {
     var homepage = template.find('#editTrainerProfileHomepage').value;
-    var videoId = template.find('#editTrainerProfileVideo').value;
+    var videoURL = template.find('#editTrainerProfileVideo').value;
     var phone = template.find("#editTrainerProfilePhone").value;
     var mobile = template.find("#editTrainerProfileMobile").value;
     var street = template.find("#editTrainerProfileStreet").value;
@@ -220,13 +220,20 @@ Template.editTrainerProfileContact.events({
     }
     
     var modifier = {'profile.homepage': homepage,
-                    'profile.videoId': videoId,
+                    'profile.videoURL': videoURL,
                     'profile.phone': phone,
                     'profile.mobile': mobile,
                     'profile.street': street,
                     'profile.streetAdditional': streetAdditional,
                     'profile.plz': plz,
                     'profile.city': city };
+    
+    var re = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
+
+    if ( videoURL.length ) { 
+      var videoId = videoURL.replace( re, '$1' );
+      modifier['profile.videoId'] = videoId;
+    }
 
     saveUpdates(modifier);
   },
