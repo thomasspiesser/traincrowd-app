@@ -206,6 +206,7 @@ Template.editTrainerProfileDescription.events({
 Template.editTrainerProfileContact.events({
   'click #saveEditProfileContact': function (event, template) {
     var homepage = template.find('#editTrainerProfileHomepage').value;
+    var videoId = template.find('#editTrainerProfileVideo').value;
     var phone = template.find("#editTrainerProfilePhone").value;
     var mobile = template.find("#editTrainerProfileMobile").value;
     var street = template.find("#editTrainerProfileStreet").value;
@@ -219,6 +220,7 @@ Template.editTrainerProfileContact.events({
     }
     
     var modifier = {'profile.homepage': homepage,
+                    'profile.videoId': videoId,
                     'profile.phone': phone,
                     'profile.mobile': mobile,
                     'profile.street': street,

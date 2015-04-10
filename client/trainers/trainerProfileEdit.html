@@ -20,7 +20,7 @@
               <a href="#profileDescription" data-toggle="tab"><span class="fa fa-list-alt fa-fw"></span>&nbsp; Profil</a>
             </li>
             <li >
-              <a href="#profileContact" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp; Kontakt</a>
+              <a href="#profileContact" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp; Details</a>
             </li>
             <li>
               <a href="#profileQualification" data-toggle="tab"><span class="fa fa-euro fa-fw"></span>&nbsp; Qualifikation</a>
@@ -143,7 +143,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editTrainerProfileContact">
-  <h4 class="editContentTitles">Wie erreichen wir Sie am besten?</h4>
+  <h4 class="editContentTitles">Wo sind Sie zu finden?</h4>
 
   <hr>
 
@@ -154,6 +154,16 @@
       <input type="text" class="form-control hoverCheck" id="editTrainerProfileHomepage" value="{{profile.homepage}}">
     </div>
   </div>
+
+  <div class="form-group">
+    <label for="editTrainerProfileVideo" class="control-label">Video</label>
+    <div class="input-group">
+    <div class="input-group-addon">https://www.youtube.com/watch?v=</div>
+      <input type="text" class="form-control hoverCheck" id="editTrainerProfileVideo" value="{{profile.videoId}}">
+    </div>
+  </div>
+
+  <hr>
 
   <div class="row">
     <div class="col-md-6">

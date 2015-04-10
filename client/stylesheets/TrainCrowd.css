@@ -450,6 +450,11 @@ div.mystars div.rateit-selected {
   margin-top: 26px;
 }
 
+.video-wrapper {
+  padding-top: 35px;
+  padding-bottom: 25px;
+}
+
 /***************  ***************/
 
 .editHelperText {

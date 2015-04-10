@@ -24,6 +24,12 @@
         {{else}}
           <img src="/dummyUser.jpg" alt="" class="center-block img-responsive">
         {{/if}}
+
+        {{#if profile.videoId}}
+          <div class="video-wrapper">
+            <iframe class="center-block" width="400" height="225" src="https://www.youtube.com/embed/{{profile.videoId}}" frameborder="0" allowfullscreen></iframe>
+          </div>
+        {{/if}}
       </div>
 
       <div class="col-md-7">
