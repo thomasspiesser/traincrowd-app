@@ -34,6 +34,17 @@ Meteor.methods({
       courseDate: options.courseDate
     });
   },
+  addToCourseDates: function (options) {
+    if (! this.userId)
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein");
+    var course = Courses.findOne({_id: options._id}, {fields: {owner:1}});
+    if (this.userId !== course.owner)
+      throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
+    // Courses.update(options._id, { $addToSet: {dates: { $each: options.dates } } });
+    Courses.update(options._id, { $push: {dates: 
+      { $each: options.dates, $sort: 1 } 
+    } });
+  },
   declineCurrent: function (token) {
     check(token, NonEmptyString);
 

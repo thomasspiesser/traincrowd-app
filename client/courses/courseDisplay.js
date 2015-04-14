@@ -42,10 +42,14 @@ Template.coursePreview.helpers({
     }
   },
   nextEvent: function () {
-    var nextEvent = _.pluck(this.dates, 0); // get first date object for every event
-    if (nextEvent.length) {
-      nextEvent = _.min( _.map( nextEvent, function (date) { return moment(date); } ) );
-      return nextEvent.format("DD.MM.YYYY");
+    // this.dates.sort( function (a,b) { return a[0] - b[0]; } ); // sort according to first event day
+    var nextEvent = this.dates[0]; // we just want the next one
+
+    if (nextEvent && nextEvent.length) {
+      if (nextEvent.length === 1) {
+        return moment(nextEvent[0]).format("DD.MM.YYYY");
+      }
+      return moment(_.first( nextEvent ) ).format("DD.MM") + ' - ' + moment(_.last( nextEvent ) ).format("DD.MM.YYYY");
     }
     return 'Kein Event';
   }
@@ -56,7 +60,7 @@ Template.coursePreview.helpers({
 Template.courseDetail.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip(); //initialize all tooltips in this template
   $('.rateit').rateit();
-  if ( Session.get('showBookingModalOnReturn') ) {
+  if ( Session.get('showBookingModalOnReturn') && Meteor.userId() ) {
     Session.set('showBookingModalOnReturn', false);
     $('#paymentModal').modal('show');
   }
