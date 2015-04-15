@@ -203,18 +203,54 @@ Template.editTrainerProfileDescription.events({
 
 //////////// editTrainerProfile CONTACT template /////////
 
+var autocomplete = function() {
+  var DOMelement = $('#google-autocomplete')[0];
+  var autocomplete = new google.maps.places.Autocomplete(
+    ( DOMelement ), { types: ['geocode'] }
+  );
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    fillInAddress( autocomplete.getPlace() );
+  });
+};
+
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  // locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  postal_code: 'short_name'
+};
+
+var fillInAddress = function (place) {
+  //clean form:
+  for (var component in componentForm) {
+    document.getElementById(component).value = '';
+  }
+
+  // Get each component of the address from the place details
+  // and fill the corresponding field on the form.
+  for (var i = 0; i < place.address_components.length; i++) {
+    var addressType = place.address_components[i].types[0];
+    if (componentForm[addressType]) {
+      var val = place.address_components[i][componentForm[addressType]];
+      document.getElementById(addressType).value = val;
+    }
+  }
+};
+
 Template.editTrainerProfileContact.events({
   'click #saveEditProfileContact': function (event, template) {
     var homepage = template.find('#editTrainerProfileHomepage').value;
     var videoURL = template.find('#editTrainerProfileVideo').value;
     var phone = template.find("#editTrainerProfilePhone").value;
     var mobile = template.find("#editTrainerProfileMobile").value;
-    var street = template.find("#editTrainerProfileStreet").value;
+    var street = template.find("#route").value;
+    var street_number = template.find("#street_number").value;
     var streetAdditional = template.find("#editTrainerProfileStreetAdditional").value;
-    var plz = template.find("#editTrainerProfilePLZ").value;
-    var city = template.find("#editTrainerProfileCity").value;
+    var plz = template.find("#postal_code").value;
+    var city = template.find("#administrative_area_level_1").value;
 
-    if (! street.length || ! city.length || plz.length < 5) {
+    if (! street.length || ! street_number.length || plz.length < 4 || ! city.length ) {
       toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
       return false;
     }
@@ -224,6 +260,7 @@ Template.editTrainerProfileContact.events({
                     'profile.phone': phone,
                     'profile.mobile': mobile,
                     'profile.street': street,
+                    'profile.streetNumber': street_number,
                     'profile.streetAdditional': streetAdditional,
                     'profile.plz': plz,
                     'profile.city': city };
@@ -236,6 +273,13 @@ Template.editTrainerProfileContact.events({
     }
 
     saveUpdates(modifier);
+  },
+  'focus #google-autocomplete': function () {
+    autocomplete();
+  },
+  'submit #google-autocomplete-form': function (event) {
+    event.preventDefault();
+    google.maps.event.trigger(autocomplete, 'place_changed');
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 

@@ -156,11 +156,9 @@
   </div>
 
   <div class="form-group">
-    <label for="editTrainerProfileVideo" class="control-label">Video</label>
-    <input type="text" class="form-control hoverCheck" id="editTrainerProfileVideo" value="{{profile.videoURL}}">
+    <label for="editTrainerProfileVideo" class="control-label">Video (Youtube-Link)</label>
+    <input type="text" class="form-control hoverCheck" id="editTrainerProfileVideo" value="{{profile.videoURL}}" placeholder="e.g. https://www.youtube.com/watch?v=123">
   </div>
-
-  <hr>
 
   <div class="row">
     <div class="col-md-6">
@@ -177,27 +175,48 @@
     </div>
   </div>
 
+  <hr>
+
+  <form id="google-autocomplete-form">
   <div class="form-group">
-    <label for="editTrainerProfileStreet" class="control-label">Strasse</label>
-    <input type="text" class="form-control hoverCheck" id="editTrainerProfileStreet" value="{{profile.street}}">
+    <label for="google-autocomplete" class="control-label">Adresse</label>
+    <input class="form-control" id="google-autocomplete" placeholder="Adresse finden..." type="text">
   </div>
-  <div class="form-group">
-    <label for="editTrainerProfileStreetAdditional" class="control-label">Adresszusatz</label>
-    <input type="text" class="form-control hoverCheck" id="editTrainerProfileStreetAdditional" value="{{profile.streetAdditional}}">
+  </form>
+
+  <div class="row">
+    <div class="col-md-9">
+      <div class="form-group">
+        <label for="route" class="control-label">Straße</label>
+        <input type="text" class="form-control hoverCheck" id="route" value="{{profile.street}}" readonly>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="street_number" class="control-label">Hausnummer</label>
+        <input type="text" class="form-control" id="street_number" value="{{profile.streetNumber}}" readonly>
+      </div>
+    </div>
   </div>
+
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-        <label for="editTrainerProfilePLZ" class="control-label">PLZ</label>
-        <input type="number" class="form-control hoverCheck" id="editTrainerProfilePLZ" value="{{profile.plz}}">
+        <label for="postal_code" class="control-label">PLZ</label>
+        <input type="number" class="form-control" id="postal_code" value="{{profile.plz}}" readonly>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="editTrainerProfileCity" class="control-label">Stadt</label>
-        <input type="text" class="form-control hoverCheck" id="editTrainerProfileCity" value="{{profile.city}}">
+        <label for="administrative_area_level_1" class="control-label">Stadt</label>
+        <input type="text" class="form-control" id="administrative_area_level_1" value="{{profile.city}}" readonly>
       </div>
     </div>
+  </div>
+
+  <div class="form-group">
+    <label for="editTrainerProfileStreetAdditional" class="control-label">Adresszusatz</label>
+    <input type="text" class="form-control hoverCheck" id="editTrainerProfileStreetAdditional" value="{{profile.streetAdditional}}">
   </div>
 
   <!-- button -->

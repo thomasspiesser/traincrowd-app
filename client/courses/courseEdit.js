@@ -500,20 +500,20 @@ Template.editCourseDates.events({
     //   }
     // }
   },
-  'click #addDateField': function () {
-    var newdDateField = '<div class="row"><div class="col-md-11"><div class="form-group"><div class="input-group"><input type="text" class="form-control editCourseDates hoverCheck" id="" name="dateField"  placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div></div></div><div class="col-md-1"><button type="button" class="btn btn-default pull-right removeDateField"><i class="fa fa-minus"></i></button></div></div>';
-    $("#courseDatesGroup").append(newdDateField);
-    $('.editCourseDates').datepicker({
-      startDate: "-0d",
-      language: "de",
-      todayBtn: true,
-      multidate: true,
-      todayHighlight: true
-    });
-  },
-  'click .removeDateField': function (event, template) {
-    $(event.currentTarget).parent().parent().remove();
-  },
+  // 'click #addDateField': function () {
+  //   var newdDateField = '<div class="row"><div class="col-md-11"><div class="form-group"><div class="input-group"><input type="text" class="form-control editCourseDates hoverCheck" id="" name="dateField"  placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div></div></div><div class="col-md-1"><button type="button" class="btn btn-default pull-right removeDateField"><i class="fa fa-minus"></i></button></div></div>';
+  //   $("#courseDatesGroup").append(newdDateField);
+  //   $('.editCourseDates').datepicker({
+  //     startDate: "-0d",
+  //     language: "de",
+  //     todayBtn: true,
+  //     multidate: true,
+  //     todayHighlight: true
+  //   });
+  // },
+  // 'click .removeDateField': function (event, template) {
+  //   $(event.currentTarget).parent().parent().remove();
+  // },
   // 'change #editCourseAllowInquiry': function (event) {
   //   Session.set("allowInquiry", event.target.checked);
   // },
@@ -533,7 +533,6 @@ var autocomplete = function() {
     ( DOMelement ), { types: ['geocode'] }
   );
   google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    // console.log( autocomplete.getPlace() );
     fillInAddress( autocomplete.getPlace() );
   });
 };
