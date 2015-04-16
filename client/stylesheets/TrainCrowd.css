@@ -458,13 +458,14 @@ div.mystars div.rateit-selected {
 /***************  ***************/
 
 .editHelperText {
-  width: 100%;
+  position: fixed;
+  width: 25%;
   /*margin-top: 24px;*/
   padding: 15px;
   /*background-color:rgba(165, 214, 255, 0.3);*/
   background-color:#f5f5f5;
   border-radius: 3px;
-  /*box-shadow: 0px 0px 5px #888;*/
+  box-shadow: 0px 1px 2px #888;
   font-size: small;
 }
 
@@ -476,7 +477,7 @@ div.mystars div.rateit-selected {
   white-space: pre-wrap;
 }
 
-/* custom inclusion of left tabs */
+/*************** left tabs ***************/
 
 .tabs-content.col-md-6 {
   padding-left: 0;

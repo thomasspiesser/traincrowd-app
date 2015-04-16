@@ -42,7 +42,7 @@ Template.coursePreview.helpers({
     }
   },
   nextEvent: function () {
-    // this.dates.sort( function (a,b) { return a[0] - b[0]; } ); // sort according to first event day
+    this.dates.sort( function (a,b) { return a[0] - b[0]; } ); // sort according to first event day
     var nextEvent = this.dates[0]; // we just want the next one
 
     if (nextEvent && nextEvent.length) {

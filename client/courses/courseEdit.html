@@ -137,7 +137,7 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="editCourseDetails">
-  <h4 class="editContentTitles">Was Ihre Kunden wissen sollten?</h4>
+  <h4 class="editContentTitles">Was sollten Ihre Kunden noch wissen?</h4>
 
   <hr>
 
@@ -147,7 +147,7 @@
   </div>
   <div class="form-group">
     <label for="editCourseMethods" class="control-label">Lernformen, Methodik und Didaktik</label>
-    <textarea class="form-control hoverCheck" id="editCourseMethods" value="{{methods}}"></textarea>
+    <textarea class="form-control hoverCheck" id="editCourseMethods" value="{{methods}}" placeholder="z.B. Arbeit an Praxisbeispielen, Gruppenarbeit, Frontalunterricht"></textarea>
   </div>
   <div class="form-group">
     <label for="editCourseTargetGroup" class="control-label">Zielgruppe</label>
@@ -159,7 +159,7 @@
   </div>
   <div class="form-group">
     <label for="editCourseLanguages" class="control-label">Sprachen</label>
-    <input type="text" class="form-control hoverCheck" id="editCourseLanguages" value="{{languages}}" placeholder="z.B. deutsch, englisch">
+    <input type="text" class="form-control hoverCheck" id="editCourseLanguages" value="{{languages}}" placeholder="z.B. Deutsch, Englisch">
   </div>
   <div class="form-group">
     <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
@@ -191,7 +191,7 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="editCourseFee" class="control-label">Gesamtpreis</label>
+        <label for="editCourseFee" class="control-label">Gesamtpreis (brutto)</label>
         <div class="input-group">
           <input type="number" class="form-control hoverCheck" id="editCourseFee" value="{{fee}}">
           <div class="input-group-addon"><i class="fa fa-euro"></i></div>
@@ -250,7 +250,7 @@
     </div>
     <div class="col-md-8">
       <div class="form-group">
-        <label for="editCourseExpires" class="control-label">Wann muss der Kurs verbindlich gebucht werden?</label>
+        <label for="editCourseExpires" class="control-label">gewünschte Vorlaufzeit</label>
         <select class="form-control hoverCheck" id="editCourseExpires">
           <option value="0" {{selected 0 expires}}></option>
           <option value="1" {{selected 1 expires}}>1 Woche vorher</option>
@@ -267,9 +267,9 @@
       <div class="form-group" >
 
         <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
-        <label for="editCourseDates" class="control-label">Termin hinzufügen</label>
+        <label for="editCourseDates" class="control-label">Kurstage angeben</label>
         <div class="input-group">
-          <input type="text" class="form-control editCourseDates hoverCheck" name="standardDateField" id="" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+          <input type="text" class="form-control hoverCheck" name="standardDateField" id="editCourseDates" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
         </div>
       </div>
     </div>

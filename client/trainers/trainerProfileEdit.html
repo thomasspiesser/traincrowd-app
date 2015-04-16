@@ -147,6 +147,8 @@
 
   <hr>
 
+  <h4 class="text-center">Öffentlich</h4>
+
   <div class="form-group">
     <label for="editTrainerProfileHomepage" class="control-label">Homepage</label>
     <div class="input-group">
@@ -160,11 +162,13 @@
     <input type="text" class="form-control hoverCheck" id="editTrainerProfileVideo" value="{{profile.videoURL}}" placeholder="e.g. https://www.youtube.com/watch?v=123">
   </div>
 
+  <h4 class="text-center" style="margin-top:35px;">Nicht Öffentlich</h4>
+
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label for="editTrainerProfilePhone" class="control-label">Telefonnummer</label>
-        <input type="text" class="form-control hoverCheck" id="editTrainerProfilePhone" value="{{profile.phone}}">
+        <input type="text" class="form-control hoverCheck" id="editTrainerProfilePhone" value="{{profile.phone}}" placeholder="z.B. 030 12345678">
       </div>
     </div>
     <div class="col-md-6">
@@ -175,12 +179,10 @@
     </div>
   </div>
 
-  <hr>
-
   <form id="google-autocomplete-form">
   <div class="form-group">
-    <label for="google-autocomplete" class="control-label">Adresse</label>
-    <input class="form-control" id="google-autocomplete" placeholder="Adresse finden..." type="text">
+    <label for="google-autocomplete" class="control-label">Rechnungsadresse</label>
+    <input class="form-control hoverCheck" id="google-autocomplete" placeholder="Adresse finden..." type="text">
   </div>
   </form>
 
@@ -234,10 +236,10 @@
 
   <div class="form-group">
     <label for="editTrainerProfileLanguages" class="control-label">In welchen Sprachen bieten Sie Ihre Weiterbildungen an</label>
-    <input type="text" class="form-control hoverCheck" id="editTrainerProfileLanguages" value="{{profile.languages}}">
+    <input type="text" class="form-control hoverCheck" id="editTrainerProfileLanguages" value="{{profile.languages}}" placeholder="z.B. Deutsch, Englisch">
   </div>
   <div class="form-group">
-    <label for="editTrainerProfileCertificates" class="control-label">Zertifikate, die Sie als Anbieter von Weiterbildungen qualifizieren</label>
+    <label for="editTrainerProfileCertificates" class="control-label">Zertifikate und Referenzen</label>
     <input type="text" class="form-control hoverCheck" id="editTrainerProfileCertificates" value="{{profile.certificates}}">
   </div>
 <!--   <div class="row">

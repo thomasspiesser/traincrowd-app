@@ -3,7 +3,7 @@
     {{#if canEdit _id}}
 
     <div class="alert alert-success"><strong>Teilnehmer-Informationen</strong><br>
-    Ihr Trainer oder Ihre Trainerin möchte Sie gerne näher kennen lernen, um die Inhalte des Kurses optimal auf Ihre Bedürfnisse abzustimmen. Versvollständigen Sie dazu Ihr Profil mit ein paar kurzen Angaben zu Ihrer Person und Ihren Erwartungen.</div>
+    Ihr Trainer oder Ihre Trainerin möchte Sie gerne näher kennen lernen, um die Inhalte des Kurses optimal auf Ihre Bedürfnisse abzustimmen. Versvollständigen Sie dazu Ihr Profil mit ein paar kurzen Angaben zu Ihrer Person.</div>
 
     <div class="row">
 
@@ -16,12 +16,12 @@
             <li >
               <a href="#profileContact" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp; Kontakt</a>
             </li>
-              <li>
-                <a href="#profileOccupation" data-toggle="tab"><span class="fa fa-laptop fa-fw"></span>&nbsp; Berufsfeld</a>
-              </li>
-              <li>
-                <a href="#profileExpectation" data-toggle="tab"><span class="fa fa-question-circle fa-fw"></span>&nbsp; Erwartung</a>
-              </li>
+            <li>
+              <a href="#profileOccupation" data-toggle="tab"><span class="fa fa-laptop fa-fw"></span>&nbsp; Berufsfeld</a>
+            </li>
+<!--             <li>
+              <a href="#profileExpectation" data-toggle="tab"><span class="fa fa-question-circle fa-fw"></span>&nbsp; Erwartung</a>
+            </li> -->
             <li>
               <a href="#profileAccount" data-toggle="tab"><span class="fa fa-cogs fa-fw"></span>&nbsp; Account</a>
             </li>
@@ -40,9 +40,9 @@
           <div class="tab-pane" id="profileOccupation">
             {{> editUserProfileOccupation}}
           </div>
-          <div class="tab-pane" id="profileExpectation">
+<!--           <div class="tab-pane" id="profileExpectation">
             {{> editUserProfileExpectation}}
-          </div>
+          </div> -->
           <div class="tab-pane" id="profileAccount">
             {{> editUserProfileAccount}}
           </div>
@@ -84,7 +84,7 @@
     <div class="col-md-10">
       <div class="form-group">
         <label for="editUserProfileName" class="control-label">Name</label>
-        <input type="text" class="form-control hoverCheck" id="editUserProfileName" value="{{profile.name}}" placeholder="Max Mustermann">
+        <input type="text" class="form-control" id="editUserProfileName" value="{{profile.name}}" placeholder="Max Mustermann">
       </div>
     </div>
   </div>
@@ -94,9 +94,9 @@
       <div class="form-group">
       <label for="" class="control-label">Profilbild</label>
         {{#if profile.imageId}}
-        <img src="{{profile.imageId}}" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editUserProfileImage" style="margin-left:0px; width: 160px;">
+        <img src="{{profile.imageId}}" alt="" class="center-block img-thumbnail img-responsive " id="editUserProfileImage" style="margin-left:0px; width: 160px;">
         {{else}}
-        <img src="/dummyUser.jpg" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editUserProfileDefaultImage" style="margin-left:0px; width: 160px;">
+        <img src="/dummyUser.jpg" alt="" class="center-block img-thumbnail img-responsive " id="editUserProfileDefaultImage" style="margin-left:0px; width: 160px;">
         {{/if}}
       </div>
     </div>
@@ -139,36 +139,36 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="editUserProfilePhone" class="control-label">Telefonnummer</label>
-        <input type="text" class="form-control hoverCheck" id="editUserProfilePhone" value="{{profile.phone}}">
+        <input type="text" class="form-control" id="editUserProfilePhone" value="{{profile.phone}}">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label for="editUserProfileMobile" class="control-label">Mobil</label>
-        <input type="text" class="form-control hoverCheck" id="editUserProfileMobile" value="{{profile.mobile}}">
+        <input type="text" class="form-control" id="editUserProfileMobile" value="{{profile.mobile}}">
       </div>
     </div>
   </div>
 
   <div class="form-group">
     <label for="editUserProfileStreet" class="control-label">Strasse</label>
-    <input type="text" class="form-control hoverCheck" id="editUserProfileStreet" value="{{profile.street}}">
+    <input type="text" class="form-control" id="editUserProfileStreet" value="{{profile.street}}">
   </div>
   <div class="form-group">
     <label for="editUserProfileStreetAdditional" class="control-label">Adresszusatz</label>
-    <input type="text" class="form-control hoverCheck" id="editUserProfileStreetAdditional" value="{{profile.streetAdditional}}">
+    <input type="text" class="form-control" id="editUserProfileStreetAdditional" value="{{profile.streetAdditional}}">
   </div>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label for="editUserProfilePLZ" class="control-label">PLZ</label>
-        <input type="number" class="form-control hoverCheck" id="editUserProfilePLZ" value="{{profile.plz}}">
+        <input type="number" class="form-control" id="editUserProfilePLZ" value="{{profile.plz}}">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label for="editUserProfileCity" class="control-label">Stadt</label>
-        <input type="text" class="form-control hoverCheck" id="editUserProfileCity" value="{{profile.city}}">
+        <input type="text" class="form-control" id="editUserProfileCity" value="{{profile.city}}">
       </div>
     </div>
   </div>
@@ -185,19 +185,19 @@
 
   <div class="form-group">
     <label for="editUserProfileEmployer" class="control-label">Arbeitgeber</label>
-    <input type="text" class="form-control hoverCheck" id="editUserProfileEmployer" value="{{profile.employer}}">
+    <input type="text" class="form-control" id="editUserProfileEmployer" value="{{profile.employer}}">
   </div>
 
   <div class="form-group">
     <label for="editUserProfilePosition" class="control-label">Position</label>
-    <input type="text" class="form-control hoverCheck" id="editUserProfilePosition" value="{{profile.position}}">
+    <input type="text" class="form-control" id="editUserProfilePosition" value="{{profile.position}}">
   </div>
 
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label for="editUserProfileIndustry" class="control-label">Branche</label>
-        <input type="text" class="form-control hoverCheck" id="editUserProfileIndustry" value="{{profile.industry}}" style="width: 100%;">
+        <input type="text" class="form-control" id="editUserProfileIndustry" value="{{profile.industry}}">
       </div>
     </div>
 
@@ -226,7 +226,7 @@
 
   <div class="form-group">
     <label for="editUserProfileExpectedOther" class="control-label">Ihre Erwartungen</label>
-    <textarea class="form-control hoverCheck" id="editUserProfileExpectedOther" rows="2" value="{{profile.expectedOther}}">
+    <textarea class="form-control" id="editUserProfileExpectedOther" rows="2" value="{{profile.expectedOther}}">
     </textarea>
   </div>
 
@@ -390,12 +390,12 @@
 
   <div class="form-group">
     <label for="editUserProfileInterests" class="control-label">An welchen Weiterbildungsthemen sind Sie besonders interessiert?</label>
-    <input type="text" class="form-control hoverCheck" id="editUserProfileInterests" value="{{profile.interests}}" style="width: 100%;">
+    <input type="text" class="form-control" id="editUserProfileInterests" value="{{profile.interests}}" style="width: 100%;">
   </div>
 
   <div class="checkbox">
     <label>
-    <input type="checkbox" class="hoverCheck" id="editUserProfileAllowNewsletter" checked="{{allowNewsletter}}">Dürfen wir Sie per E-Mail über neue Angebote in diesen Bereichen informieren?
+    <input type="checkbox" id="editUserProfileAllowNewsletter" checked="{{allowNewsletter}}">Dürfen wir Sie per E-Mail über neue Angebote in diesen Bereichen informieren?
     </label>
   </div>
 

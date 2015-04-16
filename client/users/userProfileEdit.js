@@ -1,56 +1,3 @@
-var getText = function(id) {
-  var text;
-  switch (id) {
-    // case 'editUserProfileName': 
-    //   text = Fake.paragraph(4);
-    //   return text;
-    //   break;
-    case 'editUserProfileShortDescription':
-      text = ""
-      return text;
-      break;
-    // case 'editUserProfileImage':
-    //   text = Fake.paragraph(6);
-    //   return text;
-    //   break;
-    // case 'editUserProfileDefaultImage':
-    //   text = Fake.paragraph(6);
-    //   return text;
-    //   break;
-    case 'editUserProfilePhone': 
-      text = "";
-      return text;
-      break;
-    case 'editUserProfileStreet':
-    case 'editUserProfileStreetAdditional':
-      text = "";
-      return text;
-      break;
-    case 'editUserProfileMobile':
-      text = "";
-      return text;
-      break;
-    case 'editUserProfilePLZ':
-    case 'editUserProfileCity':
-      text = "";
-      return text;
-      break;
-    case 'editUserProfileCertificates':
-      text = "";
-      return text;
-      break;
-    default:
-      text = "";
-      return text;
-  }
-};
-
-Template.editUserProfile.helpers({
-  showHoverText: function () {
-    return getText(Session.get( 'showHoverText' ));
-  }
-});
-
 Template.editUserProfile.events({ 
   'click #showProfileButton': function () {
     Router.go("trainerProfile.show", {_id: this._id} );
@@ -105,94 +52,39 @@ Template.editUserProfileDescription.events({
 
     var upload = new Slingshot.Upload("profilePicture");
 
-    // if (!newImage.type.match('image.*')) {
-    //   toastr.error( "Das ist keine Bilddatei." );
-    //   return false;
-    // }
-
-    // var maxSize = 500000 // in byte, e.g. 20000 is 20KB
-    // if (newImage.size > maxSize) {
-    //   toastr.error( "Die Bilddatei ist zu groß. Bitte wählen Sie eine Bilddatei, die kleiner als "+ maxSize / 1000 +" KB ist." );
-    //   return false;
-    // }
-
     var self = this;
 
     if (newImage) {
       upload.send(newImage, function (error, downloadUrl) {
         uploader.set();
         if (error) {
-          console.log(error)
+          console.log(error);
           toastr.error( error.message );
         }
         else {
-          var modifier = {'profile.imageId': downloadUrl}
+          var modifier = {'profile.imageId': downloadUrl};
           saveUpdates(modifier);
         }
       });
     }
 
     uploader.set(upload);
-
-    // var reader = new FileReader();
-    // reader.readAsDataURL(newImage);
-
-    // reader.onloadstart = function(e) {
-    //   $('#newProfileImageDummy i').removeClass('fa-upload');
-    //   $('#newProfileImageDummy i').addClass('fa-refresh fa-spin');
-    //   $('#newProfileImageDummy span').text(' Läd...');
-    // };
-
-    // reader.onloadend = function(e) {
-    //   $('#newProfileImageDummy i').addClass('fa-upload');
-    //   $('#newProfileImageDummy i').removeClass('fa-refresh fa-spin');
-    //   $('#newProfileImageDummy span').text(' Neues Bild');
-    // };
-
-    // reader.onload = function(event) {
-    //   // $('#newProfileImageDummy i').button('reset') 
-    //   if (self.profile.imageId) {
-    //     var modifier = {_id: self.profile.imageId,
-    //                     data: event.target.result }
-    //     Meteor.call('updateImage', modifier, function (error, result) {
-    //       if (error)
-    //         toastr.error( error.reason );
-    //     });
-    //   } 
-    //   else {
-    //     Meteor.call('insertImage', event.target.result, function (error, imageId) {
-    //       if (error)
-    //         toastr.error( error.reason );
-    //       else {
-    //         var modifier = {'profile.imageId': imageId}
-    //         saveUpdates(modifier);
-    //       }
-    //     });
-    //   }
-    // };
-    // return false;
   },
-  'click #deleteProfileImage': function () {
-    if (! this.profile.imageId) //if there is nothing to delete
-      return false;
-    var self = this; // needed, coz this in bootbox is bootbox object
-    bootbox.confirm('Bild löschen?', function(result) {
-      if (result) {
-        var modifier = { 'profile.imageId': '' };
-        saveUpdates(modifier);
-        Meteor.call('removeImage', self.profile.imageId, function (error, result) {
-          if (error)
-            toastr.error( error.reason );
-        });
-      }
-    });
-  },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
-  }
+  // 'click #deleteProfileImage': function () {
+  //   if (! this.profile.imageId) //if there is nothing to delete
+  //     return false;
+  //   var self = this; // needed, coz this in bootbox is bootbox object
+  //   bootbox.confirm('Bild löschen?', function(result) {
+  //     if (result) {
+  //       var modifier = { 'profile.imageId': '' };
+  //       saveUpdates(modifier);
+  //       Meteor.call('removeImage', self.profile.imageId, function (error, result) {
+  //         if (error)
+  //           toastr.error( error.reason );
+  //       });
+  //     }
+  //   });
+  // }
 });
 
 //////////// editUserProfile CONTACT template /////////
@@ -219,22 +111,10 @@ Template.editUserProfileContact.events({
                     'profile.city': city };
 
     saveUpdates(modifier);
-  },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
   }
 });
 
 //////////// editUserProfile OCCUPATION template /////////
-
-Template.editUserProfileOccupation.rendered = function () {
-  $('#editUserProfileIndustry').select2({
-    tags: ['non-profit', 'Start-up', 'Sonstige']
-  });
-};
 
 Template.editUserProfileOccupation.helpers({
   selected: function (one, two) {
@@ -255,12 +135,6 @@ Template.editUserProfileOccupation.events({
                     'profile.workExperience': workExperience };
 
     saveUpdates(modifier);
-  },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
   }
 });
 
@@ -331,12 +205,6 @@ Template.editUserProfileExpectation.events({
   },
   'change #editUserProfileAllowNewsletter': function (event) {
     Session.set("allowNewsletter", event.target.checked);
-  },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
   }
 });
 

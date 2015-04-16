@@ -51,8 +51,8 @@
           </ul>
         {{/if}}
         </p>
-        <p><strong>Sprachen:</strong> <br> {{profile.languages}}</p>
-        <p><strong>Zertifikate:</strong> <br> {{profile.certificates}}</p>
+        {{#if profile.languages}}<p><strong>Sprachen:</strong> <br> {{profile.languages}}</p>{{/if}}
+        {{#if profile.certificates}}<p><strong>Zertifikate und Referenzen:</strong> <br> {{profile.certificates}}</p>{{/if}}
       </div>
 
     </div>

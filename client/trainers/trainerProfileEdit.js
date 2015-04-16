@@ -1,48 +1,27 @@
 var getText = function(id) {
   var text;
   switch (id) {
-    // case 'editTrainerProfileName': 
-    //   text = Fake.paragraph(4);
-    //   return text;
-    //   break;
     case 'editTrainerProfileShortDescription':
-      text = "Geht aus Ihrer Beschreibung klar hervor, was Ihr Alleinstellungsmerkmal gegenüber anderen Anbietern ist? Was macht Sie für Ihre Kunden interessant? Sind Sie eher Spezialist oder Generalist? So zutreffend, haben Sie spezielle Branchenerfahrung erwähnt?"
+      text = "Geht aus Ihrer Beschreibung klar hervor, was Ihr Alleinstellungsmerkmal gegenüber anderen Anbietern ist? Was macht Sie für Ihre Kunden interessant? Sind Sie eher Spezialist oder Generalist? So zutreffend, haben Sie spezielle Branchenerfahrung erwähnt?";
       return text;
-      break;
     // case 'editTrainerProfileImage':
     //   text = Fake.paragraph(6);
     //   return text;
-    //   break;
     // case 'editTrainerProfileDefaultImage':
     //   text = Fake.paragraph(6);
     //   return text;
-    //   break;
     case 'editTrainerProfilePhone': 
       text = "Bitte geben Sie Ihre Telefonnummer samt Städtevorwahl an. Wir geben ihre Telefonnummern natürlich nicht weiter.";
       return text;
-      break;
-    case 'editTrainerProfileStreet':
-    case 'editTrainerProfileStreetAdditional':
-      text = "Wenn Sie möchten, dass Ihre Anschrift oder die ihrer Firma auf ihrem Profil angezeigt wird geben Sie bitte ihre Adressdaten ein. Wieso? Teilnehmer möchten evtl. nachschauen, wo Sie zu finden sind...";
-      return text;
-      break;
     case 'editTrainerProfileMobile':
-      text = "Wir benötigen Ihre Handynummer, damit wir Sie erreichen können, wenn sich Teilnehmer wegen eines Ihrer Kurse an uns wenden - z.B. weil Sie die Räumlichkeiten nicht finden oder ähnliches. Wir geben ihre Telefonnummern natürlich nicht weiter.";
+      text = "Helfen Sie uns Sie zu erreichen, falls z.B. Teilnehmer  Räumlichkeiten nicht finden oder ähnliches. Wir geben ihre Telefonnummern natürlich nicht weiter.";
       return text;
-      break;
-    case 'editTrainerProfilePLZ':
-    case 'editTrainerProfileCity':
-      text = "Teilnehmer suchen Weiterbildungen in ihrer Nähe. Damit Sie unsere Such-funktion Sie auch über örtliche Angaben findet geben Sie bitte ihre PLZ und Stadt ein. ";
-      return text;
-      break;
     case 'editTrainerProfileLanguages': 
       text = "Viele Teilnehmer sind an Weiterbildung auf Englisch, Spanisch und anderen Sprachen interessiert. Bitte geben Sie die Sprachen an, in denen sie Ihre Kurse anbieten. Trennen sie die Sprachen durch Kommata.";
       return text;
-      break;
     case 'editTrainerProfileCertificates':
-      text = "";
+      text = "Hier können Sie Zertifikate Auswahl Ihrer Referenzen angeben.";
       return text;
-      break;
     default:
       text = "";
       return text;
