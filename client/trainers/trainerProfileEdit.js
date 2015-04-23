@@ -77,7 +77,7 @@ Template.editTrainerProfileDescription.events({
 
     var modifier = {'profile.title': title,
                     'profile.name': name,
-                    'profile.description': description }
+                    'profile.description': description };
     saveUpdates(modifier);
 
     return false;
@@ -236,6 +236,7 @@ Template.editTrainerProfileContact.events({
     
     var modifier = {'profile.homepage': homepage,
                     'profile.videoURL': videoURL,
+                    'profile.videoId': "",
                     'profile.phone': phone,
                     'profile.mobile': mobile,
                     'profile.street': street,

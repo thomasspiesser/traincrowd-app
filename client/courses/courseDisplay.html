@@ -89,15 +89,41 @@
         </div>
 
         <div class="course-detail-body-text-wrapper">
-          <p><strong>Beschreibung</strong> <br>
-            <div class="contain-format">{{description}}</div>
-          </p>
-          <p><strong>Kursziele</strong> <br> {{aims}}</p>
-          <p><strong>Lernformen, Methodik und Didaktik</strong> <br> {{methods}}</p>
-          <p><strong>Zielgruppe</strong> <br> {{targetGroup}}</p>
-          <p><strong>Vorraussetzungen</strong> <br> {{prerequisites}}</p>
-          <p><strong>Sprachen</strong> <br> {{languages}}</p>
-          <p><strong>zusätzliche Leistungen</strong> <br> {{additionalServices}}</p>
+          {{#if description}}
+            <p><strong>Beschreibung</strong> <br>
+              <div class="contain-format">{{description}}</div>
+            </p>
+          {{/if}}
+          {{#if aims}}
+            <p><strong>Kursziele</strong> <br> 
+              <div class="contain-format">{{aims}}</div>
+            </p>
+          {{/if}}
+          {{#if methods}}
+            <p><strong>Lernformen, Methodik und Didaktik</strong> <br> 
+              <div class="contain-format">{{methods}}</div>
+            </p>
+          {{/if}}
+          {{#if targetGroup}}
+            <p><strong>Zielgruppe</strong> <br> 
+              <div class="contain-format">{{targetGroup}}</div>
+            </p>
+          {{/if}}
+          {{#if prerequisites}}
+            <p><strong>Vorraussetzungen</strong> <br> 
+              <div class="contain-format">{{prerequisites}}</div>
+            </p>
+          {{/if}}
+          {{#if languages}}
+            <p><strong>Sprachen</strong> <br> 
+              <div class="contain-format">{{languages}}</div>
+            </p>
+          {{/if}}
+          {{#if additionalServices}}
+            <p><strong>zusätzliche Leistungen</strong> <br> 
+              <div class="contain-format">{{additionalServices}}</div>
+            </p>
+          {{/if}}
         </div>
       </div>
               
