@@ -1,19 +1,16 @@
 <template name="trainerProfile">
   <div class="container">
     {{#if canEdit}}
-    <div class="row" id="editProfile">
+      <div class="row" id="editProfile">
 
-      <div class="well well-sm">
-        
-        {{#unless isPublic}}
-          <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="requestPublicProfileButton"> <span class="fa fa-globe"></span> Freigeben</button>
-        {{/unless}}
-        {{#if canEdit}}
+        <div class="well well-sm">
+          {{#unless isPublic}}
+            <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="requestPublicProfileButton"> <span class="fa fa-globe"></span> Freigeben</button>
+          {{/unless}}
           <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="editTrainerProfileButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
-        {{/if}}
-      </div>
+        </div>
 
-    </div>
+      </div>
     {{/if}}
 
     <div class="row">
@@ -35,24 +32,45 @@
       <div class="col-md-7">
         
         <h2>{{profile.name}}</h2>
-        <p><div class="contain-format">{{profile.description}}</div></p>
-        <strong>Homepage:</strong>
-        <p><a href="http://{{profile.homepage}}" target="_blank">{{profile.homepage}}</a></p>
-        <p><strong>Bewertung:</strong> <br> <div class="rateit mystars" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></p>
+
         <p>
-        {{#if hostedCourses.count}}
-          <strong>Meine Kurse:</strong>
-          <ul>
-            {{#each hostedCourses}}
-              <li>
-                <a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a>
-              </li>
-            {{/each}}
-          </ul>
-        {{/if}}
+          <div class="contain-format">{{profile.description}}</div>
         </p>
-        {{#if profile.languages}}<p><strong>Sprachen:</strong> <br> {{profile.languages}}</p>{{/if}}
-        {{#if profile.certificates}}<p><strong>Zertifikate und Referenzen:</strong> <br> {{profile.certificates}}</p>{{/if}}
+        
+        {{#if profile.homepage}}
+          <p><strong>Homepage:</strong> <br>
+            <a href="http://{{profile.homepage}}" target="_blank">{{profile.homepage}}</a>
+          </p>
+        {{/if}}
+
+        <p><strong>Bewertung:</strong> <br> 
+          <div class="rateit mystars" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+        </p>
+
+        {{#if hostedCourses.count}}
+          <p> <strong>Meine Kurse:</strong>
+            <ul>
+              {{#each hostedCourses}}
+                <li>
+                  <a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a>
+                </li>
+              {{/each}}
+            </ul>
+          </p>
+        {{/if}}
+
+        {{#if profile.languages}}
+          <p><strong>Sprachen:</strong> <br> 
+            {{profile.languages}}
+          </p>
+        {{/if}}
+
+        {{#if profile.certificates}}
+          <p><strong>Zertifikate und Referenzen:</strong> <br> 
+            {{profile.certificates}}
+          </p>
+        {{/if}}
+
       </div>
 
     </div>
