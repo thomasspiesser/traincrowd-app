@@ -451,8 +451,7 @@ div.mystars div.rateit-selected {
 }
 
 .video-wrapper {
-  padding-top: 35px;
-  padding-bottom: 25px;
+  margin: 25px;
 }
 
 /***************  ***************/
