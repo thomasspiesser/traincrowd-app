@@ -4,12 +4,6 @@ var getText = function(id) {
     case 'editTrainerProfileShortDescription':
       text = "Geht aus Ihrer Beschreibung klar hervor, was Ihr Alleinstellungsmerkmal gegenüber anderen Anbietern ist? Was macht Sie für Ihre Kunden interessant? Sind Sie eher Spezialist oder Generalist? So zutreffend, haben Sie spezielle Branchenerfahrung erwähnt?";
       return text;
-    // case 'editTrainerProfileImage':
-    //   text = Fake.paragraph(6);
-    //   return text;
-    // case 'editTrainerProfileDefaultImage':
-    //   text = Fake.paragraph(6);
-    //   return text;
     case 'editTrainerProfilePhone': 
       text = "Bitte geben Sie Ihre Telefonnummer samt Städtevorwahl an. Wir geben ihre Telefonnummern natürlich nicht weiter.";
       return text;
@@ -90,28 +84,17 @@ Template.editTrainerProfileDescription.events({
 
     var upload = new Slingshot.Upload("profilePicture");
 
-    // if (!newImage.type.match('image.*')) {
-    //   toastr.error( "Das ist keine Bilddatei." );
-    //   return false;
-    // }
-
-    // var maxSize = 500000 // in byte, e.g. 20000 is 20KB
-    // if (newImage.size > maxSize) {
-    //   toastr.error( "Die Bilddatei ist zu groß. Bitte wählen Sie eine Bilddatei, die kleiner als "+ maxSize / 1000 +" KB ist." );
-    //   return false;
-    // }
-
     var self = this;
 
     if (newImage) {
       upload.send(newImage, function (error, downloadUrl) {
         uploader.set();
         if (error) {
-          console.log(error)
+          console.log(error);
           toastr.error( error.message );
         }
         else {
-          var modifier = {'profile.imageId': downloadUrl}
+          var modifier = {'profile.imageId': downloadUrl};
           saveUpdates(modifier);
         }
       });
@@ -119,59 +102,22 @@ Template.editTrainerProfileDescription.events({
 
     uploader.set(upload);
 
-    // var reader = new FileReader();
-    // reader.readAsDataURL(newImage);
-
-    // reader.onloadstart = function(e) {
-    //   $('#newProfileImageDummy i').removeClass('fa-upload');
-    //   $('#newProfileImageDummy i').addClass('fa-refresh fa-spin');
-    //   $('#newProfileImageDummy span').text(' Läd...');
-    // };
-
-    // reader.onloadend = function(e) {
-    //   $('#newProfileImageDummy i').addClass('fa-upload');
-    //   $('#newProfileImageDummy i').removeClass('fa-refresh fa-spin');
-    //   $('#newProfileImageDummy span').text(' Neues Bild');
-    // };
-
-    // reader.onload = function(event) {
-    //   // $('#newProfileImageDummy i').button('reset') 
-    //   if (self.profile.imageId) {
-    //     var modifier = {_id: self.profile.imageId,
-    //                     data: event.target.result }
-    //     Meteor.call('updateImage', modifier, function (error, result) {
-    //       if (error)
-    //         toastr.error( error.reason );
-    //     });
-    //   } 
-    //   else {
-    //     Meteor.call('insertImage', event.target.result, function (error, imageId) {
-    //       if (error)
-    //         toastr.error( error.reason );
-    //       else {
-    //         var modifier = {'profile.imageId': imageId}
-    //         saveUpdates(modifier);
-    //       }
-    //     });
-    //   }
-    // };
-    // return false;
   },
-  'click #deleteProfileImage': function () {
-    if (! this.profile.imageId) //if there is nothing to delete
-      return false;
-    var self = this; // needed, coz this in bootbox is bootbox object
-    bootbox.confirm('Bild löschen?', function(result) {
-      if (result) {
-        var modifier = { 'profile.imageId': '' };
-        saveUpdates(modifier);
-        Meteor.call('removeImage', self.profile.imageId, function (error, result) {
-          if (error)
-            toastr.error( error.reason );
-        });
-      }
-    });
-  },
+  // 'click #deleteProfileImage': function () {
+  //   if (! this.profile.imageId) //if there is nothing to delete
+  //     return false;
+  //   var self = this; // needed, coz this in bootbox is bootbox object
+  //   bootbox.confirm('Bild löschen?', function(result) {
+  //     if (result) {
+  //       var modifier = { 'profile.imageId': '' };
+  //       saveUpdates(modifier);
+  //       Meteor.call('removeImage', self.profile.imageId, function (error, result) {
+  //         if (error)
+  //           toastr.error( error.reason );
+  //       });
+  //     }
+  //   });
+  // },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
   },
@@ -182,41 +128,6 @@ Template.editTrainerProfileDescription.events({
 
 //////////// editTrainerProfile CONTACT template /////////
 
-var autocomplete = function() {
-  var DOMelement = $('#google-autocomplete')[0];
-  var autocomplete = new google.maps.places.Autocomplete(
-    ( DOMelement ), { types: ['geocode'] }
-  );
-  google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    fillInAddress( autocomplete.getPlace() );
-  });
-};
-
-var componentForm = {
-  street_number: 'short_name',
-  route: 'long_name',
-  // locality: 'long_name',
-  administrative_area_level_1: 'short_name',
-  postal_code: 'short_name'
-};
-
-var fillInAddress = function (place) {
-  //clean form:
-  for (var component in componentForm) {
-    document.getElementById(component).value = '';
-  }
-
-  // Get each component of the address from the place details
-  // and fill the corresponding field on the form.
-  for (var i = 0; i < place.address_components.length; i++) {
-    var addressType = place.address_components[i].types[0];
-    if (componentForm[addressType]) {
-      var val = place.address_components[i][componentForm[addressType]];
-      document.getElementById(addressType).value = val;
-    }
-  }
-};
-
 Template.editTrainerProfileContact.events({
   'click #saveEditProfileContact': function (event, template) {
     var homepage = template.find('#editTrainerProfileHomepage').value;
@@ -224,12 +135,12 @@ Template.editTrainerProfileContact.events({
     var phone = template.find("#editTrainerProfilePhone").value;
     var mobile = template.find("#editTrainerProfileMobile").value;
     var street = template.find("#route").value;
-    var street_number = template.find("#street_number").value;
+    var streetNumber = template.find("#street_number").value;
     var streetAdditional = template.find("#editTrainerProfileStreetAdditional").value;
     var plz = template.find("#postal_code").value;
     var city = template.find("#administrative_area_level_1").value;
 
-    if (! street.length || ! street_number.length || plz.length < 4 || ! city.length ) {
+    if (! street.length || ! streetNumber.length || plz.length < 4 || ! city.length ) {
       toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
       return false;
     }
@@ -240,7 +151,7 @@ Template.editTrainerProfileContact.events({
                     'profile.phone': phone,
                     'profile.mobile': mobile,
                     'profile.street': street,
-                    'profile.streetNumber': street_number,
+                    'profile.streetNumber': streetNumber,
                     'profile.streetAdditional': streetAdditional,
                     'profile.plz': plz,
                     'profile.city': city };
@@ -253,13 +164,6 @@ Template.editTrainerProfileContact.events({
     }
 
     saveUpdates(modifier);
-  },
-  'focus #google-autocomplete': function () {
-    autocomplete();
-  },
-  'submit #google-autocomplete-form': function (event) {
-    event.preventDefault();
-    google.maps.event.trigger(autocomplete, 'place_changed');
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 

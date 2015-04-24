@@ -179,24 +179,17 @@
     </div>
   </div>
 
-  <form id="google-autocomplete-form">
-  <div class="form-group">
-    <label for="google-autocomplete" class="control-label">Rechnungsadresse</label>
-    <input class="form-control hoverCheck" id="google-autocomplete" placeholder="Adresse finden..." type="text">
-  </div>
-  </form>
-
   <div class="row">
     <div class="col-md-9">
       <div class="form-group">
         <label for="route" class="control-label">Straße</label>
-        <input type="text" class="form-control hoverCheck" id="route" value="{{profile.street}}" readonly>
+        <input type="text" class="form-control hoverCheck" id="route" value="{{profile.street}}">
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <label for="street_number" class="control-label">Hausnummer</label>
-        <input type="text" class="form-control" id="street_number" value="{{profile.streetNumber}}" readonly>
+        <input type="text" class="form-control" id="street_number" value="{{profile.streetNumber}}">
       </div>
     </div>
   </div>
@@ -205,13 +198,13 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="postal_code" class="control-label">PLZ</label>
-        <input type="number" class="form-control" id="postal_code" value="{{profile.plz}}" readonly>
+        <input type="number" class="form-control" id="postal_code" value="{{profile.plz}}">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label for="administrative_area_level_1" class="control-label">Stadt</label>
-        <input type="text" class="form-control" id="administrative_area_level_1" value="{{profile.city}}" readonly>
+        <input type="text" class="form-control" id="administrative_area_level_1" value="{{profile.city}}">
       </div>
     </div>
   </div>
