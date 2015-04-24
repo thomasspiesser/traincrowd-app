@@ -158,16 +158,6 @@ Template.editCourseDescription.events({
     var metaContext = {course: this._id};
     var upload = new Slingshot.Upload("coursePicture", metaContext);
 
-    // if (!newImage.type.match('image.*')) {
-    //   toastr.error( "Das ist keine Bilddatei." );
-    //   return false;
-    // }
-    // var maxSize = 500000 // in byte, e.g. 20000 is 20KB
-    // if (newImage.size > maxSize) {
-    //   toastr.error( "Die Bilddatei ist zu groß. Bitte wählen Sie eine Bilddatei, die kleiner als "+ maxSize / 1000 +" KB ist." );
-    //   return false;
-    // }
-
     var self = this;
 
     if (newImage) {
@@ -188,46 +178,6 @@ Template.editCourseDescription.events({
 
     uploader.set(upload);
 
-
-    // // manual upload and insert into MongoDB
-    // var reader = new FileReader();
-    // reader.readAsDataURL(newImage);
-
-    // reader.onloadstart = function(e) {
-    //   $('#newCourseImageDummy i').removeClass('fa-upload');
-    //   $('#newCourseImageDummy i').addClass('fa-refresh fa-spin');
-    //   $('#newCourseImageDummy span').text(' Läd...');
-    // };
-
-    // reader.onloadend = function(e) {
-    //   $('#newCourseImageDummy i').addClass('fa-upload');
-    //   $('#newCourseImageDummy i').removeClass('fa-refresh fa-spin');
-    //   $('#newCourseImageDummy span').text(' Neues Bild');
-    // };
-
-    // reader.onload = function(event) {
-    //   if (self.imageId) {
-    //     var modifier = {_id: self.imageId,
-    //                     data: event.target.result }
-    //     Meteor.call('updateImage', modifier, function (error, result) {
-    //       if (error)
-    //         toastr.error( error.reason );
-    //     });
-    //   } 
-    //   else {
-    //     Meteor.call('insertImage', event.target.result, function (error, imageId) {
-    //       if (error)
-    //         toastr.error( error.reason );
-    //       else {
-    //         var modifier = {_id: self._id,
-    //                         owner: self.owner,
-    //                         imageId: imageId}
-    //         saveUpdates(modifier);
-    //       }
-    //     });
-    //   }
-    // };
-    // return false;
   },
   // 'click #deleteCourseImage': function () {
   //   if (! this.imageId) //if there is nothing to delete
@@ -511,45 +461,6 @@ Template.editCourseDates.events({
 
 //////////// editCourse LOGISTICS template /////////
 
-var autocomplete = function() {
-  var DOMelement = $('#google-autocomplete')[0];
-  var autocomplete = new google.maps.places.Autocomplete(
-    ( DOMelement ), { types: ['geocode'] }
-  );
-  google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    fillInAddress( autocomplete.getPlace() );
-  });
-};
-
-var componentForm = {
-  street_number: 'short_name',
-  route: 'long_name',
-  // locality: 'long_name',
-  administrative_area_level_1: 'short_name',
-  postal_code: 'short_name'
-};
-
-var fillInAddress = function (place) {
-  //clean form:
-  for (var component in componentForm) {
-    document.getElementById(component).value = '';
-  }
-  document.getElementById('lat').value = '';
-  document.getElementById('lng').value = '';
-
-  // Get each component of the address from the place details
-  // and fill the corresponding field on the form.
-  for (var i = 0; i < place.address_components.length; i++) {
-    var addressType = place.address_components[i].types[0];
-    if (componentForm[addressType]) {
-      var val = place.address_components[i][componentForm[addressType]];
-      document.getElementById(addressType).value = val;
-    }
-  }
-  document.getElementById('lat').value = place.geometry.location.lat();
-  document.getElementById('lng').value = place.geometry.location.lng();
-};
-
 Template.editCourseLogistics.helpers({
   noLocation: function () {
     if (typeof this.noLocation !== 'undefined')
@@ -575,31 +486,22 @@ Template.editCourseLogistics.events({
       var streetAdditional = template.find("#editCourseStreetAdditional").value;
       var plz = template.find("#postal_code").value;
       var city = template.find("#administrative_area_level_1").value;
-      var lat = template.find("#lat").value;
-      var lng = template.find("#lng").value;
 
       if (! street.length || ! street_number.length || plz.length < 5 || ! city.length ) {
         toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
         return false;
       }
+      
       modifier.street = street;
       modifier.streetNumber = street_number;
       modifier.streetAdditional = streetAdditional;
       modifier.plz = plz;
       modifier.city = city;
-      modifier.lat = lat;
-      modifier.lng = lng;
+
       saveUpdates(modifier);
     }
   },
-  'focus #google-autocomplete': function () {
-    autocomplete();
-  },
   'change #editCourseNoLocation': function (event) {
     Session.set("noLocation", event.target.checked);
-  },
-  'submit #google-autocomplete-form': function (event) {
-    event.preventDefault();
-    google.maps.event.trigger(autocomplete, 'place_changed');
   }
 });

@@ -311,24 +311,17 @@
   </div>
   {{#unless noLocation}}
 
-    <form id="google-autocomplete-form">
-    <div class="form-group">
-      <label for="google-autocomplete" class="control-label">Adresse</label>
-      <input class="form-control" id="google-autocomplete" placeholder="Adresse finden..." type="text">
-    </div>
-    </form>
-
     <div class="row">
       <div class="col-md-9">
         <div class="form-group">
           <label for="route" class="control-label">Straße</label>
-          <input type="text" class="form-control" id="route" value="{{street}}" readonly>
+          <input type="text" class="form-control" id="route" value="{{street}}">
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group">
           <label for="street_number" class="control-label">Hausnummer</label>
-          <input type="text" class="form-control" id="street_number" value="{{streetNumber}}" readonly>
+          <input type="text" class="form-control" id="street_number" value="{{streetNumber}}">
         </div>
       </div>
     </div>
@@ -336,13 +329,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="postal_code" class="control-label">PLZ</label>
-          <input type="number" class="form-control" id="postal_code" value="{{plz}}" readonly>
+          <input type="number" class="form-control" id="postal_code" value="{{plz}}">
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="administrative_area_level_1" class="control-label">Stadt</label>
-          <input type="text" class="form-control" id="administrative_area_level_1" value="{{city}}" readonly>
+          <input type="text" class="form-control" id="administrative_area_level_1" value="{{city}}">
         </div>
       </div>
 
@@ -359,8 +352,7 @@
       <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>
       <input type="text" class="form-control" id="editCourseStreetAdditional" value="{{streetAdditional}}">
     </div>
-    <input class="hidden" id="lat" type="text" value='test'>
-    <input class="hidden" id="lng" type="text" value='test2'>
+
   {{/unless}}
   <!-- button -->
   <div class="form-group">
