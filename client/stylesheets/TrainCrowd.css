@@ -118,10 +118,78 @@ footer a:hover {
 }
 
 .progress-tracker {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 5px;
-  height: 50px;
-  margin: 1rem;
+  background-color: #f5f5f5;
+  padding: 5px 5px;
+  height: 60px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 2%;
+  width: 15%;
+  border-radius: 4px;
+}
+
+.progress-tracker-last-item {
+  margin-right: 0;
+}
+
+.progress-tracker-wrapper {
+  position: relative;
+}
+
+.progress-tracker-line {
+  position: absolute;
+  top: 48%;
+  left: 16%;
+  height: 6px;
+  width: 70%;
+  background-color: #e3e3e3;
+}
+
+.progress-tracker.active {
+  background-color:#B6D9F2;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, .1);
+}
+
+.progress-tracker.inactive {
+  border: 1px solid #e3e3e3;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.progress-tracker-wrapper a {
+  text-decoration: none;
+  color: #5a5a5a;
+}
+
+.progress-tracker-wrapper a:hover > div {
+  border: 1px solid #5a5a5a;
+}
+
+.progress-tracker-icon-wrapper {
+  position: relative;
+}
+
+.progress-tracker-text-wrapper {
+  line-height: 1.3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -9% 0 0 -30%;
+}
+
+.progress-tracker-text {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.progress-tracker-step {
+  font-size: 12px;
+}
+
+.progress-tracker .fa {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 20% 0 0 -15%;
 }
 
 /*************** Layout ***************/
