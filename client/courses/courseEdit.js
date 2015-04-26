@@ -63,13 +63,25 @@ var getText = function(id) {
   }
 };
 
+Template.editCourse.created = function () {
+  Session.set("editCourseTemplate", "editCourseShortDescription");
+};
+
 Template.editCourse.helpers({
+  active: function() {
+    return Session.get('editCourseTemplate');
+  },
   showHoverText: function () {
     return getText(Session.get( 'showHoverText' ));
   }
 });
 
 Template.editCourse.events({ 
+  'click .dynamic-template-selector': function (event) {
+    Session.set('editCourseTemplate', event.currentTarget.id);
+    $(event.currentTarget).siblings().children('.progress-tracker').removeClass('active').addClass('inactive');
+    $(event.currentTarget).children('.progress-tracker').removeClass('inactive').addClass('active');
+  },
   'click #removeCourseButton': function (event, template) {
     Courses.remove(this._id);
     Router.go("/courses");
