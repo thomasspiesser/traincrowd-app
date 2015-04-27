@@ -64,7 +64,7 @@ var getText = function(id) {
 };
 
 Template.editCourse.created = function () {
-  Session.set("editCourseTemplate", "editCourseShortDescription");
+  Session.set("editCourseTemplate", "editCourseDescription");
 };
 
 Template.editCourse.helpers({
@@ -79,7 +79,8 @@ Template.editCourse.helpers({
 Template.editCourse.events({ 
   'click .dynamic-template-selector': function (event) {
     Session.set('editCourseTemplate', event.currentTarget.id);
-    $(event.currentTarget).siblings().children('.progress-tracker').removeClass('active').addClass('inactive');
+
+    $('.progress-tracker').removeClass('active').addClass('inactive');
     $(event.currentTarget).children('.progress-tracker').removeClass('inactive').addClass('active');
   },
   'click #removeCourseButton': function (event, template) {
@@ -146,8 +147,10 @@ Template.editCourseDescription.events({
                 description: description,
                 categories: categories };
     Meteor.call('updateCourse', modifier, function (error, result) {
-      if (error)
+      if (error) {
         toastr.error( error.reason );
+        return false;
+      }
       else {
         Router.go('course.edit', {slug:slugify(title)} );
         toastr.success( 'Änderungen gespeichert.' );
@@ -158,6 +161,11 @@ Template.editCourseDescription.events({
       if (error)
         toastr.error( error.reason );
     });
+    
+    Session.set('editCourseTemplate', "editCourseDetails");
+
+    $('#editCourseDescription').children('.progress-tracker').removeClass('active').addClass('inactive');
+    $('#editCourseDetails').children('.progress-tracker').removeClass('inactive').addClass('active');
 
     return false;
   },
@@ -237,6 +245,11 @@ Template.editCourseDetails.events({
                 additionalServices: additionalServices };
 
     saveUpdates(modifier);
+
+    Session.set('editCourseTemplate', "editCourseCosts");
+
+    $('#editCourseDetails').children('.progress-tracker').removeClass('active').addClass('inactive');
+    $('#editCourseCosts').children('.progress-tracker').removeClass('inactive').addClass('active');
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
@@ -299,6 +312,11 @@ Template.editCourseCosts.events({
                 maxParticipants: maxParticipants,
                 fee: fee };
     saveUpdates(modifier);
+
+    Session.set('editCourseTemplate', "editCourseDates");
+
+    $('#editCourseCosts').children('.progress-tracker').removeClass('active').addClass('inactive');
+    $('#editCourseDates').children('.progress-tracker').removeClass('inactive').addClass('active');
   },
   'mouseover .hoverCheck': function (event, template) {
     Session.set('showHoverText', event.currentTarget.id); 
@@ -414,6 +432,12 @@ Template.editCourseDates.events({
                 // allowInquiry: allowInquiry,
                 expires: expires };
     saveUpdates(modifier);
+
+    Session.set('editCourseTemplate', "editCourseLogistics");
+
+    $('#editCourseDates').children('.progress-tracker').removeClass('active').addClass('inactive');
+    $('#editCourseLogistics').children('.progress-tracker').removeClass('inactive').addClass('active');
+
     return false;
     // if (this.dates) // might be empty, handle:
     //   var DBdates = this.dates;
@@ -511,6 +535,8 @@ Template.editCourseLogistics.events({
       modifier.city = city;
 
       saveUpdates(modifier);
+
+      // $('#infoModal').modal('show');
     }
   },
   'change #editCourseNoLocation': function (event) {

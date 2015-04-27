@@ -18,7 +18,7 @@
 
       <!-- <div class="progress-tracker-line"></div> -->
       <a href="#" class="dynamic-template-selector" id="editCourseDescription">
-        <div class="col-md-2 col-md-offset-1 progress-tracker inactive">
+        <div class="col-md-2 col-md-offset-1 progress-tracker active">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
               <span class="fa fa-check-circle-o fa-2x fa-fw" style="color:green;"></span>
@@ -44,7 +44,7 @@
       </a>
 
       <a href="#" class="dynamic-template-selector" id="editCourseCosts">
-        <div class="col-md-2 progress-tracker active">
+        <div class="col-md-2 progress-tracker inactive">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
               <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
@@ -87,6 +87,13 @@
     <div class="row">
       <div class="col-md-7 col-md-offset-1">
         {{> Template.dynamic template=active data=this}}
+      </div>
+      <div class="col-md-3 ">
+        {{#if showHoverText}}
+        <div class="editHelperText">
+          {{showHoverText}}
+        </div>
+        {{/if}}
       </div>
     </div>
 
@@ -207,7 +214,7 @@
   </div>
   <!-- buttons -->
   <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDescription"><i class="fa fa-save"></i> Speichern</button>
+    <button type="button" class="btn btn-success pull-right" id="saveEditCourseDescription">Weiter <i class="fa fa-arrow-right"></i> </button>
   </div>
 </template>
 
