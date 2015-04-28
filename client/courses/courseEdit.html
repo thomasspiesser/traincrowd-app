@@ -2,7 +2,7 @@
   <div class="container">
   {{#if canEdit owner}}
 
-    <div class="row" id="editCourseHeader">
+<!--     <div class="row" id="editCourseHeader">
 
         <ol class="breadcrumb">
           <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
@@ -10,21 +10,25 @@
         </ol>
         <button type="button" class="btn btn-default btn-sm pull-right breadcrumb-btn" id="previewCourseButton">Anzeigen <i class="fa fa-arrow-right"></i></button>
 
-        <!-- <button type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" id="deleteCourseButton"><i class="fa fa-trash-o"></i> Löschen</button> -->
+        <button type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" id="deleteCourseButton"><i class="fa fa-trash-o"></i> Löschen</button>
 
+    </div> -->
+
+    <div class="text-center">
+      <h3 class="text-uppercase"> Neuen Kurs erstellen </h3>
+      <hr>
     </div>
 
     <div class="row progress-tracker-wrapper">
 
-      <!-- <div class="progress-tracker-line"></div> -->
       <a href="#" class="dynamic-template-selector" id="editCourseDescription">
-        <div class="col-md-2 col-md-offset-1 progress-tracker active">
+        <div class="col-md-2 progress-tracker active">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
               <span class="fa fa-check-circle-o fa-2x fa-fw" style="color:green;"></span>
             </div>
             <div class="col-md-9 progress-tracker-text-wrapper">
-              <span class="progress-tracker-step"> 1. Schritt: </span> <br> <span class="progress-tracker-text"> Beschreibung </span>
+              <span class="progress-tracker-step"> 1. Schritt: </span> <br> <span class="progress-tracker-text"> Allgemeines </span>
             </div>
           </div>
         </div>
@@ -70,7 +74,7 @@
       </a>
 
       <a href="#" class="dynamic-template-selector" id="editCourseLogistics">
-        <div class="col-md-2 progress-tracker progress-tracker-last-item inactive">
+        <div class="col-md-2 progress-tracker inactive">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
               <span class="fa fa-circle-o fa-2x fa-fw"></span>
@@ -82,364 +86,37 @@
         </div>
       </a>
 
+      <a href="#" class="dynamic-template-selector" id="editCoursePublish">
+        <div class="col-md-2 progress-tracker progress-tracker-last-item inactive">
+          <div class="row">
+            <div class="col-md-3 progress-tracker-icon-wrapper">
+              <span class="fa fa-circle-o fa-2x fa-fw"></span>
+            </div>
+            <div class="col-md-9 progress-tracker-text-wrapper">
+              <span class="progress-tracker-step"> 6. Schritt: </span> <br> <span class="progress-tracker-text"> Vorschau </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
     </div>
 
     <div class="row">
-      <div class="col-md-7 col-md-offset-1">
+      <div class="col-md-6 col-md-offset-1">
         {{> Template.dynamic template=active data=this}}
       </div>
-      <div class="col-md-3 ">
+      <div class="col-md-4" style="margin-top: 20px;">
+        {{> Template.dynamic template=activeText}}
+        
         {{#if showHoverText}}
-        <div class="editHelperText">
-          {{showHoverText}}
-        </div>
+          <div class="well">
+            {{showHoverText}}
+          </div>
         {{/if}}
       </div>
-    </div>
-
-
-    <div class="row">
-      <div class="col-md-2 tabs-content-menu">
-      <div class="tabbable tabs-left" >
-        <ul class="nav nav-tabs">
-          <li class="active">
-            <a href="#courseDescription" data-toggle="tab"><span class="fa fa-list-alt fa-fw"></span>&nbsp;Beschreibung</a>
-          </li>
-          <li >
-            <a href="#courseDetails" data-toggle="tab"><span class="fa fa-eye fa-fw"></span>&nbsp;Details</a>
-          </li>
-          <li>
-            <a href="#courseCosts" data-toggle="tab"><span class="fa fa-euro fa-fw"></span>&nbsp;Kosten</a>
-          </li>
-          <li>
-            <a href="#courseDates" data-toggle="tab"><span class="fa fa-calendar fa-fw"></span>&nbsp;Termine</a>
-          </li>
-          <li>
-            <a href="#courseLogistics" data-toggle="tab"><span class="fa fa-map-marker fa-fw"></span>&nbsp;Ort</a>
-          </li>
-        </ul>
-      </div>
-      </div>
-      <div class="col-md-6 tabs-content">
-        <div class="tab-content">
-          <div class="tab-pane active" id="courseDescription">
-            {{> editCourseDescription}}
-          </div>
-          <div class="tab-pane" id="courseDetails">
-            {{> editCourseDetails}}
-          </div>
-          <div class="tab-pane" id="courseCosts">
-            {{> editCourseCosts}}
-          </div>
-          <div class="tab-pane" id="courseDates">
-            {{> editCourseDates}} 
-          </div>
-          <div class="tab-pane" id="courseLogistics">
-            {{> editCourseLogistics}} 
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 ">
-        {{#if showHoverText}}
-        <div class="editHelperText">
-          {{showHoverText}}
-        </div>
-        {{/if}}
-      </div>
-    <!-- div row -->
     </div>
   {{else}}
     <div class="alert alert-danger">Sie können nur Ihre eigenen Kurse editieren.</div>
   {{/if}}
-  </div>
-</template>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<template name="editCourseDescription">
-  <h4 class="editContentTitles">Was für einen Kurs möchten Sie anbieten?</h4>
-
-  <hr>
-
-  <div class="form-group">
-    <label for="editCourseTitle" class="control-label">Titel</label>
-    <input type="text" class="form-control hoverCheck" id="editCourseTitle" value="{{title}}">
-  </div>
-
-  <div class="form-group">
-    <label for="editCourseCategories" class="control-label">Kategorien</label>
-    <input type="text" class="form-control hoverCheck" id="editCourseCategories" value="{{categories}}" style="width: 100%;">
-  </div>
-
-  <div class="form-group">
-    <label for="editCourseShortDescription" class="control-label">Kurzbeschreibung</label>
-    <textarea class="form-control hoverCheck" id="editCourseShortDescription" rows="6" value="{{description}}"></textarea>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group image-container">
-      <label for="" class="control-label">Bild</label>
-        {{#if imageId}}
-        <img src="{{imageId}}" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editCourseImage" style="margin-left:0px; width: 160px;">
-        {{else}}
-        <br>
-        <i class="img-thumbnail hoverCheck fa fa-camera-retro fa-5x" id="editCourseDefaultImage" style="width:160px; text-align:center;"></i>
-        {{/if}}
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">    
-        <label for="newCourseImageDummy" class="control-label">Ändern</label>
-        <br>
-
-        <button type="button" class="btn btn-sm btn-default" id="newCourseImageDummy">
-          <i class="fa fa-upload"></i><span> Neues Bild</span>
-        </button>
-
-        <br>
-        <input type="file" id="newCourseImageReal" style="display:none;">
-        <br>
-        {{#if isUploading}}
-          <div class="progress">
-            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
-              <span class="sr-only">{{progress}}%</span>
-            </div>
-          </div>
-        {{/if}}
-
-        <!-- <button type="button" class="btn btn-sm btn-danger" id="deleteCourseImage" style="margin-top:5px;"> <i class="fa fa-trash-o"></i> Bild Löschen</button> -->
-      </div>
-    </div>
-  </div>
-  <!-- buttons -->
-  <div class="form-group">
-    <button type="button" class="btn btn-success pull-right" id="saveEditCourseDescription">Weiter <i class="fa fa-arrow-right"></i> </button>
-  </div>
-</template>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<template name="editCourseDetails">
-  <h4 class="editContentTitles">Was sollten Ihre Kunden noch wissen?</h4>
-
-  <hr>
-
-  <div class="form-group">
-    <label for="editCourseAims" class="control-label">Lernziele</label>
-    <textarea class="form-control hoverCheck" id="editCourseAims" value="{{aims}}"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="editCourseMethods" class="control-label">Lernformen, Methodik und Didaktik</label>
-    <textarea class="form-control hoverCheck" id="editCourseMethods" value="{{methods}}" placeholder="z.B. Arbeit an Praxisbeispielen, Gruppenarbeit, Frontalunterricht"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="editCourseTargetGroup" class="control-label">Zielgruppe</label>
-    <textarea class="form-control hoverCheck" id="editCourseTargetGroup" value="{{targetGroup}}"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="editCoursePrerequisites" class="control-label">Vorraussetzungen</label>
-    <textarea class="form-control hoverCheck" id="editCoursePrerequisites" value="{{prerequisites}}"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="editCourseLanguages" class="control-label">Sprachen</label>
-    <input type="text" class="form-control hoverCheck" id="editCourseLanguages" value="{{languages}}" placeholder="z.B. Deutsch, Englisch">
-  </div>
-  <div class="form-group">
-    <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen</label>
-    <textarea class="form-control hoverCheck" id="editCourseAdditionalServices" value="{{additionalServices}}" placeholder="z.B. Mittagessen, Snacks und Getränke, Unterkunft und Abholservice"></textarea>
-  </div>
-  <!-- buttons -->
-  <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDetails"><i class="fa fa-save"></i> Speichern</button>
-  </div>
-</template>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<template name="editCourseCosts">
-  <h4 class="editContentTitles">Was kostet Ihr Kurs?</h4>
-
-  <hr>
-
-<!--   <div class="form-group">
-    <label for="editCourseMinParticipants" class="control-label">Mindestteilnehmeranzahl</label>
-    <input type="number" class="form-control hoverCheck" id="editCourseMinParticipants" value="{{minParticipants}}">
-  </div> -->
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="editCourseMaxParticipants" class="control-label">Teilnehmerzahl</label>
-        <input type="number" class="form-control hoverCheck" id="editCourseMaxParticipants" value="{{maxParticipants}}">
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="editCourseFee" class="control-label">Gesamtpreis (brutto)</label>
-        <div class="input-group">
-          <input type="number" class="form-control hoverCheck" id="editCourseFee" value="{{fee}}">
-          <div class="input-group-addon"><i class="fa fa-euro"></i></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-
-  <div class="row">
-    <div class="col-md-6 col-md-offset-6">
-      <div class="form-group">
-        <label for="showCommission" class="control-label">15% traincrowd Kommission</label>
-        <div class="input-group">
-          <input type="number" class="form-control hoverCheck" id="showCommission" value="{{serviceFee}}" readonly>
-          <div class="input-group-addon"><i class="fa fa-euro"></i></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="showFeePP" class="control-label">Kurspreis pro Person</label>
-        <div class="input-group">
-          <input type="number" class="form-control hoverCheck" id="showFeePP" value="{{feePP}}" readonly>
-          <div class="input-group-addon"><i class="fa fa-euro"></i></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- buttons -->
-  <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseCosts"><i class="fa fa-save"></i> Speichern</button>
-  </div>
-  
-</template>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<template name="editCourseDates">
-  <h4 class="editContentTitles">Wann können Sie diesen Kurs anbieten?</h4>
-
-  <hr>
-  
-  <div class="row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="editCourseDuration" class="control-label">Kursdauer (Tage)</label>
-        <input type="number" class="form-control hoverCheck" id="editCourseDuration" value="{{duration}}">
-<!--         <select class="form-control hoverCheck" id="editCourseDuration">
-          <option value="" {{selected '' duration}}></option>
-          <option value="1" {{selected '1' duration}}>1 Tag</option>
-          <option value="2" {{selected '2' duration}}>2 Tage</option>
-          <option value="3" {{selected '3' duration}}>3 Tage</option>
-          <option value="4" {{selected '4' duration}}>4 Tage</option>
-        </select> -->
-      </div>
-    </div>
-    <div class="col-md-8">
-      <div class="form-group">
-        <label for="editCourseExpires" class="control-label">gewünschte Vorlaufzeit</label>
-        <select class="form-control hoverCheck" id="editCourseExpires">
-          <option value="0" {{selected 0 expires}}></option>
-          <option value="1" {{selected 1 expires}}>1 Woche vorher</option>
-          <option value="2" {{selected 2 expires}}>2 Wochen vorher</option>
-          <option value="3" {{selected 3 expires}}>3 Wochen vorher</option>
-          <option value="4" {{selected 4 expires}}>4 Wochen vorher</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <form id="editCourseDatesForm">
-    <div id="courseDatesGroup">
-      <div class="form-group" >
-
-        <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
-        <label for="editCourseDates" class="control-label">Kurstage angeben</label>
-        <div class="input-group">
-          <input type="text" class="form-control hoverCheck" name="standardDateField" id="editCourseDates" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-        </div>
-      </div>
-    </div>
-
-<!--     <div class="form-group">
-      <button type="button" class="btn btn-default" id="addDateField"><i class="fa fa-plus"></i></button>
-    </div> -->
-  </form>
-  
-  <label for="" class="control-label">Angegebene Termine:</label>
-  <ul>
-  {{#each dates}}
-    <li>{{#each this}} {{niceDate}} {{/each}}</li>
-  {{/each}}
-  </ul>
-
-  <!-- <div class="checkbox"> -->
-    <!-- <label> -->
-    <!-- <input type="checkbox" class="hoverCheck" id="editCourseAllowInquiry" checked="{{allowInquiry}}">Traincrowd-Nutzer dürfen Anfragen für individuelle Termine stellen. -->
-    <!-- </label> -->
-  <!-- </div> -->
-  <!-- buttons -->
-  <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseDates"><i class="fa fa-save"></i> Speichern</button>
-  </div>
-</template>
-
-<!--  /////////////////////////////////////////////////// --> 
-
-<template name="editCourseLogistics">
-  <h4 class="editContentTitles">Wo findet Ihr Kurs statt?</h4>
-
-  <hr>
-
-  <div class="checkbox">
-    <label>
-    <input type="checkbox" id="editCourseNoLocation" checked="{{noLocation}}">Ort steht noch nicht fest.
-    </label>
-  </div>
-  {{#unless noLocation}}
-
-    <div class="row">
-      <div class="col-md-9">
-        <div class="form-group">
-          <label for="route" class="control-label">Straße</label>
-          <input type="text" class="form-control" id="route" value="{{street}}">
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <label for="street_number" class="control-label">Hausnummer</label>
-          <input type="text" class="form-control" id="street_number" value="{{streetNumber}}">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="postal_code" class="control-label">PLZ</label>
-          <input type="number" class="form-control" id="postal_code" value="{{plz}}">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="administrative_area_level_1" class="control-label">Stadt</label>
-          <input type="text" class="form-control" id="administrative_area_level_1" value="{{city}}">
-        </div>
-      </div>
-
-<!--       <div class="col-md-6">
-        <div class="form-group">
-          <label for="editCourseCity" class="control-label">Stadt</label>
-          <select class="form-control">
-            <option value="Berlin">Berlin</option>
-          </select>
-        </div>
-      </div> -->
-    </div>
-    <div class="form-group">
-      <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>
-      <input type="text" class="form-control" id="editCourseStreetAdditional" value="{{streetAdditional}}">
-    </div>
-
-  {{/unless}}
-  <!-- button -->
-  <div class="form-group">
-    <button type="button" class="btn btn-primary pull-right" id="saveEditCourseLogistics"><i class="fa fa-save"></i> Speichern</button>
   </div>
 </template>

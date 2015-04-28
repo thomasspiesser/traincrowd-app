@@ -1,0 +1,45 @@
+<template name="editCourseDetails">
+  <h4 class="editContentTitles">Was sollten Ihre Kunden noch wissen?</h4>
+
+  <hr>
+
+  <div class="form-group">
+    <label for="editCourseAims" class="control-label">Lernziele (Empfohlen) </label>
+    <textarea class="form-control hoverCheck" id="editCourseAims" value="{{aims}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="editCourseMethods" class="control-label">Lernformen, Methodik und Didaktik (Empfohlen) </label>
+    <textarea class="form-control hoverCheck" id="editCourseMethods" value="{{methods}}" placeholder="z.B. Arbeit an Praxisbeispielen, Gruppenarbeit, Frontalunterricht"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="editCourseTargetGroup" class="control-label">Zielgruppe (Empfohlen) </label>
+    <textarea class="form-control hoverCheck" id="editCourseTargetGroup" value="{{targetGroup}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="editCoursePrerequisites" class="control-label">Vorraussetzungen (Empfohlen) </label>
+    <textarea class="form-control hoverCheck" id="editCoursePrerequisites" value="{{prerequisites}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="editCourseLanguages" class="control-label">Sprachen (Empfohlen) </label>
+    <input type="text" class="form-control hoverCheck" id="editCourseLanguages" value="{{languages}}" placeholder="z.B. Deutsch, Englisch">
+  </div>
+  <div class="form-group">
+    <label for="editCourseAdditionalServices" class="control-label">zusätzliche Leistungen (Empfohlen) </label>
+    <textarea class="form-control hoverCheck" id="editCourseAdditionalServices" value="{{additionalServices}}" placeholder="z.B. Mittagessen, Snacks und Getränke, Unterkunft und Abholservice"></textarea>
+  </div>
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-success pull-right" id="saveEditCourseDetails">Weiter <i class="fa fa-arrow-right"></i></button>
+  </div>
+</template>
+
+<template name="editCourseDetailsText">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title">Details</h3>
+    </div>
+    <div class="panel-body">
+      Hier möchten wir Sie bitten Details über Ihren Kurs einzutragen. Details helfen Käufern bei der Richtigen Auswahl der Kurse. Bitte machen Sie daher Ihre  Angaben so detailliert wie möglich.
+    </div>
+  </div>
+</template>

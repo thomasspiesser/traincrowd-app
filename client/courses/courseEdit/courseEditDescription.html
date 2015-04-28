@@ -1,0 +1,73 @@
+<template name="editCourseDescription">
+
+  <h4 class="editContentTitles">Was für einen Kurs möchten Sie anbieten?</h4>
+
+  <hr>
+
+  <div class="form-group">
+    <label for="editCourseTitle" class="control-label">Titel (Pflichtfeld)</label>
+    <input type="text" class="form-control hoverCheck" id="editCourseTitle" value="{{title}}">
+  </div>
+
+  <div class="form-group">
+    <label for="editCourseCategories" class="control-label">Kategorien (Empfohlen)</label>
+    <input type="text" class="form-control hoverCheck" id="editCourseCategories" value="{{categories}}" style="width: 100%;">
+  </div>
+
+  <div class="form-group">
+    <label for="editCourseShortDescription" class="control-label">Kurzbeschreibung (Empfohlen)</label>
+    <textarea class="form-control hoverCheck" id="editCourseShortDescription" rows="6" value="{{description}}"></textarea>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group image-container">
+      <label for="" class="control-label">Bild</label>
+        {{#if imageId}}
+        <img src="{{imageId}}" alt="" class="center-block img-thumbnail img-responsive hoverCheck" id="editCourseImage" style="margin-left:0px; width: 160px;">
+        {{else}}
+        <br>
+        <i class="img-thumbnail hoverCheck fa fa-camera-retro fa-5x" id="editCourseDefaultImage" style="width:160px; text-align:center;"></i>
+        {{/if}}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">    
+        <label for="newCourseImageDummy" class="control-label">Ändern</label>
+        <br>
+
+        <button type="button" class="btn btn-sm btn-default" id="newCourseImageDummy">
+          <i class="fa fa-upload"></i><span> Neues Bild</span>
+        </button>
+
+        <br>
+        <input type="file" id="newCourseImageReal" style="display:none;">
+        <br>
+        {{#if isUploading}}
+          <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+              <span class="sr-only">{{progress}}%</span>
+            </div>
+          </div>
+        {{/if}}
+
+        <!-- <button type="button" class="btn btn-sm btn-danger" id="deleteCourseImage" style="margin-top:5px;"> <i class="fa fa-trash-o"></i> Bild Löschen</button> -->
+      </div>
+    </div>
+  </div>
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-success pull-right" id="saveEditCourseDescription">Weiter <i class="fa fa-arrow-right"></i></button>
+  </div>
+</template>
+
+<template name="editCourseDescriptionText">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title">Allgemeines</h3>
+    </div>
+    <div class="panel-body">
+      Geben Sie hier bitte allgemeine Informationen zu Ihrem Kurs an.
+    </div>
+  </div>
+</template>

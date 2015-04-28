@@ -1,0 +1,78 @@
+<template name="editCourseDates">
+  <h4 class="editContentTitles">Wann können Sie diesen Kurs anbieten?</h4>
+
+  <hr>
+  
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="editCourseDuration" class="control-label">Kursdauer (Tage)</label>
+        <input type="number" class="form-control hoverCheck" id="editCourseDuration" value="{{duration}}">
+<!--         <select class="form-control hoverCheck" id="editCourseDuration">
+          <option value="" {{selected '' duration}}></option>
+          <option value="1" {{selected '1' duration}}>1 Tag</option>
+          <option value="2" {{selected '2' duration}}>2 Tage</option>
+          <option value="3" {{selected '3' duration}}>3 Tage</option>
+          <option value="4" {{selected '4' duration}}>4 Tage</option>
+        </select> -->
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="form-group">
+        <label for="editCourseExpires" class="control-label">gewünschte Vorlaufzeit</label>
+        <select class="form-control hoverCheck" id="editCourseExpires">
+          <option value="0" {{selected 0 expires}}></option>
+          <option value="1" {{selected 1 expires}}>1 Woche vorher</option>
+          <option value="2" {{selected 2 expires}}>2 Wochen vorher</option>
+          <option value="3" {{selected 3 expires}}>3 Wochen vorher</option>
+          <option value="4" {{selected 4 expires}}>4 Wochen vorher</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <form id="editCourseDatesForm">
+    <div id="courseDatesGroup">
+      <div class="form-group" >
+
+        <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
+        <label for="editCourseDates" class="control-label">Kurstage angeben</label>
+        <div class="input-group">
+          <input type="text" class="form-control hoverCheck" name="standardDateField" id="editCourseDates" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+        </div>
+      </div>
+    </div>
+
+<!--     <div class="form-group">
+      <button type="button" class="btn btn-default" id="addDateField"><i class="fa fa-plus"></i></button>
+    </div> -->
+  </form>
+  
+  <label for="" class="control-label">Angegebene Termine:</label>
+  <ul>
+  {{#each dates}}
+    <li>{{#each this}} {{niceDate}} {{/each}}</li>
+  {{/each}}
+  </ul>
+
+  <!-- <div class="checkbox"> -->
+    <!-- <label> -->
+    <!-- <input type="checkbox" class="hoverCheck" id="editCourseAllowInquiry" checked="{{allowInquiry}}">Traincrowd-Nutzer dürfen Anfragen für individuelle Termine stellen. -->
+    <!-- </label> -->
+  <!-- </div> -->
+  <!-- buttons -->
+  <div class="form-group">
+    <button type="button" class="btn btn-success pull-right" id="saveEditCourseDates">Weiter <i class="fa fa-arrow-right"></i></button>
+  </div>
+</template>
+
+<template name="editCourseDatesText">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title">Termine</h3>
+    </div>
+    <div class="panel-body">
+      Hier haben Sie die Möglichkeit die Termine für Ihren Kurs festzulegen. Für jedes einzelne Kursevent müssen alle Kurstage einzeln angegeben werden, damit Nutzer genau prüfen können, ob sie an den angegebenen Tagen Zeit haben.
+    </div>
+  </div>
+</template>

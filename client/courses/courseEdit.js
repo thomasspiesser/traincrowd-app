@@ -71,6 +71,9 @@ Template.editCourse.helpers({
   active: function() {
     return Session.get('editCourseTemplate');
   },
+  activeText: function() {
+    return Session.get('editCourseTemplate')+'Text';
+  },
   showHoverText: function () {
     return getText(Session.get( 'showHoverText' ));
   }
