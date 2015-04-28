@@ -86,7 +86,7 @@
         </div>
       </a>
 
-      <a href="#" class="dynamic-template-selector" id="editCoursePublish">
+      <a href="#" class="dynamic-template-selector" id="editCoursePreview">
         <div class="col-md-2 progress-tracker progress-tracker-last-item inactive">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
@@ -101,20 +101,8 @@
 
     </div>
 
-    <div class="row">
-      <div class="col-md-6 col-md-offset-1">
-        {{> Template.dynamic template=active data=this}}
-      </div>
-      <div class="col-md-4" style="margin-top: 20px;">
-        {{> Template.dynamic template=activeText}}
-        
-        {{#if showHoverText}}
-          <div class="well">
-            {{showHoverText}}
-          </div>
-        {{/if}}
-      </div>
-    </div>
+    {{> Template.dynamic template=active data=this}}
+
   {{else}}
     <div class="alert alert-danger">Sie können nur Ihre eigenen Kurse editieren.</div>
   {{/if}}

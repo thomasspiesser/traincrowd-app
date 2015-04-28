@@ -1,63 +1,74 @@
 <template name="editCourseLogistics">
-  <h4 class="editContentTitles">Wo findet Ihr Kurs statt?</h4>
+  <div class="row">
 
-  <hr>
+    <div class="col-md-5 col-md-offset-1">
+      <h4 class="editContentTitles">Wo findet Ihr Kurs statt?</h4>
 
-  <div class="checkbox">
-    <label>
-    <input type="checkbox" id="editCourseNoLocation" checked="{{noLocation}}">Ort steht noch nicht fest.
-    </label>
+      <hr>
+
+      <div class="checkbox">
+        <label>
+        <input type="checkbox" id="editCourseNoLocation" checked="{{noLocation}}">Ort steht noch nicht fest.
+        </label>
+      </div>
+      {{#unless noLocation}}
+
+        <div class="row">
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="route" class="control-label">Straße</label>
+              <input type="text" class="form-control" id="route" value="{{street}}">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="street_number" class="control-label">Hausnummer</label>
+              <input type="text" class="form-control" id="street_number" value="{{streetNumber}}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="postal_code" class="control-label">PLZ</label>
+              <input type="number" class="form-control" id="postal_code" value="{{plz}}">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="administrative_area_level_1" class="control-label">Stadt</label>
+              <input type="text" class="form-control" id="administrative_area_level_1" value="{{city}}">
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>
+          <input type="text" class="form-control" id="editCourseStreetAdditional" value="{{streetAdditional}}">
+        </div>
+      {{/unless}}
+      </div>
+
+    <div class="col-md-5" style="margin-top: 20px;">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">Ort</h3>
+        </div>
+        <div class="panel-body">
+          Geben Sie hier bitte an wo der Kurs stattfinden wird.
+        </div>
+      </div>
+      {{#if hoverText}}
+        <div class="well">
+          {{hoverText}}
+        </div>
+      {{/if}}
+    </div>
+
   </div>
-  {{#unless noLocation}}
 
-    <div class="row">
-      <div class="col-md-9">
-        <div class="form-group">
-          <label for="route" class="control-label">Straße</label>
-          <input type="text" class="form-control" id="route" value="{{street}}">
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <label for="street_number" class="control-label">Hausnummer</label>
-          <input type="text" class="form-control" id="street_number" value="{{streetNumber}}">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="postal_code" class="control-label">PLZ</label>
-          <input type="number" class="form-control" id="postal_code" value="{{plz}}">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="administrative_area_level_1" class="control-label">Stadt</label>
-          <input type="text" class="form-control" id="administrative_area_level_1" value="{{city}}">
-        </div>
-      </div>
-
-    </div>
-    <div class="form-group">
-      <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>
-      <input type="text" class="form-control" id="editCourseStreetAdditional" value="{{streetAdditional}}">
-    </div>
-
-  {{/unless}}
   <!-- button -->
   <div class="form-group">
     <button type="button" class="btn btn-success pull-right" id="saveEditCourseLogistics">Weiter <i class="fa fa-arrow-right"></i></button>
-  </div>
-</template>
-
-<template name="editCourseLogisticsText">
-  <div class="panel panel-success">
-    <div class="panel-heading">
-      <h3 class="panel-title">Ort</h3>
-    </div>
-    <div class="panel-body">
-      Geben Sie hier bitte an wo der Kurs stattfinden wird.
-    </div>
   </div>
 </template>
