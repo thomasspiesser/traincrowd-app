@@ -60,25 +60,25 @@ Template.courseDetail.events({
   'click #editCourseButton': function () {
     Router.go("course.edit", {slug: this.slug} );
   },
-  'click #requestPublicCourseButton': function () {
-    if (confirm( "Anfrage zur Freigabe senden?" ) ) {
-      if (!this._id || !this.title) {
-        toastr.error( "Sie müssen eingeloggt sein und einen Kurstitel angeben." );
-        return false;
-      }
-      var options = {
-        what: 'Kurs',
-        itemId: this._id,
-        itemName: this.title
-      };
-      Meteor.call('sendRequestPublicationEmail', options, function (error, result) {
-        if (error) 
-          toastr.error( error.reason );
-        else
-          toastr.success( 'Anfrage zur Freigabe gesendet.' );
-      });
-    }
-  },
+  // 'click #requestPublicCourseButton': function () {
+  //   if (confirm( "Anfrage zur Freigabe senden?" ) ) {
+  //     if (!this._id || !this.title) {
+  //       toastr.error( "Sie müssen eingeloggt sein und einen Kurstitel angeben." );
+  //       return false;
+  //     }
+  //     var options = {
+  //       what: 'Kurs',
+  //       itemId: this._id,
+  //       itemName: this.title
+  //     };
+  //     Meteor.call('sendRequestPublicationEmail', options, function (error, result) {
+  //       if (error) 
+  //         toastr.error( error.reason );
+  //       else
+  //         toastr.success( 'Anfrage zur Freigabe gesendet.' );
+  //     });
+  //   }
+  // },
   // 'click #inquireCourseDatesButton': function () {
   //   if (this.owner === Meteor.userId()) {
   //     toastr.error('This is your own course' );
