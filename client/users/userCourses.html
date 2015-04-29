@@ -1,15 +1,27 @@
 <template name="userCourses">
   {{> ratingModal}}
-  <div class="container notHome">
+  <div class="container">
+  <h2 class="text-center">Meine Kurse</h2>
     {{#if hostedCourses.count}}
     <h3>Angebotene Kurse</h3>
     <table class='table table-hover'>
+      <thead>
+        <tr>
+          <td>Titel</td>
+          <td>Bewertung</td>
+          <td>Editieren</td>
+          <td>Status</td>
+        </tr>
+      </thead>
       <tbody>
         {{#each hostedCourses}}
           <tr class="{{#unless public}}{{else}}info{{/unless}}">
             <td><a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a></td>
             <td><div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></td>
-            <td>{{#if public}}<span style="color: green;"><i class="fa fa-check"></i> online</span>{{else}}<span style="color: red;"><i class="fa fa-times"></i> offline</span>{{/if}}</td>
+            <td><a href="{{ pathFor route='course.edit' slug=this.slug }}" title="Kurs bearbeiten"><i class="fa fa-pencil"></i> Kurs bearbeiten</a></td>
+            <td>
+              <input class="bs-switch" id="{{_id}}" type="checkbox" data-on-color="success" data-off-color="danger" data-on-text="online" data-off-text="offline" data-size="mini" data-label-text="{{#if hasPublishRequest}} Prüfung {{/if}}" data-indeterminate="{{hasPublishRequest}}" readonly="{{hasPublishRequest}}" checked="{{isPublic}}">
+            </td>
           </tr>
         {{/each}}
       </tbody>
@@ -84,7 +96,7 @@
                 <span style="color: green;"><i class="fa fa-check"></i> Bewertung abgegeben</span> 
                 <a href="#" class="rateCourse" title="Bewertung Ändern"><i class="fa fa-pencil"></i> </a>
               {{else}}
-                <a href="#" class="rateCourse" title="Jetzt bewerten"><span style="color: red;"><i class="fa fa-flag"></i> Jetzt Bewerten</span></a>
+                <a href="#" class="rateCourse" title="Jetzt bewerten"><span style="color: red;"><i class="fa fa-flag"></i> Bewertung fehlt</span></a>
               {{/if}}
             </td>
             <td><div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></td>

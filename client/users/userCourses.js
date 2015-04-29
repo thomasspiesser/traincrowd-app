@@ -1,10 +1,18 @@
 Template.userCourses.rendered = function () {
   $('.rateit').rateit();
+  $('.bs-switch').bootstrapSwitch();
+
 };
 
 Template.userCourses.helpers({ 
+  isPublic: function () {
+    return this.public ? "true" : undefined;
+  },
+  hasPublishRequest: function () {
+    return this.publishRequest ? "true" : undefined;
+  },
   hostedCourses: function () {
-    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, rating:1, public:1, slug:1}} );
+    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, rating:1, public:1, slug:1, publishRequest:1}} );
   },
   inquiredCourses: function () {
     var inquired = Inquired.find( { inquirer: Meteor.userId() }, {fields: {course:1, inquiredDates:1}} ).fetch();
@@ -76,7 +84,20 @@ Template.userCourses.events({
     $('.rateitModal3').rateit('value', ratedValues[3]);
     $('.rateitModal4').rateit('value', ratedValues[4]);
     $('#ratingModal').modal('show');
+  },
+  'switchChange.bootstrapSwitch': function (event, template, state) {
+    var mystate = $(this._id).bootstrapSwitch('state', true, true);
+    console.log(mystate);
+    console.log(this); // DOM element
+    console.log(event); // jQuery event
+    console.log(state); // true | false
   }
+});
+
+$('.bs-switch').on('switchChange.bootstrapSwitch', function(event, state) {
+  console.log(this); // DOM element
+  console.log(event); // jQuery event
+  console.log(state); // true | false
 });
 
 Template.ratingModal.rendered = function () {
