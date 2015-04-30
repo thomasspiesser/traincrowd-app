@@ -1,17 +1,31 @@
 <template name="editCoursePreview">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2" style="margin-top: 20px;">
-			<div class="panel panel-success">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2" style="margin-top: 20px;">
+      <div class="panel panel-success">
         <div class="panel-heading">
           <h3 class="panel-title">Glückwunsch, so sieht Ihr Kurs aus</h3>
         </div>
         <div class="panel-body">
-           Sie haben es geschafft. Im folgenden sehen Sie eine Vorschau Ihres Kurses. Prüfen Sie nun bitte unten in unserer Vorschau, ob alle Angaben korrekt sind. Wenn alles stimmt, können Sie Ihren Kurs zur Veröffentlichung freigeben. Unsere Mitarbeiten prüfen anschließend Ihre Angaben und schalten den Kurs in kurzer Zeit frei. Wir informieren Sie wenn wir Ihren Kurs freigegeben haben. <br>
-          <button type="button" class="btn btn-success pull-right" id="requestPublicCourseButton"><span class="fa fa-globe"></span> Freischalten</button>
+          {{#if public}}
+            <p>
+              Ihr Kurs ist bereits online und für alle Nutzer buchbar. <a href=" {{pathFor route='course.show' slug=this.slug }} ">Hier gehts zu Ihrer Kursseite</a>.
+            </p>
+            <p>
+              Sie möchten, dass Ihr Kurs nicht mehr öffentlich sichtbar ist? Vielleicht um ihn neu zu konzipieren oder weil Sie ihn temporär nicht mehr anbieten können? Ganz einfach! Unter <a href=" {{pathFor 'user.courses'}} ">Meine Kurse</a> läßt sich der Status all Ihrer Kurse ganz bequem einsehen und bearbeiten. Den Link zu <a href=" {{pathFor 'user.courses'}} ">Meine Kurse</a> finden Sie übrigens auch immer unter Ihrem Namen, rechts oben in der Navigationsleiste. 
+            </p>
+          {{else}}
+            {{#if publishRequest}}
+              Sie haben uns bereits über Ihren Kurs informiert und uns eine Anfrage auf Freischaltung gesendet. Wir bearbeiten diese umgehend und informieren Sie sobald der Kurs online ist. Über <a href=" {{pathFor 'user.courses'}} ">Meine Kurse</a> läßt sich übrigens der Status all Ihrer Kurse einsehen und bearbeiten.
+            {{else}}
+              Sie haben es geschafft. Im folgenden sehen Sie eine Vorschau Ihres Kurses. Prüfen Sie nun bitte unten in unserer Vorschau, ob alle Angaben korrekt sind. Wenn alles stimmt, können Sie Ihren Kurs zur Veröffentlichung freigeben. Unsere Mitarbeiten prüfen anschließend Ihre Angaben und schalten den Kurs in kurzer Zeit frei. Wir informieren Sie wenn wir Ihren Kurs freigegeben haben. <br>
+              <button type="button" class="btn btn-success pull-right" id="requestPublicCourseButton"><span class="fa fa-globe"></span> Freischalten</button>
+            {{/if}}
+          {{/if}}
+          
         </div>
       </div>
-		</div>
-	</div>
-	{{> courseDetail}}
+    </div>
+  </div>
+  {{> courseDetail}}
 
 </template>
