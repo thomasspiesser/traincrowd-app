@@ -129,7 +129,7 @@ Houston.add_collection(Categories);
 
 Houston.methods(Courses, {
   Publish: function (course) {
-    Courses.update(course._id, {$set: {public: true}});
+    Courses.update(course._id, {$set: {public: true, publishRequest: false}});
     return "Der Kurs: '"+ course.title + "' ist jetzt online!";
   },
   Unpublish: function (course) {

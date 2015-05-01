@@ -86,18 +86,46 @@ Template.userCourses.events({
     $('#ratingModal').modal('show');
   },
   'switchChange.bootstrapSwitch': function (event, template, state) {
-    var mystate = $(this._id).bootstrapSwitch('state', true, true);
-    console.log(mystate);
-    console.log(this); // DOM element
-    console.log(event); // jQuery event
-    console.log(state); // true | false
+    var elem = event.currentTarget;
+    if (state) {
+      $(elem).bootstrapSwitch('state', false, true);  // stays at 'offline'
+      // from off to online
+      if (confirm( "Anfrage zur Freigabe senden?" ) ) {
+        if (!this._id || !this.title) {
+          toastr.error( "Sie müssen eingeloggt sein und einen Kurstitel angeben." );
+          return false;
+        }
+        var options = {
+          what: 'Kurs',
+          itemId: this._id,
+          itemName: this.title
+        };
+        Meteor.call('setPublishRequest', options, function (error) {
+          if (error) 
+            toastr.error( error.reason );
+          else {
+            $(elem).bootstrapSwitch('toggleReadonly');
+            $(elem).bootstrapSwitch('toggleIndeterminate');
+            $(elem).bootstrapSwitch('labelText','Prüfung');
+            toastr.success( 'Anfrage zur Freigabe gesendet.' );
+          }
+        });
+      }
+      return false;
+    }
+    else {
+      // from on to offline
+      Meteor.call('unpublish', this._id, function (error) {
+        if (error) {
+          $(elem).bootstrapSwitch('state', true, true);
+          toastr.error( error.reason );
+        }
+        else {
+          toastr.success( 'Ihr Kurs ist jetzt offline.' );
+        }
+      });
+    }
   }
-});
-
-$('.bs-switch').on('switchChange.bootstrapSwitch', function(event, state) {
-  console.log(this); // DOM element
-  console.log(event); // jQuery event
-  console.log(state); // true | false
 });
 
 Template.ratingModal.rendered = function () {
