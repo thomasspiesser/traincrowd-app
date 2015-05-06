@@ -29,7 +29,43 @@ Template.editCourseDescription.helpers({
   // }
 });
 
+var lazysaveCourseTitle = _.debounce( function ( args ) {
+  Meteor.call('updateCourseSingleItem', args, function (error) {
+    if (error)
+      alert(error);
+    else
+      Router.go('course.edit', {slug:slugify( args.argValue )} );
+  });
+}, 3000 );
+
+var lazysaveCourseOther = _.debounce( function ( args ) {
+  Meteor.call('updateCourseSingleItem', args, function (error) {
+    if (error)
+      alert(error);
+  });
+}, 3000 );
+
+var lazysaveCategories = _.debounce( function ( args ) {
+  Meteor.call('updateCategories', args, function (error) {
+    if (error)
+      alert(error);
+  });
+}, 3000 );
+
 Template.editCourseDescription.events({
+  'input #editCourseTitle': function (event, template) {
+    lazysaveCourseTitle( {id: this._id, argName: 'title', argValue: event.currentTarget.value.trim()} );
+  },
+  'input #editCourseShortDescription': function (event, template) {
+    lazysaveCourseOther( {id: this._id, argName: 'description', argValue: event.currentTarget.value} );
+  },
+  'change #editCourseCategories': function (event, template) {
+    console.log('fired');
+    var categories = event.currentTarget.value.split(',');
+    categories = _.without(categories, "", " ");
+    lazysaveCourseOther( {id: this._id, argName: 'categories', argValue: categories} );
+    lazysaveCategories( categories );
+  },
   'click #saveEditCourseDescription': function (event, template) {
     var title = template.find("#editCourseTitle").value;
     var description = template.find("#editCourseShortDescription").value;
