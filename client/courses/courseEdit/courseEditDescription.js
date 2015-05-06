@@ -32,60 +32,84 @@ Template.editCourseDescription.helpers({
 var lazysaveCourseTitle = _.debounce( function ( args ) {
   Meteor.call('updateCourseSingleItem', args, function (error) {
     if (error)
-      alert(error);
-    else
+      toastr.error( error );
+    else {
       Router.go('course.edit', {slug:slugify( args.argValue )} );
+      _.delay( function () {
+        $('#editCourseTitle').parent().removeClass('has-error').addClass('has-success');
+        $('#editCourseTitle').next('span').text('gespeichert');
+      }, 1000);
+      _.delay( function () {
+        $('#editCourseTitle').parent().removeClass('has-success');
+        $('#editCourseTitle').next('span').text('');
+      }, 4000);
+      }
   });
 }, 3000 );
 
-var lazysaveCourseOther = _.debounce( function ( args ) {
+var lazysaveCourseDescription = _.debounce( function ( args ) {
   Meteor.call('updateCourseSingleItem', args, function (error) {
     if (error)
-      alert(error);
+      toastr.error( error );
+    else {
+      $('#editCourseShortDescription').parent().removeClass('has-error').addClass('has-success');
+      $('#editCourseShortDescription').next('span').text('gespeichert');
+      _.delay( function () {
+        $('#editCourseShortDescription').parent().removeClass('has-success');
+        $('#editCourseShortDescription').next('span').text('');
+      }, 3000);
+    }
+  });
+}, 3000 );
+
+var lazysaveCourseCategories = _.debounce( function ( args ) {
+  Meteor.call('updateCourseSingleItem', args, function (error) {
+    if (error)
+      toastr.error( error );
+    else {
+      $('#editCourseCategories').parent().removeClass('has-error').addClass('has-success');
+      $('#editCourseCategories').next('span').text('gespeichert');
+      _.delay( function () {
+        $('#editCourseCategories').parent().removeClass('has-success');
+        $('#editCourseCategories').next('span').text('');
+      }, 3000);
+    }
   });
 }, 3000 );
 
 var lazysaveCategories = _.debounce( function ( args ) {
   Meteor.call('updateCategories', args, function (error) {
     if (error)
-      alert(error);
+      toastr.error( error );
   });
 }, 3000 );
 
 Template.editCourseDescription.events({
   'input #editCourseTitle': function (event, template) {
+    $('#editCourseTitle').next('span').text('speichern...');
     lazysaveCourseTitle( {id: this._id, argName: 'title', argValue: event.currentTarget.value.trim()} );
   },
   'input #editCourseShortDescription': function (event, template) {
-    lazysaveCourseOther( {id: this._id, argName: 'description', argValue: event.currentTarget.value} );
+    $('#editCourseShortDescription').next('span').text('speichern...');
+    lazysaveCourseDescription( {id: this._id, argName: 'description', argValue: event.currentTarget.value} );
   },
   'change #editCourseCategories': function (event, template) {
-    console.log('fired');
+    $('#editCourseCategories').next('span').text('speichern...');
     var categories = event.currentTarget.value.split(',');
     categories = _.without(categories, "", " ");
-    lazysaveCourseOther( {id: this._id, argName: 'categories', argValue: categories} );
+    lazysaveCourseCategories( {id: this._id, argName: 'categories', argValue: categories} );
     lazysaveCategories( categories );
   },
   'click #saveEditCourseDescription': function (event, template) {
-    var title = template.find("#editCourseTitle").value;
-    var description = template.find("#editCourseShortDescription").value;
-    var categories = template.find("#editCourseCategories").value.split(',');
-    categories = _.without(categories, "", " ");
 
-    if (! title.length ) {
+    if (! this.title.length ) {
       $('#editCourseTitle').parent().addClass('has-error');
       $('#editCourseTitle').next('span').text('Bitte tragen Sie hier den Kurstitel ein.');
       toastr.error( "Der Kurs braucht einen Titel." );
       return false;
     }
 
-    if (! description.length ) {
-      $('#editCourseShortDescription').parent().addClass('has-error');
-      $('#editCourseShortDescription').next('span').text('Bitte geben Sie hier eine Kurzbeschreibung für Ihren Kurs ein.');
-      toastr.error( "Dem Kurs fehlt eine Kurzbeschreibung." );
-      return false;
-    }
-
+    var categories = _.without(this.categories, "", " ");
     if (! categories.length ) {
       $('#editCourseCategories').parent().addClass('has-error');
       $('#editCourseCategories').next('span').text('Ordnen Sie Ihren Kurs bitte mindestens einer Kategorie zu.');
@@ -93,26 +117,12 @@ Template.editCourseDescription.events({
       return false;
     }
 
-    var modifier = {_id: this._id,
-                owner: this.owner,
-                title: title,
-                description: description,
-                categories: categories };
-    Meteor.call('updateCourse', modifier, function (error, result) {
-      if (error) {
-        toastr.error( error.reason );
-        return false;
-      }
-      else {
-        Router.go('course.edit', {slug:slugify(title)} );
-        toastr.success( 'Änderungen gespeichert.' );
-      }
-    });
-
-    Meteor.call('updateCategories', categories, function (error, result) {
-      if (error)
-        toastr.error( error.reason );
-    });
+    if (! this.description.length ) {
+      $('#editCourseShortDescription').parent().addClass('has-error');
+      $('#editCourseShortDescription').next('span').text('Bitte geben Sie hier eine Kurzbeschreibung für Ihren Kurs ein.');
+      toastr.error( "Dem Kurs fehlt eine Kurzbeschreibung." );
+      return false;
+    }
     
     Session.set('editCourseTemplate', "editCourseDetails");
 
