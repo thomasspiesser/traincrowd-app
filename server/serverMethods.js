@@ -27,14 +27,31 @@ Meteor.methods({
  //    Inquired.remove({_id: options.id});
  //  },
   createCurrent: function (options) {
+    check(options, {
+      course: NonEmptyString,
+      courseDate: [Date]
+    });
+
+    if (! this.userId)
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein");
+    
+    var course = Courses.findOne({_id: options.course}, {fields: {owner:1}});
+
+    if (this.userId !== course.owner)
+      throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
+
     var id = Current.insert({
       course: options.course,
-      owner: options.owner,
+      owner: course.owner,
       participants: [],
       courseDate: options.courseDate
     });
   },
   addToCourseDates: function (options) {
+    check(options, {
+      _id: NonEmptyString,
+      dates: [[Date]]
+    });
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
     var course = Courses.findOne({_id: options._id}, {fields: {owner:1}});

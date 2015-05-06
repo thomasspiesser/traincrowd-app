@@ -13,7 +13,7 @@ Template.editCourse.helpers({
     return this.maxParticipants && this.fee ? true : false;
   },
   deservesCheckCourseDates: function () {
-    return this.duration && this.expires ? true : false;
+    return this.dates && this.dates.length ? true : false;
   },
   deservesCheckCourseLogistics: function () {
     return this.noLocation || this.street ? true : false;

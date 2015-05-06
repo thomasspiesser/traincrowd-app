@@ -11,7 +11,7 @@
           <div class="form-group">
             <label for="editCourseDuration" class="control-label">Kursdauer (Tage)</label>
             <input type="number" class="form-control hoverCheck" id="editCourseDuration" value="{{duration}}">
-            <span class="help-block"></span>
+            <span class="help-block" id="durationErrorField"></span>
     <!--         <select class="form-control hoverCheck" id="editCourseDuration">
               <option value="" {{selected '' duration}}></option>
               <option value="1" {{selected '1' duration}}>1 Tag</option>
@@ -31,26 +31,37 @@
               <option value="3" {{selected 3 expires}}>3 Wochen vorher</option>
               <option value="4" {{selected 4 expires}}>4 Wochen vorher</option>
             </select>
-            <span class="help-block"></span>
+            <span class="help-block" id="expiresErrorField"></span>
           </div>
         </div>
       </div>
 
-      <form id="editCourseDatesForm">
-        <div id="courseDatesGroup">
-          <div class="form-group" >
-
-            <!-- <label for="editCourseDates" class="control-label">Termine und Anfragen</label> -->
-            <label for="editCourseEvents" class="control-label">Kurstage angeben</label>
-            <div class="input-group">
-              <input type="text" class="form-control hoverCheck" name="standardDateField" id="editCourseEvents" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+      <form class="" id="editCourseDatesForm">
+        <div class="row">
+          <div class="col-md-8">
+            <!-- <div id="courseDatesGroup"> -->
+              <div class="form-group" >
+                <label for="editCourseEvents" class="control-label">Alle Kurstage für ein Event angeben</label>
+                <div class="input-group">
+                  <input type="text" class="form-control hoverCheck" name="standardDateField" id="editCourseEvents" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                </div>
+                <span class="help-block" id="eventsErrorField"></span>
+              </div>
+            <!-- </div> -->
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" >
+              <label class="" for="">Event hinzufügen</label>
+              <button type="button" class="btn btn-default btn-block" id="addEventButton"><i class="fa fa-arrow-down"></i> Hinzufügen</button>
             </div>
           </div>
         </div>
+        
 
     <!--     <div class="form-group">
           <button type="button" class="btn btn-default" id="addDateField"><i class="fa fa-plus"></i></button>
         </div> -->
+       
       </form>
       
       <label for="" class="control-label">Angegebene Termine:</label>
@@ -67,7 +78,7 @@
           <h3 class="panel-title">Termine</h3>
         </div>
         <div class="panel-body">
-          Hier haben Sie die Möglichkeit die Termine für Ihren Kurs festzulegen. Für jedes einzelne Kursevent müssen alle Kurstage einzeln angegeben werden, damit Nutzer genau prüfen können, ob sie an den angegebenen Tagen Zeit haben.
+          Hier haben Sie die Möglichkeit die Termine für Ihren Kurs festzulegen. Für jedes einzelne Kursevent müssen alle Kurstage einzeln angegeben werden, damit Nutzer genau prüfen können, ob sie an den angegebenen Tagen Zeit haben. Sie können mehrere Events für Ihren Kurs nacheinander hinzufügen. 
         </div>
       </div>
       <div class="text-center">

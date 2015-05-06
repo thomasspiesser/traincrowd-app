@@ -41,71 +41,78 @@ Template.editCourseDates.helpers({
 });
 
 Template.editCourseDates.events({
+  'click #addEventButton': function (event, template) {
+    event.preventDefault();
+    if (! this.duration) {
+      $('#durationErrorField').parent().addClass('has-error');
+      $('#durationErrorField').text('Bitte tragen Sie hier die Kursdauer in Tagen ein.');
+      toastr.error( "Bitte geben Sie erst die Kursdauer in Tagen an." );
+      return false;
+    }
+
+    if (! this.expires) {
+      $('#expiresErrorField').parent().addClass('has-error');
+      $('#expiresErrorField').text('Bitte geben Sie hier an, wie viele Wochen im voraus Ihr Kurs voll sein muss.');
+      toastr.error( "Bitte geben Sie erst die gewünschte Vorlaufzeit an." );
+      return false;
+    }
+
+    var datesArray = template.find("#editCourseEvents").value.split(',');
+    datesArray = _.without(datesArray, '');
+
+    if (! datesArray.length) {
+      $('#eventsErrorField').parent().addClass('has-error');
+      $('#eventsErrorField').text('Bitte tragen Sie hier alle Kurstage für Ihr Event ein.');
+      toastr.error( "Sie haben keine Daten für Ihr Event angegeben." );
+      return false;
+    }
+
+    if (datesArray.length !== this.duration) {
+      toastr.error( "Kursdauer und Anzahl der Kurstage stimmen nicht überein." );
+      return false;
+    }
+
+    var dateObjectsArray = _.map(datesArray, function(date) { return moment(date, "DD.MM.YYYY")._d; } ); // returns the date object - thats what we will store in the DB
+    dateObjectsArray.sort(function (a,b) { return a-b; }); // sort dates
+
+    var expiredAt = new Date(+dateObjectsArray[0] - 1000 * 60 * 60 * 24 * 7 * this.expires);
+    
+    if (expiredAt < new Date()) {
+      toastr.error( "Das Event scheint bereits abgelaufen." );
+      return false;
+    }
+
+    var options = {course: this._id,
+                  courseDate: dateObjectsArray };
+
+    Meteor.call('createCurrent', options, function (error) {
+      if (error) {
+        toastr.error( error.reason );
+        return false;
+      }
+    });
+
+    var dates = []; // in case we go back to adding multiple events at once
+    dates.push( dateObjectsArray );
+
+    options = {_id: this._id,
+              dates: dates };
+
+    Meteor.call('addToCourseDates', options, function (error, result) {
+      if (error)
+        toastr.error( error.reason );
+      else
+        $('#editCourseEvents').datepicker('setDate', null);
+    });
+
+  },
   'click #saveEditCourseDates': function (event, template) {
     var duration = template.find("#editCourseDuration").value;
     var expires = template.find("#editCourseExpires").value;
 
-    if (! duration.length ) {
-      $('#editCourseDuration').parent().addClass('has-error');
-      $('#editCourseDuration').next('span').text('Bitte tragen Sie hier die Kursdauer in Tagen ein.');
-      toastr.error( "Sie müssen angeben, wie lange der Kurs dauert." );
-      return false;
-    }
-
-    if (! expires.length ) {
-      $('#editCourseExpires').parent().addClass('has-error');
-      $('#editCourseExpires').next('span').text('Bitte geben Sie hier an, wie viele Wochen im voraus ein Kurs voll sein muss.');
-      toastr.error( "Sie müssen angeben, wann der Kurs ausläuft." );
-      return false;
-    }
-
-    if (! duration || ! expires) {
-      toastr.error( "Sie müssen angeben wie viele Tage der Kurs dauert und bis wann er vollständig gebucht sein muss." );
-      return false;
-    }
     duration = parseInt(duration);
     expires = parseInt(expires);
     
-    var newEvents = $('#editCourseDatesForm').serializeArray();
-    var dates = [];
-
-    if ( newEvents.length > 1 || newEvents[0].value ) {
-      for (var i = 0; i < newEvents.length; i++) {
-        var datesArray = newEvents[i].value.split(',');
-        if (datesArray.length !== duration) {
-          var j = i+1;
-          toastr.error( "Kursdauer und Anzahl der Kurstage von Terminoption " + j + " stimmen nicht überein." );
-          return false;
-        }
-        var dateObjectsArray = _.map(datesArray, function(date) { return moment(date, "DD.MM.YYYY")._d; } ); // returns the date object - thats what we will store in the DB
-        dateObjectsArray.sort(function (a,b) { return a-b; }); // sort dates
-
-        var expiredAt = new Date(+dateObjectsArray[0] - 1000 * 60 * 60 * 24 * 7 * expires);
-        if (expiredAt < new Date()) {
-          var j = i+1;
-          toastr.error( "Terminoption " + j + " ist bereits abgelaufen." );
-          return false;
-        }
-
-        var options = {course: this._id,
-                      owner: this.owner,
-                      courseDate: dateObjectsArray };
-
-        Meteor.call('createCurrent', options, function (error, result) {
-          if (error)
-            toastr.error( error.reason );
-          else
-            $('.editCourseDates').datepicker('setDate', null);
-        });
-        dates.push( dateObjectsArray );
-      }
-      var options = {_id: this._id,
-                    dates: dates };
-      Meteor.call('addToCourseDates', options, function (error, result) {
-        if (error)
-          toastr.error( error.reason );
-      });
-    }
     // var allowInquiry = template.find("#editCourseAllowInquiry").checked;
     var modifier = {_id: this._id,
                 owner: this.owner,
