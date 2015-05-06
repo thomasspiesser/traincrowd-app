@@ -94,6 +94,15 @@ footer a:hover {
   box-shadow: 0px 0px 8px #A02828;
 }
 
+.large-btn {
+  padding: 15px 25px;
+  font-size: 18px;
+  line-height: 1.3333333;
+/*  background-color: #dff0d8;
+  color: #3c763d;
+  border-color: #d6e9c6;*/
+}
+
 /*************** Navigation ***************/
 
 .custom-nav-item {
@@ -137,7 +146,8 @@ footer a:hover {
 
 .progress-tracker.active {
   border: 1px solid green;
-  /*background-color: rgba(28, 166, 214, 1);*/
+  background-color: #dff0d8;
+  color: #3c763d;
 }
 
 .progress-tracker.inactive {
@@ -151,7 +161,8 @@ footer a:hover {
 
 .progress-tracker-wrapper a:hover > div {
   border: 1px solid green;
-  color: #5a5a5a;
+  color: #3c763d;
+  /*color: #5a5a5a;*/
 }
 
 .progress-tracker-icon-wrapper {
@@ -224,6 +235,10 @@ div.mystars div.rateit-selected {
   top: -35px;
   left: -5px;
   margin-left: 5px;
+}
+
+.hover-text {
+  margin-top: 20px;
 }
 
 /*************** Content Edit ***************/

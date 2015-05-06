@@ -9,16 +9,19 @@
       <div class="form-group">
         <label for="editCourseTitle" class="control-label">Titel (Pflichtfeld)</label>
         <input type="text" class="form-control hoverCheck" id="editCourseTitle" value="{{title}}">
+        <span class="help-block"></span>
       </div>
 
       <div class="form-group">
-        <label for="editCourseCategories" class="control-label">Kategorien (Empfohlen)</label>
+        <label for="editCourseCategories" class="control-label">Kategorien (Pflichtfeld)</label>
         <input type="text" class="form-control hoverCheck" id="editCourseCategories" value="{{categories}}" style="width: 100%;">
+        <span class="help-block"></span>
       </div>
 
       <div class="form-group">
-        <label for="editCourseShortDescription" class="control-label">Kurzbeschreibung (Empfohlen)</label>
+        <label for="editCourseShortDescription" class="control-label">Kurzbeschreibung (Pflichtfeld)</label>
         <textarea class="form-control hoverCheck" id="editCourseShortDescription" rows="6" value="{{description}}"></textarea>
+        <span class="help-block"></span>
       </div>
 
       <div class="row">
@@ -68,16 +71,15 @@
           Geben Sie hier bitte allgemeine Informationen zu Ihrem Kurs an.
         </div>
       </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-success large-btn" id="saveEditCourseDescription">Weiter <i class="fa fa-arrow-right"></i></button>
+      </div>
       {{#if hoverText}}
-        <div class="well">
+        <div class="well hover-text">
           {{hoverText}}
         </div>
       {{/if}}
     </div>
 
-  </div>
-  <!-- buttons -->
-  <div class="form-group">
-    <button type="button" class="btn btn-success pull-right" id="saveEditCourseDescription">Weiter <i class="fa fa-arrow-right"></i></button>
   </div>
 </template>

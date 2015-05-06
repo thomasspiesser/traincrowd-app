@@ -10,6 +10,9 @@ Template.editCourseDescription.rendered = function () {
 var uploader = new ReactiveVar();
 
 Template.editCourseDescription.helpers({
+  hasError: function () {
+    return true;
+  },
   isUploading: function () {
     return Boolean(uploader.get());
   }, 
@@ -31,9 +34,26 @@ Template.editCourseDescription.events({
     var title = template.find("#editCourseTitle").value;
     var description = template.find("#editCourseShortDescription").value;
     var categories = template.find("#editCourseCategories").value.split(',');
+    categories = _.without(categories, "", " ");
 
-    if (! title.length) {
+    if (! title.length ) {
+      $('#editCourseTitle').parent().addClass('has-error');
+      $('#editCourseTitle').next('span').text('Bitte tragen Sie hier den Kurstitel ein.');
       toastr.error( "Der Kurs braucht einen Titel." );
+      return false;
+    }
+
+    if (! description.length ) {
+      $('#editCourseShortDescription').parent().addClass('has-error');
+      $('#editCourseShortDescription').next('span').text('Bitte geben Sie hier eine Kurzbeschreibung für Ihren Kurs ein.');
+      toastr.error( "Dem Kurs fehlt eine Kurzbeschreibung." );
+      return false;
+    }
+
+    if (! categories.length ) {
+      $('#editCourseCategories').parent().addClass('has-error');
+      $('#editCourseCategories').next('span').text('Ordnen Sie Ihren Kurs bitte mindestens einer Kategorie zu.');
+      toastr.error( "Bitte geben Sie ein Kurskategorie an." );
       return false;
     }
 

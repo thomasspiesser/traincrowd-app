@@ -3,6 +3,21 @@ Template.editCourse.created = function () {
 };
 
 Template.editCourse.helpers({
+  deservesCheckCourseDescription: function () {
+    return this.title && this.description && this.categories ? true : false;
+  },
+  deservesCheckCourseDetails: function () {
+    return this.aims && this.methods ? true : false;
+  },
+  deservesCheckCourseCosts: function () {
+    return this.maxParticipants && this.fee ? true : false;
+  },
+  deservesCheckCourseDates: function () {
+    return this.duration && this.expires ? true : false;
+  },
+  deservesCheckCourseLogistics: function () {
+    return this.noLocation || this.street ? true : false;
+  },
   active: function() {
     return Session.get('editCourseTemplate');
   }
@@ -14,12 +29,5 @@ Template.editCourse.events({ 
 
     $('.progress-tracker').removeClass('active').addClass('inactive');
     $(event.currentTarget).children('.progress-tracker').removeClass('inactive').addClass('active');
-  },
-  'click #removeCourseButton': function (event, template) {
-    Courses.remove(this._id);
-    Router.go("/courses");
-  },
-  'click #previewCourseButton': function (event, template) {
-    Router.go("course.show", {slug: this.slug} );
   }
 });

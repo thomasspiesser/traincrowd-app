@@ -33,10 +33,20 @@ Template.editCourseCosts.events({
     // var minParticipants = template.find("#editCourseMinParticipants").value;
     var maxParticipants = template.find("#editCourseMaxParticipants").value;
 
-    if (! fee.length || ! maxParticipants.length) {
-      toastr.error( "Sie müssen einen Preis und die Teilnehmerzahl angeben." );
+    if (! fee.length ) {
+      $('#editCourseFee').parent().parent().addClass('has-error');
+      $('#editCourseFee').parent().next('span').text('Bitte geben Sie hier den Kurspreis an.');
+      toastr.error( "Der Kurs benötigt einen Preis." );
       return false;
     }
+
+    if (! maxParticipants.length ) {
+      $('#editCourseMaxParticipants').parent().addClass('has-error');
+      $('#editCourseMaxParticipants').next('span').text('Bitte geben Sie hier an, wie viele Teilnehmer der Kurs haben sollte.');
+      toastr.error( "Dem Kurs fehlt noch eine Teilnehmerzahl." );
+      return false;
+    }
+
     // var minParticipants = parseInt(minParticipants);
     maxParticipants = parseInt(maxParticipants);
     // if (minParticipants > maxParticipants) {

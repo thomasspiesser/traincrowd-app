@@ -2,20 +2,14 @@
   <div class="container">
   {{#if canEdit owner}}
 
-<!--     <div class="row" id="editCourseHeader">
-
-        <ol class="breadcrumb">
-          <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
-          <li class="active">{{title}}</li>
-        </ol>
-        <button type="button" class="btn btn-default btn-sm pull-right breadcrumb-btn" id="previewCourseButton">Anzeigen <i class="fa fa-arrow-right"></i></button>
-
-        <button type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" id="deleteCourseButton"><i class="fa fa-trash-o"></i> Löschen</button>
-
-    </div> -->
-
     <div class="text-center">
-      <h3 class="text-uppercase"> Ihr Kurs auf traincrowd </h3>
+      <h3 class="text-uppercase">
+        {{#if this.title}}
+          {{this.title}}
+        {{else}}
+          Neuen Kurs erstellen
+        {{/if}}
+      </h3>
       <hr>
     </div>
 
@@ -25,7 +19,11 @@
         <div class="col-md-2 progress-tracker active">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
-              <span class="fa fa-check-circle-o fa-2x fa-fw" style="color:green;"></span>
+              {{#if deservesCheckCourseDescription}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
             </div>
             <div class="col-md-9 progress-tracker-text-wrapper">
               <span class="progress-tracker-step"> 1. Schritt: </span> <br> <span class="progress-tracker-text"> Allgemeines </span>
@@ -38,7 +36,11 @@
         <div class="col-md-2 progress-tracker inactive">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
-              <span class="fa fa-check-circle-o fa-2x fa-fw" style="color:green;"></span>
+              {{#if deservesCheckCourseDetails}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
             </div>
             <div class="col-md-9 progress-tracker-text-wrapper">
               <span class="progress-tracker-step"> 2. Schritt: </span> <br> <span class="progress-tracker-text"> Details </span>
@@ -51,7 +53,11 @@
         <div class="col-md-2 progress-tracker inactive">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
-              <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{#if deservesCheckCourseCosts}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
             </div>
             <div class="col-md-9 progress-tracker-text-wrapper">
               <span class="progress-tracker-step"> 3. Schritt: </span> <br> <span class="progress-tracker-text"> Kosten </span>
@@ -64,7 +70,11 @@
         <div class="col-md-2 progress-tracker inactive">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
-              <span class="fa fa-circle-o fa-2x fa-fw"></span>
+              {{#if deservesCheckCourseDates}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
             </div>
             <div class="col-md-9 progress-tracker-text-wrapper">
               <span class="progress-tracker-step"> 4. Schritt: </span> <br> <span class="progress-tracker-text"> Termine </span>
@@ -77,7 +87,11 @@
         <div class="col-md-2 progress-tracker inactive">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
-              <span class="fa fa-circle-o fa-2x fa-fw"></span>
+              {{#if deservesCheckCourseLogistics}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
             </div>
             <div class="col-md-9 progress-tracker-text-wrapper">
               <span class="progress-tracker-step"> 5. Schritt: </span> <br> <span class="progress-tracker-text"> Ort </span>
@@ -90,10 +104,14 @@
         <div class="col-md-2 progress-tracker progress-tracker-last-item inactive">
           <div class="row">
             <div class="col-md-3 progress-tracker-icon-wrapper">
-              <span class="fa fa-circle-o fa-2x fa-fw"></span>
+              {{#if this.public}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
             </div>
             <div class="col-md-9 progress-tracker-text-wrapper">
-              <span class="progress-tracker-step"> 6. Schritt: </span> <br> <span class="progress-tracker-text"> Vorschau </span>
+              <span class="progress-tracker-step"> 6. Schritt: </span> <br> <span class="progress-tracker-text"> Veröffentlichen </span>
             </div>
           </div>
         </div>

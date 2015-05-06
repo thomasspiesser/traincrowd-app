@@ -45,6 +45,20 @@ Template.editCourseDates.events({
     var duration = template.find("#editCourseDuration").value;
     var expires = template.find("#editCourseExpires").value;
 
+    if (! duration.length ) {
+      $('#editCourseDuration').parent().addClass('has-error');
+      $('#editCourseDuration').next('span').text('Bitte tragen Sie hier die Kursdauer in Tagen ein.');
+      toastr.error( "Sie müssen angeben, wie lange der Kurs dauert." );
+      return false;
+    }
+
+    if (! expires.length ) {
+      $('#editCourseExpires').parent().addClass('has-error');
+      $('#editCourseExpires').next('span').text('Bitte geben Sie hier an, wie viele Wochen im voraus ein Kurs voll sein muss.');
+      toastr.error( "Sie müssen angeben, wann der Kurs ausläuft." );
+      return false;
+    }
+
     if (! duration || ! expires) {
       toastr.error( "Sie müssen angeben wie viele Tage der Kurs dauert und bis wann er vollständig gebucht sein muss." );
       return false;

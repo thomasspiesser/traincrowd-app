@@ -13,6 +13,20 @@ Template.editCourseDetails.events({
     var languages = template.find("#editCourseLanguages").value;
     var additionalServices = template.find("#editCourseAdditionalServices").value;
 
+    if (! aims.length ) {
+      $('#editCourseAims').parent().addClass('has-error');
+      $('#editCourseAims').next('span').text('Bitte geben Sie Lernziele für Ihren Kurs an.');
+      toastr.error( "Der Kurs benötigt Lernziele." );
+      return false;
+    }
+
+    if (! methods.length ) {
+      $('#editCourseMethods').parent().addClass('has-error');
+      $('#editCourseMethods').next('span').text('Bitte geben Sie hier Details zu Lernformen, Methodik und Didaktik an.');
+      toastr.error( "Dem Kurs fehlen noch Angaben zu Lernformen, Methodik und Didaktik." );
+      return false;
+    }
+
     var modifier = {_id: this._id,
                 owner: this.owner,
                 aims: aims,

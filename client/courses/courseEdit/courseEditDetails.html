@@ -7,12 +7,14 @@
       <hr>
 
       <div class="form-group">
-        <label for="editCourseAims" class="control-label">Lernziele (Empfohlen) </label>
+        <label for="editCourseAims" class="control-label">Lernziele (Pflichtfeld) </label>
         <textarea class="form-control hoverCheck" id="editCourseAims" value="{{aims}}"></textarea>
+        <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <label for="editCourseMethods" class="control-label">Lernformen, Methodik und Didaktik (Empfohlen) </label>
+        <label for="editCourseMethods" class="control-label">Lernformen, Methodik und Didaktik (Pflichtfeld) </label>
         <textarea class="form-control hoverCheck" id="editCourseMethods" value="{{methods}}" placeholder="z.B. Arbeit an Praxisbeispielen, Gruppenarbeit, Frontalunterricht"></textarea>
+        <span class="help-block"></span>
       </div>
       <div class="form-group">
         <label for="editCourseTargetGroup" class="control-label">Zielgruppe (Empfohlen) </label>
@@ -41,16 +43,15 @@
           Hier möchten wir Sie bitten Details über Ihren Kurs einzutragen. Details helfen Käufern bei der Richtigen Auswahl der Kurse. Bitte machen Sie daher Ihre  Angaben so detailliert wie möglich.
         </div>
       </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-success large-btn" id="saveEditCourseDetails">Weiter <i class="fa fa-arrow-right"></i></button>
+      </div>
       {{#if hoverText}}
-        <div class="well">
+        <div class="well hover-text">
           {{hoverText}}
         </div>
       {{/if}}
     </div>
 
-  </div>
-  <!-- buttons -->
-  <div class="form-group">
-    <button type="button" class="btn btn-success pull-right" id="saveEditCourseDetails">Weiter <i class="fa fa-arrow-right"></i></button>
   </div>
 </template>
