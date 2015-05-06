@@ -90,9 +90,9 @@ Template.userCourses.events({
     if (state) {
       $(elem).bootstrapSwitch('state', false, true);  // stays at 'offline'
       // from off to online
-      if (confirm( "Anfrage zur Freigabe senden?" ) ) {
-        if (!this._id || !this.title) {
-          toastr.error( "Sie müssen eingeloggt sein und einen Kurstitel angeben." );
+      if (confirm( "Möchten Sie Ihren Kurs jetzt freischalten lassen? Drücken Sie ok und wir prüfen Ihre Angaben. Wir lassen Sie wissen, sobald wir Ihren Kurs freigeschaltet haben." ) ) {
+        if (!this.title || !this.description || !this.categories || !this.aims || !this.maxParticipants || !this.fee) {
+          toastr.error( "Einige Angaben fehlen. Bitte überprüfen Sie noch einmal, ob Sie alle Pflichtfelder zu Ihrem Kurs ausgefüllt haben." );
           return false;
         }
         var options = {

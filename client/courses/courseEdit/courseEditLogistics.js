@@ -21,7 +21,7 @@ Template.editCourseLogistics.events({
       console.log('none');
       $('.form-group').addClass('has-error');
       $('.help-block').text('Bitte geben Sie an, ob Sie bereits einen Veranstaltungsort haben.');
-      toastr.error( "Der Kurs braucht einen Titel." );
+      toastr.error( "Bitte machen Sie Angaben zum Veranstaltungsort." );
       return false;
     }
 
