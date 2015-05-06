@@ -6,12 +6,19 @@
 
       <hr>
 
+      <div class="form-group">
+        <span class="help-block"></span>
+      </div>
+      
+      <div class="form-group">
       <div class="checkbox">
         <label>
         <input type="checkbox" id="editCourseNoLocation" checked="{{noLocation}}">Ort steht noch nicht fest.
         </label>
       </div>
+      </div>
       {{#unless noLocation}}
+      <!-- <hr> -->
 
         <div class="row">
           <div class="col-md-9">
@@ -40,7 +47,6 @@
               <input type="text" class="form-control" id="administrative_area_level_1" value="{{city}}">
             </div>
           </div>
-
         </div>
         <div class="form-group">
           <label for="editCourseStreetAdditional" class="control-label">Adresszusatz</label>

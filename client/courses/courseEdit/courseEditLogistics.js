@@ -11,9 +11,20 @@ Template.editCourseLogistics.helpers({
 Template.editCourseLogistics.events({
   'click #saveEditCourseLogistics': function (event, template) {
     var noLocation = template.find("#editCourseNoLocation").checked;
+    if (! noLocation)
+      var street = template.find("#route").value;
     var modifier = {_id: this._id,
                 owner: this.owner,
                 noLocation: noLocation };
+
+    if (! noLocation && ! street.length) {
+      console.log('none');
+      $('.form-group').addClass('has-error');
+      $('.help-block').text('Bitte geben Sie an, ob Sie bereits einen Veranstaltungsort haben.');
+      toastr.error( "Der Kurs braucht einen Titel." );
+      return false;
+    }
+
     if (noLocation) {
       Meteor.call('updateCourse', modifier, function (error, result) {
         if (error)
@@ -23,7 +34,7 @@ Template.editCourseLogistics.events({
       });
     } 
     else {
-      var street = template.find("#route").value;
+
       var street_number = template.find("#street_number").value;
       var streetAdditional = template.find("#editCourseStreetAdditional").value;
       var plz = template.find("#postal_code").value;
@@ -46,14 +57,15 @@ Template.editCourseLogistics.events({
         else
           toastr.success( 'Änderungen gespeichert.' );
       });
+    }
 
-      Session.set('editCourseTemplate', "editCoursePreview");
+    Session.set('editCourseTemplate', "editCoursePreview");
 
-      $('#editCourseLogistics').children('.progress-tracker').removeClass('active').addClass('inactive');
-      $('#editCoursePreview').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editCourseLogistics').children('.progress-tracker').removeClass('active').addClass('inactive');
+    $('#editCoursePreview').children('.progress-tracker').removeClass('inactive').addClass('active');
 
       // $('#infoModal').modal('show');
-    }
+    
   },
   'change #editCourseNoLocation': function (event) {
     Session.set("noLocation", event.target.checked);
