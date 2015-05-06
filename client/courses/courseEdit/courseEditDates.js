@@ -11,13 +11,13 @@ $.fn.datepicker.dates['de'] = {
   };
 
 Template.editCourseDates.rendered=function() {
-    $('.editCourseDates').datepicker({
+    $('#editCourseEvents').datepicker({
       startDate: "-0d",
       language: "de",
       todayBtn: true,
       multidate: true,
       todayHighlight: true,
-      orientation: "top left"
+      // orientation: "top left"
     });
 };
 
