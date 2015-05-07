@@ -83,12 +83,12 @@ Template.editCourseDescription.events({
 
     var categories = _.without(this.categories, "", " ");
     if (! categories.length ) {
-      formFeedbackError( '#edit-course-categories', '#help-text-course-categories', 'Ordnen Sie Ihren Kurs bitte mindestens einer Kategorie zu.', "Bitte geben Sie ein Kurskategorie an." );
+      formFeedbackError( '#edit-course-categories', '#help-text-edit-course-categories', 'Ordnen Sie Ihren Kurs bitte mindestens einer Kategorie zu.', "Bitte geben Sie ein Kurskategorie an." );
       return false;
     }
 
     if (! this.description || ! this.description.length ) {
-      formFeedbackError( '#edit-course-description', '#help-text-course-description', 'Bitte geben Sie hier eine Kurzbeschreibung für Ihren Kurs ein.', "Dem Kurs fehlt eine Kurzbeschreibung." );
+      formFeedbackError( '#edit-course-description', '#help-text-edit-course-description', 'Bitte geben Sie hier eine Kurzbeschreibung für Ihren Kurs ein.', "Dem Kurs fehlt eine Kurzbeschreibung." );
       return false;
     }
     

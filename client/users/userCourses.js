@@ -10,7 +10,7 @@ Template.userCourses.helpers({
     return this.publishRequest ? "true" : undefined;
   },
   hostedCourses: function () {
-    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, rating:1, public:1, slug:1, publishRequest:1}} );
+    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, description:1, categories:1, aims:1, maxParticipants:1, fee:1, rating:1, public:1, slug:1, publishRequest:1}, sort:{public:-1}} );
   },
   inquiredCourses: function () {
     var inquired = Inquired.find( { inquirer: Meteor.userId() }, {fields: {course:1, inquiredDates:1}} ).fetch();
@@ -99,7 +99,7 @@ Template.userCourses.events({
         if (error) 
           toastr.error( error.reason );
         else {
-          toastr.success( 'Anfrage zur Freigabe gesendet.' );
+          toastr.success( 'Danke, wir prüfen Ihren Kurs und schalten ihn frei.' );
         }
       });
     }

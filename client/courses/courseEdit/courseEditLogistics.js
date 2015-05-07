@@ -19,7 +19,7 @@ Template.editCourseLogistics.events({
 
     if (! this.noLocation && ! this.street && ! this.streetNumber && ! this.plz && ! this.city) {
       $('.form-group').addClass('has-error');
-      $('#help-text-edit-course-noLocation').text('Bitte geben Sie an, ob Sie bereits einen Veranstaltungsort haben.');
+      $('#help-text-edit-course-noLocation').text('Bitte geben Sie an, ob Sie bereits einen Veranstaltungsort haben.').fadeIn(300);
       toastr.error( "Bitte machen Sie Angaben zum Veranstaltungsort." );
       return false;
     }
@@ -31,7 +31,7 @@ Template.editCourseLogistics.events({
   },
   'change #edit-course-noLocation': function (event) {
     Session.set("noLocation", event.target.checked);
-    $('#edit-course-noLocation').parent().removeClass('has-error');
+    $('.form-group').removeClass('has-error');
     $('#help-text-edit-course-noLocation').text('speichern...').fadeIn(300);
     lazysaveCourseField( { id: this._id, argName: 'noLocation', argValue: event.target.checked } );
   }

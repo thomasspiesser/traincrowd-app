@@ -11,7 +11,7 @@
           <td>Bewertung</td>
           <td></td>
           <td>Status</td>
-          <td>Status Bearbeiten</td>
+          <td>Status verändern</td>
         </tr>
       </thead>
       <tbody>
@@ -38,10 +38,10 @@
 
             <td>
               {{#if public}}
-                deaktivieren
+                <a href="#" class="deactivate">deaktivieren</a>
               {{else}}
                 {{#unless hasPublishRequest}}
-                  veröffentlichen
+                  <a href="#" class="activate">veröffentlichen</a>
                 {{/unless}}
               {{/if}}
             </td>

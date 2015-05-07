@@ -14,7 +14,7 @@ Template.editCoursePreview.events({
         if (error) 
           toastr.error( error.reason );
         else
-          toastr.success( 'Anfrage zur Freigabe gesendet.' );
+          toastr.success( 'Danke, wir prüfen Ihren Kurs und schalten ihn frei.' );
       });
     }
   }
