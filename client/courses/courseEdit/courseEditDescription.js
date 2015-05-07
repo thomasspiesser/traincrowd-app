@@ -52,12 +52,7 @@ var lazysaveCourseDescription = _.debounce( function ( args ) {
     if (error)
       toastr.error( error );
     else {
-      $('#editCourseShortDescription').parent().removeClass('has-error').addClass('has-success');
-      $('#editCourseShortDescription').next('span').text('gespeichert');
-      _.delay( function () {
-        $('#editCourseShortDescription').parent().removeClass('has-success');
-        $('#editCourseShortDescription').next('span').text('');
-      }, 3000);
+      formFeedbackSaved('#editCourseShortDescription', 3000, '#help-text-course-description');
     }
   });
 }, 3000 );
@@ -67,12 +62,7 @@ var lazysaveCourseCategories = _.debounce( function ( args ) {
     if (error)
       toastr.error( error );
     else {
-      $('#editCourseCategories').parent().removeClass('has-error').addClass('has-success');
-      $('#editCourseCategories').next('span').text('gespeichert');
-      _.delay( function () {
-        $('#editCourseCategories').parent().removeClass('has-success');
-        $('#editCourseCategories').next('span').text('');
-      }, 3000);
+      formFeedbackSaved('#editCourseCategories', 3000, '#help-text-course-categories');
     }
   });
 }, 3000 );
@@ -84,43 +74,54 @@ var lazysaveCategories = _.debounce( function ( args ) {
   });
 }, 3000 );
 
+var formFeedbackSaved = function ( elem, wait, helpTextElem ) {
+  $( elem ).parent().removeClass('has-error').addClass('has-success');
+  $( helpTextElem ).text('gespeichert');
+  _.delay( function () {
+    $( elem ).parent().removeClass('has-success');
+    $( helpTextElem ).fadeOut(300);
+  }, wait );
+};
+
+var formFeedbackError = function ( elem, helpTextElem, inlineMessage, topMessage ) {
+  $( elem ).parent().addClass('has-error');
+  $(helpTextElem).text( inlineMessage );
+  toastr.error( topMessage );
+};
+
 Template.editCourseDescription.events({
   'input #editCourseTitle': function (event, template) {
-    $('#editCourseTitle').next('span').text('speichern...');
+    $('#editCourseTitle').parent().removeClass('has-error');
+    $('#help-text-course-title').text('speichern...').fadeIn(300);
     lazysaveCourseTitle( {id: this._id, argName: 'title', argValue: event.currentTarget.value.trim()} );
   },
   'input #editCourseShortDescription': function (event, template) {
-    $('#editCourseShortDescription').next('span').text('speichern...');
+    $('#editCourseShortDescription').parent().removeClass('has-error');
+    $('#help-text-course-description').text('speichern...').fadeIn(300);
     lazysaveCourseDescription( {id: this._id, argName: 'description', argValue: event.currentTarget.value} );
   },
   'change #editCourseCategories': function (event, template) {
-    $('#editCourseCategories').next('span').text('speichern...');
+    $('#editCourseCategories').parent().removeClass('has-error');
+    $('#help-text-course-categories').text('speichern...').fadeIn(300);
     var categories = event.currentTarget.value.split(',');
     categories = _.without(categories, "", " ");
     lazysaveCourseCategories( {id: this._id, argName: 'categories', argValue: categories} );
     lazysaveCategories( categories );
   },
   'click #saveEditCourseDescription': function (event, template) {
-
-    if (! this.title.length ) {
-      $('#editCourseTitle').parent().addClass('has-error');
-      $('#editCourseTitle').next('span').text('Bitte tragen Sie hier den Kurstitel ein.');
-      toastr.error( "Der Kurs braucht einen Titel." );
+    if (! this.title || ! this.title.length ) {
+      formFeedbackError( '#editCourseTitle', '#help-text-course-title', 'Bitte tragen Sie hier den Kurstitel ein.', "Der Kurs braucht einen Titel." );
       return false;
     }
 
     var categories = _.without(this.categories, "", " ");
     if (! categories.length ) {
-      $('#editCourseCategories').parent().addClass('has-error');
-      $('#editCourseCategories').next('span').text('Ordnen Sie Ihren Kurs bitte mindestens einer Kategorie zu.');
-      toastr.error( "Bitte geben Sie ein Kurskategorie an." );
+      formFeedbackError( '#editCourseCategories', '#help-text-course-categories', 'Ordnen Sie Ihren Kurs bitte mindestens einer Kategorie zu.', "Bitte geben Sie ein Kurskategorie an." );
       return false;
     }
 
-    if (! this.description.length ) {
-      $('#editCourseShortDescription').parent().addClass('has-error');
-      $('#editCourseShortDescription').next('span').text('Bitte geben Sie hier eine Kurzbeschreibung für Ihren Kurs ein.');
-      toastr.error( "Dem Kurs fehlt eine Kurzbeschreibung." );
+    if (! this.description || ! this.description.length ) {
+      formFeedbackError( '#editCourseShortDescription', '#help-text-course-description', 'Bitte geben Sie hier eine Kurzbeschreibung für Ihren Kurs ein.', "Dem Kurs fehlt eine Kurzbeschreibung." );
       return false;
     }
     
