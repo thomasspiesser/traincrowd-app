@@ -9,65 +9,30 @@ Template.editCourseLogistics.helpers({
 });
 
 Template.editCourseLogistics.events({
+  'input .form-control': function (event, template) {
+    var field = event.currentTarget.id.split('-')[2];
+    $('#edit-course-'+field).parent().removeClass('has-error');
+    $('#help-text-edit-course-'+field).text('speichern...').fadeIn(300);
+    lazysaveCourseField( { id: this._id, argName: field, argValue: event.currentTarget.value } );
+  },
   'click #saveEditCourseLogistics': function (event, template) {
-    var noLocation = template.find("#editCourseNoLocation").checked;
-    if (! noLocation)
-      var street = template.find("#route").value;
-    var modifier = {_id: this._id,
-                owner: this.owner,
-                noLocation: noLocation };
 
-    if (! noLocation && ! street.length) {
-      console.log('none');
+    if (! this.noLocation && ! this.street && ! this.streetNumber && ! this.plz && ! this.city) {
       $('.form-group').addClass('has-error');
-      $('.help-block').text('Bitte geben Sie an, ob Sie bereits einen Veranstaltungsort haben.');
+      $('#help-text-edit-course-noLocation').text('Bitte geben Sie an, ob Sie bereits einen Veranstaltungsort haben.');
       toastr.error( "Bitte machen Sie Angaben zum Veranstaltungsort." );
       return false;
-    }
-
-    if (noLocation) {
-      Meteor.call('updateCourse', modifier, function (error, result) {
-        if (error)
-          toastr.error( error.reason );
-        else
-          toastr.success( 'Änderungen gespeichert.' );
-      });
-    } 
-    else {
-
-      var street_number = template.find("#street_number").value;
-      var streetAdditional = template.find("#editCourseStreetAdditional").value;
-      var plz = template.find("#postal_code").value;
-      var city = template.find("#administrative_area_level_1").value;
-
-      if (! street.length || ! street_number.length || plz.length < 5 || ! city.length ) {
-        toastr.error( "Bitte geben Sie ein vollständige Adresse an." );
-        return false;
-      }
-      
-      modifier.street = street;
-      modifier.streetNumber = street_number;
-      modifier.streetAdditional = streetAdditional;
-      modifier.plz = plz;
-      modifier.city = city;
-
-      Meteor.call('updateCourse', modifier, function (error, result) {
-        if (error)
-          toastr.error( error.reason );
-        else
-          toastr.success( 'Änderungen gespeichert.' );
-      });
     }
 
     Session.set('editCourseTemplate', "editCoursePreview");
 
     $('#editCourseLogistics').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editCoursePreview').children('.progress-tracker').removeClass('inactive').addClass('active');
-
-      // $('#infoModal').modal('show');
-    
+    $('#editCoursePreview').children('.progress-tracker').removeClass('inactive').addClass('active');    
   },
-  'change #editCourseNoLocation': function (event) {
+  'change #edit-course-noLocation': function (event) {
     Session.set("noLocation", event.target.checked);
+    $('#edit-course-noLocation').parent().removeClass('has-error');
+    $('#help-text-edit-course-noLocation').text('speichern...').fadeIn(300);
+    lazysaveCourseField( { id: this._id, argName: 'noLocation', argValue: event.target.checked } );
   }
 });

@@ -11,7 +11,7 @@ $.fn.datepicker.dates['de'] = {
   };
 
 Template.editCourseDates.rendered=function() {
-    $('#editCourseEvents').datepicker({
+    $('#edit-course-events').datepicker({
       startDate: "-0d",
       language: "de",
       todayBtn: true,
@@ -41,29 +41,30 @@ Template.editCourseDates.helpers({
 });
 
 Template.editCourseDates.events({
+  'input .form-control': function (event, template) {
+    var field = event.currentTarget.id.split('-')[2];
+    $('#edit-course-'+field).parent().removeClass('has-error');
+    $('#help-text-edit-course-'+field).text('speichern...').fadeIn(300);
+    var val = parseInt(event.currentTarget.value);
+    lazysaveCourseField( { id: this._id, argName: field, argValue: val } );
+  },
   'click #addEventButton': function (event, template) {
     event.preventDefault();
     if (! this.duration) {
-      $('#durationErrorField').parent().addClass('has-error');
-      $('#durationErrorField').text('Bitte tragen Sie hier die Kursdauer in Tagen ein.');
-      toastr.error( "Bitte geben Sie erst die Kursdauer in Tagen an." );
+      formFeedbackError( '#edit-course-duration', '#help-text-edit-course-duration','Bitte tragen Sie hier die Kursdauer in Tagen ein.', "Bitte geben Sie erst die Kursdauer in Tagen an." );
       return false;
     }
 
     if (! this.expires) {
-      $('#expiresErrorField').parent().addClass('has-error');
-      $('#expiresErrorField').text('Bitte geben Sie hier an, wie viele Wochen im voraus Ihr Kurs voll sein muss.');
-      toastr.error( "Bitte geben Sie erst die gewünschte Vorlaufzeit an." );
+      formFeedbackError( '#edit-course-expires', '#help-text-edit-course-expires', 'Bitte geben Sie hier an, wie viele Wochen im voraus Ihr Kurs voll sein muss.', "Bitte geben Sie erst die gewünschte Vorlaufzeit an." );
       return false;
     }
 
-    var datesArray = template.find("#editCourseEvents").value.split(',');
+    var datesArray = template.find("#edit-course-events").value.split(',');
     datesArray = _.without(datesArray, '');
 
     if (! datesArray.length) {
-      $('#eventsErrorField').parent().addClass('has-error');
-      $('#eventsErrorField').text('Bitte tragen Sie hier alle Kurstage für Ihr Event ein.');
-      toastr.error( "Sie haben keine Daten für Ihr Event angegeben." );
+      formFeedbackError( '#edit-course-events', '#help-text-edit-course-events', 'Bitte tragen Sie hier alle Kurstage für Ihr Event ein.', "Sie haben keine Daten für Ihr Event angegeben." );
       return false;
     }
 
@@ -102,29 +103,11 @@ Template.editCourseDates.events({
       if (error)
         toastr.error( error.reason );
       else
-        $('#editCourseEvents').datepicker('setDate', null);
+        $('#edit-course-events').datepicker('setDate', null);
     });
 
   },
   'click #saveEditCourseDates': function (event, template) {
-    var duration = template.find("#editCourseDuration").value;
-    var expires = template.find("#editCourseExpires").value;
-
-    duration = parseInt(duration);
-    expires = parseInt(expires);
-    
-    // var allowInquiry = template.find("#editCourseAllowInquiry").checked;
-    var modifier = {_id: this._id,
-                owner: this.owner,
-                duration: duration,
-                // allowInquiry: allowInquiry,
-                expires: expires };
-    Meteor.call('updateCourse', modifier, function (error, result) {
-      if (error)
-        toastr.error( error.reason );
-      else
-        toastr.success( 'Änderungen gespeichert.' );
-    });
 
     Session.set('editCourseTemplate', "editCourseLogistics");
 

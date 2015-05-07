@@ -13,7 +13,7 @@ Template.editCourseDetails.events({
   },
   'click #saveEditCourseDetails': function (event, template) {
     if (! this.aims || ! this.aims.length ) {
-      formFeedbackError( '#edit-course-aims', '#help-text-course-aims', 'Bitte geben Sie Lernziele für Ihren Kurs an.', "Der Kurs benötigt Lernziele." );
+      formFeedbackError( '#edit-course-aims', '#help-text-edit-course-aims', 'Bitte geben Sie Lernziele für Ihren Kurs an.', "Der Kurs benötigt Lernziele." );
       return false;
     }
 

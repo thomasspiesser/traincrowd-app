@@ -28,45 +28,23 @@ Template.editCourseCosts.helpers({
 });
 
 Template.editCourseCosts.events({
+  'input .form-control': function (event, template) {
+    var field = event.currentTarget.id.split('-')[2];
+    $('#edit-course-'+field).parent().removeClass('has-error');
+    $('#help-text-edit-course-'+field).text('speichern...').fadeIn(300);
+    var val = parseInt(event.currentTarget.value);
+    lazysaveCourseField( { id: this._id, argName: field, argValue: val } );
+  },
   'click #saveEditCourseCosts': function (event, template) {
-    var fee = template.find("#editCourseFee").value;
-    // var minParticipants = template.find("#editCourseMinParticipants").value;
-    var maxParticipants = template.find("#editCourseMaxParticipants").value;
-
-    if (! fee.length ) {
-      $('#editCourseFee').parent().parent().addClass('has-error');
-      $('#editCourseFee').parent().next('span').text('Bitte geben Sie hier den Kurspreis an.');
-      toastr.error( "Der Kurs benötigt einen Preis." );
+    if (! this.maxParticipants ) {
+      formFeedbackError( '#edit-course-maxParticipants', '#help-text-edit-course-maxParticipants', 'Bitte geben Sie hier an, wie viele Teilnehmer der Kurs haben sollte.', "Dem Kurs fehlt noch eine Teilnehmerzahl." );
       return false;
     }
 
-    if (! maxParticipants.length ) {
-      $('#editCourseMaxParticipants').parent().addClass('has-error');
-      $('#editCourseMaxParticipants').next('span').text('Bitte geben Sie hier an, wie viele Teilnehmer der Kurs haben sollte.');
-      toastr.error( "Dem Kurs fehlt noch eine Teilnehmerzahl." );
+    if (! this.fee ) {
+      formFeedbackError( '#edit-course-fee', '#help-text-edit-course-fee', 'Bitte geben Sie hier den Kurspreis an.', "Der Kurs benötigt einen Preis." );
       return false;
     }
-
-    // var minParticipants = parseInt(minParticipants);
-    maxParticipants = parseInt(maxParticipants);
-    // if (minParticipants > maxParticipants) {
-    //   toastr.error( "Die maximale Gruppengröße muss mindestens "+minParticipants+" sein." );
-    //   return false
-    // }
-
-    fee = parseFloat(fee.replace(',','.'));
-    fee = +fee.toFixed(2); // rounded to 2 digits returns number coz of +
-    var modifier = {_id: this._id,
-                owner: this.owner,
-                // minParticipants: minParticipants,
-                maxParticipants: maxParticipants,
-                fee: fee };
-    Meteor.call('updateCourse', modifier, function (error, result) {
-      if (error)
-        toastr.error( error.reason );
-      else
-        toastr.success( 'Änderungen gespeichert.' );
-    });
 
     Session.set('editCourseTemplate', "editCourseDates");
 
@@ -79,10 +57,10 @@ Template.editCourseCosts.events({
   'mouseout .hoverCheck': function () {
     Session.set('showHoverText', ""); 
   },
-  'input #editCourseFee': function (event, template) {
+  'input #edit-course-fee': function (event, template) {
     Session.set("courseFee", event.currentTarget.value);
   },
-  'input #editCourseMaxParticipants': function (event, template) {
+  'input #edit-course-maxParticipants': function (event, template) {
     Session.set("courseMaxParticipants", event.currentTarget.value);
   }
 });

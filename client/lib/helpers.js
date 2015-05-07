@@ -11,7 +11,7 @@ lazysaveCourseField = _.debounce( function ( args ) {
       formFeedbackSaved('#edit-course-'+args.argName, 3000, '#help-text-edit-course-'+args.argName);
     }
   });
-}, 2000 );
+}, 1000 );
 
 formFeedbackSaved = function ( elem, wait, helpTextElem ) {
   $( elem ).parent().removeClass('has-error').addClass('has-success');
@@ -24,7 +24,7 @@ formFeedbackSaved = function ( elem, wait, helpTextElem ) {
 
 formFeedbackError = function ( elem, helpTextElem, inlineMessage, topMessage ) {
   $( elem ).parent().addClass('has-error');
-  $(helpTextElem).text( inlineMessage );
+  $(helpTextElem).text( inlineMessage ).fadeIn(300);
   toastr.error( topMessage );
 };
 
