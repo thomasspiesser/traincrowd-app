@@ -1,7 +1,5 @@
 Template.userCourses.rendered = function () {
   $('.rateit').rateit();
-  $('.bs-switch').bootstrapSwitch();
-
 };
 
 Template.userCourses.helpers({ 
@@ -85,43 +83,36 @@ Template.userCourses.events({
     $('.rateitModal4').rateit('value', ratedValues[4]);
     $('#ratingModal').modal('show');
   },
-  'switchChange.bootstrapSwitch': function (event, template, state) {
-    var elem = event.currentTarget;
-    if (state) {
-      $(elem).bootstrapSwitch('state', false, true);  // stays at 'offline'
-      // from off to online
-      if (confirm( "Möchten Sie Ihren Kurs jetzt freischalten lassen? Drücken Sie ok und wir prüfen Ihre Angaben. Wir lassen Sie wissen, sobald wir Ihren Kurs freigeschaltet haben." ) ) {
-        if (!this.title || !this.description || !this.categories || !this.aims || !this.maxParticipants || !this.fee) {
-          toastr.error( "Einige Angaben fehlen. Bitte überprüfen Sie noch einmal, ob Sie alle Pflichtfelder zu Ihrem Kurs ausgefüllt haben." );
-          return false;
-        }
-        var options = {
-          what: 'Kurs',
-          itemId: this._id,
-          itemName: this.title
-        };
-        Meteor.call('setPublishRequest', options, function (error) {
-          if (error) 
-            toastr.error( error.reason );
-          else {
-            $(elem).bootstrapSwitch('toggleReadonly');
-            $(elem).bootstrapSwitch('toggleIndeterminate');
-            $(elem).bootstrapSwitch('labelText','Prüfung');
-            toastr.success( 'Anfrage zur Freigabe gesendet.' );
-          }
-        });
+  'click .activate': function (event, template) {
+    // from off to online
+    if (confirm( "Möchten Sie Ihren Kurs jetzt freischalten lassen? Drücken Sie ok und wir prüfen Ihre Angaben. Wir lassen Sie wissen, sobald wir Ihren Kurs freigeschaltet haben." ) ) {
+      if (!this.title || !this.description || !this.categories || !this.aims || !this.maxParticipants || !this.fee) {
+        toastr.error( "Einige Angaben fehlen. Bitte überprüfen Sie noch einmal, ob Sie alle Pflichtfelder zu Ihrem Kurs ausgefüllt haben." );
+        return false;
       }
-      return false;
+      var options = {
+        what: 'Kurs',
+        itemId: this._id,
+        itemName: this.title
+      };
+      Meteor.call('setPublishRequest', options, function (error) {
+        if (error) 
+          toastr.error( error.reason );
+        else {
+          toastr.success( 'Anfrage zur Freigabe gesendet.' );
+        }
+      });
     }
-    else {
-      // from on to offline
+
+  },
+  'click .deactivate': function (event, template) {
+    if (confirm( "Möchten Sie Ihren Kurs wirklich deaktivieren?" ) ) {
       Meteor.call('unpublish', this._id, function (error) {
         if (error) {
-          $(elem).bootstrapSwitch('state', true, true);
           toastr.error( error.reason );
         }
         else {
-          toastr.success( 'Ihr Kurs ist jetzt offline.' );
+          toastr.success( 'Ihr Kurs wurde deaktiviert und ist nicht mehr öffentlich.' );
         }
       });
     }

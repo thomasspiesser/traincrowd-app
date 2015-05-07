@@ -9,18 +9,41 @@
         <tr>
           <td>Titel</td>
           <td>Bewertung</td>
-          <td>Editieren</td>
+          <td></td>
           <td>Status</td>
+          <td>Status Bearbeiten</td>
         </tr>
       </thead>
       <tbody>
         {{#each hostedCourses}}
-          <tr class="{{#unless public}}{{else}}info{{/unless}}">
+          <tr class="{{#unless public}}{{else}}success{{/unless}}">
             <td><a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a></td>
             <td><div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></td>
-            <td><a href="{{ pathFor route='course.edit' slug=this.slug }}" title="Kurs bearbeiten"><i class="fa fa-pencil"></i> Kurs bearbeiten</a></td>
             <td>
-              <input class="bs-switch" id="{{_id}}" type="checkbox" data-on-color="success" data-off-color="danger" data-on-text="online" data-off-text="offline" data-size="mini" data-label-text="{{#if hasPublishRequest}} Prüfung {{/if}}" data-indeterminate="{{hasPublishRequest}}" readonly="{{hasPublishRequest}}" checked="{{isPublic}}">
+              {{#unless hasPublishRequest}}
+                <a href="{{ pathFor route='course.edit' slug=this.slug }}" title="Kurs bearbeiten"><i class="fa fa-pencil"></i> Kurs bearbeiten</a>
+              {{/unless}}
+            </td>
+            <td>
+              {{#if public}}
+                <span style="color: green;"><i class="fa fa-check"></i> öffentlich </span>
+              {{else}}
+                {{#if hasPublishRequest}}
+                  in Prüfung
+                {{else}}
+                  <span style="color: red;"><i class="fa fa-times"></i> deaktiviert </span>
+                {{/if}}
+              {{/if}}
+            </td>
+
+            <td>
+              {{#if public}}
+                deaktivieren
+              {{else}}
+                {{#unless hasPublishRequest}}
+                  veröffentlichen
+                {{/unless}}
+              {{/if}}
             </td>
           </tr>
         {{/each}}
