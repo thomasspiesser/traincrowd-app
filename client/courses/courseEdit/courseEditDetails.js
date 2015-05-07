@@ -5,36 +5,17 @@ Template.editCourseDetails.helpers({
 });
 
 Template.editCourseDetails.events({
+  'input .form-control': function (event, template) {
+    var field = event.currentTarget.id.split('-')[2];
+    $('#edit-course-'+field).parent().removeClass('has-error');
+    $('#help-text-edit-course-'+field).text('speichern...').fadeIn(300);
+    lazysaveCourseField( { id: this._id, argName: field, argValue: event.currentTarget.value } );
+  },
   'click #saveEditCourseDetails': function (event, template) {
-    var aims = template.find("#editCourseAims").value;
-    var methods = template.find("#editCourseMethods").value;
-    var targetGroup = template.find("#editCourseTargetGroup").value;
-    var prerequisites = template.find("#editCoursePrerequisites").value;
-    var languages = template.find("#editCourseLanguages").value;
-    var additionalServices = template.find("#editCourseAdditionalServices").value;
-
-    if (! aims.length ) {
-      $('#editCourseAims').parent().addClass('has-error');
-      $('#editCourseAims').next('span').text('Bitte geben Sie Lernziele für Ihren Kurs an.');
-      toastr.error( "Der Kurs benötigt Lernziele." );
+    if (! this.aims || ! this.aims.length ) {
+      formFeedbackError( '#edit-course-aims', '#help-text-course-aims', 'Bitte geben Sie Lernziele für Ihren Kurs an.', "Der Kurs benötigt Lernziele." );
       return false;
     }
-
-    var modifier = {_id: this._id,
-                owner: this.owner,
-                aims: aims,
-                methods: methods,
-                targetGroup: targetGroup,
-                prerequisites: prerequisites,
-                languages: languages,
-                additionalServices: additionalServices };
-
-    Meteor.call('updateCourse', modifier, function (error, result) {
-      if (error)
-        toastr.error( error.reason );
-      else
-        toastr.success( 'Änderungen gespeichert.' );
-    });
 
     Session.set('editCourseTemplate', "editCourseCosts");
 
