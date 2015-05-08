@@ -17,7 +17,6 @@ natestrauser:select2
 zimme:select2-bootstrap3-css
 email
 useraccounts:bootstrap
-u2622:persistent-session
 meteorhacks:kadira
 chrismbeckett:toastr
 dburles:spacebars-tohtml
@@ -32,5 +31,4 @@ tomsp:paymill
 underscore
 yasaricli:slugify
 sacha:spin
-dburles:google-maps
 msavin:mongol
