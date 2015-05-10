@@ -64,12 +64,12 @@
        
       </form>
       
-      <label for="" class="control-label">Angegebene Termine:</label>
-      <ul>
+      <label for="" class="control-label">Ihre Events:</label>
+      <ol>
       {{#each dates}}
-        <li>{{#each this}} {{niceDate}} {{/each}}</li>
+        <li> Event: {{#each this}} {{niceDate}} {{/each}} (<a href="#" class="removeEvent"><i class="fa fa-times" style='color:red;'> löschen</i></a>) </li>
       {{/each}}
-      </ul>
+      </ol>
     </div>
 
     <div class="col-md-5" style="margin-top: 20px;">

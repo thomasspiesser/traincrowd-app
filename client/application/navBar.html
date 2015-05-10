@@ -61,6 +61,9 @@
           <li><a href="{{ pathFor 'userProfile.edit' data=currentUser }}">Mein Profil</a></li>
         {{/if}}
         <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
+        {{#if isInRole 'trainer'}}
+          <li><a href="{{ pathFor 'createCourse' }}">Neuen Kurs anlegen</a></li>
+        {{/if}}
         <li class="divider"></li>
         <li><a href="#" id="logout">Ausloggen</a></li>
       </ul>

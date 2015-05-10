@@ -107,6 +107,29 @@ Template.editCourseDates.events({
     });
 
   },
+  'click .removeEvent': function (event, template) {
+    var course = Template.currentData();
+    var courseDate = this;
+    var current = Current.findOne({course: course._id, courseDate: courseDate}, {fields: {participants:1}});
+    if (! current.participants.length) {
+      if (confirm('Event wirklich löschen?')) {
+        var options = {
+          courseId: course._id,
+          currentId: current._id,
+          courseDate: courseDate
+        };
+        Meteor.call('deleteEvent', options, function (error) {
+          if (error)
+            toastr.error( error.reason );
+          else 
+            toastr.success( "Das Event wurde erfolgreich gelöscht!" );
+        });
+      }
+    }
+    else {
+      toastr.error( 'Es gibt bereits Teilnehmer für dieses Event. Bitte kontaktieren Sie uns und wir finden gemeinsam eine Lösung.');
+    }
+  },
   'click #saveEditCourseDates': function (event, template) {
 
     Session.set('editCourseTemplate', "editCourseLogistics");
