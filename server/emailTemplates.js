@@ -29,16 +29,13 @@ Meteor.startup(function() {
 
 Meteor.methods({
   sendRequestPublicationEmail: function (options) {
-    check(options, {
-      what: NonEmptyString,
-      itemId: NonEmptyString,
-      itemName: String
-    });
-
+    // this.unblock();
+    // check done in method setPublishRequest
     var subject = "Anfrage zur Freischaltung von " + options.what + ": " + options.itemName;
     var html = Spacebars.toHTML(options, Assets.getText('requestPublicationEmail.html'));
     options = { 
       to: 'info@traincrowd.de', 
+      // to: 'thomas@traincrowd.de', 
       subject: subject, 
       html: html 
     };
@@ -46,7 +43,7 @@ Meteor.methods({
     sendEmail(options);
   },
   sendAskIfEventExpiredTrainerEmail: function (options) {
-    this.unblock();
+    // this.unblock();
     check(options, {
       currentId: String,
       course: String,
@@ -105,7 +102,7 @@ Meteor.methods({
     sendEmail(options);
   },
   sendInformEventExpiredTrainerEmail: function (options) {
-    this.unblock();
+    // this.unblock();
     check(options, {
       currentId: String,
       course: String
@@ -197,7 +194,7 @@ Meteor.methods({
     });
   },
   sendRateCourseEmail: function (options) {
-    this.unblock();
+    // this.unblock();
     check(options, {
       course: String,
       participants: [String]
@@ -243,7 +240,7 @@ Meteor.methods({
     });
   },
   sendBookingConfirmationEmail: function (options) {
-    this.unblock();
+    // this.unblock();
     check(options, {
       course: String
     });
@@ -279,7 +276,7 @@ Meteor.methods({
     sendEmail(options);
   },
   sendCourseFullTrainerEmail: function (options) {
-    this.unblock();
+    // this.unblock();
     check(options, {
       currentId: String,
       course: String,
@@ -328,7 +325,7 @@ Meteor.methods({
     sendEmail(options);
   },
   sendCourseFullParticipantsEmail: function (options) {
-    this.unblock();
+    // this.unblock();
     check(options, {
       currentId: String,
       course: String,
@@ -397,7 +394,7 @@ Meteor.methods({
     });
   },
   sendTestEmail: function (options) {
-    this.unblock();
+    // this.unblock();
     check(options, {
       to: String
     });
