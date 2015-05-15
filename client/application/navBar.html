@@ -30,7 +30,7 @@
 
 <template name='navItemsLeft'>
   <li><a href="{{pathFor 'search.course'}}">Berlins Top Kurse</a></li>
-  <li><a href="{{pathFor 'search.trainer'}}">Die Anbieter</a></li>
+  <li><a href="{{pathFor 'search.trainer'}}">Die Trainer</a></li>
   <li><a href="{{pathFor 'faq'}}">Häufige Fragen</a></li>
 </template>
 
@@ -38,7 +38,7 @@
 
 <template name='navItemsRight'>
   {{#unless isInRole 'trainer'}}
-    <li><a href="{{ pathFor 'becomeTrainerLanding' }}">Anbieter werden</a></li>
+    <li><a href="{{ pathFor 'becomeTrainerLanding' }}">Trainer werden</a></li>
   {{else}}
     <li><a href="{{ pathFor 'createCourse' }}">Kurs erstellen</a></li>
   {{/unless}}
