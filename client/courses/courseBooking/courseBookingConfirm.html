@@ -1,0 +1,118 @@
+<template name="bookCourseConfirm">
+<h4 class="editContentTitles">Buchung überprüfen und bestätigen</h4>
+  
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Rechnungsadresse</div>
+        <div class="panel-body">
+          Test Tester<br>
+          etetetetetete<br>
+          19999, Hamburg<br>
+          Deutschland<br>
+          <a href="">Rechnungsadresse ändern</a>
+        </div>
+      </div>
+    </div>  
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Kontaktinformationen</div>
+        <div class="panel-body">
+          E-Mail:<br>
+          test@test.de<br>
+          Telefon:<br>
+          12345678<br>
+          <a href="">Kontaktinformationen ändern</a>
+        </div>
+      </div>
+    </div>  
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Zahlungsart</div>
+        <div class="panel-body">
+          Zahlungsart:<br>
+          Kreditkarte<br>
+          <a href="">Zahlungsart ändern</a>
+          
+        </div>
+      </div>
+    </div>  
+  </div>
+  
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">AGB akzeptieren</div>
+        <div class="panel-body">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Die <a href="{{pathFor 'agb'}}">AGB</a> von traincrowd habe ich zur Kenntnis genommen und mit ihrer Geltung bin ich einverstanden.
+            </label>
+          </div>
+          
+        </div>
+      </div>
+    </div>  
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Newsletter abonnieren</div>
+        <div class="panel-body">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Ich möchte in den traincrowd-Newsletter eingetragen und über News und Trends informiert werden.
+            </label>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Geschenkgutschein oder Aktionscode</div>
+        <div class="panel-body">
+          in a galaxy far far away...
+        </div>
+      </div>
+      
+    </div> 
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-10 col-md-offset-1">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Kurs</td>
+            <td>Termine</td>
+            <td>Preis pro Person</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>blabla</td>
+            <td>10.01.2015, 11.01.2015, 12.01.2015, 15.01.2015, 17.01.2015, 21.01.2015</td>
+            <td>299,- Euro</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="text-right"><strong>zu zahlender Gesamtpreis: 299,- Euro </strong></div>
+
+      <!-- button -->
+      <div class="form-group">
+        <button type="button" class="btn btn-primary pull-right" id="bookCoursePay"> Kaufen</button>
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+</template>
