@@ -1,3 +1,32 @@
+Template.bookCourse.created = function () {
+  Session.set("bookCourseTemplate", "bookCourseRegister");
+};
+
+Template.bookCourse.helpers({
+  deservesCheckBookCourseRegister: function () {
+    return this.title && this.description && this.categories ? true : false;
+  },
+  deservesCheckBookCoursePaymentMethod: function () {
+    return this.aims ? true : false;
+  },
+  deservesCheckBookCourseConfirm: function () {
+    return this.maxParticipants && this.fee ? true : false;
+  },
+  active: function() {
+    return Session.get('bookCourseTemplate');
+  }
+});
+
+Template.bookCourse.events({ 
+  'click .dynamic-template-selector': function (event) {
+    Session.set('bookCourseTemplate', event.currentTarget.id);
+
+    $('.progress-tracker').removeClass('active').addClass('inactive');
+    $(event.currentTarget).children('.progress-tracker').removeClass('inactive').addClass('active');
+  }
+});
+
+
 //////////// courseInquiry template /////////
 
 // Template.courseInquiry.rendered=function() {

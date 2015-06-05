@@ -40,15 +40,17 @@ Template.coursePreview.helpers({
     }
   },
   nextEvent: function () {
+    if (! this.dates || ! this.dates.length)
+      return 'Kein Event';
+
     this.dates.sort( function (a,b) { return a[0] - b[0]; } ); // sort according to first event day
     var nextEvent = this.dates[0]; // we just want the next one
 
-    if (nextEvent && nextEvent.length) {
-      if (nextEvent.length === 1) {
-        return moment(nextEvent[0]).format("DD.MM.YYYY");
-      }
+    if (nextEvent.length === 1) {
+      return moment(nextEvent[0]).format("DD.MM.YYYY");
+    }
+    else { 
       return moment(_.first( nextEvent ) ).format("DD.MM") + ' - ' + moment(_.last( nextEvent ) ).format("DD.MM.YYYY");
     }
-    return 'Kein Event';
   }
 });

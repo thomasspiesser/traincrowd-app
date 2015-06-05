@@ -7,7 +7,7 @@ function setExpired() {
 
     var course = Courses.findOne( { _id: current.course }, { fields: { expires: 1, dates: 1, maxParticipants: 1 } } );
 
-    if ( current.participants.length === course.maxParticipants )
+    if (course.maxParticipants && current.participants.length === course.maxParticipants )
       return;
 
     var date = _.first(current.courseDate); // first day of the event
@@ -27,13 +27,19 @@ function setExpired() {
           {_id: current._id},
           {$set: { token: token }});
         // email owner: Fragen ob er den Kurs trotzdem machen will
-        Meteor.call('sendAskIfEventExpiredTrainerEmail', { course: current.course, currentId: current._id, token: token } );
+        Meteor.call('sendAskIfEventExpiredTrainerEmail', { course: current.course, currentId: current._id, token: token }, function (error) {
+            if (error)
+              console.log("ERROR: " + error);
+          });
         return;
       }
 
       else {
         // inform trainer event expired
-        Meteor.call('sendInformEventExpiredTrainerEmail', { course: current.course, currentId: current._id } );
+        Meteor.call('sendInformEventExpiredTrainerEmail', { course: current.course, currentId: current._id }, function (error) {
+          if (error)
+            console.log("ERROR: " + error);
+        });
         // for the record
         expiredEvents.push(current._id); 
         // remove from course.dates
@@ -52,6 +58,16 @@ function setElapsed() {
   Current.find().forEach(function (current) {
     var date = _.last(current.courseDate); // last day of the event
     if (date < new Date()) {
+
+      if (current.participants && current.participants.length) {
+        // email current.participants: Aufforderung bewertung
+        Meteor.call('sendRateCourseEmail', {course: current.course, participants: current.participants});
+      }
+
+      // for the record
+      elapsedEvents.push(current._id); 
+
+      // insert into elapsed
       Elapsed.insert({
         _id: current._id,
         owner: current.owner,
@@ -59,19 +75,18 @@ function setElapsed() {
         participants: current.participants,
         courseDate: current.courseDate
       });
-      elapsedEvents.push(current._id); // for the record
-
-      // email current.participants: Aufforderung bewertung
-      Meteor.call('sendRateCourseEmail', {course: current.course, participants: current.participants});
 
       // remove from course.dates
       Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
+      
       // remove from Current:
       Current.remove(current._id);
     }
     return elapsedEvents;
   }); 
 }
+
+
 
 SyncedCron.add({
   name: 'Scan for elapsed',
