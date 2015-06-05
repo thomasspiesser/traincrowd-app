@@ -15,9 +15,15 @@
 
           "livePublicKey": "pk_live_xxxxxxxxxxxxxxxxxxxxxxxx"
 
+        },
+
+        "analyticsSettings": {
+
+          "Google Analytics" : {"trackingId": "UA-57055510-2"}
+
         }
 
-      },
+    },
 
     "paymill": {
 
