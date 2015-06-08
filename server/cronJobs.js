@@ -7,7 +7,23 @@ function setExpired() {
 
     var course = Courses.findOne( { _id: current.course }, { fields: { expires: 1, dates: 1, maxParticipants: 1 } } );
 
-    if (course.maxParticipants && current.participants.length === course.maxParticipants )
+    if (!course) {
+      console.log("ERROR: Kurs nicht gefunden. Id: " + current._id);
+      return;
+    }
+
+    if (!course.dates) {
+      console.log("ERROR: Kurs.dates nicht gefunden. Id: " + current._id);
+      return;
+    }
+
+    var index = _.indexOf(course.dates, current.courseDate);
+    if (index === -1) {
+      console.log("ERROR: Current.date in Kurs.dates nicht gefunden. Current-Id: " + current._id);
+      return;
+    }
+
+    if ( course.maxParticipants && current.participants.length === course.maxParticipants )
       return;
 
     var date = _.first(current.courseDate); // first day of the event
@@ -58,6 +74,17 @@ function setElapsed() {
   Current.find().forEach(function (current) {
     var date = _.last(current.courseDate); // last day of the event
     if (date < new Date()) {
+      var course = Courses.findOne( { _id: current.course }, { fields: { dates: 1 } } );
+
+      if (!course) {
+        console.log("ERROR: Kurs nicht gefunden. Id: " + current._id);
+        return;
+      }
+
+      if (!course.dates) {
+        console.log("ERROR: Kurs.dates nicht gefunden. Id: " + current._id);
+        return;
+      }
 
       if (current.participants && current.participants.length) {
         // email current.participants: Aufforderung bewertung
@@ -75,6 +102,7 @@ function setElapsed() {
         participants: current.participants,
         courseDate: current.courseDate
       });
+
 
       // remove from course.dates
       Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });

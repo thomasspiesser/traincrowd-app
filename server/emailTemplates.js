@@ -34,8 +34,8 @@ Meteor.methods({
     var subject = "Anfrage zur Freischaltung von " + options.what + ": " + options.itemName;
     var html = Spacebars.toHTML(options, Assets.getText('requestPublicationEmail.html'));
     options = { 
-      // to: 'info@traincrowd.de', 
-      to: 'thomas@traincrowd.de', 
+      to: 'info@traincrowd.de', 
+      // to: 'thomas@traincrowd.de', 
       subject: subject, 
       html: html 
     };
@@ -399,25 +399,6 @@ Meteor.methods({
       
       sendEmail(options);
     });
-  },
-  sendTestEmail: function (options) {
-    // this.unblock();
-    check(options, {
-      to: String
-    });
-
-    var name = options.to;
-
-    if (this.userId) {
-      var user = Meteor.users.findOne( this.userId );
-      name = displayName(user);
-    }
-
-    var subject = 'Traincrowd beta sagt Hallo!';
-    var html = Spacebars.toHTML({ name: name }, Assets.getText('exampleHtmlEmail.html'));
-    options = _.extend({ subject: subject, html: html }, options);
-    
-    sendEmail(options);
   }
 });
 
