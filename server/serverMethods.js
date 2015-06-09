@@ -30,17 +30,28 @@ Meteor.methods({
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
     
-    var course = Courses.findOne({_id: options.course}, {fields: {owner:1}});
+    var course = Courses.findOne({_id: options.course}, {fields: {owner:1,title:1}});
 
     if (! course)
       throw new Meteor.Error(403, "Kurs nicht gefunden");
 
+    if (! course.owner)
+      throw new Meteor.Error(403, "Kurs-Besitzer nicht gefunden");
+
+    if (! course.title)
+      throw new Meteor.Error(403, "Kurstitel nicht gefunden");
+
     if (this.userId !== course.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
+    var user = Meteor.users.findOne( this.userId );
+    var username = displayName(user);
+
     Current.insert({
       course: options.course,
+      courseTitle: course.title,
       owner: course.owner,
+      ownerName: username,
       courseDate: options.courseDate
     });
   },
@@ -106,7 +117,7 @@ Meteor.methods({
       throw new Meteor.Error("Kurs nicht gefunden");
 
     if (!current.participants || !current.participants.length)
-      throw new Meteor.Error("Keine Teilnehmer nicht gefunden");
+      throw new Meteor.Error("Keine Teilnehmer gefunden");
 
     Meteor.call('sendEventDeclinedParticipantsEmail', {course: current.course, participants: current.participants} );
 

@@ -1,3 +1,12 @@
+Meteor.methods({
+  startSearchForExpired: function () {
+    setExpired();
+  },
+  startSearchForElapsed: function () {
+    setElapsed();
+  }
+});
+
 function setExpired() {
   var expiredEvents = [];
   // TODO: what to do with those that are just karteileichen (nicht fertig ausgefüllt etc) - sollten removed werden aber werfen evtl Fehler. Abfangen - und löschen!
@@ -14,12 +23,6 @@ function setExpired() {
 
     if (!course.dates) {
       console.log("ERROR: Kurs.dates nicht gefunden. Id: " + current._id);
-      return;
-    }
-
-    var index = _.indexOf(course.dates, current.courseDate);
-    if (index === -1) {
-      console.log("ERROR: Current.date in Kurs.dates nicht gefunden. Current-Id: " + current._id);
       return;
     }
 
@@ -98,11 +101,12 @@ function setElapsed() {
       Elapsed.insert({
         _id: current._id,
         owner: current.owner,
+        ownerName: current.ownerName,
         course: current.course,
+        courseTitle: current.courseTitle,
         participants: current.participants,
         courseDate: current.courseDate
       });
-
 
       // remove from course.dates
       Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
@@ -113,8 +117,6 @@ function setElapsed() {
     return elapsedEvents;
   }); 
 }
-
-
 
 SyncedCron.add({
   name: 'Scan for elapsed',
