@@ -27,23 +27,20 @@ Meteor.methods({
  //    Inquired.remove({_id: options.id});
  //  },
   createCurrent: function (options) {
-    check(options, {
-      course: NonEmptyString,
-      courseDate: [Date]
-    });
-
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
     
     var course = Courses.findOne({_id: options.course}, {fields: {owner:1}});
 
+    if (! course)
+      throw new Meteor.Error(403, "Kurs nicht gefunden");
+
     if (this.userId !== course.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
-    var id = Current.insert({
+    Current.insert({
       course: options.course,
       owner: course.owner,
-      participants: [],
       courseDate: options.courseDate
     });
   },
