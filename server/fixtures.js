@@ -5,3 +5,17 @@
 // 	} );
 
 // });
+
+// Meteor.startup(function () {
+// 	Current.find( {courseTitle: {$exists: false}} ).forEach( function (current) {
+// 		var course = Courses.findOne({_id: current.course}, {fields: {owner:1,title:1}});
+// 		if (course && course.owner && course.title) {
+// 			var user = Meteor.users.findOne( course.owner );
+// 			if (user){
+//     		var username = displayName(user);
+// 				Current.update( { _id: current._id }, {$set: {courseTitle: course.title, ownerName: username}} );
+// 			}
+// 		}
+// 	} );
+
+// });
