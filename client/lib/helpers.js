@@ -28,6 +28,10 @@ formFeedbackError = function ( elem, helpTextElem, inlineMessage, topMessage ) {
   toastr.error( topMessage );
 };
 
+calcCommision =  function (fee) {
+  return parseFloat(fee) / 100 * 18;
+};
+
 trimInput = function(val) {
   return val.replace(/^\s*|\s*$/g, "");
 };
@@ -49,9 +53,3 @@ UI.registerHelper('username', function(userId) {
 	return displayName(user);
 });
 
-// UI.registerHelper('image', function(imageId) {
-//   var image = Images.findOne({_id: imageId})
-//   if (image)
-//     return image.data;
-//   return false
-// });

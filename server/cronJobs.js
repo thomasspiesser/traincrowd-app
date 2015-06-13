@@ -68,8 +68,8 @@ function setExpired() {
       }
 
     }
-    return expiredEvents;
   }); 
+  return expiredEvents;
 }
 
 function setElapsed() {
@@ -114,14 +114,14 @@ function setElapsed() {
       // remove from Current:
       Current.remove(current._id);
     }
-    return elapsedEvents;
   }); 
+  return elapsedEvents;
 }
 
 SyncedCron.add({
   name: 'Scan for elapsed',
   schedule: function(parser) {
-    return parser.text('at 17:17 am'); // run at 3 in the morning every day
+    return parser.text('at 03:30 am'); // run at 3:30 in the morning every day
   }, 
   job: function() {
     var elapsedEvents = setElapsed();
@@ -132,7 +132,7 @@ SyncedCron.add({
 SyncedCron.add({
   name: 'Scan for expired',
   schedule: function(parser) {
-    return parser.text('at 17:44 am'); // run at 10 past 3 in the morning every day
+    return parser.text('at 03:00 am'); // run at 3 in the morning every day
   }, 
   job: function() {
     var expiredEvents = setExpired();
