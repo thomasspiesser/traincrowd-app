@@ -10,7 +10,6 @@ Template.editCoursePreview.events({
               errMsg = courseSchema.namedContext().keyErrorMessage( errTitle );
           toastr.error( errMsg );
         }
-
         return false;
       }
       var options = {
@@ -18,8 +17,6 @@ Template.editCoursePreview.events({
         itemId: this._id,
         itemName: this.title
       };
-      console.log(options);
-      return false;
       Meteor.call('setPublishRequest', options, function (error) {
         if (error) 
           toastr.error( error.reason );

@@ -1,9 +1,22 @@
 // Meteor.startup(function () {
-// 	Courses.find( {slug: {$exists: false}}, {fields: {_id:1, title:1}} ).forEach( function (course) {
-// 		var slug = slugify(course.title);
-// 		Courses.update( { _id: course._id }, {$set: {slug: slug}} );
+// 	Courses.find( {createdAt: {$exists: false}}, {fields: {_id:1}} ).forEach( function (course) {
+// 		console.log(course);
+// 		Courses.update( { _id: course._id }, {$set: {createdAt: new Date()}} );
 // 	} );
+// });
 
+// Meteor.startup(function () {
+// 	Courses.find( {public: {$exists: false}}, {fields: {_id:1}} ).forEach( function (course) {
+// 		console.log(course);
+// 		Courses.update( { _id: course._id }, {$set: { public: false }} );
+// 	} );
+// });
+
+// Meteor.startup(function () {
+// 	Courses.find( {publishRequest: {$exists: false}}, {fields: {_id:1}} ).forEach( function (course) {
+// 		console.log(course);
+// 		Courses.update( { _id: course._id }, {$set: { publishRequest: false }} );
+// 	} );
 // });
 
 // Meteor.startup(function () {
