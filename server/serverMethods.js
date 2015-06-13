@@ -203,7 +203,7 @@ Houston.methods(Courses, {
 
 Houston.methods(Meteor.users, {
   Publish: function (user) {
-    Meteor.users.update(user._id, {$set: {public: true}});
+    Meteor.users.update(user._id, {$set: {public: true, publishRequest: false}});
     return "Das Profil von: '"+ user.profile.name + "' ist jetzt online!";
   },
   Unpublish: function (user) {

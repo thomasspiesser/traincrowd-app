@@ -15,7 +15,13 @@ Meteor.methods({
 
     // check if event is already booked out
     var current = Current.findOne({_id: currentId}, { fields: { participants:1, course:1 } });
-    var course = Courses.findOne({_id: current.course}, { fields: { maxParticipants:1} });
+    if (! current)
+      throw new Meteor.Error(403, "Event nicht gefunden");
+
+    var course = Courses.findOne({_id: current.course}, { fields: { maxParticipants:1, title:1 } });
+    if (! course)
+      throw new Meteor.Error(403, "Kurs nicht gefunden");
+
     var beforeBooking = current.participants.length;
     var afterBooking = current.participants.length + 1;
 
@@ -30,27 +36,29 @@ Meteor.methods({
       var paymillCreateTransactionSync = Meteor.wrapAsync(paymill.transactions.create);
 
       try{
+        var user = Meteor.users.findOne( this.userId );
+
         var result = paymillCreateTransactionSync({
           amount: options.amount,
           currency: 'EUR',
           token: options.token,
-          description: 'user: ' + this.userId + ' course: ' + current.course + ' event: ' + currentId
+          description: 'user: ' + this.userId + ' ' + displayEmail( user ) + ' ; course: ' + current.course + ' ' + course.title + '; event: ' + currentId
         });
 
         // insert transaction into Transactions.collection
-        var user = Meteor.users.findOne( this.userId );
 
-        var trans = {
+        var transaction = {
           _id: result.data.id,
           userId: this.userId,
           userEmail: displayEmail( user ),
           courseId: current.course,
+          courseTitle: course.title,
           eventId: currentId,
           amount: result.data.amount / 100,
           timestamp: new Date(result.data.created_at * 1000) // unix timestamp is in sec, need millisec, hence * 1000
         };
 
-        Transactions.insert(trans);
+        Transactions.insert( transaction );
 
         // inform participant via email - with callback: may return error but rest of try-block will be run anyway, w/o callback on error will invoke catch-block
         Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function (error, result) {
