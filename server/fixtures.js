@@ -1,7 +1,32 @@
+Meteor.startup(function () {
+	Meteor.users.find( {public: {$exists: false}}, {fields: {_id:1}} ).forEach( function (user) {
+		Meteor.users.update( { _id: user._id }, {$set: {public: false }} );
+	} );
+});
+
 // Meteor.startup(function () {
-// 	Courses.find( {slug: {$exists: false}}, {fields: {_id:1, title:1}} ).forEach( function (course) {
-// 		var slug = slugify(course.title);
-// 		Courses.update( { _id: course._id }, {$set: {slug: slug}} );
+// 	Courses.find( {public: {$exists: false}}, {fields: {_id:1}} ).forEach( function (course) {
+// 		console.log(course);
+// 		Courses.update( { _id: course._id }, {$set: { public: false }} );
+// 	} );
+// });
+
+Meteor.startup(function () {
+	Meteor.users.find( {publishRequest: {$exists: false}}, {fields: {_id:1}} ).forEach( function (user) {
+		Meteor.users.update( { _id: user._id }, {$set: { publishRequest: false }} );
+	} );
+});
+
+// Meteor.startup(function () {
+// 	Current.find( {courseTitle: {$exists: false}} ).forEach( function (current) {
+// 		var course = Courses.findOne({_id: current.course}, {fields: {owner:1,title:1}});
+// 		if (course && course.owner && course.title) {
+// 			var user = Meteor.users.findOne( course.owner );
+// 			if (user){
+//     		var username = displayName(user);
+// 				Current.update( { _id: current._id }, {$set: {courseTitle: course.title, ownerName: username}} );
+// 			}
+// 		}
 // 	} );
 
 // });

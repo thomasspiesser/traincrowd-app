@@ -13,14 +13,14 @@ Template.editCourseCosts.helpers({
   feePP: function () {
     if (Session.equals("courseMaxParticipants", false) )
       return;
-    var commision = +( Session.get("courseFee") / 100 * 15 ).toFixed(2);
-    var fee = parseFloat(Session.get("courseFee"));
+    var commision = calcCommision( Session.get("courseFee") );
+    var fee = parseFloat( Session.get("courseFee") );
     return ( ( fee + commision ) / Session.get("courseMaxParticipants") ).toFixed(2);
   },
-  serviceFee: function () {
+  tcCommision: function () {
     if (Session.equals("courseMaxParticipants", false) )
       return;
-    return ( Session.get("courseFee") / 100 * 15 ).toFixed(2);
+    return calcCommision( Session.get("courseFee") ).toFixed(2);
   },
   hoverText: function () {
     return courseEditHoverText[ Session.get('showHoverText') ];

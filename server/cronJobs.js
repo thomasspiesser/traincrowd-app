@@ -1,3 +1,12 @@
+Meteor.methods({
+  startSearchForExpired: function () {
+    setExpired();
+  },
+  startSearchForElapsed: function () {
+    setElapsed();
+  }
+});
+
 function setExpired() {
   var expiredEvents = [];
   // TODO: what to do with those that are just karteileichen (nicht fertig ausgefüllt etc) - sollten removed werden aber werfen evtl Fehler. Abfangen - und löschen!
@@ -14,12 +23,6 @@ function setExpired() {
 
     if (!course.dates) {
       console.log("ERROR: Kurs.dates nicht gefunden. Id: " + current._id);
-      return;
-    }
-
-    var index = _.indexOf(course.dates, current.courseDate);
-    if (index === -1) {
-      console.log("ERROR: Current.date in Kurs.dates nicht gefunden. Current-Id: " + current._id);
       return;
     }
 
@@ -65,8 +68,8 @@ function setExpired() {
       }
 
     }
-    return expiredEvents;
   }); 
+  return expiredEvents;
 }
 
 function setElapsed() {
@@ -98,11 +101,12 @@ function setElapsed() {
       Elapsed.insert({
         _id: current._id,
         owner: current.owner,
+        ownerName: current.ownerName,
         course: current.course,
+        courseTitle: current.courseTitle,
         participants: current.participants,
         courseDate: current.courseDate
       });
-
 
       // remove from course.dates
       Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
@@ -110,16 +114,14 @@ function setElapsed() {
       // remove from Current:
       Current.remove(current._id);
     }
-    return elapsedEvents;
   }); 
+  return elapsedEvents;
 }
-
-
 
 SyncedCron.add({
   name: 'Scan for elapsed',
   schedule: function(parser) {
-    return parser.text('at 17:17 am'); // run at 3 in the morning every day
+    return parser.text('at 03:30 am'); // run at 3:30 in the morning every day
   }, 
   job: function() {
     var elapsedEvents = setElapsed();
@@ -130,7 +132,7 @@ SyncedCron.add({
 SyncedCron.add({
   name: 'Scan for expired',
   schedule: function(parser) {
-    return parser.text('at 17:44 am'); // run at 10 past 3 in the morning every day
+    return parser.text('at 03:00 am'); // run at 3 in the morning every day
   }, 
   job: function() {
     var expiredEvents = setExpired();

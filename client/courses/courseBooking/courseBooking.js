@@ -97,7 +97,7 @@ Template.paymentModal.helpers({
     return formatedDates;
   },
   feePP: function () {
-    var commision = +( this.fee / 100 * 15 ).toFixed(2);
+    var commision = calcCommision( this.fee );
     return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(2);
   }
 });  
