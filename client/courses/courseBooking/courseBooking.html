@@ -119,11 +119,17 @@
             <p><strong>Kosten pro Person:</strong> {{feePP}} <i class="fa fa-euro"></i></p>
           </div>
           <div class="col-md-6">
-            {{> paymillForm amount=feePP currencyc="EUR" title="PAYMILL" description="Sicher und einfach online bezahlen"}}
+            <h4>Platz reservieren</h4>
+            Um sich als Nutzer dieser Beta-Version einen Platz in diesem Kurs zu reservieren, schicken Sie uns bitte eine kurze Nachricht mit Kursdatum und Titel. Vielen Dank!
+            <p>
+              <a href='mailto:info&#64;traincrowd.de' style="font-weight:bold;">Email senden</a>.
+            </p>
+            Natürlich können Sie schon bald mit Kreditkarte und per Überweisung direkt bezahlen.
+            <!-- {{> paymillForm amount=feePP currencyc="EUR" title="PAYMILL" description="Sicher und einfach online bezahlen"}} -->
           </div>
         </div>
 
-        <hr>
+<!--         <hr>
 
         <h4>Simulation</h4>
 
@@ -152,7 +158,7 @@
               <button name="" type="button" class="btn btn-primary" id="bookCourseButton">Book course</button>
             </div>
           </div>
-        </form>
+        </form> -->
         {{/if}}
       </div>
       <div class="modal-footer">

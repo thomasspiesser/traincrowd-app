@@ -1,21 +1,20 @@
-Meteor.startup(function () {
-	Meteor.users.find( {public: {$exists: false}}, {fields: {_id:1}} ).forEach( function (user) {
-		Meteor.users.update( { _id: user._id }, {$set: {public: false }} );
-	} );
-});
-
 // Meteor.startup(function () {
-// 	Courses.find( {public: {$exists: false}}, {fields: {_id:1}} ).forEach( function (course) {
-// 		console.log(course);
-// 		Courses.update( { _id: course._id }, {$set: { public: false }} );
+// 	Meteor.users.find( {public: {$exists: false}}, {fields: {_id:1}} ).forEach( function (user) {
+// 		Meteor.users.update( { _id: user._id }, {$set: {public: false }} );
 // 	} );
 // });
 
-Meteor.startup(function () {
-	Meteor.users.find( {publishRequest: {$exists: false}}, {fields: {_id:1}} ).forEach( function (user) {
-		Meteor.users.update( { _id: user._id }, {$set: { publishRequest: false }} );
-	} );
-});
+// Meteor.startup(function () {
+// 	Courses.find( {hasDate: {$exists: false}}, {fields: {_id:1}} ).forEach( function (course) {
+// 		Courses.update( { _id: course._id }, {$set: { hasDate: false }}, {validate: false} );
+// 	} );
+// });
+
+// Meteor.startup(function () {
+// 	Meteor.users.find( {publishRequest: {$exists: false}}, {fields: {_id:1}} ).forEach( function (user) {
+// 		Meteor.users.update( { _id: user._id }, {$set: { publishRequest: false }} );
+// 	} );
+// });
 
 // Meteor.startup(function () {
 // 	Current.find( {courseTitle: {$exists: false}} ).forEach( function (current) {

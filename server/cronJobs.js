@@ -63,6 +63,10 @@ function setExpired() {
         expiredEvents.push(current._id); 
         // remove from course.dates
         Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
+        course = Courses.findOne({_id: current.course}, { fields: { dates: 1 } });
+        if (!course.dates.length) {
+          Courses.update({_id: current.course}, { $set: { hasDate: false } });
+        }
         // remove from Current:
         Current.remove(current._id);
       }
@@ -110,7 +114,10 @@ function setElapsed() {
 
       // remove from course.dates
       Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
-      
+      course = Courses.findOne({_id: current.course}, { fields: { dates: 1 } });
+      if (!course.dates.length) {
+        Courses.update({_id: current.course}, { $set: { hasDate: false } });
+      }
       // remove from Current:
       Current.remove(current._id);
     }
