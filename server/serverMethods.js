@@ -104,7 +104,7 @@ Meteor.methods({
 
     Current.remove({_id: options.currentId});
   },
-  declineCurrent: function (token) {
+  declineEvent: function (token) {
     check(token, NonEmptyString);
 
     if (! this.userId)
@@ -150,7 +150,7 @@ Meteor.methods({
 
     Current.remove( { token: token } );
   }, 
-  confirmCurrent: function (token) {
+  confirmEvent: function (token) {
     check(token, NonEmptyString);
 
     if (! this.userId)

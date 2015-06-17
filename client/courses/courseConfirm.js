@@ -37,7 +37,7 @@ Template.courseConfirmForm.events({
     var currentId = this.current._id,
         course = this.course._id;
 
-    Meteor.call('confirmCurrent', Session.get('token'), function (error) {
+    Meteor.call('confirmEvent', Session.get('token'), function (error) {
       if (error) {
         toastr.error( error.reason );
         return false;
