@@ -26,11 +26,16 @@ Meteor.methods({
  //    //remove from Inquired:
  //    Inquired.remove({_id: options.id});
  //  },
-  createCurrent: function (options) {
+  createEvent: function (options) {
+    check(options, {
+      courseId: NonEmptyString,
+      courseDate: [ Date ]
+    });
+
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
     
-    var course = Courses.findOne({_id: options.course}, {fields: {owner:1,title:1}});
+    var course = Courses.findOne({_id: options.courseId}, {fields: { owner:1, title:1 } });
 
     if (! course)
       throw new Meteor.Error(403, "Kurs nicht gefunden");
@@ -45,34 +50,17 @@ Meteor.methods({
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
     var user = Meteor.users.findOne( this.userId );
-    var username = displayName(user);
+    var username = displayName( user );
 
     Current.insert({
-      course: options.course,
+      course: options.courseId,
       courseTitle: course.title,
       owner: course.owner,
       ownerName: username,
       courseDate: options.courseDate
     });
-  },
-  addToCourseDates: function (options) {
-    check(options, {
-      _id: NonEmptyString,
-      dates: [[ Date ]]
-    });
-    if (! this.userId)
-      throw new Meteor.Error(403, "Sie müssen eingelogged sein");
-    var course = Courses.findOne({_id: options._id}, {fields: {owner:1}});
-    if (! course) 
-      throw new Meteor.Error(423, "Kurs nicht gefunden.");
-    if (! course.owner) 
-      throw new Meteor.Error(423, "Kurs hat keinen Besitzer.");
-    if (this.userId !== course.owner)
-      throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
-    Courses.update({_id: options._id}, { $addToSet: {dates: { $each: options.dates } }, $set: { hasDate: true } }, {validate: false});
-    // Courses.update(options._id, { $push: {dates: 
-    //   { $each: options.dates, $sort: 1 } 
-    // } });
+
+    Courses.update({_id: options.courseId}, { $push: {dates: options.courseDate }, $set: { hasDate: true } }, {validate: false});
   },
   deleteEvent: function (options) {
     check(options, {
@@ -83,20 +71,29 @@ Meteor.methods({
 
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
+
     var course = Courses.findOne({_id: options.courseId}, {fields: {owner:1, dates:1 }});
+
     if (! course) 
       throw new Meteor.Error(423, "Kurs nicht gefunden.");
+
     if (! course.owner) 
       throw new Meteor.Error(423, "Kurs hat keinen Besitzer.");
+
     if (this.userId !== course.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
+
+    if (! course.dates) 
+      throw new Meteor.Error(423, "Kursdatum für Event nicht gefunden.");
 
     var current = Current.findOne({_id: options.currentId}, {fields: {owner:1}});
 
     if (! current) 
       throw new Meteor.Error(423, "Event nicht gefunden.");
+
     if (! current.owner) 
       throw new Meteor.Error(423, "Event hat keinen Besitzer.");
+
     if (this.userId !== current.owner)
       throw new Meteor.Error(422, "Sie können nur Ihre eigenen Events löschen");
 
@@ -130,9 +127,26 @@ Meteor.methods({
     if (!current.participants || !current.participants.length)
       throw new Meteor.Error(403, "Keine Teilnehmer gefunden");
 
+    var course = Courses.findOne({_id: current.course}, {fields: {owner:1, dates:1 }});
+
+    if (! course) 
+      throw new Meteor.Error(423, "Kurs nicht gefunden.");
+
+    if (! course.owner) 
+      throw new Meteor.Error(423, "Kurs hat keinen Besitzer.");
+
+    if (this.userId !== course.owner)
+      throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
+
+    if (! course.dates) 
+      throw new Meteor.Error(423, "Kursdatum für Event nicht gefunden.");
+
     Meteor.call('sendEventDeclinedParticipantsEmail', {course: current.course, participants: current.participants} );
 
-    Courses.update( {_id: current.course}, { $pull: { dates: current.courseDate } } );
+    if (course.dates.length === 1) 
+      Courses.update( {_id: current.course }, { $pull: { dates: current.courseDate }, $set: { hasDate: false } } );
+    else
+      Courses.update( {_id: current.course }, { $pull: { dates: current.courseDate } } );
 
     Current.remove( { token: token } );
   }, 

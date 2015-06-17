@@ -45,8 +45,7 @@ Template.editCourseDates.events({
     var field = event.currentTarget.id.split('-')[2];
     $('#edit-course-'+field).parent().removeClass('has-error');
     $('#help-text-edit-course-'+field).text('speichern...').fadeIn(300);
-    var val = parseInt(event.currentTarget.value);
-    lazysaveCourseField( { id: this._id, argName: field, argValue: val } );
+    lazysaveCourseField( { id: this._id, argName: field, argValue: event.currentTarget.value } );
   },
   'click #addEventButton': function (event, template) {
     event.preventDefault();
@@ -83,23 +82,10 @@ Template.editCourseDates.events({
       return false;
     }
 
-    var options = {course: this._id,
+    var options = {courseId: this._id,
                   courseDate: dateObjectsArray };
 
-    Meteor.call('createCurrent', options, function (error) {
-      if (error) {
-        toastr.error( error.reason );
-        return false;
-      }
-    });
-
-    var dates = []; // in case we go back to adding multiple events at once
-    dates.push( dateObjectsArray );
-
-    options = {_id: this._id,
-              dates: dates };
-
-    Meteor.call('addToCourseDates', options, function (error, result) {
+    Meteor.call('createEvent', options, function (error, result) {
       if (error)
         toastr.error( error.reason );
       else
@@ -138,51 +124,7 @@ Template.editCourseDates.events({
     $('#editCourseLogistics').children('.progress-tracker').removeClass('inactive').addClass('active');
 
     return false;
-    // if (this.dates) // might be empty, handle:
-    //   var DBdates = this.dates;
-    // else
-    //   var DBdates = "";
-    // var dates = template.find("#editCourseDates").value;
-    // var datesArray = dates.split(',')
-    // var DBdatesArray = DBdates.split(',')
-    // var removedDates = _.difference(DBdatesArray,datesArray) // geht was weg
-    // var addedDates = _.difference(datesArray,DBdatesArray) // kommt was hinzu
-    // if (removedDates.length && removedDates[0]!=="") {
-    //   for (var i = 0; i < removedDates.length; i++) {
-    //     var current = Current.findOne({course: this._id, courseDate: removedDates[i]}, {fields: {participants:1}});
-    //     if (! current.participants.length)
-    //       Meteor.call('deleteCurrent', current._id, function (error, result) {});
-    //     else {
-    //       // or bootbox confirm delete coz there are already participants
-    //       var dates = dates+','+removedDates[i]; // just keep it and don't allow deletion of this date
-    //       $('#editCourseDates').datepicker('setDates', _.map(dates.split(','), function(date) {return new Date(reformatDate(date))} ) );
-    //       toastr.error( 'Es gibt bereits Teilnehmer für diese Veranstalltung am '+ removedDates[i] +'.' );
-    //     }
-    //   }
-    // } 
-    // if (addedDates.length && addedDates[0]!=="") {
-    //   for (var i = 0; i < addedDates.length; i++) {
-    //     options = {course: this._id,
-    //               owner: this.owner,
-    //               courseDate: addedDates[i]}
-    //     Meteor.call('createCurrent', options, function (error, result) {});
-    //   }
-    // }
   },
-  // 'click #addDateField': function () {
-  //   var newdDateField = '<div class="row"><div class="col-md-11"><div class="form-group"><div class="input-group"><input type="text" class="form-control editCourseDates hoverCheck" id="" name="dateField"  placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div></div></div><div class="col-md-1"><button type="button" class="btn btn-default pull-right removeDateField"><i class="fa fa-minus"></i></button></div></div>';
-  //   $("#courseDatesGroup").append(newdDateField);
-  //   $('.editCourseDates').datepicker({
-  //     startDate: "-0d",
-  //     language: "de",
-  //     todayBtn: true,
-  //     multidate: true,
-  //     todayHighlight: true
-  //   });
-  // },
-  // 'click .removeDateField': function (event, template) {
-  //   $(event.currentTarget).parent().parent().remove();
-  // },
   // 'change #editCourseAllowInquiry': function (event) {
   //   Session.set("allowInquiry", event.target.checked);
   // },
