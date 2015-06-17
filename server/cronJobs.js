@@ -62,11 +62,10 @@ function setExpired() {
         // for the record
         expiredEvents.push(current._id); 
         // remove from course.dates
-        Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
-        course = Courses.findOne({_id: current.course}, { fields: { dates: 1 } });
-        if (!course.dates.length) {
-          Courses.update({_id: current.course}, { $set: { hasDate: false } });
-        }
+        if (course.dates.length === 1) 
+          Courses.update( {_id: current.course }, { $pull: { dates: current.courseDate }, $set: { hasDate: false } }, {validate: false} );
+        else
+          Courses.update( {_id: current.course }, { $pull: { dates: current.courseDate } }, {validate: false} );
         // remove from Current:
         Current.remove(current._id);
       }
@@ -113,11 +112,10 @@ function setElapsed() {
       });
 
       // remove from course.dates
-      Courses.update({_id: current.course}, { $pull: { dates: current.courseDate } });
-      course = Courses.findOne({_id: current.course}, { fields: { dates: 1 } });
-      if (!course.dates.length) {
-        Courses.update({_id: current.course}, { $set: { hasDate: false } });
-      }
+      if (course.dates.length === 1) 
+        Courses.update( {_id: current.course }, { $pull: { dates: current.courseDate }, $set: { hasDate: false } }, {validate: false} );
+      else
+        Courses.update( {_id: current.course }, { $pull: { dates: current.courseDate } }, {validate: false} );
       // remove from Current:
       Current.remove(current._id);
     }
