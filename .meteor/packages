@@ -21,7 +21,6 @@ meteorhacks:kadira
 chrismbeckett:toastr
 dburles:spacebars-tohtml
 fortawesome:fontawesome
-twbs:bootstrap-noglyph
 okgrow:iron-router-autoscroll
 momentjs:moment
 meteorhacks:subs-manager
@@ -36,3 +35,4 @@ okgrow:analytics
 dfischer:phantomjs
 ongoworks:spiderable
 aldeed:collection2
+nemo64:bootstrap
