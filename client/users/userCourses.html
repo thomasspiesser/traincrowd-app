@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         {{#each hostedCourses}}
-          <tr class="{{#unless public}}{{else}}success{{/unless}}">
+          <tr class="{{#unless isPublic}}{{else}}success{{/unless}}">
             <td><a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a></td>
             <td><div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></td>
             <td>
@@ -25,7 +25,7 @@
               {{/unless}}
             </td>
             <td>
-              {{#if public}}
+              {{#if isPublic}}
                 <span style="color: green;"><i class="fa fa-check"></i> öffentlich </span>
               {{else}}
                 {{#if hasPublishRequest}}
@@ -37,7 +37,7 @@
             </td>
 
             <td>
-              {{#if public}}
+              {{#if isPublic}}
                 <a href="#" class="deactivate">deaktivieren</a>
               {{else}}
                 {{#unless hasPublishRequest}}

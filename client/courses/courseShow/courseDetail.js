@@ -9,7 +9,7 @@ Template.courseDetail.rendered = function() {
 
 Template.courseDetail.helpers({
   isPublic: function () {
-    return this.public;
+    return this.isPublic;
   },
   trainerImageId: function (id) {
     var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );

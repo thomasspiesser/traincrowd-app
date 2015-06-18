@@ -1,8 +1,8 @@
 // TODO: specify return fields
 
 Meteor.publish('courses', function () {
-	return Courses.find({ $or: [ {public: true}, {owner: this.userId} ] });
-	// return Courses.find({ public: true });
+	return Courses.find({ $or: [ {isPublic: true}, {owner: this.userId} ] });
+	// return Courses.find({ isPublic: true });
 });
 
 Meteor.publish('singleCourse', function (slug) {
@@ -36,7 +36,7 @@ Meteor.publish('userData', function () {
 
 // TDOD: don't publish all the info from profile..make more specific here
 Meteor.publish('trainer', function () {
-  return Meteor.users.find( { roles: 'trainer', public: true }, { fields: { services:0, createdAt: 0 } } );
+  return Meteor.users.find( { roles: 'trainer', isPublic: true }, { fields: { services:0, createdAt: 0 } } );
 });
 
 // Meteor.publish('singleTrainer', function (id) {

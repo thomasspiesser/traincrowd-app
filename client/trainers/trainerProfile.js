@@ -4,7 +4,7 @@ Template.trainerProfile.rendered = function () {
 
 Template.trainerProfile.helpers({
   isPublic: function () {
-    return this.public;
+    return this.isPublic;
   },
   canEdit: function () {
     return this._id === Meteor.userId();
@@ -13,7 +13,7 @@ Template.trainerProfile.helpers({
   //   return Roles.userIsInRole(this._id, 'trainer');
   // },
   hostedCourses: function () {
-    return Courses.find( { owner: this._id, public: true }, {fields: {imageId:1, title:1, rating:1, slug:1}} );
+    return Courses.find( { owner: this._id, isPublic: true }, {fields: {imageId:1, title:1, rating:1, slug:1}} );
   }
 });
 

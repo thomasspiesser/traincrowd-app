@@ -210,22 +210,22 @@ Houston.add_collection(Categories);
 
 Houston.methods(Courses, {
   Publish: function (course) {
-    Courses.update(course._id, {$set: {public: true, publishRequest: false}}, {validate: false});
+    Courses.update(course._id, {$set: {isPublic: true, hasPublishRequest: false}}, {validate: false});
     return "Der Kurs: '"+ course.title + "' ist jetzt online!";
   },
   Unpublish: function (course) {
-  	Courses.update(course._id, {$set: {public: false}}, {validate: false});
+  	Courses.update(course._id, {$set: {isPublic: false}}, {validate: false});
     return "Ok, der Kurs: '"+ course.title + "' ist offline.";
   }
 });
 
 Houston.methods(Meteor.users, {
   Publish: function (user) {
-    Meteor.users.update(user._id, {$set: {public: true, publishRequest: false}}, {validate: false});
+    Meteor.users.update(user._id, {$set: {isPublic: true, hasPublishRequest: false}}, {validate: false});
     return "Das Profil von: '"+ user.profile.name + "' ist jetzt online!";
   },
   Unpublish: function (user) {
-    Meteor.users.update(user._id, {$set: {public: false}}, {validate: false});
+    Meteor.users.update(user._id, {$set: {isPublic: false}}, {validate: false});
     return "Ok, das Profil von: '"+ user.profile.name + "' ist offline.";
   }
 });
