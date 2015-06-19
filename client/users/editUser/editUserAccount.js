@@ -1,3 +1,9 @@
+Template.editUserAccount.helpers({
+  email: function () {
+    return this.emails[0].address;
+  }
+});
+
 Template.editUserAccount.events({
   'input #edit-user-email': function (event, template) {
     var field = event.currentTarget.id.split('-')[2];

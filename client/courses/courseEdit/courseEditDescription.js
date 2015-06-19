@@ -118,14 +118,9 @@ Template.editCourseDescription.events({
           toastr.error( error.message );
         }
         else {
-          var modifier = {_id: self._id,
-                          owner: self.owner,
-                          imageId: downloadUrl};
-          Meteor.call('updateCourse', modifier, function (error, result) {
-            if (error)
+          Meteor.call('updateCourseSingleField', { id: self._id, argName: 'imageId', argValue: downloadUrl }, function (error) {
+            if (error) 
               toastr.error( error.reason );
-            else
-              toastr.success( 'Änderungen gespeichert.' );
           });
         }
       });

@@ -47,8 +47,10 @@ Template.editUserProfile.events({
           toastr.error( error.message );
         }
         else {
-          var modifier = {'profile.imageId': downloadUrl};
-          saveUpdates(modifier);
+          Meteor.call('updateUserSingleField', { argName: 'imageId', argValue: downloadUrl }, function (error) {
+            if (error) 
+              toastr.error( error.reason );
+          });
         }
       });
     }
