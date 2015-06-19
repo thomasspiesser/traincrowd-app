@@ -3,15 +3,15 @@ Template.editUser.created = function () {
 };
 
 Template.editUser.helpers({
-  // deservesCheckCourseDescription: function () {
-  //   return this.title && this.description && this.categories.length ? true : false;
-  // },
-  // deservesCheckCourseDetails: function () {
-  //   return this.aims ? true : false;
-  // },
-  // deservesCheckCourseCosts: function () {
-  //   return this.maxParticipants && this.fee ? true : false;
-  // },
+  deservesCheckUserProfile: function () {
+    return this.profile.title && this.profile.name && this.profile.employer && this.profile.position && this.profile.industry && this.profile.workExperience ? true : false;
+  },
+  deservesCheckUserAddress: function () {
+    return this.profile.phone && this.profile.mobile && this.profile.street && this.profile.streetNumber && this.profile.plz && this.profile.city ? true : false;
+  },
+  deservesCheckUserAccount: function () {
+    return this.emails[0].address ? true : false;
+  },
 
   active: function() {
     return Session.get('editUserTemplate');
