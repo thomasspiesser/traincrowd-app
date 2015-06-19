@@ -12,7 +12,6 @@ Template.editUser.helpers({
   deservesCheckUserAccount: function () {
     return this.emails[0].address ? true : false;
   },
-
   active: function() {
     return Session.get('editUserTemplate');
   }

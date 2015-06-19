@@ -1,0 +1,31 @@
+<template name="editTrainerPreview">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2" style="margin-top: 20px;">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">Glückwunsch, so sieht Ihr Profil aus</h3>
+        </div>
+        <div class="panel-body">
+          {{#if isPublic}}
+            <p>
+              Ihr Profil ist bereits online und für alle Nutzer sichtbar. <a href=" {{pathFor route='trainerProfile.show' _id=this._id }} ">Hier gehts zu Ihrer Profilseite</a>.
+            </p>
+            <p>
+              Sie möchten, dass Ihr Profil nicht mehr öffentlich sichtbar ist? Vielleicht um es neu zu konzipieren oder weil Sie temporär keine Kurse  mehr anbieten können? Schreiben Sie uns ein kurze Nachricht. 
+            </p>
+          {{else}}
+            {{#if hasPublishRequest}}
+              Sie haben uns bereits über Ihr neues Profil informiert und uns eine Anfrage auf Freischaltung gesendet. Wir bearbeiten diese umgehend und informieren Sie sobald Ihr Profil online ist.
+            {{else}}
+              Sie haben es geschafft. Im folgenden sehen Sie eine Vorschau Ihres Profiles. Prüfen Sie nun bitte unten in unserer Vorschau, ob alle Angaben korrekt sind. Wenn alles stimmt, können Sie Ihr Profil zur Veröffentlichung freigeben. Unsere Mitarbeiten prüfen anschließend Ihre Angaben und schalten Ihr Profil in kurzer Zeit frei. Wir informieren Sie wenn wir Ihr Profil freigegeben haben. <br>
+              <button type="button" class="btn btn-success pull-right" id="requestPublicProfileButton"><span class="fa fa-globe"></span> Freischalten</button>
+            {{/if}}
+          {{/if}}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> trainerProfile}}
+
+</template>

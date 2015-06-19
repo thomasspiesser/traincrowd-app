@@ -1,0 +1,108 @@
+<template name="editTrainerProfileN">
+  <div class="row">
+
+    <div class="col-md-5 col-md-offset-1">
+      <h4 class="editContentTitles">Mein Profil bearbeiten</h4>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="edit-trainer-title" class="control-label">Titel</label>
+            <select class="form-control" id="edit-trainer-title">
+              <option value="" {{selected '' profile.title}}></option>
+              <option value="Frau" {{selected 'Frau' profile.title}}>Frau</option>
+              <option value="Herr" {{selected 'Herr' profile.title}}>Herr</option>
+              <option value="Dr." {{selected 'Dr.' profile.title}}>Dr.</option>
+              <option value="Dr." {{selected 'Prof.' profile.title}}>Prof.</option>
+            </select>
+            <span class="help-block" id="help-text-edit-trainer-title"></span>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <label for="edit-trainer-name" class="control-label">Name</label>
+            <input type="text" class="form-control" id="edit-trainer-name" value="{{profile.name}}" placeholder="Max Mustermann">
+            <span class="help-block" id="help-text-edit-trainer-name"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-trainer-description" class="control-label">Kurzbeschreibung</label>
+        <textarea class="form-control hoverCheck" id="edit-trainer-description" rows="6" value="{{profile.description}}"></textarea>
+        <span class="help-block" id="help-text-edit-trainer-description"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-trainer-languages" class="control-label">In welchen Sprachen bieten Sie Ihre Weiterbildungen an</label>
+        <input type="text" class="form-control hoverCheck" id="edit-trainer-languages" value="{{profile.languages}}" placeholder="z.B. Deutsch, Englisch">
+        <span class="help-block" id="help-text-edit-trainer-languages"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-trainer-certificates" class="control-label">Zertifikate und Referenzen</label>
+        <input type="text" class="form-control hoverCheck" id="edit-trainer-certificates" value="{{profile.certificates}}">
+        <span class="help-block" id="help-text-edit-trainer-certificates"></span>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+          <label for="" class="control-label">Profilbild</label>
+            {{#if profile.imageId}}
+              <img src="{{profile.imageId}}" alt="" class="center-block img-thumbnail img-responsive " id="edit-trainer-image" style="margin-left:0px; width: 160px;">
+            {{else}}
+              <img src="/dummyUser.jpg" alt="" class="center-block img-thumbnail img-responsive " id="edit-trainer-default-image" style="margin-left:0px; width: 160px;">
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">    
+            <label for="edit-trainer-image-dummy" class="control-label">Ändern</label>
+            <br>
+
+            <button type="button" class="btn btn-sm btn-default" id="edit-trainer-image-dummy"> <i class="fa fa-upload"></i><span> Neues Bild</span> </button>
+
+            <br>
+            <input type="file" id="edit-trainer-image-real" style="display:none;">
+
+            <br>
+            {{#if isUploading}}
+              <div class="progress">
+                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+                  <span class="sr-only">{{progress}}%</span>
+                </div>
+              </div>
+            {{/if}}
+
+            <!-- <button type="button" class="btn btn-sm btn-danger" id="deleteProfileImage" style="margin-top:5px;"> <i class="fa fa-trash-o"></i> Bild Löschen</button> -->
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-md-5" style="margin-top: 20px;">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">Mein Profil</h3>
+        </div>
+        <div class="panel-body">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste enim repellendus alias eaque minima magnam dignissimos, aperiam harum sed, incidunt modi odit obcaecati, nemo! Odit soluta libero voluptatum illum, in!. 
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-success large-btn" id="saveEditTrainerProfile">Weiter <i class="fa fa-arrow-right"></i></button>
+      </div>
+      {{#if hoverText}}
+        <div class="well hover-text">
+          {{hoverText}}
+        </div>
+      {{/if}}
+    </div>
+
+  </div>
+</template>

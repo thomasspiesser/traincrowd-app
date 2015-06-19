@@ -1,0 +1,90 @@
+<template name="editTrainer">
+  <div class="container">
+  {{#if canEdit _id}}
+
+    <div class="text-center">
+      <h3 class="text-uppercase">
+        Mein Profil bearbeiten
+      </h3>
+      <hr>
+    </div>
+
+    <div class="row progress-tracker-wrapper">
+
+      <a href="#" class="dynamic-template-selector" id="editTrainerProfileN">
+        <div class="col-md-2 progress-tracker active">
+          <div class="row">
+            <div class="col-md-3 progress-tracker-icon-wrapper">
+              {{#if deservesCheckTrainerProfile}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
+            </div>
+            <div class="col-md-9 progress-tracker-text-wrapper">
+              <span class="progress-tracker-step"> 1. Schritt: </span> <br> <span class="progress-tracker-text"> Mein Profil </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="dynamic-template-selector" id="editTrainerAddress">
+        <div class="col-md-2 progress-tracker inactive">
+          <div class="row">
+            <div class="col-md-3 progress-tracker-icon-wrapper">
+              {{#if deservesCheckTrainerAddress}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
+            </div>
+            <div class="col-md-9 progress-tracker-text-wrapper">
+              <span class="progress-tracker-step"> 2. Schritt: </span> <br> <span class="progress-tracker-text"> Meine Adresse </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="dynamic-template-selector" id="editTrainerAccount">
+        <div class="col-md-2 progress-tracker inactive">
+          <div class="row">
+            <div class="col-md-3 progress-tracker-icon-wrapper">
+              {{#if deservesCheckTrainerAccount}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
+            </div>
+            <div class="col-md-9 progress-tracker-text-wrapper">
+              <span class="progress-tracker-step"> 3. Schritt: </span> <br> <span class="progress-tracker-text"> Mein Account </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="dynamic-template-selector" id="editTrainerPreview">
+        <div class="col-md-2 progress-tracker progress-tracker-last-item inactive">
+          <div class="row">
+            <div class="col-md-3 progress-tracker-icon-wrapper">
+              {{#if this.isPublic}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
+            </div>
+            <div class="col-md-9 progress-tracker-text-wrapper">
+              <span class="progress-tracker-step"> 4. Schritt: </span> <br> <span class="progress-tracker-text"> Veröffentlichen </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    {{> Template.dynamic template=active data=this}}
+
+  {{else}}
+    <div class="alert alert-danger">Sie können nur Ihr eigenes Profil bearbeiten.</div>
+  {{/if}}
+  </div>
+</template>
