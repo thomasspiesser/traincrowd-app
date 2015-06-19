@@ -15,7 +15,7 @@ lazysaveCourseField = _.debounce( function ( args ) {
 
 lazysaveUserField = _.debounce( function ( args ) {
   Meteor.call('updateUserSingleField', args, function (error) {
-    if (error)
+    if (error) 
       toastr.error( error.reason );
     else {
       formFeedbackSaved('#edit-user-'+args.argName, 3000, '#help-text-edit-user-'+args.argName);
@@ -45,8 +45,6 @@ calcCommision =  function (fee) {
 trimInput = function(val) {
   return val.replace(/^\s*|\s*$/g, "");
 };
-
-EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 UI.registerHelper('canEdit', function(owner) {
   if (!Meteor.userId())
