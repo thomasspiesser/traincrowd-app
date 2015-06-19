@@ -19,7 +19,7 @@ Template.trainerProfile.helpers({
 
 Template.trainerProfile.events({
   'click #editTrainerProfileButton': function () {
-    Router.go("trainerProfile.edit", {_id: this._id} );
+    Router.go("edit.trainer", {_id: this._id} );
   },
   'click #requestPublicProfileButton': function () {
     if (confirm( "Anfrage zur Freigabe senden?" ) ) {

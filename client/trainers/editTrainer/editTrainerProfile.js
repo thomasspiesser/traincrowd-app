@@ -1,6 +1,6 @@
 var uploader = new ReactiveVar();
 
-Template.editTrainerProfileN.helpers({
+Template.editTrainerProfile.helpers({
   selected: function (one, two) {
     return one === two ? 'selected' : '';
   },
@@ -14,7 +14,7 @@ Template.editTrainerProfileN.helpers({
   }
 });
 
-Template.editTrainerProfileN.events({
+Template.editTrainerProfile.events({
   'input .form-control': function (event, template) {
     var field = event.currentTarget.id.split('-')[2];
     $('#edit-trainer-'+field).parent().removeClass('has-error');
@@ -34,7 +34,7 @@ Template.editTrainerProfileN.events({
 
     Session.set('editTrainerTemplate', "editTrainerAddress");
 
-    $('#editTrainerProfileN').children('.progress-tracker').removeClass('active').addClass('inactive');
+    $('#editTrainerProfile').children('.progress-tracker').removeClass('active').addClass('inactive');
     $('#editTrainerAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
 
     return false;

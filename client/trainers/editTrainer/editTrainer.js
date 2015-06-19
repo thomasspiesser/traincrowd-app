@@ -1,5 +1,5 @@
 Template.editTrainer.created = function () {
-  Session.set("editTrainerTemplate", "editTrainerProfileN");
+  Session.set("editTrainerTemplate", "editTrainerProfile");
 };
 
 Template.editTrainer.helpers({
