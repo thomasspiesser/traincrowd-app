@@ -1,0 +1,125 @@
+<template name="editUserProfile">
+  <div class="row">
+
+    <div class="col-md-5 col-md-offset-1">
+      <h4 class="editContentTitles">Account-Details bearbeiten</h4>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="edit-user-title" class="control-label">Titel</label>
+            <select class="form-control" id="edit-user-title">
+              <option value="" {{selected '' profile.title}}></option>
+              <option value="Frau" {{selected 'Frau' profile.title}}>Frau</option>
+              <option value="Herr" {{selected 'Herr' profile.title}}>Herr</option>
+              <option value="Dr." {{selected 'Dr.' profile.title}}>Dr.</option>
+              <option value="Dr." {{selected 'Prof.' profile.title}}>Prof.</option>
+            </select>
+            <span class="help-block" id="help-text-edit-user-title"></span>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <label for="edit-user-name" class="control-label">Name</label>
+            <input type="text" class="form-control" id="edit-user-name" value="{{profile.name}}" placeholder="Max Mustermann">
+            <span class="help-block" id="help-text-edit-user-name"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-user-employer" class="control-label">Arbeitgeber</label>
+        <input type="text" class="form-control" id="edit-user-employer" value="{{profile.employer}}">
+        <span class="help-block" id="help-text-edit-user-employer"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="edit-user-position" class="control-label">Position</label>
+        <input type="text" class="form-control" id="edit-user-position" value="{{profile.position}}">
+        <span class="help-block" id="help-text-edit-user-position"></span>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="edit-user-industry" class="control-label">Branche</label>
+            <input type="text" class="form-control" id="edit-user-industry" value="{{profile.industry}}">
+            <span class="help-block" id="help-text-edit-user-industry"></span>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="edit-user-workExperience" class="control-label">Arbeitserfahrung</label>
+            <select class="form-control" id="edit-user-workExperience">
+              <option value="0-5" {{selected '0-5' profile.workExperience}}>0-5 Jahre</option>
+              <option value="6-10" {{selected '6-10' profile.workExperience}}>6-10 Jahre</option>
+              <option value="11-15" {{selected '11-15' profile.workExperience}}>11-15 Jahre</option>
+              <option value="über 15" {{selected 'über 15' profile.workExperience}}>über 15 Jahre</option>
+            </select>
+            <span class="help-block" id="help-text-edit-user-workExperience"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+          <label for="" class="control-label">Profilbild</label>
+            {{#if profile.imageId}}
+              <img src="{{profile.imageId}}" alt="" class="center-block img-thumbnail img-responsive " id="edit-user-image" style="margin-left:0px; width: 160px;">
+            {{else}}
+              <img src="/dummyUser.jpg" alt="" class="center-block img-thumbnail img-responsive " id="edit-user-default-image" style="margin-left:0px; width: 160px;">
+            {{/if}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">    
+            <label for="edit-user-image-dummy" class="control-label">Ändern</label>
+            <br>
+
+            <button type="button" class="btn btn-sm btn-default" id="edit-user-image-dummy"> <i class="fa fa-upload"></i><span> Neues Bild</span> </button>
+
+            <br>
+            <input type="file" id="edit-user-image-real" style="display:none;">
+
+            <br>
+            {{#if isUploading}}
+              <div class="progress">
+                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+                  <span class="sr-only">{{progress}}%</span>
+                </div>
+              </div>
+            {{/if}}
+
+            <!-- <button type="button" class="btn btn-sm btn-danger" id="deleteProfileImage" style="margin-top:5px;"> <i class="fa fa-trash-o"></i> Bild Löschen</button> -->
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-md-5" style="margin-top: 20px;">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">Mein Profil</h3>
+        </div>
+        <div class="panel-body">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste enim repellendus alias eaque minima magnam dignissimos, aperiam harum sed, incidunt modi odit obcaecati, nemo! Odit soluta libero voluptatum illum, in!. 
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-success large-btn" id="saveEditUserProfile">Weiter <i class="fa fa-arrow-right"></i></button>
+      </div>
+      {{#if hoverText}}
+        <div class="well hover-text">
+          {{hoverText}}
+        </div>
+      {{/if}}
+    </div>
+
+  </div>
+</template>

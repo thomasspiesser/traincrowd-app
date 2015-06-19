@@ -133,7 +133,7 @@ Template.paymentModal.events({
       }
     };
     redirect = function( ) {
-      Router.go('userProfile.edit', {_id: Meteor.userId()});
+      Router.go('edit.user', {_id: Meteor.userId()});
     };
     var interval = Meteor.setInterval(timeLeft, 1000);
   },

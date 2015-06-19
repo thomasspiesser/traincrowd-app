@@ -1,0 +1,75 @@
+<template name="editUser">
+  <div class="container">
+  {{#if canEdit _id}}
+
+    <div class="text-center">
+      <h3 class="text-uppercase">
+        Mein Profil bearbeiten
+      </h3>
+      <hr>
+      <div class="alert alert-success"><strong>Teilnehmer-Informationen</strong><br>
+      Ihr Trainer oder Ihre Trainerin möchte Sie gerne näher kennen lernen, um die Inhalte des Kurses optimal auf Ihre Bedürfnisse abzustimmen. Versvollständigen Sie dazu Ihr Profil mit ein paar kurzen Angaben zu Ihrer Person.</div>
+    </div>
+
+    <div class="row progress-tracker-wrapper">
+
+      <a href="#" class="dynamic-template-selector" id="editUserProfile">
+        <div class="col-md-2 progress-tracker active">
+          <div class="row">
+            <div class="col-md-3 progress-tracker-icon-wrapper">
+              {{#if deservesCheckCourseProfile}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
+            </div>
+            <div class="col-md-9 progress-tracker-text-wrapper">
+              <span class="progress-tracker-step"> 1. Schritt: </span> <br> <span class="progress-tracker-text"> Mein Profil </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="dynamic-template-selector" id="editUserAddress">
+        <div class="col-md-2 progress-tracker inactive">
+          <div class="row">
+            <div class="col-md-3 progress-tracker-icon-wrapper">
+              {{#if deservesCheckCourseAddress}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
+            </div>
+            <div class="col-md-9 progress-tracker-text-wrapper">
+              <span class="progress-tracker-step"> 2. Schritt: </span> <br> <span class="progress-tracker-text"> Meine Adresse </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="dynamic-template-selector" id="editUserAccount">
+        <div class="col-md-2 progress-tracker inactive">
+          <div class="row">
+            <div class="col-md-3 progress-tracker-icon-wrapper">
+              {{#if deservesCheckCourseAccount}}
+                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+              {{else}}
+                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+              {{/if}}
+            </div>
+            <div class="col-md-9 progress-tracker-text-wrapper">
+              <span class="progress-tracker-step"> 3. Schritt: </span> <br> <span class="progress-tracker-text"> Mein Account </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    {{> Template.dynamic template=active data=this}}
+
+  {{else}}
+    <div class="alert alert-danger">Sie können nur Ihr eigenes Profil bearbeiten.</div>
+  {{/if}}
+  </div>
+</template>

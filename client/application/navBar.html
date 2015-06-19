@@ -58,7 +58,7 @@
         {{#if isInRole 'trainer'}}
           <li><a href="{{ pathFor 'trainerProfile.show' data=currentUser }}">Mein Profil</a></li>
         {{else}}
-          <li><a href="{{ pathFor 'userProfile.edit' data=currentUser }}">Mein Profil</a></li>
+          <li><a href="{{ pathFor 'edit.user' data=currentUser }}">Mein Profil</a></li>
         {{/if}}
         <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
         {{#if isInRole 'trainer'}}

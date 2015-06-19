@@ -158,7 +158,7 @@ function paymillResponseHandler(error, result) {
       }
     });
     redirect = function( ) {
-      Router.go('userProfile.edit', {_id: Meteor.userId()});
+      Router.go('edit.user', {_id: Meteor.userId()});
     };
   }
   $(".submit-button").removeAttr("disabled");

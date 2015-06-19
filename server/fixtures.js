@@ -16,40 +16,40 @@
 // 	} );
 // });
 
-Meteor.startup(function () {
-	Meteor.users.find().forEach( function (user) {
+// Meteor.startup(function () {
+// 	Meteor.users.find().forEach( function (user) {
 
-		var hasPublishRequest;
-		if ( typeof user.publishRequest === "boolean" )
-			hasPublishRequest = user.publishRequest;
-		if ( typeof user.hasPublishRequest === "boolean" )
-			hasPublishRequest = user.hasPublishRequest;
+// 		var hasPublishRequest;
+// 		if ( typeof user.publishRequest === "boolean" )
+// 			hasPublishRequest = user.publishRequest;
+// 		if ( typeof user.hasPublishRequest === "boolean" )
+// 			hasPublishRequest = user.hasPublishRequest;
 
-		var isPublic;
-		if (typeof user.public === "boolean")
-			isPublic = user.public;
-		if (typeof user.isPublic === "boolean")
-			isPublic = user.isPublic;
+// 		var isPublic;
+// 		if (typeof user.public === "boolean")
+// 			isPublic = user.public;
+// 		if (typeof user.isPublic === "boolean")
+// 			isPublic = user.isPublic;
 
-		Meteor.users.update( {_id: user._id}, { $unset: { "publishRequest": "", "public": ""}, $set: { "hasPublishRequest": hasPublishRequest, "isPublic": isPublic } }, {validate:false} );
-	} );
-	Courses.find().forEach( function (course) {
+// 		Meteor.users.update( {_id: user._id}, { $unset: { "publishRequest": "", "public": ""}, $set: { "hasPublishRequest": hasPublishRequest, "isPublic": isPublic } }, {validate:false} );
+// 	} );
+// 	Courses.find().forEach( function (course) {
 
-		var hasPublishRequest;
-		if ( typeof course.publishRequest === "boolean" )
-			hasPublishRequest = course.publishRequest;
-		if ( typeof course.hasPublishRequest === "boolean" )
-			hasPublishRequest = course.hasPublishRequest;
+// 		var hasPublishRequest;
+// 		if ( typeof course.publishRequest === "boolean" )
+// 			hasPublishRequest = course.publishRequest;
+// 		if ( typeof course.hasPublishRequest === "boolean" )
+// 			hasPublishRequest = course.hasPublishRequest;
 
-		var isPublic;
-		if (typeof course.public === "boolean")
-			isPublic = course.public;
-		if (typeof course.isPublic === "boolean")
-			isPublic = course.isPublic;
+// 		var isPublic;
+// 		if (typeof course.public === "boolean")
+// 			isPublic = course.public;
+// 		if (typeof course.isPublic === "boolean")
+// 			isPublic = course.isPublic;
 
-		Courses.update( { _id: course._id }, { $unset: { "publishRequest": "", "public": ""}, $set: { "hasPublishRequest": hasPublishRequest, "isPublic": isPublic } }, {validate:false} );
-	} );
-});
+// 		Courses.update( { _id: course._id }, { $unset: { "publishRequest": "", "public": ""}, $set: { "hasPublishRequest": hasPublishRequest, "isPublic": isPublic } }, {validate:false} );
+// 	} );
+// });
 
 // Meteor.startup(function () {
 // 	Current.find( {courseTitle: {$exists: false}} ).forEach( function (current) {
