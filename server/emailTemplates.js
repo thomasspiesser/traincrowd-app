@@ -30,7 +30,7 @@ Meteor.startup(function() {
 Meteor.methods({
   sendRequestPublicationEmail: function (options) {
     // this.unblock();
-    // check done in method setPublishRequest
+    // check done in method setCoursePublishRequest
     var subject = "Anfrage zur Freischaltung von " + options.what + ": " + options.itemName;
     var html = Spacebars.toHTML(options, Assets.getText('requestPublicationEmail.html'));
     options = { 

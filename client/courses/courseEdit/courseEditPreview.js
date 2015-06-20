@@ -17,7 +17,7 @@ Template.editCoursePreview.events({
         itemId: this._id,
         itemName: this.title
       };
-      Meteor.call('setPublishRequest', options, function (error) {
+      Meteor.call('setCoursePublishRequest', options, function (error) {
         if (error) 
           toastr.error( error.reason );
         else

@@ -1,17 +1,5 @@
 <template name="trainerProfile">
   <div class="container">
-    {{#if canEdit}}
-      <div class="row" id="editProfile">
-
-        <div class="well well-sm">
-          {{#unless isPublic}}
-            <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="requestPublicProfileButton"> <span class="fa fa-globe"></span> Freigeben</button>
-          {{/unless}}
-          <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="editTrainerProfileButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
-        </div>
-
-      </div>
-    {{/if}}
 
     <div class="row">
 

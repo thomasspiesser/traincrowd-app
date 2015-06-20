@@ -102,7 +102,7 @@ Template.userCourses.events({
         itemId: this._id,
         itemName: this.title
       };
-      Meteor.call('setPublishRequest', options, function (error) {
+      Meteor.call('setCoursePublishRequest', options, function (error) {
         if (error) 
           toastr.error( error.reason );
         else {
@@ -114,7 +114,7 @@ Template.userCourses.events({
   },
   'click .deactivate': function (event, template) {
     if (confirm( "Möchten Sie Ihren Kurs wirklich deaktivieren?" ) ) {
-      Meteor.call('unpublish', this._id, function (error) {
+      Meteor.call('unpublishCourse', this._id, function (error) {
         if (error) {
           toastr.error( error.reason );
         }

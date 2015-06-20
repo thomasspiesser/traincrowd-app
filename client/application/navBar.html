@@ -57,9 +57,11 @@
       <ul class="dropdown-menu" role="menu">
         {{#if isInRole 'trainer'}}
           <li><a href="{{ pathFor 'trainerProfile.show' data=currentUser }}">Mein Profil</a></li>
+          <li><a href="{{ pathFor 'edit.trainer' }}">Mein Profil bearbeiten</a></li>
         {{else}}
-          <li><a href="{{ pathFor 'edit.user' data=currentUser }}">Mein Profil</a></li>
+          <li><a href="{{ pathFor 'edit.user' }}">Mein Profil</a></li>
         {{/if}}
+        <li class="divider"></li>
         <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
         {{#if isInRole 'trainer'}}
           <li><a href="{{ pathFor 'createCourse' }}">Neuen Kurs anlegen</a></li>
