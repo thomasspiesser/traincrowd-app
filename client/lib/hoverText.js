@@ -3,7 +3,7 @@ hoverText = {
     'edit-course-title':
       "Beschreibt der Titel den Kursinhalt? Und klingt er zudem auch noch interessant? Potentielle Teilnehmer beurteilen anhand des Kurstitels, ob ein Training relevant für sie ist.",
     'edit-course-description':
-      "Sie haben hier die Möglichkeit eine Zusammenfassung für Ihren Kurs anzugeben.",
+      "Bitte geben Sie hier eine Zusammenfassung für Ihren Kurs an.",
     'edit-course-image':
       "Wenn vorhanden, können Sie hier ein Bild für Ihren Kurs hochladen. Wenn Sie kein Bild hochladen, wird automatisch Ihr Profilbild angezeigt.",
     'edit-course-defaultImage':

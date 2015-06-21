@@ -19,11 +19,5 @@ Template.editUserAddress.events({
     $('#editUserAccount').children('.progress-tracker').removeClass('inactive').addClass('active');
 
     return false;
-  },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
   }
 });

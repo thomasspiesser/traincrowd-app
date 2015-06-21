@@ -67,12 +67,6 @@ Template.editTrainerProfile.events({
 
     uploader.set(upload);
   },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
-  }
   // 'click #deleteProfileImage': function () {
   //   if (! this.profile.imageId) //if there is nothing to delete
   //     return false;
@@ -89,3 +83,5 @@ Template.editTrainerProfile.events({
   //   });
   // }
 });
+
+Template.editTrainerProfile.events( hoverCheckEvents );

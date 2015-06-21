@@ -52,8 +52,13 @@ calcCommision =  function (fee) {
   return parseFloat(fee) / 100 * 18;
 };
 
-trimInput = function(val) {
-  return val.replace(/^\s*|\s*$/g, "");
+hoverCheckEvents = {
+  'mouseover .hoverCheck': function (event) {
+    Session.set('showHoverText', event.currentTarget.id); 
+  },
+  'mouseout .hoverCheck': function () {
+    Session.set('showHoverText', ""); 
+  }
 };
 
 UI.registerHelper('canEdit', function(owner) {

@@ -140,10 +140,6 @@ Template.editCourseDescription.events({
   //     }
   //   });
   // },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
-  }
 });
+
+Template.editCourseDescription.events( hoverCheckEvents );

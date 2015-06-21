@@ -48,12 +48,6 @@ Template.editCourseCosts.events({
     $('#editCourseCosts').children('.progress-tracker').removeClass('active').addClass('inactive');
     $('#editCourseDates').children('.progress-tracker').removeClass('inactive').addClass('active');
   },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
-  },
   'input #edit-course-fee': function (event, template) {
     Session.set("courseFee", event.currentTarget.value);
   },
@@ -61,3 +55,5 @@ Template.editCourseCosts.events({
     Session.set("courseMaxParticipants", event.currentTarget.value);
   }
 });
+
+Template.editCourseCosts.events( hoverCheckEvents );

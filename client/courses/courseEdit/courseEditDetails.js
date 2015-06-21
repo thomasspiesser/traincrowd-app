@@ -15,11 +15,7 @@ Template.editCourseDetails.events({
 
     $('#editCourseDetails').children('.progress-tracker').removeClass('active').addClass('inactive');
     $('#editCourseCosts').children('.progress-tracker').removeClass('inactive').addClass('active');
-  },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
   }
 });
+
+Template.editCourseDetails.events( hoverCheckEvents );

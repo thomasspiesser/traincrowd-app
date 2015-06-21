@@ -125,10 +125,6 @@ Template.editCourseDates.events({
   // 'change #editCourseAllowInquiry': function (event) {
   //   Session.set("allowInquiry", event.target.checked);
   // },
-  'mouseover .hoverCheck': function (event, template) {
-    Session.set('showHoverText', event.currentTarget.id); 
-  },
-  'mouseout .hoverCheck': function () {
-    Session.set('showHoverText', ""); 
-  }
 });
+
+Template.editCourseDates.events( hoverCheckEvents );
