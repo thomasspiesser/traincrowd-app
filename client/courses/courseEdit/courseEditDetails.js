@@ -1,9 +1,3 @@
-Template.editCourseDetails.helpers({
-  hoverText: function () {
-    return courseEditHoverText[ Session.get('showHoverText') ];
-  }
-});
-
 Template.editCourseDetails.events({
   'input .form-control': function (event, template) {
     var field = event.currentTarget.id.split('-')[2];

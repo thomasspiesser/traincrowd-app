@@ -22,9 +22,6 @@ Template.editCourseCosts.helpers({
       return;
     return calcCommision( Session.get("courseFee") ).toFixed(2);
   },
-  hoverText: function () {
-    return courseEditHoverText[ Session.get('showHoverText') ];
-  }
 });
 
 Template.editCourseCosts.events({

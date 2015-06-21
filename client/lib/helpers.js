@@ -62,6 +62,10 @@ UI.registerHelper('canEdit', function(owner) {
   return owner === Meteor.userId();
 });
 
+UI.registerHelper('hoverText', function() {
+  return hoverText[ Session.get('showHoverText') ];
+});
+
 UI.registerHelper('error', function() {
   return Session.get("createError");
 });

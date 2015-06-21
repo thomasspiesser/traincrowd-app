@@ -28,9 +28,6 @@ Template.editCourseDates.helpers({
   niceDate: function () {
     return moment(this).format("DD.MM.YYYY");
   },
-  hoverText: function () {
-    return courseEditHoverText[ Session.get('showHoverText') ];
-  }
   // allowInquiry: function () {
   //   if (typeof this.allowInquiry !== 'undefined')
   //     Session.setDefault("allowInquiry", this.allowInquiry);

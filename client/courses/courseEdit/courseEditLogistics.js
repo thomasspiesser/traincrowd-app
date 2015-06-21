@@ -16,7 +16,6 @@ Template.editCourseLogistics.events({
     lazysaveCourseField( { id: this._id, argName: field, argValue: event.currentTarget.value } );
   },
   'click #saveEditCourseLogistics': function (event, template) {
-
     if (! this.noLocation && ! this.street && ! this.streetNumber && ! this.plz && ! this.city) {
       $('.form-group').addClass('has-error');
       $('#help-text-edit-course-noLocation').text('Bitte geben Sie an, ob Sie bereits einen Veranstaltungsort haben.').fadeIn(300);

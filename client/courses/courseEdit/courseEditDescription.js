@@ -10,9 +10,6 @@ Template.editCourseDescription.rendered = function () {
 var uploader = new ReactiveVar();
 
 Template.editCourseDescription.helpers({
-  hasError: function () {
-    return true;
-  },
   isUploading: function () {
     return Boolean(uploader.get());
   }, 
@@ -21,9 +18,6 @@ Template.editCourseDescription.helpers({
     if (upload)
       return Math.round(upload.progress() * 100) || 0;
   },
-  hoverText: function () {
-    return courseEditHoverText[ Session.get('showHoverText') ];
-  }
   // imageId: function () {
   //   return this.uploader.url(true);
   // }
