@@ -5,17 +5,19 @@
       <h4 class="editContentTitles">Ich bin bereits Kunde</h4>
 
       <div class="form-group">
-        <input type="text" class="form-control" id="editTrainerProfileEmail" placeholder="Email">
+        <input type="text" class="form-control" id="sign-in-email" placeholder="Email">
+        <span class="help-block" id="help-text-sign-in-email"></span>
       </div>
 
       <div class="form-group">
-        <input type="text" class="form-control" id="editTrainerProfileEmail" placeholder="Passwort">
+        <input type="password" class="form-control" id="sign-in-password" placeholder="Passwort">
+        <span class="help-block" id="help-text-sign-in-password"></span>
       </div>
       <a href="{{pathFor 'atForgotPwd'}}">Passwort vergessen?</a>
 
       <!-- button -->
       <div class="form-group">
-        <button type="button" class="btn btn-primary btn-block" id="bookCourseLogin"> Anmelden</button>
+        <button type="button" class="btn btn-primary btn-block" id="bookCourseLoginButton"> Anmelden</button>
       </div>
 
     </div>
@@ -118,7 +120,7 @@
         <div class="col-md-6 col-md-offset-6">
           <!-- button -->
           <div class="form-group">
-            <button type="button" class="btn btn-primary btn-block pull-right" id="bookCourseRegistry"> Registrieren</button>
+            <button type="button" class="btn btn-primary btn-block pull-right" id="bookCourseRegisterButton"> Registrieren</button>
           </div>
         </div>
       </div>

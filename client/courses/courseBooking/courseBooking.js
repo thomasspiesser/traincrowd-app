@@ -1,10 +1,16 @@
-Template.bookCourse.created = function () {
-  Session.set("bookCourseTemplate", "bookCourseRegister");
+Template.bookCourse.rendered = function () {
+  if ( ! Meteor.userId() )
+    Session.set("bookCourseTemplate", "bookCourseRegister");
+  else {
+    Session.set("bookCourseTemplate", "bookCoursePaymentMethod");
+    $('.progress-tracker').removeClass('active').addClass('inactive');
+    $('#bookCoursePaymentMethod').children('.progress-tracker').removeClass('inactive').addClass('active');
+  }
 };
 
 Template.bookCourse.helpers({
   deservesCheckBookCourseRegister: function () {
-    return this.title && this.description && this.categories ? true : false;
+    return Meteor.userId() ? true : false;
   },
   deservesCheckBookCoursePaymentMethod: function () {
     return this.aims ? true : false;

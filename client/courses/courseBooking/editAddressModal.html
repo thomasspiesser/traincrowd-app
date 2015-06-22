@@ -1,0 +1,21 @@
+<template name="editAddressModal">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Adresse anpassen</h4>
+        </div>
+
+        <div class="modal-body">
+          <p>{{ > editAddress data=currentUser.profile collection='User' }}</p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
