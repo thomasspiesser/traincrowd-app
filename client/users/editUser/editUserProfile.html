@@ -17,14 +17,14 @@
               <option value="Dr." {{selected 'Dr.' profile.title}}>Dr.</option>
               <option value="Dr." {{selected 'Prof.' profile.title}}>Prof.</option>
             </select>
-            <span class="help-block" id="help-text-edit-title"></span>
+            <span class="help-block" id="help-text-edit-user-title"></span>
           </div>
         </div>
         <div class="col-md-9">
           <div class="form-group">
             <label for="edit-name" class="control-label">Name</label>
             <input type="text" class="form-control" id="edit-name" value="{{profile.name}}" placeholder="Max Mustermann">
-            <span class="help-block" id="help-text-edit-name"></span>
+            <span class="help-block" id="help-text-edit-user-name"></span>
           </div>
         </div>
       </div>
@@ -32,13 +32,13 @@
       <div class="form-group">
         <label for="edit-employer" class="control-label">Arbeitgeber</label>
         <input type="text" class="form-control" id="edit-employer" value="{{profile.employer}}">
-        <span class="help-block" id="help-text-edit-employer"></span>
+        <span class="help-block" id="help-text-edit-user-employer"></span>
       </div>
 
       <div class="form-group">
         <label for="edit-position" class="control-label">Position</label>
         <input type="text" class="form-control" id="edit-position" value="{{profile.position}}">
-        <span class="help-block" id="help-text-edit-position"></span>
+        <span class="help-block" id="help-text-edit-user-position"></span>
       </div>
 
       <div class="row">
@@ -46,7 +46,7 @@
           <div class="form-group">
             <label for="edit-industry" class="control-label">Branche</label>
             <input type="text" class="form-control" id="edit-industry" value="{{profile.industry}}">
-            <span class="help-block" id="help-text-edit-industry"></span>
+            <span class="help-block" id="help-text-edit-user-industry"></span>
           </div>
         </div>
 
@@ -59,7 +59,7 @@
               <option value="11-15" {{selected '11-15' profile.workExperience}}>11-15 Jahre</option>
               <option value="über 15" {{selected 'über 15' profile.workExperience}}>über 15 Jahre</option>
             </select>
-            <span class="help-block" id="help-text-edit-workExperience"></span>
+            <span class="help-block" id="help-text-edit-user-workExperience"></span>
           </div>
         </div>
       </div>

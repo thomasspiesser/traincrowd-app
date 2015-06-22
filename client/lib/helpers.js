@@ -23,6 +23,16 @@ lazysaveCourseField = _.debounce( function ( args ) {
   });
 }, 1000 );
 
+lazysaveUserField = _.debounce( function ( args ) {
+  Meteor.call('updateSingleUserField', args, function (error) {
+    if (error) 
+      toastr.error( error.reason );
+    else {
+      formFeedbackSaved('#edit-user-'+args.argName, 3000, '#help-text-edit-user-'+args.argName);
+    }
+  });
+}, 1000 );
+
 formFeedbackSaved = function ( elem, wait, helpTextElem ) {
   $( elem ).parent().removeClass('has-error').addClass('has-success');
   $( helpTextElem ).text('gespeichert');
