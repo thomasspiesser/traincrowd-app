@@ -82,6 +82,10 @@ UI.registerHelper('hoverText', function() {
   return hoverText[ Session.get('showHoverText') ];
 });
 
+UI.registerHelper('selected', function(one, two) {
+  return one === two ? 'selected' : '';
+});
+
 UI.registerHelper('error', function() {
   return Session.get("createError");
 });

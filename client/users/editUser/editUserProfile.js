@@ -1,9 +1,3 @@
-Template.editUserProfile.helpers({
-  selected: function (one, two) {
-    return one === two ? 'selected' : '';
-  },
-});
-
 Template.editUserProfile.events({
   'input .form-control': function (event, template) {
     var field = event.currentTarget.id.split('-')[2];

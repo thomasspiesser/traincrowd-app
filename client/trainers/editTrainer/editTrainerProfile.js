@@ -1,9 +1,3 @@
-Template.editTrainerProfile.helpers({
-  selected: function (one, two) {
-    return one === two ? 'selected' : '';
-  }
-});
-
 Template.editTrainerProfile.events({
   'input .form-control': function (event, template) {
     var field = event.currentTarget.id.split('-')[2];

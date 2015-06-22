@@ -22,9 +22,6 @@ Template.editCourseDates.rendered=function() {
 };
 
 Template.editCourseDates.helpers({
-  selected: function (one, two) {
-    return one === two ? 'selected' : '';
-  },
   niceDate: function () {
     return moment(this).format("DD.MM.YYYY");
   },
