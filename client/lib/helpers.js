@@ -4,7 +4,6 @@
 // varible -> project scope
 
 lazysaveField = _.debounce( function ( collection, args ) {
-  console.log(args);
   Meteor.call('updateSingle'+collection+'Field', args, function (error) {
     if (error)
       toastr.error( error.reason );
@@ -20,26 +19,6 @@ lazysaveCourseField = _.debounce( function ( args ) {
       toastr.error( error.reason );
     else {
       formFeedbackSaved('#edit-course-'+args.argName, 3000, '#help-text-edit-course-'+args.argName);
-    }
-  });
-}, 1000 );
-
-lazysaveUserField = _.debounce( function ( args ) {
-  Meteor.call('updateSingleUserField', args, function (error) {
-    if (error) 
-      toastr.error( error.reason );
-    else {
-      formFeedbackSaved('#edit-user-'+args.argName, 3000, '#help-text-edit-user-'+args.argName);
-    }
-  });
-}, 1000 );
-
-lazysaveUserField = _.debounce( function ( args ) {
-  Meteor.call('updateSingleUserField', args, function (error) {
-    if (error) 
-      toastr.error( error.reason );
-    else {
-      formFeedbackSaved('#edit-trainer-'+args.argName, 3000, '#help-text-edit-trainer-'+args.argName);
     }
   });
 }, 1000 );

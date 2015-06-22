@@ -9,57 +9,57 @@
       <div class="row">
         <div class="col-md-3">
           <div class="form-group">
-            <label for="edit-user-title" class="control-label">Titel</label>
-            <select class="form-control" id="edit-user-title">
+            <label for="edit-title" class="control-label">Titel</label>
+            <select class="form-control" id="edit-title">
               <option value="" {{selected '' profile.title}}></option>
               <option value="Frau" {{selected 'Frau' profile.title}}>Frau</option>
               <option value="Herr" {{selected 'Herr' profile.title}}>Herr</option>
               <option value="Dr." {{selected 'Dr.' profile.title}}>Dr.</option>
               <option value="Dr." {{selected 'Prof.' profile.title}}>Prof.</option>
             </select>
-            <span class="help-block" id="help-text-edit-user-title"></span>
+            <span class="help-block" id="help-text-edit-title"></span>
           </div>
         </div>
         <div class="col-md-9">
           <div class="form-group">
-            <label for="edit-user-name" class="control-label">Name</label>
-            <input type="text" class="form-control" id="edit-user-name" value="{{profile.name}}" placeholder="Max Mustermann">
-            <span class="help-block" id="help-text-edit-user-name"></span>
+            <label for="edit-name" class="control-label">Name</label>
+            <input type="text" class="form-control" id="edit-name" value="{{profile.name}}" placeholder="Max Mustermann">
+            <span class="help-block" id="help-text-edit-name"></span>
           </div>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="edit-user-employer" class="control-label">Arbeitgeber</label>
-        <input type="text" class="form-control" id="edit-user-employer" value="{{profile.employer}}">
-        <span class="help-block" id="help-text-edit-user-employer"></span>
+        <label for="edit-employer" class="control-label">Arbeitgeber</label>
+        <input type="text" class="form-control" id="edit-employer" value="{{profile.employer}}">
+        <span class="help-block" id="help-text-edit-employer"></span>
       </div>
 
       <div class="form-group">
-        <label for="edit-user-position" class="control-label">Position</label>
-        <input type="text" class="form-control" id="edit-user-position" value="{{profile.position}}">
-        <span class="help-block" id="help-text-edit-user-position"></span>
+        <label for="edit-position" class="control-label">Position</label>
+        <input type="text" class="form-control" id="edit-position" value="{{profile.position}}">
+        <span class="help-block" id="help-text-edit-position"></span>
       </div>
 
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="edit-user-industry" class="control-label">Branche</label>
-            <input type="text" class="form-control" id="edit-user-industry" value="{{profile.industry}}">
-            <span class="help-block" id="help-text-edit-user-industry"></span>
+            <label for="edit-industry" class="control-label">Branche</label>
+            <input type="text" class="form-control" id="edit-industry" value="{{profile.industry}}">
+            <span class="help-block" id="help-text-edit-industry"></span>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="edit-user-workExperience" class="control-label">Arbeitserfahrung</label>
-            <select class="form-control" id="edit-user-workExperience">
+            <label for="edit-workExperience" class="control-label">Arbeitserfahrung</label>
+            <select class="form-control" id="edit-workExperience">
               <option value="0-5" {{selected '0-5' profile.workExperience}}>0-5 Jahre</option>
               <option value="6-10" {{selected '6-10' profile.workExperience}}>6-10 Jahre</option>
               <option value="11-15" {{selected '11-15' profile.workExperience}}>11-15 Jahre</option>
               <option value="über 15" {{selected 'über 15' profile.workExperience}}>über 15 Jahre</option>
             </select>
-            <span class="help-block" id="help-text-edit-user-workExperience"></span>
+            <span class="help-block" id="help-text-edit-workExperience"></span>
           </div>
         </div>
       </div>

@@ -9,42 +9,42 @@
       <div class="row">
         <div class="col-md-3">
           <div class="form-group">
-            <label for="edit-trainer-title" class="control-label">Titel</label>
-            <select class="form-control" id="edit-trainer-title">
+            <label for="edit-title" class="control-label">Titel</label>
+            <select class="form-control" id="edit-title">
               <option value="" {{selected '' profile.title}}></option>
               <option value="Frau" {{selected 'Frau' profile.title}}>Frau</option>
               <option value="Herr" {{selected 'Herr' profile.title}}>Herr</option>
               <option value="Dr." {{selected 'Dr.' profile.title}}>Dr.</option>
               <option value="Dr." {{selected 'Prof.' profile.title}}>Prof.</option>
             </select>
-            <span class="help-block" id="help-text-edit-trainer-title"></span>
+            <span class="help-block" id="help-text-edit-title"></span>
           </div>
         </div>
         <div class="col-md-9">
           <div class="form-group">
-            <label for="edit-trainer-name" class="control-label">Name</label>
-            <input type="text" class="form-control hoverCheck" id="edit-trainer-name" value="{{profile.name}}" placeholder="Max Mustermann">
-            <span class="help-block" id="help-text-edit-trainer-name"></span>
+            <label for="edit-name" class="control-label">Name</label>
+            <input type="text" class="form-control hoverCheck" id="edit-name" value="{{profile.name}}" placeholder="Max Mustermann">
+            <span class="help-block" id="help-text-edit-name"></span>
           </div>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="edit-trainer-description" class="control-label">Kurzbeschreibung</label>
-        <textarea class="form-control hoverCheck" id="edit-trainer-description" rows="6" value="{{profile.description}}"></textarea>
-        <span class="help-block" id="help-text-edit-trainer-description"></span>
+        <label for="edit-description" class="control-label">Kurzbeschreibung</label>
+        <textarea class="form-control hoverCheck" id="edit-description" rows="6" value="{{profile.description}}"></textarea>
+        <span class="help-block" id="help-text-edit-description"></span>
       </div>
 
       <div class="form-group">
-        <label for="edit-trainer-languages" class="control-label">In welchen Sprachen bieten Sie Ihre Weiterbildungen an</label>
-        <input type="text" class="form-control hoverCheck" id="edit-trainer-languages" value="{{profile.languages}}" placeholder="z.B. Deutsch, Englisch">
-        <span class="help-block" id="help-text-edit-trainer-languages"></span>
+        <label for="edit-languages" class="control-label">In welchen Sprachen bieten Sie Ihre Weiterbildungen an</label>
+        <input type="text" class="form-control hoverCheck" id="edit-languages" value="{{profile.languages}}" placeholder="z.B. Deutsch, Englisch">
+        <span class="help-block" id="help-text-edit-languages"></span>
       </div>
 
       <div class="form-group">
-        <label for="edit-trainer-certificates" class="control-label">Zertifikate und Referenzen</label>
-        <input type="text" class="form-control hoverCheck" id="edit-trainer-certificates" value="{{profile.certificates}}">
-        <span class="help-block" id="help-text-edit-trainer-certificates"></span>
+        <label for="edit-certificates" class="control-label">Zertifikate und Referenzen</label>
+        <input type="text" class="form-control hoverCheck" id="edit-certificates" value="{{profile.certificates}}">
+        <span class="help-block" id="help-text-edit-certificates"></span>
       </div>
 
       {{ > editImage data=profile}}
