@@ -47,41 +47,7 @@
         <span class="help-block" id="help-text-edit-trainer-certificates"></span>
       </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-          <label for="" class="control-label">Profilbild</label>
-            {{#if profile.imageId}}
-              <img src="{{profile.imageId}}" alt="" class="center-block img-thumbnail img-responsive " id="edit-trainer-image" style="margin-left:0px; width: 160px;">
-            {{else}}
-              <img src="/dummyUser.jpg" alt="" class="center-block img-thumbnail img-responsive " id="edit-trainer-default-image" style="margin-left:0px; width: 160px;">
-            {{/if}}
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">    
-            <label for="edit-trainer-image-dummy" class="control-label">Ändern</label>
-            <br>
-
-            <button type="button" class="btn btn-sm btn-default" id="edit-trainer-image-dummy"> <i class="fa fa-upload"></i><span> Neues Bild</span> </button>
-
-            <br>
-            <input type="file" id="edit-trainer-image-real" style="display:none;">
-
-            <br>
-            {{#if isUploading}}
-              <div class="progress">
-                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
-                  <span class="sr-only">{{progress}}%</span>
-                </div>
-              </div>
-            {{/if}}
-
-            <!-- <button type="button" class="btn btn-sm btn-danger" id="deleteProfileImage" style="margin-top:5px;"> <i class="fa fa-trash-o"></i> Bild Löschen</button> -->
-          </div>
-        </div>
-      </div>
-
+      {{ > editImage data=profile}}
 
     </div>
 

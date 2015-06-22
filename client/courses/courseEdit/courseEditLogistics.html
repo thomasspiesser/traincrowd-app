@@ -16,8 +16,8 @@
       </div>
       {{#unless noLocation}}
       <!-- <hr> -->
-
-        <div class="row">
+      {{ > editAddress data=this collection='Course' }}
+<!--         <div class="row">
           <div class="col-md-9">
             <div class="form-group">
               <label for="edit-course-street" class="control-label">Straße</label>
@@ -53,7 +53,7 @@
           <label for="edit-course-streetAdditional" class="control-label">Adresszusatz</label>
           <input type="text" class="form-control" id="edit-course-streetAdditional" value="{{streetAdditional}}">
           <span class="help-block" id="help-text-edit-course-streetAdditional"></span>
-        </div>
+        </div> -->
       {{/unless}}
       </div>
 

@@ -1,0 +1,37 @@
+<template name="editImage">
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+      <label for="" class="control-label">Profilbild</label>
+        {{#if data.imageId}}
+          <img src="{{ data.imageId }}" alt="" class="center-block img-thumbnail img-responsive " id="edit-image" style="margin-left:0px; width: 160px;">
+        {{else}}
+          <img src="/dummyUser.jpg" alt="" class="center-block img-thumbnail img-responsive " id="edit-default-image" style="margin-left:0px; width: 160px;">
+        {{/if}}
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">    
+        <label for="edit-image-dummy" class="control-label">Ändern</label>
+        <br>
+
+        <button type="button" class="btn btn-sm btn-default" id="edit-image-dummy"> <i class="fa fa-upload"></i><span> Neues Bild</span> </button>
+
+        <br>
+        <input type="file" id="edit-image-real" style="display:none;">
+
+        <br>
+        {{#if isUploading}}
+          <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ progress }}%;">
+              <span class="sr-only">{{ progress }}%</span>
+            </div>
+          </div>
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
+
+</template>

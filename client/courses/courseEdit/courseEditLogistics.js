@@ -9,12 +9,6 @@ Template.editCourseLogistics.helpers({
 });
 
 Template.editCourseLogistics.events({
-  'input .form-control': function (event, template) {
-    var field = event.currentTarget.id.split('-')[2];
-    $('#edit-course-'+field).parent().removeClass('has-error');
-    $('#help-text-edit-course-'+field).text('speichern...').fadeIn(300);
-    lazysaveCourseField( { id: this._id, argName: field, argValue: event.currentTarget.value } );
-  },
   'click #saveEditCourseLogistics': function (event, template) {
     if (! this.noLocation && ! this.street && ! this.streetNumber && ! this.plz && ! this.city) {
       $('.form-group').addClass('has-error');

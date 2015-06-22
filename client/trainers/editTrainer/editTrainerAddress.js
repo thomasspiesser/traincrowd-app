@@ -1,5 +1,5 @@
 Template.editTrainerAddress.events({
-  'input .form-control': function (event, template) {
+  'input .edit-trainer': function (event, template) {
     var field = event.currentTarget.id.split('-')[2];
     $('#edit-trainer-'+field).parent().removeClass('has-error');
     $('#help-text-edit-trainer-'+field).text('speichern...').fadeIn(300);

@@ -1,16 +1,6 @@
-var uploader = new ReactiveVar();
-
 Template.editTrainerProfile.helpers({
   selected: function (one, two) {
     return one === two ? 'selected' : '';
-  },
-  isUploading: function () {
-    return Boolean(uploader.get());
-  }, 
-  progress: function () {
-    var upload = uploader.get();
-    if (upload)
-      return Math.round(upload.progress() * 100) || 0;
   }
 });
 
@@ -38,50 +28,7 @@ Template.editTrainerProfile.events({
     $('#editTrainerAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
 
     return false;
-  },
-  'click #edit-trainer-image-dummy': function () {
-    $('#edit-trainer-image-real').click();
-  },
-  'change #edit-trainer-image-real': function (event, template) {
-    var newImage = template.find("#edit-trainer-image-real").files[0];
-
-    var upload = new Slingshot.Upload("profilePicture");
-
-    var self = this;
-
-    if (newImage) {
-      upload.send(newImage, function (error, downloadUrl) {
-        uploader.set();
-        if (error) {
-          console.log(error);
-          toastr.error( error.message );
-        }
-        else {
-          Meteor.call('updateUserSingleField', { argName: 'imageId', argValue: downloadUrl }, function (error) {
-            if (error) 
-              toastr.error( error.reason );
-          });
-        }
-      });
-    }
-
-    uploader.set(upload);
-  },
-  // 'click #deleteProfileImage': function () {
-  //   if (! this.profile.imageId) //if there is nothing to delete
-  //     return false;
-  //   var self = this; // needed, coz this in bootbox is bootbox object
-  //   bootbox.confirm('Bild löschen?', function(result) {
-  //     if (result) {
-  //       var modifier = { 'profile.imageId': '' };
-  //       saveUpdates(modifier);
-  //       Meteor.call('removeImage', self.profile.imageId, function (error, result) {
-  //         if (error)
-  //           toastr.error( error.reason );
-  //       });
-  //     }
-  //   });
-  // }
+  }
 });
 
 Template.editTrainerProfile.events( hoverCheckEvents );

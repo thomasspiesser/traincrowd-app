@@ -7,60 +7,8 @@
 
       <hr>
 
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="edit-user-phone" class="control-label">Telefonnummer</label>
-            <input type="text" class="form-control" id="edit-user-phone" value="{{profile.phone}}">
-            <span class="help-block" id="help-text-edit-user-phone"></span>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="edit-user-mobile" class="control-label">Mobil</label>
-            <input type="text" class="form-control" id="edit-user-mobile" value="{{profile.mobile}}">
-            <span class="help-block" id="help-text-edit-user-mobile"></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-9">
-          <div class="form-group">
-            <label for="edit-user-street" class="control-label">Straße</label>
-            <input type="text" class="form-control" id="edit-user-street" value="{{profile.street}}">
-            <span class="help-block" id="help-text-edit-user-street"></span>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <label for="edit-user-streetNumber" class="control-label">Hausnummer</label>
-            <input type="text" class="form-control" id="edit-user-streetNumber" value="{{profile.streetNumber}}">
-            <span class="help-block" id="help-text-edit-user-streetNumber"></span>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="edit-user-plz" class="control-label">PLZ</label>
-            <input type="number" class="form-control" id="edit-user-plz" value="{{profile.plz}}">
-            <span class="help-block" id="help-text-edit-user-plz"></span>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="edit-user-city" class="control-label">Stadt</label>
-            <input type="text" class="form-control" id="edit-user-city" value="{{profile.city}}">
-            <span class="help-block" id="help-text-edit-user-city"></span>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="edit-user-streetAdditional" class="control-label">Adresszusatz</label>
-        <input type="text" class="form-control" id="edit-user-streetAdditional" value="{{profile.streetAdditional}}">
-        <span class="help-block" id="help-text-edit-user-streetAdditional"></span>
-      </div>
+      {{ > editPhone data=profile collection='User' }}
+      {{ > editAddress data=profile collection='User' }}
 
     </div>
 

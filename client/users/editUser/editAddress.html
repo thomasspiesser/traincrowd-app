@@ -1,0 +1,41 @@
+<template name="editAddress">
+
+  <div class="row">
+    <div class="col-md-9">
+      <div class="form-group">
+        <label for="edit-street" class="control-label">Straße</label>
+        <input type="text" class="form-control edit-address" id="edit-street" value="{{ data.street }}">
+        <span class="help-block" id="help-text-edit-street"></span>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="edit-streetNumber" class="control-label">Hausnummer</label>
+        <input type="text" class="form-control edit-address" id="edit-streetNumber" value="{{ data.streetNumber }}">
+        <span class="help-block" id="help-text-edit-streetNumber"></span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="edit-plz" class="control-label">PLZ</label>
+        <input type="number" class="form-control edit-address" id="edit-plz" value="{{ data.plz }}">
+        <span class="help-block" id="help-text-edit-plz"></span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="edit-city" class="control-label">Stadt</label>
+        <input type="text" class="form-control edit-address" id="edit-city" value="{{ data.city }}">
+        <span class="help-block" id="help-text-edit-city"></span>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="edit-streetAdditional" class="control-label">Adresszusatz</label>
+    <input type="text" class="form-control edit-address" id="edit-streetAdditional" value="{{ data.streetAdditional }}">
+    <span class="help-block" id="help-text-edit-streetAdditional"></span>
+  </div>
+
+</template>

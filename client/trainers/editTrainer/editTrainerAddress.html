@@ -13,73 +13,21 @@
         <label for="edit-trainer-homepage" class="control-label">Homepage</label>
         <div class="input-group">
         <div class="input-group-addon">http://</div>
-          <input type="text" class="form-control hoverCheck" id="edit-trainer-homepage" value="{{profile.homepage}}">
+          <input type="text" class="form-control edit-trainer hoverCheck" id="edit-trainer-homepage" value="{{profile.homepage}}">
         </div>
         <span class="help-block" id="help-text-edit-trainer-homepage"></span>
       </div>
 
       <div class="form-group">
         <label for="edit-trainer-videoURL" class="control-label">Video (Youtube-Link)</label>
-        <input type="text" class="form-control hoverCheck" id="edit-trainer-videoURL" value="{{profile.videoURL}}" placeholder="e.g. https://www.youtube.com/watch?v=123">
+        <input type="text" class="form-control edit-trainer hoverCheck" id="edit-trainer-videoURL" value="{{profile.videoURL}}" placeholder="e.g. https://www.youtube.com/watch?v=123">
         <span class="help-block" id="help-text-edit-trainer-videoURL"></span>
       </div>
 
       <h4 class="text-center" style="margin-top:35px;">Nicht Öffentlich</h4>
 
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="edit-trainer-phone" class="control-label">Telefonnummer</label>
-            <input type="text" class="form-control hoverCheck" id="edit-trainer-phone" value="{{profile.phone}}">
-            <span class="help-block" id="help-text-edit-trainer-phone"></span>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="edit-trainer-mobile" class="control-label">Mobil</label>
-            <input type="text" class="form-control hoverCheck" id="edit-trainer-mobile" value="{{profile.mobile}}">
-            <span class="help-block" id="help-text-edit-trainer-mobile"></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-9">
-          <div class="form-group">
-            <label for="edit-trainer-street" class="control-label">Straße</label>
-            <input type="text" class="form-control" id="edit-trainer-street" value="{{profile.street}}">
-            <span class="help-block" id="help-text-edit-trainer-street"></span>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <label for="edit-trainer-streetNumber" class="control-label">Hausnummer</label>
-            <input type="text" class="form-control" id="edit-trainer-streetNumber" value="{{profile.streetNumber}}">
-            <span class="help-block" id="help-text-edit-trainer-streetNumber"></span>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="edit-trainer-plz" class="control-label">PLZ</label>
-            <input type="number" class="form-control" id="edit-trainer-plz" value="{{profile.plz}}">
-            <span class="help-block" id="help-text-edit-trainer-plz"></span>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="edit-trainer-city" class="control-label">Stadt</label>
-            <input type="text" class="form-control" id="edit-trainer-city" value="{{profile.city}}">
-            <span class="help-block" id="help-text-edit-trainer-city"></span>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="edit-trainer-streetAdditional" class="control-label">Adresszusatz</label>
-        <input type="text" class="form-control" id="edit-trainer-streetAdditional" value="{{profile.streetAdditional}}">
-        <span class="help-block" id="help-text-edit-trainer-streetAdditional"></span>
-      </div>
+      {{ > editPhone data=profile collection='User' }}
+      {{ > editAddress data=profile collection='User' }}
 
     </div>
 

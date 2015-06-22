@@ -24,7 +24,7 @@ Template.editCourseDescription.helpers({
 });
 
 var lazysaveCourseTitle = _.debounce( function ( args ) {
-  Meteor.call('updateCourseSingleField', args, function (error) {
+  Meteor.call('updateSingleCourseField', args, function (error) {
     if (error)
       toastr.error( error.reason );
     else {
@@ -112,7 +112,7 @@ Template.editCourseDescription.events({
           toastr.error( error.message );
         }
         else {
-          Meteor.call('updateCourseSingleField', { id: self._id, argName: 'imageId', argValue: downloadUrl }, function (error) {
+          Meteor.call('updateSingleCourseField', { id: self._id, argName: 'imageId', argValue: downloadUrl }, function (error) {
             if (error) 
               toastr.error( error.reason );
           });
