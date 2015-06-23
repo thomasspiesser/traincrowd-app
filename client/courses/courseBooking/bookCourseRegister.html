@@ -1,0 +1,103 @@
+<template name="bookCourseRegister">
+  <div class="row">
+
+    {{#if currentUser}}
+
+      <div class="text-center">
+        Sie sind bereits angemeldet!
+      </div>
+    
+    {{else}}
+
+      <div class="col-md-4">
+        <h4 class="editContentTitles">Ich bin bereits Kunde</h4>
+
+        <div class="form-group">
+          <input type="text" class="form-control" id="sign-in-email" placeholder="Email">
+          <span class="help-block" id="help-text-sign-in-email"></span>
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control" id="sign-in-password" placeholder="Passwort">
+          <span class="help-block" id="help-text-sign-in-password"></span>
+        </div>
+        <a href="{{pathFor 'atForgotPwd'}}">Passwort vergessen?</a>
+
+        <!-- button -->
+        <div class="form-group">
+          <button type="button" class="btn btn-primary btn-block" id="book-course-login-button"> Anmelden</button>
+        </div>
+
+      </div>
+
+      <div class="col-md-8" >
+        <h4 class="editContentTitles">Ich bin Neukunde</h4>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="edit-user-title" class="control-label">Titel</label>
+              <select class="form-control" id="edit-user-title">
+                <option value=""></option>
+                <option value="Frau">Frau</option>
+                <option value="Herr">Herr</option>
+                <option value="Dr.">Dr.</option>
+                <option value="Prof.">Prof.</option>
+              </select>
+              <span class="help-block" id="help-text-edit-user-title"></span>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="edit-user-name" class="control-label">Name</label>
+              <input type="text" class="form-control" id="edit-user-name" placeholder="Max Mustermann">
+              <span class="help-block" id="help-text-edit-user-name"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="sign-up-email" placeholder="Email">
+              <span class="help-block" id="help-text-sign-up-email"></span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="sign-up-email-again" placeholder="Email wiederholen">
+              <span class="help-block" id="help-text-sign-up-email-again"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="password" class="form-control" id="sign-up-password" placeholder="Passwort">
+              <span class="help-block" id="help-text-sign-up-password"></span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="password" class="form-control" id="sign-up-password-again" placeholder="Passwort wiederholen">
+              <span class="help-block" id="help-text-sign-up-password-again"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-md-offset-6">
+            <!-- button -->
+            <div class="form-group">
+              <button type="button" class="btn btn-primary btn-block pull-right" id="book-course-register-button"> Registrieren</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    {{/if}}
+  </div>
+</template>

@@ -1,5 +1,5 @@
 Template.bookCourseRegister.events({
-  'click #bookCourseLoginButton': function (event, template) {
+  'click #book-course-login-button': function (event, template) {
     var email = template.find('#sign-in-email').value;
     var password = template.find('#sign-in-password').value;
 
@@ -19,22 +19,30 @@ Template.bookCourseRegister.events({
         return false;
       }
       else {
-        Session.set('bookCourseTemplate', "bookCoursePaymentMethod");
+        Session.set('bookCourseTemplate', "bookCourseAddress");
 
         $('#bookCourseRegister').children('.progress-tracker').removeClass('active').addClass('inactive');
-        $('#bookCoursePaymentMethod').children('.progress-tracker').removeClass('inactive').addClass('active');
-        var user = Meteor.user();
-        if ( ! user.profile.street || ! user.profile.streetNumber || ! user.profile.plz || ! user.profile.city ) {
-          Modal.show('editAddressModal');
-        }
+        $('#bookCourseAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
       }
     });
   },
-  'click #bookCourseRegisterButton': function (event, template) {
-    Session.set('bookCourseTemplate', "bookCoursePaymentMethod");
+  'click #book-course-register-button': function (event, template) {
+    var email = template.find('#sign-in-email').value;
+    var password = template.find('#sign-in-password').value;
+
+    Accounts.createUser({email: email, password : password}, function(err){
+      if (err) {
+        Session.set( "createError", "Sorry, "+err.reason );
+      } else {
+        Session.set( "createError", '' );
+        $('#loginModal').modal('hide');
+      }
+    });
+
+    Session.set('bookCourseTemplate', "bookCourseAddress");
 
     $('#bookCourseRegister').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#bookCoursePaymentMethod').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#bookCourseAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
 
     return false;
   }

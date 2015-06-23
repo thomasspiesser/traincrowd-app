@@ -2,15 +2,19 @@ Template.bookCourse.rendered = function () {
   if ( ! Meteor.userId() )
     Session.set("bookCourseTemplate", "bookCourseRegister");
   else {
-    Session.set("bookCourseTemplate", "bookCoursePaymentMethod");
+    Session.set("bookCourseTemplate", "bookCourseAddress");
     $('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#bookCoursePaymentMethod').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#bookCourseAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
   }
 };
 
 Template.bookCourse.helpers({
   deservesCheckBookCourseRegister: function () {
     return Meteor.userId() ? true : false;
+  },
+  deservesCheckBookCourseAdress: function () {
+    var user = Meteor.user();
+    return ! user.profile.street || ! user.profile.streetNumber || ! user.profile.plz || ! user.profile.city ? true : false;
   },
   deservesCheckBookCoursePaymentMethod: function () {
     return this.aims ? true : false;
