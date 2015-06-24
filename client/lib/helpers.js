@@ -81,6 +81,6 @@ UI.registerHelper('error', function() {
 
 UI.registerHelper('username', function(userId) {
 	var user = Meteor.users.findOne( userId );
-	return displayName(user);
+	return displayName( user );
 });
 

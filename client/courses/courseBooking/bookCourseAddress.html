@@ -1,32 +1,42 @@
 <template name="bookCourseAddress">
+  <h4 class="editContentTitles">Ihre Rechnungsadresse</h4>
+  
+  <div class="row">
+    {{ #each billingAddresses }}
+      <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">Rechnungsadresse {{#if firm}}(geschäftlich){{else}}(privat){{/if}}</div>
+          <div class="panel-body">
+            {{ #if firm }}
+              {{ firm }}<br> 
+            {{ /if }}
+            {{ username currentUser._id }}<br>
+            {{ street }} {{ streetNumber }}<br>
+            {{ plz }}, {{ city }}<br>
+            {{ #if streetAdditional }}
+              {{ streetAdditional }}<br> 
+            {{ /if }}
+            <a href="#" id="{{ _index }}" class="edit-billing-address-button">Rechnungsadresse ändern</a>
+          </div>
+        </div>
+      </div>  
+    {{ /each }}
+
+    {{ #if showNewBillingAddress }}
+      <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">Rechnungsadresse </div>
+          <div class="panel-body">
+            <a href="#" id="new-billing-address-button">neue Rechnungsadresse anlegen</a>
+          </div>
+        </div>
+      </div> 
+    {{ /if }}
+
+  </div>
+
   <div class="col-md-6 col-md-offset-3">
-    <h4 class="editContentTitles">Ihre Rechnungsaddresse</h4>
 
-    <span class="radio-inline">
-      <label>
-        <input type="radio" name="book-course-address-radio" id="book-course-address-private" checked>
-        privat
-      </label>
-    </span>
-
-    <span class="radio-inline">
-      <label>
-        <input type="radio" name="book-course-address-radio" id="book-course-address-business" >
-        geschäftlich
-      </label>
-    </span>
-
-    {{#if bookCourseAddressBusiness}}
-
-      <div class="form-group">
-        <label for="edit-user-employer" class="control-label">Firma</label>
-        <input type="text" class="form-control" id="edit-user-employer">
-        <span class="help-block" id="help-text-edit-user-employer"></span>
-      </div>
-
-    {{/if}}
-
-    {{ > editAddress data=currentUser.profile collection='User' }}
     {{ > editPhone data=currentUser.profile collection='User' }}
 
     <!-- button -->
