@@ -12,7 +12,7 @@ Template.bookCourse.helpers({
   deservesCheckBookCourseRegister: function () {
     return Meteor.userId() ? true : false;
   },
-  deservesCheckBookCourseAdress: function () {
+  deservesCheckBookCourseAddress: function () {
     var user = Meteor.user();
     return ! user.profile.street || ! user.profile.streetNumber || ! user.profile.plz || ! user.profile.city ? true : false;
   },
