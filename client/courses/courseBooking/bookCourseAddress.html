@@ -5,7 +5,9 @@
     {{ #each billingAddresses }}
       <div class="col-md-3">
         <div class="panel panel-default">
-          <div class="panel-heading">Rechnungsadresse {{#if firm}}(geschäftlich){{else}}(privat){{/if}}</div>
+          <div class="panel-heading">
+            <input type="radio" name="book-course-select-address-radio" id="{{ _index }}" {{checked _index}}> Rechnungsadresse {{ plusone _index }}
+          </div>
           <div class="panel-body">
             {{ #if firm }}
               {{ firm }}<br> 
@@ -25,7 +27,7 @@
     {{ #if showNewBillingAddress }}
       <div class="col-md-3">
         <div class="panel panel-default">
-          <div class="panel-heading">Rechnungsadresse </div>
+          <div class="panel-heading">Neue Rechnungsadresse </div>
           <div class="panel-body">
             <a href="#" id="new-billing-address-button">neue Rechnungsadresse anlegen</a>
           </div>
@@ -33,16 +35,25 @@
       </div> 
     {{ /if }}
 
-  </div>
+    <div class="col-md-10 col-md-offset-1">
+      <h4 class="editContentTitles">Wie können wir Sie schnellst möglich erreichen?</h4>
+      <div>
+        <p>
+          Im Falle von kurzfristigen Änderungen könnte eine Email Sie zu spät erreichen. Helfen Sie uns, Ihnen den besten Service zu bieten, auch wenn es mal schnell gehen muss. Die Angabe der Telefonnummern ist optional. Natürlich geben wir diese nicht weiter.
+        </p>
+      </div>
+    </div>
 
-  <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-3">
 
-    {{ > editPhone data=currentUser.profile collection='User' }}
+      {{ > editPhone data=currentUser.profile collection='User' }}
 
-    <!-- button -->
-    <div class="form-group">
-      <button type="button" class="btn btn-primary pull-right" id="book-course-address-button"> Weiter</button>
     </div>
 
   </div>
+
+    <div class="form-group">
+      <button type="button" class="btn btn-primary pull-right" id="book-course-select-address-button"> Weiter</button>
+    </div>
+
 </template>

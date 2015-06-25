@@ -14,6 +14,12 @@ Template.bookCourseAddress.helpers({
     if ( user )
       return user.profile.billingAddresses.length < 4 ? true : false;
     return false;
+  },
+  plusone: function (argument) {
+    return argument + 1;
+  },
+  checked: function (index) {
+    return index === Meteor.user().profile.selectedBillingAddress ? 'checked' : undefined;
   }
 });
 
@@ -36,7 +42,7 @@ Template.bookCourseAddress.events({
     else
       return false;
     if ( count >= 4 ) {
-      toastr.error( 'Sie dürfen nur 4 Rechnungsadressen anlegen' );
+      toastr.error( 'Sie dürfen nur 4 Rechnungsadressen anlegen.' );
       return false;
     }
     var self = this;
@@ -47,6 +53,36 @@ Template.bookCourseAddress.events({
         Modal.show('editAddressModal', self);
     });
     
+  },
+  'click #book-course-select-address-button': function (event, template) {
+    var selectedBillingAddress = template.find('input:radio[name=book-course-select-address-radio]:checked');
+    
+    if (! selectedBillingAddress) {
+      toastr.error( "Keine Rechnungsadresse ausgewählt." );
+      return false;
+    } else 
+      selectedBillingAddress = parseInt( selectedBillingAddress.id );
+
+    var user = Meteor.user();
+    if ( ! user )
+      return false;
+    var address = user.profile.billingAddresses[ selectedBillingAddress ];
+    
+    if ( ! address || ! address.street || ! address.streetNumber || ! address.plz || ! address.city ) {
+      toastr.error( 'Die ausgewählte Adresse ist unvollständig.' );
+      return false;
+    }
+    
+    Meteor.call('updateSelectedBillingAddress', selectedBillingAddress, function (error, result) {
+      if (error)
+        toastr.error( error.reason );
+      else {
+        Session.set('bookCourseTemplate', "bookCoursePaymentMethod");
+
+        $('#bookCourseAddress').children('.progress-tracker').removeClass('active').addClass('inactive');
+        $('#bookCoursePaymentMethod').children('.progress-tracker').removeClass('inactive').addClass('active');
+      }
+    });
   },
   'change input:radio[name=book-course-address-radio]': function (event) {
     Session.set("bookCourseAddress", event.currentTarget.id);
