@@ -12,9 +12,13 @@ Template.bookCourse.helpers({
   deservesCheckBookCourseRegister: function () {
     return Meteor.userId() ? true : false;
   },
-  deservesCheckBookCourseAdress: function () {
+  deservesCheckBookCourseAddress: function () {
     var user = Meteor.user();
-    return ! user.profile.street || ! user.profile.streetNumber || ! user.profile.plz || ! user.profile.city ? true : false;
+    if ( ! user) 
+      return false;
+    var selectedBillingAddress = user.profile.selectedBillingAddress;
+    var address = user.profile.billingAddresses[ selectedBillingAddress ];
+    return address || address.street || address.streetNumber || address.plz || address.city ? true : false;
   },
   deservesCheckBookCoursePaymentMethod: function () {
     return this.aims ? true : false;

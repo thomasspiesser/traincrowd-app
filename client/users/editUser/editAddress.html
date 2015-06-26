@@ -1,5 +1,11 @@
 <template name="editAddress">
 
+  <div class="form-group">
+    <label for="edit-user-employer" class="control-label">Firma (Optional)</label>
+    <input type="text" class="form-control edit-address" id="edit-firm" value="{{ data.firm }}">
+    <span class="help-block" id="help-text-edit-firm"></span>
+  </div>
+
   <div class="row">
     <div class="col-md-9">
       <div class="form-group">
