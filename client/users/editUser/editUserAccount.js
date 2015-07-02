@@ -5,12 +5,6 @@ Template.editUserAccount.helpers({
 });
 
 Template.editUserAccount.events({
-  'input #edit-user-email': function (event, template) {
-    var field = event.currentTarget.id.split('-')[2];
-    $('#edit-user-'+field).parent().removeClass('has-error');
-    $('#help-text-edit-user-'+field).text('speichern...').fadeIn(300);
-    lazysaveUserField( { argName: field, argValue: event.currentTarget.value } );
-  },
   'click #changeUserPassword': function (event, template) {
     var passwordNew = template.find("#edit-user-password-new").value;
     var passwordNewAgain = template.find("#edit-user-password-new-again").value;

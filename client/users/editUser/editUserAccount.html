@@ -6,12 +6,8 @@
       <h4 class="editContentTitles">Account-Details bearbeiten</h4>
 
       <hr>
-      
-      <div class="form-group">
-        <label for="edit-user-email" class="control-label">Email</label>
-        <input type="text" class="form-control hoverCheck" id="edit-user-email" value="{{email}}">
-        <span class="help-block" id="help-text-edit-user-email"></span>
-      </div>
+
+      {{ > editEmail data=email collection='User' }}
 
       <div class="form-group">
         <label for="edit-user-password-new" class="control-label">Neues Passwort</label>
