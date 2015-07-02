@@ -48,10 +48,6 @@ formFeedbackError = function ( elem, helpTextElem, inlineMessage, topMessage ) {
   toastr.error( topMessage );
 };
 
-calcCommision =  function (fee) {
-  return parseFloat(fee) / 100 * 18;
-};
-
 hoverCheckEvents = {
   'mouseover .hoverCheck': function (event) {
     Session.set('showHoverText', event.currentTarget.id); 
