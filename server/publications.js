@@ -14,8 +14,9 @@ Meteor.publish('singleCourse', function (slug) {
 // 	return Courses.find({ owner: this.userId });
 // });
 
-Meteor.publish('inquired', function () {
-	return Inquired.find();
+Meteor.publish('bookings', function (_id) {
+	check( _id, String);
+	return Bookings.find( {_id: _id} );
 });
 
 Meteor.publish('current', function () {
