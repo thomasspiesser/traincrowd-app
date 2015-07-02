@@ -1,7 +1,7 @@
 Template.bookCourseConfirm.helpers({
-  // paymentMethod: function () {
-  //  return this.paymentMethod === 'creditcard' ? 'Kreditkarte' : 'Rechnung';
-  // }
+  niceDate: function () {
+    return moment(this).format("DD.MM.YYYY");
+  }
 });
 
 Template.bookCourseConfirm.events({
@@ -18,5 +18,17 @@ Template.bookCourseConfirm.events({
 
     $('#bookCourseConfirm').children('.progress-tracker').removeClass('active').addClass('inactive');
     $('#bookCoursePaymentMethod').children('.progress-tracker').removeClass('inactive').addClass('active');
+  },
+  'click #change-contact': function (event, template) {
+    Modal.show('editContactModal');
+    
+  },
+  'click #book-course-pay': function (event, template) {
+    var agb = template.find('#accept-agb').checked;
+    if ( ! agb ) {
+      toastr.error( "Sie müssen die ABGs akzeptieren." );
+      return false;
+    }
+    Modal.show('payModal', { feePP: this.courseFeePP });
   }
 });

@@ -30,7 +30,7 @@
           E-Mail: {{ useremail currentUser._id }}<br>
           Telefon: {{ currentUser.profile.phone }}<br>
           Mobil: {{ currentUser.profile.mobile }}<br>
-          <a href="">Kontaktinformationen ändern</a>
+          <a href="#" id="change-contact">Kontaktinformationen ändern</a>
         </div>
       </div>
     </div>  
@@ -41,7 +41,6 @@
         <div class="panel-body">
           Zahlungsart: {{ paymentMethod }}<br>
           <a href="#" id="change-paymentMethod">Zahlungsart ändern</a>
-          
         </div>
       </div>
     </div>  
@@ -54,10 +53,9 @@
         <div class="panel-body">
           <div class="checkbox">
             <label>
-              <input type="checkbox"> Die <a href="{{pathFor 'agb'}}">AGB</a> von traincrowd habe ich zur Kenntnis genommen und mit ihrer Geltung bin ich einverstanden.
+              <input type="checkbox" id="accept-agb"> Die <a href="{{pathFor 'agb'}}">AGB</a> von traincrowd habe ich zur Kenntnis genommen und mit ihrer Geltung bin ich einverstanden.
             </label>
           </div>
-          
         </div>
       </div>
     </div>  
@@ -68,12 +66,11 @@
         <div class="panel-body">
           <div class="checkbox">
             <label>
-              <input type="checkbox"> Ich möchte in den traincrowd-Newsletter eingetragen und über News und Trends informiert werden.
+              <input type="checkbox" id="subscribe-newsletter"> Ich möchte in den traincrowd-Newsletter eingetragen und über News und Trends informiert werden.
             </label>
           </div>
         </div>
       </div>
-     
     </div>
 
   </div>
@@ -86,24 +83,32 @@
         <thead>
           <tr>
             <td>Kurs</td>
+            <td>Trainer</td>
             <td>Termine</td>
             <td>Preis pro Person</td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>blabla</td>
-            <td>10.01.2015, 11.01.2015, 12.01.2015, 15.01.2015, 17.01.2015, 21.01.2015</td>
-            <td>299,- Euro</td>
+            <td>{{ courseTitle }}</td>
+            <td>{{ trainerName }}</td>
+            <td>
+              <ul class="comma-list">
+                {{#each eventDate}} 
+                  <li>{{ niceDate }}</li>
+                {{/each}}
+              </ul>
+            </td>
+            <td>{{ courseFeePP }} Euro</td>
           </tr>
         </tbody>
       </table>
 
-      <div class="text-right"><strong>zu zahlender Gesamtpreis: 299,- Euro </strong></div>
+      <div class="text-right"><strong>zu zahlender Gesamtpreis: {{ courseFeePP }} Euro </strong></div>
 
       <!-- button -->
       <div class="form-group">
-        <button type="button" class="btn btn-primary pull-right" id="bookCoursePay"> Kaufen</button>
+        <button type="button" class="btn btn-primary pull-right" id="book-course-pay"> Kaufen</button>
       </div>
 
 
