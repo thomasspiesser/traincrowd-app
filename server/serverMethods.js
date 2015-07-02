@@ -119,7 +119,7 @@ Meteor.methods({
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
     if (!current.course)
-      throw new Meteor.Error(403, "Kurs-Id nicht gefunden");
+      throw new Meteor.Error(403, "Kurs-Id von Event nicht gefunden");
 
     if (!current.courseDate)
       throw new Meteor.Error(403, "Event Termin nicht gefunden");
