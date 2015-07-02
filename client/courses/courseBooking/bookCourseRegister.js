@@ -14,15 +14,24 @@ Template.bookCourseRegister.events({
     }
 
     Meteor.loginWithPassword(email, password, function(error){
-      if (error) {
+      if (error)
         toastr.error( error.reason );
-        return false;
-      }
       else {
-        Session.set('bookCourseTemplate', "bookCourseAddress");
+        var args = {
+          bookingId: Router.current().params._id,
+          argName: 'customer',
+          argValue: ''
+        };
+        Meteor.call('updateBooking', args, function (error, result) {
+          if (error)
+            toastr.error( error.reason );
+          else {
+            Session.set('bookCourseTemplate', "bookCourseAddress");
 
-        $('#bookCourseRegister').children('.progress-tracker').removeClass('active').addClass('inactive');
-        $('#bookCourseAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
+            $('#bookCourseRegister').children('.progress-tracker').removeClass('active').addClass('inactive');
+            $('#bookCourseAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
+          }
+        });
       }
     });
   },

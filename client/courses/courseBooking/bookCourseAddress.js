@@ -77,14 +77,25 @@ Template.bookCourseAddress.events({
       if (error)
         toastr.error( error.reason );
       else {
-        Session.set('bookCourseTemplate', "bookCoursePaymentMethod");
+        var args = {
+          bookingId: Router.current().params._id,
+          argName: 'billingAddress',
+          argValue: ''
+        };
+        Meteor.call('updateBooking', args, function (error, result) {
+          if (error)
+            toastr.error( error.reason );
+          else {
+            Session.set('bookCourseTemplate', "bookCoursePaymentMethod");
 
-        $('#bookCourseAddress').children('.progress-tracker').removeClass('active').addClass('inactive');
-        $('#bookCoursePaymentMethod').children('.progress-tracker').removeClass('inactive').addClass('active');
+            $('#bookCourseAddress').children('.progress-tracker').removeClass('active').addClass('inactive');
+            $('#bookCoursePaymentMethod').children('.progress-tracker').removeClass('inactive').addClass('active');
+          }
+        });
       }
     });
   },
-  'change input:radio[name=book-course-address-radio]': function (event) {
-    Session.set("bookCourseAddress", event.currentTarget.id);
-  }
+  // 'change input:radio[name=book-course-address-radio]': function (event) {
+  //   Session.set("bookCourseAddress", event.currentTarget.id);
+  // }
 });
