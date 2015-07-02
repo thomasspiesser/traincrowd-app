@@ -84,3 +84,7 @@ UI.registerHelper('username', function(userId) {
 	return displayName( user );
 });
 
+UI.registerHelper('useremail', function(userId) {
+  var user = Meteor.users.findOne( userId );
+  return displayEmail( user );
+});

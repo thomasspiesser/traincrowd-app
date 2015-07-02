@@ -45,12 +45,11 @@ Template.bookCourseAddress.events({
       toastr.error( 'Sie dürfen nur 4 Rechnungsadressen anlegen.' );
       return false;
     }
-    var self = this;
     Meteor.call('updateSelectedBillingAddress', count, function (error, result) {
       if (error)
         toastr.error( error.reason );
       else
-        Modal.show('editAddressModal', self);
+        Modal.show('editAddressModal', {});
     });
     
   },
@@ -73,12 +72,13 @@ Template.bookCourseAddress.events({
       return false;
     }
     
+    var self = this;
     Meteor.call('updateSelectedBillingAddress', selectedBillingAddress, function (error, result) {
       if (error)
         toastr.error( error.reason );
       else {
         var args = {
-          bookingId: Router.current().params._id,
+          bookingId: self._id,
           argName: 'billingAddress',
           argValue: ''
         };

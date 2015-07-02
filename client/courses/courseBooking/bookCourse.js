@@ -13,15 +13,13 @@ Template.bookCourse.helpers({
     return Meteor.userId() ? true : false;
   },
   deservesCheckBookCourseAddress: function () {
-    var user = Meteor.user();
-    if ( ! user) 
+    if ( ! this.billingAddress) 
       return false;
-    var selectedBillingAddress = user.profile.selectedBillingAddress;
-    var address = user.profile.billingAddresses[ selectedBillingAddress ];
-    return address || address.street || address.streetNumber || address.plz || address.city ? true : false;
+    var address = this.billingAddress;
+    return address.street || address.streetNumber || address.plz || address.city ? true : false;
   },
   deservesCheckBookCoursePaymentMethod: function () {
-    return this.aims ? true : false;
+    return this.paymentMethod ? true : false;
   },
   deservesCheckBookCourseConfirm: function () {
     return this.maxParticipants && this.fee ? true : false;

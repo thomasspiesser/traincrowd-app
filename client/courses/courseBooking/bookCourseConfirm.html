@@ -1,16 +1,24 @@
 <template name="bookCourseConfirm">
-<h4 class="editContentTitles">Buchung überprüfen und bestätigen</h4>
+  <h4 class="editContentTitles">Buchung überprüfen und bestätigen</h4>
   
   <div class="row">
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-heading">Rechnungsadresse</div>
         <div class="panel-body">
-          Test Tester<br>
-          etetetetetete<br>
-          19999, Hamburg<br>
-          Deutschland<br>
-          <a href="">Rechnungsadresse ändern</a>
+          {{ #with billingAddress }}
+            {{ #if firm }}
+              {{ firm }}<br> 
+            {{ /if }}
+            {{ username currentUser._id }}<br>
+            {{ street }} {{ streetNumber }}<br>
+            {{ plz }}, {{ city }}<br>
+            {{ #if streetAdditional }}
+              {{ streetAdditional }}<br> 
+            {{ /if }}
+          {{ /with }}
+          
+          <a href="#" id="change-billingAddress">Rechnungsadresse ändern</a>
         </div>
       </div>
     </div>  
@@ -19,10 +27,9 @@
       <div class="panel panel-default">
         <div class="panel-heading">Kontaktinformationen</div>
         <div class="panel-body">
-          E-Mail:<br>
-          test@test.de<br>
-          Telefon:<br>
-          12345678<br>
+          E-Mail: {{ useremail currentUser._id }}<br>
+          Telefon: {{ currentUser.profile.phone }}<br>
+          Mobil: {{ currentUser.profile.mobile }}<br>
           <a href="">Kontaktinformationen ändern</a>
         </div>
       </div>
@@ -32,9 +39,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">Zahlungsart</div>
         <div class="panel-body">
-          Zahlungsart:<br>
-          Kreditkarte<br>
-          <a href="">Zahlungsart ändern</a>
+          Zahlungsart: {{ paymentMethod }}<br>
+          <a href="#" id="change-paymentMethod">Zahlungsart ändern</a>
           
         </div>
       </div>
@@ -70,15 +76,6 @@
      
     </div>
 
-    <div class="col-md-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">Geschenkgutschein oder Aktionscode</div>
-        <div class="panel-body">
-          in a galaxy far far away...
-        </div>
-      </div>
-      
-    </div> 
   </div>
 
   <div class="row">
@@ -111,7 +108,6 @@
 
 
     </div>
-
 
 
   </div>
