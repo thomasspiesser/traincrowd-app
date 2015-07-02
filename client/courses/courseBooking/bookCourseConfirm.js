@@ -29,6 +29,14 @@ Template.bookCourseConfirm.events({
       toastr.error( "Sie müssen die ABGs akzeptieren." );
       return false;
     }
+    if ( template.find('#subscribe-newsletter').checked ) {
+      Meteor.call('updateSingleUserField', { argName: 'newsletter', argValue: true }, function (error, result) {
+        if (error) {
+          toastr.error( error.reason );
+          return false;
+        }
+      });
+    }
     Modal.show('payModal', { feePP: this.courseFeePP });
   }
 });
