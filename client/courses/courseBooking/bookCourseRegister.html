@@ -36,22 +36,22 @@
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
-              <label for="edit-user-title" class="control-label">Titel</label>
-              <select class="form-control" id="edit-user-title">
+              <label for="sign-up-title" class="control-label">Titel</label>
+              <select class="form-control" id="sign-up-title">
                 <option value=""></option>
                 <option value="Frau">Frau</option>
                 <option value="Herr">Herr</option>
                 <option value="Dr.">Dr.</option>
                 <option value="Prof.">Prof.</option>
               </select>
-              <span class="help-block" id="help-text-edit-user-title"></span>
+              <span class="help-block" id="help-text-sign-up-title"></span>
             </div>
           </div>
           <div class="col-md-9">
             <div class="form-group">
-              <label for="edit-user-name" class="control-label">Name</label>
-              <input type="text" class="form-control" id="edit-user-name" placeholder="Max Mustermann">
-              <span class="help-block" id="help-text-edit-user-name"></span>
+              <label for="sign-up-name" class="control-label">Name</label>
+              <input type="text" class="form-control" id="sign-up-name" placeholder="Max Mustermann">
+              <span class="help-block" id="help-text-sign-up-name"></span>
             </div>
           </div>
         </div>
@@ -96,6 +96,8 @@
             </div>
           </div>
         </div>
+
+        Durch die Registrierung akzeptieren Sie unsere <a href="{{pathFor 'dataProtection'}}">Datenschutzerklärungen</a> und <a href="{{pathFor 'agb'}}">Geschäftsbedingungen</a>.
 
       </div>
     {{/if}}
