@@ -35,9 +35,12 @@ function translateForm(language){
   $("#cvc-popover").attr('data-content', lang["form"]["popover"]);
 }
 
+var data;
+
 Template.paymillForm.events({
   'submit #paymill-form': function (event, template) {
     event.preventDefault();
+    data = this;
     // Deactivate submit button to avoid further clicks
     $('.submit-button').attr("disabled", "disabled");
 
@@ -142,7 +145,7 @@ function paymillResponseHandler(error, result) {
     var options = {
       token: token,
       amount: amount,
-      currentId: Session.get("currentId")
+      bookingId: data.bookingId
     };
 
     Meteor.call('createTransaction', options, function (error, response) {

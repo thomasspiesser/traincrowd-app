@@ -24,6 +24,10 @@ Template.bookCourseConfirm.events({
     
   },
   'click #book-course-pay': function (event, template) {
+    if ( ! Meteor.userId() ){
+      toastr.error( "Sie müssen eingeloggt sein." );
+      return false;
+    }
     var agb = template.find('#accept-agb').checked;
     if ( ! agb ) {
       toastr.error( "Sie müssen die ABGs akzeptieren." );
@@ -32,11 +36,11 @@ Template.bookCourseConfirm.events({
     if ( template.find('#subscribe-newsletter').checked ) {
       Meteor.call('updateSingleUserField', { argName: 'newsletter', argValue: true }, function (error, result) {
         if (error) {
-          toastr.error( error.reason );
+          toastr.error( 'Fehler Newsletter: ' + error.reason );
           return false;
         }
       });
     }
-    Modal.show('payModal', { feePP: this.courseFeePP });
+    Modal.show('payModal', { bookingId: this._id, feePP: this.courseFeePP });
   }
 });
