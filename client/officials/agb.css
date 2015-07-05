@@ -1,0 +1,11 @@
+#agb-wrapper ol {
+  counter-reset: item
+}
+
+#agb-wrapper li {
+  display: block
+}
+
+#agb-wrapper li:before {
+  content: counters(item, ".") " "; counter-increment: item
+}
