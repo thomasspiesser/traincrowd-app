@@ -1,5 +1,23 @@
 <template name="agb">
 	<div class="container">
+
+	  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs" role="tablist">
+	    <li role="presentation" class="active"><a href="#agbUser" aria-controls="agbUser" role="tab" data-toggle="tab">Nutzer</a></li>
+	    <li role="presentation"><a href="#agbTrainer" aria-controls="agbTrainer" role="tab" data-toggle="tab">Trainer</a></li>
+	  </ul>
+
+	  <!-- Tab panes -->
+	  <div class="tab-content">
+	    <div role="tabpanel" class="tab-pane active" id="agbUser"> {{ > agbUser }} </div>
+	    <div role="tabpanel" class="tab-pane" id="agbTrainer"> {{ > agbTrainer }} </div>
+	  </div>
+
+	</div>
+</template>
+
+<template name="agbUser">
+	<div class="container">
 		<div class="row" id="agb-wrapper">
 			<h3>Allgemeine Geschäftsbedingungen für die Nutzung von „traincrowd“</h3>
 
