@@ -10,6 +10,10 @@ Meteor.publish('singleCourse', function (slug) {
 	return Courses.find({slug: slug});
 });
 
+Meteor.publish('topCourses', function () {
+	return Courses.find( { public: true }, { limit: 6 } );
+});
+
 // Meteor.publish('ownCourses', function () {
 // 	return Courses.find({ owner: this.userId });
 // });
@@ -37,6 +41,10 @@ Meteor.publish('userData', function () {
 // TDOD: don't publish all the info from profile..make more specific here
 Meteor.publish('trainer', function () {
   return Meteor.users.find( { roles: 'trainer', public: true }, { fields: { services:0, createdAt: 0 } } );
+});
+
+Meteor.publish('topTrainer', function () {
+  return Meteor.users.find( { roles: 'trainer', public: true }, { limit: 4, fields: { services:0, createdAt: 0 } } );
 });
 
 // Meteor.publish('singleTrainer', function (id) {
