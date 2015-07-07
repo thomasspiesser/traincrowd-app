@@ -120,6 +120,15 @@ Template.courseDetail.events({
   //   return false
   // },
   'click .joinCourseButton': function (event, template) {
+    // var current = this;
+    // var course = Template.parentData(1);
+    // Meteor.call('createBooking', current._id, course._id, function (error, result) {
+    //   if(error)
+    //     toastr.error( error.reason );
+    //   else
+    //     Router.go('book.course', { _id: result } );
+    // });
+    // return false;
     Session.set("currentId", this._id);
     Session.set("currentDate", this.courseDate);
     if ( !Meteor.userId() ) {
