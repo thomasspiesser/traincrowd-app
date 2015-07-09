@@ -154,15 +154,16 @@ function paymillResponseHandler(error, result) {
         toastr.error(error.error);
       }
       else {
-        $('#paymentModal').modal('hide');
+        Modal.hide('payModal');
+        // $('#paymentModal').modal('hide');
         toastr.success('Buchung erfolgreich.');
         $('#paymill-form')[0].reset();
-        Meteor.setTimeout( redirect , 3000 );
+        // Meteor.setTimeout( redirect , 3000 );
       }
     });
-    redirect = function( ) {
-      Router.go('edit.user', {_id: Meteor.userId()});
-    };
+    // redirect = function( ) {
+    //   Router.go('edit.user', {_id: Meteor.userId()});
+    // };
   }
   $(".submit-button").removeAttr("disabled");
 }

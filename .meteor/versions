@@ -92,6 +92,7 @@ srp@1.0.3
 templating@1.1.1
 tmeasday:paginated-subscription@0.2.4
 tomsp:paymill@0.0.1
+tomsp:shariff@0.0.1
 tracker@1.0.7
 twbs:bootstrap-noglyph@3.3.5
 ui@1.0.6
@@ -101,5 +102,5 @@ useraccounts:bootstrap@1.11.1
 useraccounts:core@1.11.1
 webapp@1.2.0
 webapp-hashing@1.0.3
-yasaricli:slugify@0.0.6
+yasaricli:slugify@0.0.7
 zimme:select2-bootstrap3-css@1.4.6
