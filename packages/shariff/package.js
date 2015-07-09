@@ -12,10 +12,25 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
-  api.use(["jquery"]);
+  api.use(["jquery", "templating", "less"], 'client');
+  api.use(["fortawesome:fontawesome@4.3.0"], 'client');
+
   api.addFiles('shariff.min.js', 'client');
-  // api.export('Shariff');
-  api.addFiles('shariff.min.css', 'client');
+  api.addFiles([
+    'style/shariff.less',
+    'style/shariff-services.less',
+    'style/shariff-layout.less',
+    'style/services/facebook.less',
+    'style/services/googleplus.less',
+    'style/services/info.less',
+    'style/services/linkedin.less',
+    'style/services/mail.less',
+    'style/services/pinterest.less',
+    'style/services/twitter.less',
+    'style/services/whatsapp.less',
+    'style/services/xing.less',
+    ], 'client');
+  api.addFiles(['shareprivate.html', 'shareprivate.js'], 'client');
 });
 
 Package.onTest(function(api) {
