@@ -3,6 +3,18 @@ Template.coursePreview.rendered = function () {
 };
 
 Template.coursePreview.helpers({
+  shareURL: function () {
+    var data = {
+      // method: 'feed',
+      title: this.title,
+      // description: this.description,
+      // picture: this.imageId,
+      // url: 'http://test.de'
+      // url: 'http://traincrowdapp-46806.onmodulus.net/course/erstklassige-prasentationen'
+      url: Meteor.absoluteUrl() + 'course/' + this.slug
+    };
+    return data;
+  },
   trainerImageId: function (id) {
     var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );
     if (trainer.profile && trainer.profile.imageId)

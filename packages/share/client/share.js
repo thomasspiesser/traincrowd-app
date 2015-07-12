@@ -1,12 +1,9 @@
 Template.share.helpers({
   siteTemplates: function () {
-    // var templates = [ 'share_facebook', 'share_twitter' ];
     var templates = [];
-
     var i, len, ref, site;
 
     ref = Share.settings.siteOrder;
-
     for ( i = 0, len = ref.length; i < len; i++ ) {
       site = ref[i];
       if ( Share.settings.sites[site].use ) {
@@ -15,10 +12,10 @@ Template.share.helpers({
     }
     return templates;
   }
- } );
+ });
 
 Template.share.events( {
-  'click [rel="popup"]': function ( event, template ) {
+  'click [rel="popup"]': function ( event ) {
     event.preventDefault();
 
     var url = event.currentTarget.href;

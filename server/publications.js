@@ -33,8 +33,7 @@ Meteor.publish('elapsed', function () {
 
 Meteor.publish('userData', function () {
 	if (! this.userId ) {
-		this.stop();
-	  return;
+		this.ready();
 	}
 	return Meteor.users.find( { _id: this.userId }, { fields: {services:0 } } );
 });
