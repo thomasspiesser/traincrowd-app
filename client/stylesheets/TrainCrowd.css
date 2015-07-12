@@ -344,13 +344,13 @@ div.mystars div.rateit-selected {
   width: 100%;
 }*/
 
-/*.all-courses-wrapper {
+.all-courses-wrapper {
   height: 180px;
   box-shadow: 0px 0px 8px #4C4E61;
   margin-bottom: 15px; 
-}*/
+}
 
-/*.col-preview-image {
+.col-preview-image {
   padding-right: 0; 
 }
 
@@ -363,14 +363,14 @@ div.mystars div.rateit-selected {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}*/
+}
 
-/*.course-preview-content {
+.course-preview-content {
   margin-right: 5px;
 }
-*/
 
-/*.course-preview-content a {
+
+.course-preview-content a {
   text-decoration: none;
   color: #A02828;
   font-weight: bold;
@@ -378,27 +378,27 @@ div.mystars div.rateit-selected {
 }
 
 .course-title-preview {
-  height: 35px;
+  height: 25px;
   margin-top: 10px;
 }
 
 .course-description-preview {
   height: 45px;
-}*/
+}
 
-/*.col-preview-content-right {
+.col-preview-content-right {
   padding-left: 0px;
-}*/
+}
 
-/*.course-preview-rateit {
+.course-preview-rateit {
   padding-top: 3px;
-}*/
+}
 
-/*.course-preview-item-list {
+.course-preview-item-list {
   margin: 3px 0px;
   padding: 2px 4px;
   background-color: rgba(0, 0, 0, 0.1);
-}*/
+}
 
 /*************** Course Detail ***************/
 
