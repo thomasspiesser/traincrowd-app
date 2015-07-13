@@ -1,0 +1,13 @@
+<template name="homePromoCourses">
+  {{#if Template.subscriptionsReady}}
+    <div class="row">
+      {{#each topCourses}}
+        <div class="col-md-6">
+          {{ > courseBoxSmall }}
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <div style="position: relative; height: 100px; width: 100%;">{{ > spinner }}</div>
+  {{/if}}
+</template>

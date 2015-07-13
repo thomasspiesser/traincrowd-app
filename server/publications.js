@@ -44,7 +44,8 @@ Meteor.publish('trainer', function () {
 });
 
 Meteor.publish('topTrainer', function () {
-  return Meteor.users.find( { roles: 'trainer', public: true }, { limit: 4, fields: { services:0, createdAt: 0 } } );
+	// Meteor._sleepForMs(5000);
+  return Meteor.users.find( { roles: 'trainer', public: true }, { limit: 4, fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
 });
 
 // Meteor.publish('singleTrainer', function (id) {
