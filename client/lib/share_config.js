@@ -7,6 +7,9 @@ Share.configure({
       'twitter': {
         'use':true
       },
+      'linkedin': {
+        'use':true
+      }
       // 'googleplus': {},
       // 'pinterest': {}
   },

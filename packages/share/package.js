@@ -25,6 +25,8 @@ Package.onUse(function(api) {
     'client/services/facebook/facebook.js',
     'client/services/twitter/twitter.html',
     'client/services/twitter/twitter.js',
+    'client/services/linkedin/linkedin.html',
+    'client/services/linkedin/linkedin.js',
 
     ], 'client');
 

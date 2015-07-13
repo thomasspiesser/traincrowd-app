@@ -5,6 +5,8 @@ Meteor.startup(function() {
       'description': "traincrowd ist die innovative crowdsourcing-Plattform für Trainings, Seminare und Weiterbildungen. Auf traincrowd finden Sie Berlins Top-Auswahl, deshalb ist bei uns für Sie garantiert immer der richtige Kurs dabei."
     },
     og: {
+      'site_name': 'traincrowd',
+      'type': 'website',
       'image': '/images/Landing-top.jpeg' 
    },
    ignore: {
