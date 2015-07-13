@@ -5,6 +5,6 @@ Template.homePromoTrainer.onCreated(function () {
 
 Template.homePromoTrainer.helpers({
 	topTrainer: function () {
-    return Meteor.users.find( { roles: 'trainer', public: true }, { limit: 4 } );
+    return Meteor.users.find( { roles: 'trainer', isPublic: true }, { limit: 4 } );
   },
 });

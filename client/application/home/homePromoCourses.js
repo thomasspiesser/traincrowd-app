@@ -5,6 +5,6 @@ Template.homePromoCourses.onCreated(function () {
 
 Template.homePromoCourses.helpers({
 	topCourses: function () {
-    return Courses.find( { public: true }, { limit: 6 } );
+    return Courses.find( { isPublic: true }, { limit: 6 } );
   },
 });

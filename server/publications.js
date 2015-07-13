@@ -2,7 +2,6 @@
 
 Meteor.publish('courses', function () {
 	return Courses.find({ $or: [ {isPublic: true}, {owner: this.userId} ] });
-	// return Courses.find({ isPublic: true });
 });
 
 Meteor.publish('singleCourse', function (slug) {
@@ -11,12 +10,8 @@ Meteor.publish('singleCourse', function (slug) {
 });
 
 Meteor.publish('topCourses', function () {
-	return Courses.find( { public: true }, { limit: 6 } );
+	return Courses.find( { isPublic: true }, { limit: 6 } );
 });
-
-// Meteor.publish('ownCourses', function () {
-// 	return Courses.find({ owner: this.userId });
-// });
 
 Meteor.publish('bookings', function (_id) {
 	check( _id, String);
@@ -45,7 +40,7 @@ Meteor.publish('trainer', function () {
 
 Meteor.publish('topTrainer', function () {
 	// Meteor._sleepForMs(5000);
-  return Meteor.users.find( { roles: 'trainer', public: true }, { limit: 4, fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
+  return Meteor.users.find( { roles: 'trainer', isPublic: true }, { limit: 4, fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
 });
 
 // Meteor.publish('singleTrainer', function (id) {
