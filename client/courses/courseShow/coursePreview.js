@@ -7,7 +7,7 @@ Template.coursePreview.helpers({
     var data = {
       // method: 'feed',
       title: this.title,
-      // description: this.description,
+      description: this.description,
       // picture: this.imageId,
       // url: 'http://test.de'
       // url: 'http://traincrowdapp-46806.onmodulus.net/course/erstklassige-prasentationen'
