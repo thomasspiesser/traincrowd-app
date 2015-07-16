@@ -1,6 +1,6 @@
 <template name="navBar">
   <!-- <div class="container"> -->
-    <div class="navbar navbar-inverse navbar-fixed-top nav-up" role="navigation">
+    <div class="navbar navbar-inverse navbar-fixed-top nav-down" role="navigation">
 
       <!-- <div class="row"> -->
         <div class="navbar-header">
@@ -26,7 +26,7 @@
   <!-- </div> -->
 </template>
 
-<!--  /////////////////////////////////////////////////// --> 
+<!--  /////////////////////////////////////////////////// -->
 
 <template name='navItemsLeft'>
   <li><a href="{{pathFor 'search.course'}}">Berlins Top Kurse</a></li>
@@ -34,7 +34,7 @@
   <li><a href="{{pathFor 'faq'}}">Häufige Fragen</a></li>
 </template>
 
-<!--  /////////////////////////////////////////////////// --> 
+<!--  /////////////////////////////////////////////////// -->
 
 <template name='navItemsRight'>
   {{#unless isInRole 'trainer'}}
