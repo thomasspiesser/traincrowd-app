@@ -68,6 +68,11 @@ body {
   background: @bg-grunge;
   margin-top: 70px;
 }
+
+select:focus {
+   outline-color: transparent;
+}
+
 h1,
 h2,
 h3,
@@ -100,8 +105,6 @@ h6 {
 }
 
 /* Buttons */
-
-
 .btn {
   border-radius: 0;
   padding: 4px 12px;
@@ -156,7 +159,7 @@ h6 {
   }
 }
 .btn-dark-blue {
-  color: white;
+  color: white !important;
   background: @dark-blue;
   border-color: @dark-blue;
   &:hover {
@@ -239,7 +242,7 @@ h6 {
   width: 40px;
   height: 40px;
   font-size: 20px;
-  padding: 0;
+  padding: 5px;
 }
 
 
@@ -408,51 +411,12 @@ ul.sort {
 }
 
 /* Boxes */
-/* .box-xl {
-  width: 1300px;
-  overflow: auto;
-  .box-left, .box-center, .box-right {
-    float: left;
-    position: relative;
-    text-align: left;
-  }
-  .box-left {
-    width: 200px;
-    .box-img {
-      margin-bottom: 16px;
-    }
-    p {
-      margin: 0 0 2px 0;
-      button {
-        margin-right: 20px;
-      }
-    }
 
-    .fa-star, .fa-star-o, .fa-star-half-o {
-      font-size: 16px;
-      color: @dark-blue;
-    }
-  }
-  .box-center {
-    width: 820px;
-    padding: 20px;
-
-  }
-  .box-right {
-    width: 280px;
-    float: right;
-  }
-} */
-
-.box-xl {
-  .col-md-2 {background-color: green;}
-  .col-md-6 {background-color: blue;}
-  .col-md-4 {background-color: red;}
-}
 
 .coursebox {
+  .margin-bottom;
   background-color: #fff;
-  // min-height: 205px;
+  min-height: 204px;
   p {
     margin: 0 0 2px 0;
     button {
@@ -467,16 +431,16 @@ ul.sort {
   .box-img {
     margin-bottom: 10px;
     width: 100%;
-    min-height: 145px;
-    background-repeat: no-repeat;
-
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size: contain;
+    min-height: 300px;
+    @media only screen and (min-width : 768px) {
+      min-height: 145px;
+    }
+    background-position: 50% 50%;
+    background-size: cover;
   }
   .box-content {
     .box-content-top {
+      padding-left: 10px;
       @media only screen and (min-width : 768px) {
         min-height: 145px;
         padding: 20px;
@@ -488,11 +452,82 @@ ul.sort {
   }
 }
 
+.trainerbox {
+  .margin-bottom;
+  .box-img {
+    width: 100%;
+    min-height: 150px;
+    background-position: 50% 50%;
+    background-size: cover;
+  }
+  .box-title {
+    min-height: 100px;
+    padding: 20px 10px;
+    background-color: @dark-blue;
+    h5, p {
+      color: #fff;
+    }
+    h5 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  .box-title {
+    min-height: 100px;
+    padding: 20px 16px;
+    background-color: @dark-blue;
+    h5, p {
+      color: #fff;
+    }
+    h5 {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 24px;
+    }
+    p {}
+  }
+  .box-subtitle {
+    background-color: @dark-gray;
+    color: #fff;
+    padding: 4px 10px;
+    i {
+      margin: 0 6px;
+    }
+  }
+  .box-content {
+    background-color: #fff;
+    padding: 20px;
+  }
+  .box-footer {
+    background-color: #fff;
+    display: table;
+    width: 100%;
+
+    .box-footer-left, .box-footer-center, .box-footer-right {
+      display: table-cell;
+    }
+    .box-footer-left, .box-footer-right {
+      width: 40px;
+    }
+    .box-footer-center {
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    .fa-star, .fa-star-o, .fa-star-half-o {
+      font-size: 16px;
+      color: @dark-blue;
+    }
+  }
+}
+
 
 /* Button Bar */
 
 
 .btn-bar {
+
+  .unselectable;
 
   @media only screen and (min-width : 768px) {
     position: absolute;
@@ -815,6 +850,10 @@ div.mystars div.rateit-selected {
   background: @bg-grunge;
 }
 
+#test-section {
+  padding: 100px 0;
+}
+
 
 .separator {
   width: 100%;
@@ -878,6 +917,14 @@ footer {
   .footer-bottom {
     hr {
       width: 50px;
+      margin: 10px 0;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+
     }
     a {
       color: @beige;
@@ -885,6 +932,7 @@ footer {
     }
     h6 {
       color: @light-blue;
+      font-size: 16px;
     }
     .copy {
       font-size: 9px;
@@ -895,6 +943,14 @@ footer {
 
 
 /* Helpers */
+
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 
 .row.no-gutters {
   margin-right: 0;
