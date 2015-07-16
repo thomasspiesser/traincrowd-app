@@ -75,7 +75,6 @@ select:focus {
 
 h1,
 h2,
-h3,
 h4 {
   text-transform: uppercase;
 }
@@ -85,11 +84,11 @@ h1 {
 }
 h2 {
   .Noto-Bold;
-  font-size: 22px;
+  font-size: 26px;
 }
 h3 {
   .Choplin-Medium;
-  font-size: 28px;
+  font-size: 22px;
 }
 h4 {
   .Noto-Bold;
@@ -98,11 +97,10 @@ h4 {
 h5 {
   .Choplin-Medium;
   font-size: 16px;
-  text-transform: uppercase;
 }
 h6 {
   .Choplin-ExtraLight;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 /* Buttons */
@@ -237,7 +235,7 @@ h6 {
   width: 40px;
   height: 40px;
   font-size: 24px;
-  padding: 0;
+  padding: 2px;
 }
 .btn-square {
   width: 40px;
@@ -469,10 +467,10 @@ ul.sort {
     min-height: 100px;
     padding: 20px 10px;
     background-color: @dark-blue;
-    a, h5, p {
+    a, h4, p {
       color: #fff;
     }
-    h5 {
+    h3 {
       margin-top: 0;
       margin-bottom: 0;
     }
@@ -487,7 +485,6 @@ ul.sort {
     h5 {
       margin-top: 0;
       margin-bottom: 0;
-      font-size: 24px;
     }
     p {}
   }
@@ -693,7 +690,6 @@ ul.sort {
       margin-bottom: 0;
     }
     h3 {
-      .Choplin-Medium;
       text-transform: none;
       color: @light-blue;
       font-size: 18px;
@@ -884,6 +880,23 @@ div.mystars div.rateit-selected {
   text-align: center;
   width: 100%;
 }
+.separator-inverted {
+  color: @dark-gray;
+  h2 {
+    background-color: #fff;
+  }
+}
+.separator-inverted:after {
+  content: "";
+  background: url('/separator-arrow-inverted.png') no-repeat center center;
+  background-size: 74px 30px;
+  width: 74px;
+  height: 30px;
+  display: block;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
 
 
 /* footer */
@@ -917,7 +930,7 @@ footer {
       font-size: 18px;
       display: inline-block;
     }
-    button {
+    a {
       margin-right: 10px;
     }
   }
