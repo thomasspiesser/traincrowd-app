@@ -15,7 +15,7 @@
       <div>Suche...</div>
     {{else}}
       {{#esEach index="trainer"}}
-        <div class="col-md-3 col-xs-4">
+        <div class="col-md-3 col-sm-6 trainerbox">
           {{> trainerPreview}}
         </div>
       {{/esEach}}
@@ -31,30 +31,67 @@
   </div>
 </template>
 
-<!--  /////////////////////////////////////////////////// --> 
+<!--  /////////////////////////////////////////////////// -->
 
 <template name="trainerPreview">
-
-  <div class="all-trainer-wrapper">
-    <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}" class="trainer-preview-image" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}} );"></a>
-
-    <div class="trainer-preview-caption">
-      <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}" class="trainer-preview-name">{{username this._id}}</a>
-      <p>Berlin</p>
-
-      {{#if hostedCourses.count}}
-        <strong>Meine Kurse:</strong>
-        <ul>
-          {{#each hostedCourses}}
-            <li>
-              <a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a>
-            </li>
-          {{/each}}
-        </ul>
-      {{else}}
-        <strong>Bietet zur Zeit keine Kurse an.</strong>
-      {{/if}}
+  <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">
+    <div class="box-img" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}} )"></div>
+  </a>
+  <div class="box-title">
+    <h3><a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">{{username this._id}}</a></h3>
+    <p>Heading 11</p>
+  </div>
+  <div class="box-subtitle">
+    <i class="fa fa-map-marker"></i> Berlin
+  </div>
+  <div class="box-content">
+    {{#if hostedCourses.count}}
+      <strong>Meine Kurse:</strong>
+      <ul>
+        {{#each hostedCourses}}
+          <li>
+            <a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <strong>Bietet zur Zeit keine Kurse an.</strong>
+    {{/if}}
+  </div>
+  <div class="box-footer">
+    <div class="box-footer-left">
+      <a href="" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+    </div>
+    <div class="box-footer-center">
+      <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i>
+    </div>
+    <div class="box-footer-right">
+      <button type="button" class="btn btn-dark-blue btn-square"><i class="fa fa-arrow-right"></i></button>
     </div>
   </div>
+
+  <!-- old -->
+
+<!--   <div class="all-trainer-wrapper">
+  <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}" class="trainer-preview-image" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}} );"></a>
+
+  <div class="trainer-preview-caption">
+    <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}" class="trainer-preview-name">{{username this._id}}</a>
+    <p>Berlin</p>
+
+    {{#if hostedCourses.count}}
+      <strong>Meine Kurse:</strong>
+      <ul>
+        {{#each hostedCourses}}
+          <li>
+            <a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <strong>Bietet zur Zeit keine Kurse an.</strong>
+    {{/if}}
+  </div>
+</div> -->
 
 </template>
