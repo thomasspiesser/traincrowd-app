@@ -10,6 +10,7 @@ Meteor.publish('singleCourse', function (slug) {
 });
 
 Meteor.publish('topCourses', function () {
+	Meteor._sleepForMs(5000);
 	return Courses.find( { isPublic: true }, { limit: 6 } );
 });
 
