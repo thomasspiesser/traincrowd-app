@@ -35,26 +35,32 @@
     <div class="row footer-bottom">
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
-            <h6>Fragen</h6>
 
-            <a href="{{pathFor 'faq'}}">FAQs</a>
-            <br>
-            <a href="{{pathFor 'contact'}}">Kontakt</a>
-            <br>
+          <div class="col-md-3">
+            <h6>Fragen</h6>
+            <hr>
+            <ul>
+              <li><a href="{{pathFor 'faq'}}">FAQs</a></li>
+              <li><a href="{{pathFor 'contact'}}">Kontakt</a></li>
+            </ul>
           </div>
-          <div class="col-md-4">
+
+          <div class="col-md-3">
             <h6>Informationen</h6>
-            <a href="{{pathFor 'aboutUs'}}">Über uns</a>
-            <br>
-            <a href="{{pathFor 'agb'}}">AGB</a>
-            <br>
-            <a href="{{pathFor 'privacy'}}">Datenschutz</a>
-            <br>
-            <a href="{{pathFor 'impressum'}}">Impressum</a>
-            <br>
+            <hr>
+            <ul>
+              <li><a href="{{pathFor 'aboutUs'}}">Über uns</a></li>
+              <li><a href="{{pathFor 'agb'}}">AGB</a></li>
+              <li><a href="{{pathFor 'dataProtection'}}">Datenschutz</a></li>
+              <li><a href="{{pathFor 'impressum'}}">Impressum</a></li>
+            </ul>
           </div>
-          <div class="col-md-4 text-center margin-top">
+          <div class="col-md-3">
+            <h6>Subscribe to our newsletter</h6>
+            <hr>
+            <input type="text" name="name" value="">
+          </div>
+          <div class="col-md-3 text-center margin-top">
             <img src="/logo-full.svg" width="120" height="56"/>
             <p class="copy">&copy; 2015 traincrowd UG. All rights reserved </p>
           </div>
