@@ -1,6 +1,7 @@
 // TODO: specify return fields
 
 Meteor.publish('courses', function () {
+	// Meteor._sleepForMs(5000);
 	return Courses.find({ $or: [ {isPublic: true}, {owner: this.userId} ] });
 });
 
@@ -10,6 +11,7 @@ Meteor.publish('singleCourse', function (slug) {
 });
 
 Meteor.publish('topCourses', function () {
+	// Meteor._sleepForMs(5000);
 	return Courses.find( { isPublic: true }, { limit: 6 } );
 });
 
