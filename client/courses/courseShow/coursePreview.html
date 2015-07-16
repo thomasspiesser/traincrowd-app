@@ -1,52 +1,49 @@
 <template name="coursePreview">
-  <div class="all-courses-wrapper">
+  <div class="row no-gutters coursebox">
 
-    <div class="row no-gutters coursebox">
-
-      <div class="col-lg-3 col-md-3 col-sm-3">
-        <a href="{{ pathFor 'course.show' slug=this.slug }}">
-          <div class="box-img" style="background-image: url({{#if imageId}} '{{imageId}}' {{else}}{{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}}/dummyUser.jpg {{/if}} {{/if}})"></div>
-        </a>
-        <p>
-          <!-- <button type="button" class="btn btn-light-blue2 btn-square"><i class="fa fa-share-alt"></i></button> -->
-          {{ > share shareURL }}
-          <div class="rateit mystars course-preview-rateit pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-        </p>
-      </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-5 box-content">
-        <div class="box-content-top">
-          <a href="{{ pathFor route='course.show' slug=this.slug }}"><h5>{{titlePreview}}</h5></a>
-          <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}"><h6>{{ownerName}}</h6></a>
-          <button type="button" class="btn btn-dark-blue btn-xs">Arquitecture</button>
-          <button type="button" class="btn btn-dark-blue btn-xs">Digitalart</button>
-          <p class="course-description-preview">{{descriptionPreview}}</p>
-          <p><a href="{{ pathFor route='course.show' slug=this.slug }}">see more <i class="fa fa-arrow-right"></i></a></p>
-        </div>
-      </div>
-
-
-        <div class="btn-bar btn-bar-inverted in">
-          <div class="btn-bar-left">
-            <ul>
-              <li><i class="fa fa-calendar"></i></li>
-              <li><i class="fa fa-map-marker"></i></li>
-              <li><i class="fa fa-users"></i></li>
-              <li><i class="fa fa-clock-o"></i></li>
-              <li><i class="fa fa-euro"></i></li>
-            </ul>
-          </div>
-          <div class="btn-bar-right">
-            <ul>
-              <li>&nbsp;{{nextEvent}}</li>
-              <li>Berlin</li>
-              <li><span class="places places-6">only 3 of 10 places left</span></li>
-              <li>24 hours total</li>
-              <li>&nbsp;{{feePP}} <i class="fa fa-euro"></i></li>
-            </ul>
-          </div>
-        </div>
-
+    <div class="col-lg-3 col-md-3 col-sm-3">
+      <a href="{{ pathFor 'course.show' slug=this.slug }}">
+        <div class="box-img" style="background-image: url({{#if imageId}} '{{imageId}}' {{else}}{{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}}/dummyUser.jpg {{/if}} {{/if}})"></div>
+      </a>
+      <p>
+        <!-- <button type="button" class="btn btn-light-blue2 btn-square"><i class="fa fa-share-alt"></i></button> -->
+        {{ > share shareURL }}
+        <div class="rateit mystars course-preview-rateit pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+      </p>
     </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-5 box-content">
+      <div class="box-content-top">
+        <a href="{{ pathFor route='course.show' slug=this.slug }}"><h5>{{titlePreview}}</h5></a>
+        <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}"><h6>{{ownerName}}</h6></a>
+        <button type="button" class="btn btn-dark-blue btn-xs">Arquitecture</button>
+        <button type="button" class="btn btn-dark-blue btn-xs">Digitalart</button>
+        <p class="course-description-preview">{{descriptionPreview}}</p>
+        <p><a href="{{ pathFor route='course.show' slug=this.slug }}">see more <i class="fa fa-arrow-right"></i></a></p>
+      </div>
+    </div>
+
+
+      <div class="btn-bar btn-bar-inverted in">
+        <div class="btn-bar-left">
+          <ul>
+            <li><i class="fa fa-calendar"></i></li>
+            <li><i class="fa fa-map-marker"></i></li>
+            <li><i class="fa fa-users"></i></li>
+            <li><i class="fa fa-clock-o"></i></li>
+            <li><i class="fa fa-euro"></i></li>
+          </ul>
+        </div>
+        <div class="btn-bar-right">
+          <ul>
+            <li>&nbsp;{{nextEvent}}</li>
+            <li>Berlin</li>
+            <li><span class="places places-6">only 3 of 10 places left</span></li>
+            <li>24 hours total</li>
+            <li>&nbsp;{{feePP}} <i class="fa fa-euro"></i></li>
+          </ul>
+        </div>
+      </div>
+
   </div>
 </template>
