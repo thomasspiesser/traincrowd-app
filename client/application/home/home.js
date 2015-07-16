@@ -1,3 +1,11 @@
+Template.home.events({
+  'submit #home-search-form': function (event) {
+    event.preventDefault();
+    var searchtext = event.target.searchBox.value;
+    Router.go( 'search.course', {}, { query: 'q='+searchtext } );
+  }
+});
+
 Template.home.onRendered(function() {
 });
   var didScroll;

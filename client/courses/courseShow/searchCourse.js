@@ -1,3 +1,9 @@
+Template.searchCourse.helpers({
+  query: function () {
+    return Router.current().params.query.q;
+  }
+});
+
 Template.filter.helpers({
 	categories: function () {
 		return Categories.findOne().categories;
