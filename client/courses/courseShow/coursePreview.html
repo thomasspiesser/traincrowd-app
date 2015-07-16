@@ -1,37 +1,51 @@
 <template name="coursePreview">
   <div class="all-courses-wrapper">
 
-    <div class="row">
+    <div class="row no-gutters coursebox">
 
-      <div class="col-md-3 col-preview-image">
-        <a href="{{ pathFor 'course.show' slug=this.slug }}" class="course-preview-image" style="background-image: url( {{#if imageId}} '{{imageId}}' {{else}} {{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}} '/dummyUser.jpg' {{/if}} {{/if}} );"></a>
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <a href="{{ pathFor 'course.show' slug=this.slug }}">
+          <div class="box-img" style="background-image: url({{#if imageId}} '{{imageId}}' {{else}}{{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}}/dummyUser.jpg {{/if}} {{/if}})"></div>
+        </a>
+        <p>
+          <!-- <button type="button" class="btn btn-light-blue2 btn-square"><i class="fa fa-share-alt"></i></button> -->
+          {{ > share shareURL }}
+          <div class="rateit mystars course-preview-rateit pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+        </p>
       </div>
 
-      <div class="col-md-9">
-        <div class="course-preview-content">
-
-          <a href="{{ pathFor route='course.show' slug=this.slug }}"><h4 class="course-title-preview">{{titlePreview}}</h4></a>
-
-          {{ > share shareURL }}
-
-          <div class="row">
-            <div class="col-md-8 col-preview-content-left">
-              <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}">{{ownerName}}</a>
-              <p class="course-description-preview">{{descriptionPreview}}</p>
-            </div>
-            <div class="col-md-4 col-preview-content-right">
-              <div class="course-preview-item-list"><i class="fa fa-money fa-fw"></i> <div class="pull-right">{{feePP}} <i class="fa fa-euro"></i> </div></div>
-
-              <div class="course-preview-item-list"> <i class="fa fa-thumbs-up fa-fw"></i> <div class="rateit mystars course-preview-rateit pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></div>
-
-              <div class="course-preview-item-list"><i class="fa fa-calendar fa-fw"></i> <div class="pull-right">{{nextEvent}}</div>  </div>
-
-              <div class="course-preview-item-list"><i class="fa fa-map-marker fa-fw"></i> <div class="pull-right">Berlin</div>  </div>
-            </div>
-          </div>
-
+      <div class="col-lg-6 col-md-6 col-sm-5 box-content">
+        <div class="box-content-top">
+          <a href="{{ pathFor route='course.show' slug=this.slug }}"><h5>{{titlePreview}}</h5></a>
+          <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}"><h6>{{ownerName}}</h6></a>
+          <button type="button" class="btn btn-dark-blue btn-xs">Arquitecture</button>
+          <button type="button" class="btn btn-dark-blue btn-xs">Digitalart</button>
+          <p class="course-description-preview">{{descriptionPreview}}</p>
+          <p><a href="{{ pathFor route='course.show' slug=this.slug }}">see more <i class="fa fa-arrow-right"></i></a></p>
         </div>
       </div>
+
+
+        <div class="btn-bar btn-bar-inverted in">
+          <div class="btn-bar-left">
+            <ul>
+              <li><i class="fa fa-calendar"></i></li>
+              <li><i class="fa fa-map-marker"></i></li>
+              <li><i class="fa fa-users"></i></li>
+              <li><i class="fa fa-clock-o"></i></li>
+              <li><i class="fa fa-euro"></i></li>
+            </ul>
+          </div>
+          <div class="btn-bar-right">
+            <ul>
+              <li>&nbsp;{{nextEvent}}</li>
+              <li>Berlin</li>
+              <li><span class="places places-6">only 3 of 10 places left</span></li>
+              <li>24 hours total</li>
+              <li>&nbsp;{{feePP}} <i class="fa fa-euro"></i></li>
+            </ul>
+          </div>
+        </div>
 
     </div>
   </div>
