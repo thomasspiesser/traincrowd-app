@@ -1,3 +1,7 @@
+Template.courseBoxSmall.rendered = function () {
+  $('.rateit').rateit();
+};
+
 Template.courseBoxSmall.helpers({
 	shareData: function () {
     var data = {
