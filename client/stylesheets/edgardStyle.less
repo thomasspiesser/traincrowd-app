@@ -422,7 +422,6 @@ ul.sort {
 
 /* Boxes */
 
-
 .coursebox {
   position: relative;
   overflow: hidden;
@@ -448,7 +447,7 @@ ul.sort {
     width: 100%;
     min-height: 300px;
     @media only screen and (min-width : 768px) {
-      min-height: 170px;
+      min-height: 145px;
     }
     background-position: 50% 50%;
     background-size: cover;
@@ -508,6 +507,7 @@ ul.sort {
       @media only screen and (min-width : 768px) {
         min-height: 145px;
         padding: 20px;
+        padding-top: 10px;
       }
     }
     .box-content-bottom {
@@ -591,8 +591,6 @@ ul.sort {
 
 
 /* Button Bar */
-
-
 .btn-bar {
 
   .unselectable;
@@ -737,8 +735,6 @@ ul.sort {
     h5 {
       color: @light-blue;
       margin: 0;
-      /* .Choplin-Medium; */
-      /* font-size: 16px; */
     }
     h4 {
       color: #fff;
@@ -764,56 +760,6 @@ ul.sort {
     }
   }
 }
-
-/* .box-sm {
-  width: 288px;
-  background-color: #fff;
-  text-align: left;
-
-  .box-sm-img {
-
-  }
-  .box-sm-title {
-    min-height: 100px;
-    padding: 20px 10px;
-    background-color: @dark-blue;
-    h5, p {
-      color: #fff;
-    }
-    h5 { margin-top: 0; margin-bottom: 0}
-    p {}
-  }
-  .box-sm-subtitle {
-    background-color: @light-gray;
-    color: #fff;
-    padding: 2px 10px;
-  }
-  .box-sm-content {
-    padding: 20px;
-  }
-  .box-sm-footer {
-    .fa-star, .fa-star-o, .fa-star-half-o {
-      font-size: 16px;
-      color: @dark-blue;
-    }
-    overflow: auto;
-    .box-sm-footer-left, .box-sm-footer-center, .box-sm-footer-right {
-      float: left;
-
-    }
-    .box-sm-footer-left, .box-sm-footer-right {
-      width: 40px;
-    }
-    .box-sm-footer-right {
-      float: right;
-    }
-    .box-sm-footer-center {
-      text-align: center;
-      padding-top: 10px;
-      width: 208px;
-    }
-  }
-} */
 
 /* Rateit */
 div.rate-star {
@@ -882,6 +828,11 @@ div.rate-star.dark-gray button.rateit-reset {
     top: -70px;
 }
 
+/* Sections */
+section {
+  padding: 100px 0;
+}
+
 /* Home */
 
 #intro {
@@ -922,7 +873,7 @@ div.rate-star.dark-gray button.rateit-reset {
   }
 }
 #course-preview {
-  margin: 100px auto;
+
 }
 #home-search {
   background-color: @light-blue;
@@ -934,17 +885,12 @@ div.rate-star.dark-gray button.rateit-reset {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
-  padding: 100px 0;
 }
 
 #zero-risk {
-  padding: 100px;
   background: @bg-grunge;
 }
 
-#test-section {
-  padding: 100px 0;
-}
 
 
 .separator {
