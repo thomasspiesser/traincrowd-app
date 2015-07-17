@@ -3,7 +3,18 @@
   <div class="row no-gutters coursebox">
     <div class="col-sm-4">
       <div class="box-img" style="background-image: url(/Kurs.jpg)"></div>
-      <p><a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i></p>
+      <div class="share-container ">
+        <div class="share-open">
+          <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+        </div>
+        <div class="share-btns">
+          {{>share}}
+        </div>
+      </div>
+      <div class="rate-btns">
+        <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i>
+      </div>
+
     </div>
     <div class="col-sm-7 box-content">
       <div class="box-content-top">

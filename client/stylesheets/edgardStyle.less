@@ -424,9 +424,13 @@ ul.sort {
 
 .coursebox {
   position: relative;
+  overflow: hidden;
   .margin-bottom;
   background-color: #fff;
-  min-height: 204px;
+
+  > [class^="col-"], > [class*=" col-"] {
+    min-height: 204px;
+  }
   p {
     margin: 0 0 2px 0;
     button {
@@ -448,6 +452,55 @@ ul.sort {
     background-position: 50% 50%;
     background-size: cover;
   }
+  .rate-btns {
+    padding-top: 10px;
+    padding-left: 60px;
+  }
+  .share-container {
+
+    position: absolute;
+    left: 0;
+    z-index: 100;
+    .share-open {
+      position: absolute;
+      top:0;
+      left: 0;
+      z-index: 10;
+    }
+    .share-btns {
+
+      position: absolute;
+      background-color: #fff;
+      width: 123px;
+      top:0;
+      left: 41px;
+      z-index: 9;
+      font-size: 0;
+      transform: translate(-123px,0);
+      -webkit-transition: ease 1s;
+      transition: ease 0.3s;
+      a {
+        padding: 6px 12px;
+        text-align: center;
+        margin: 0 1px 0 0;
+        font-weight: normal;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        color: white !important;
+        background: @dark-blue;
+        border-color: @dark-blue;
+        &:hover {
+          color: white;
+          background-color: darken(@dark-blue, 10%);
+        }
+      }
+    }
+    .share-btns.in {
+      transform: translate(0,0);
+    }
+  }
   .box-content {
     .box-content-top {
       padding-left: 10px;
@@ -460,6 +513,8 @@ ul.sort {
         padding: 19px;
     }
   }
+
+
 }
 
 .trainerbox {
@@ -544,6 +599,9 @@ ul.sort {
   @media only screen and (min-width : 768px) {
     position: absolute;
     right: 0;
+    transform: translateX(190px);
+    -webkit-transition: ease 0.3s;
+    transition: ease 0.3s ;
   }
 
   span .form-control {
@@ -576,7 +634,7 @@ ul.sort {
   }
   .btn-bar-right {
     @media only screen and (min-width : 768px) {
-      display: none;
+      //display: none;
     }
     ul {
       list-style-type: none;
@@ -600,9 +658,7 @@ ul.sort {
   }
 }
 .btn-bar.in {
-  .btn-bar-right {
-    display: block;
-  }
+  transform: translateX(0);
 }
 
 .btn-bar-inverted {
