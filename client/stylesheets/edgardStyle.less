@@ -67,6 +67,7 @@ body {
   font-size: 14px;
   background: @bg-grunge;
   margin-top: 70px;
+  color: @dark-gray;
 }
 
 select:focus {
@@ -815,16 +816,40 @@ ul.sort {
 } */
 
 /* Rateit */
-div.mystars div.rateit-range {
-  background: url(mygraystar.svg);
+div.rate-star {
+  margin: 0 2px;
+}
+div.rate-star div.rateit-range, div.rate-star div.rateit-hover, div.rate-star div.rateit-selected, button.rateit-reset {
+  background-size: 16px 16px;
 }
 
-div.mystars div.rateit-hover {
-  background: url(myredstar.svg);
+div.rate-star.dark-green div.rateit-range {
+  background-image: url(star-empty-dark-green.png);
 }
-
-div.mystars div.rateit-selected {
-  background: url(myredstar.svg);
+div.rate-star.dark-green div.rateit-hover {
+  background-image: url(star-full-dark-green.png);
+}
+div.rate-star.dark-green div.rateit-selected {
+  background-image: url(star-full-dark-green.png);
+}
+div.rate-star.dark-gray div.rateit-range {
+  background-image: url(star-empty-dark-gray.png);
+}
+div.rate-star.dark-gray div.rateit-hover {
+  background-image: url(star-full-dark-gray.png);
+}
+div.rate-star.dark-gray div.rateit-selected {
+  background-image: url(star-full-dark-gray.png);
+}
+div.rate-star.dark-green button.rateit-reset {
+  background-image: url(star-reset-dark-green.png) !important;
+  background-size: 16px 16px !important;
+  margin-right: 4px;
+}
+div.rate-star.dark-gray button.rateit-reset {
+  background-image: url(star-reset-dark-gray.png) !important;
+  background-size: 16px 16px !important;
+  margin-right: 4px;
 }
 
 /* Navbar */
