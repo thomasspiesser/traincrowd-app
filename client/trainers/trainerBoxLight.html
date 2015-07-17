@@ -1,0 +1,16 @@
+<template name="trainerBoxLight">
+  <div class="text-center">
+    <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">
+      <img src="{{#if profile.imageId}} {{profile.imageId}} {{else}} /dummyUser.jpg {{/if}}" class="img-circle img-thumbnail" style="width:180px;">
+    </a>
+    <div class="box-footer-center">
+      <div class="rateit mystars" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+      <!-- <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> -->
+    </div>
+    <div class="box-title">
+      <h3><a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">{{profile.name}}</a></h3>
+      <!-- <p>Heading 11</p> -->
+    </div>
+    <div class="more"></div>
+  </div>
+</template>

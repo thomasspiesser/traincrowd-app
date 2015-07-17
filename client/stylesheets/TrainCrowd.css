@@ -208,7 +208,7 @@ footer a:hover {
 
 /*************** Rateit ***************/
 
-div.mystars div.rateit-range {
+/*div.mystars div.rateit-range {
   background: url(mygraystar.svg);
 }
 
@@ -218,7 +218,7 @@ div.mystars div.rateit-hover {
 
 div.mystars div.rateit-selected {
   background: url(myredstar.svg);
-}
+}*/
 
 /*************** Course Edit ***************/
 

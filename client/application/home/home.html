@@ -39,6 +39,21 @@
   </section>
 
   <div class="separator">
+    <h2>Top Trainer</h2>
+  </div>
+
+  <section id="trainer-preview" class="container">
+    {{ > homePromoTrainer }}
+
+    <div class="row margin-top">
+      <div class="col-md-12 text-center">
+        <a href="{{pathFor 'search.trainer'}}" class="btn btn-lg btn-red">Alle Trainer</a>
+        <a href="{{pathFor 'becomeTrainerLanding'}}" class="btn btn-lg btn-red">Trainer werden</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="separator">
     <h2>So funktioniert traincrowd</h2>
   </div>
 
