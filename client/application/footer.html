@@ -52,14 +52,27 @@
             <ul>
               <li><a href="{{pathFor 'aboutUs'}}">Über uns</a></li>
               <li><a href="{{pathFor 'agb'}}">AGB</a></li>
-              <li><a href="{{pathFor 'dataProtection'}}">Datenschutz</a></li>
+              <li><a href="{{pathFor 'privacy'}}">Datenschutz</a></li>
               <li><a href="{{pathFor 'impressum'}}">Impressum</a></li>
             </ul>
           </div>
           <div class="col-md-3">
             <h6>Subscribe to our newsletter</h6>
             <hr>
-            <input type="text" name="name" value="">
+
+            <!-- Begin MailChimp Signup Form -->
+            <div id="mc_embed_signup">
+              <form action="//traincrowd.us10.list-manage.com/subscribe/post?u=0ff46c08bfac063d147159878&amp;id=5504ca022e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate="">
+                <div id="mc_embed_signup_scroll" class="form-group">
+                  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required="">
+                  <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                  <div style="position: absolute; left: -5000px;"><input type="text" name="b_0ff46c08bfac063d147159878_5504ca022e" tabindex="-1" value=""></div>
+                </div>
+                <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-sm btn-light-blue">Absenden</button>
+              </form>
+            </div>
+            <!--End mc_embed_signup-->
+
           </div>
           <div class="col-md-3 text-center margin-top">
             <img src="/logo-full.svg" width="120" height="56"/>
