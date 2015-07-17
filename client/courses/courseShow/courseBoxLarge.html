@@ -1,15 +1,22 @@
-<template name="coursePreview">
+<template name="courseBoxLarge">
   <div class="row no-gutters coursebox">
 
     <div class="col-lg-3 col-md-3 col-sm-3">
       <a href="{{ pathFor 'course.show' slug=this.slug }}">
         <div class="box-img" style="background-image: url({{#if imageId}} '{{imageId}}' {{else}}{{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}}/dummyUser.jpg {{/if}} {{/if}})"></div>
       </a>
-      <p>
-        <!-- <button type="button" class="btn btn-light-blue2 btn-square"><i class="fa fa-share-alt"></i></button> -->
-        {{ > share shareURL }}
-        <div class="rateit mystars course-preview-rateit pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-      </p>
+
+      <div class="share-container ">
+        <div class="share-open">
+          <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+        </div>
+        <div class="share-btns">
+          {{ > share shareData }}
+        </div>
+      </div>
+
+      <div class="rateit mystars course-preview-rateit pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+        
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-5 box-content">

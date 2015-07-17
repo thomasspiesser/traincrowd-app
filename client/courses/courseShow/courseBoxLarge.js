@@ -1,8 +1,8 @@
-Template.coursePreview.rendered = function () {
+Template.courseBoxLarge.rendered = function () {
   $('.rateit').rateit();
 };
 
-Template.coursePreview.helpers({
+Template.courseBoxLarge.helpers({
   shareURL: function () {
     var data = {
       // method: 'feed',
@@ -64,5 +64,11 @@ Template.coursePreview.helpers({
     else { 
       return moment(_.first( nextEvent ) ).format("DD.MM") + ' - ' + moment(_.last( nextEvent ) ).format("DD.MM.YYYY");
     }
+  }
+});
+
+Template.courseBoxLarge.events({
+  'click .share-open': function (event, template) {
+    $(event.currentTarget).next().toggleClass('in');
   }
 });
