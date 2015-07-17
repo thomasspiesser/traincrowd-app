@@ -1,7 +1,7 @@
 <template name="courseBoxLarge">
   <div class="row no-gutters coursebox">
 
-    <div class="col-lg-3 col-md-3 col-sm-3">
+    <div class="col-lg-2 col-md-3 col-sm-3">
       <a href="{{ pathFor 'course.show' slug=this.slug }}">
         <div class="box-img" style="background-image: url({{#if imageId}} '{{imageId}}' {{else}}{{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}}/dummyUser.jpg {{/if}} {{/if}})"></div>
       </a>
@@ -16,10 +16,10 @@
       </div>
 
       <div class="rateit mystars course-preview-rateit pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-        
+
     </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-5 box-content">
+    <div class="col-lg-7 col-md-6 col-sm-5 box-content">
       <div class="box-content-top">
         <a href="{{ pathFor route='course.show' slug=this.slug }}"><h3>{{titlePreview}}</h3></a>
         <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}"><h6>{{ownerName}}</h6></a>
