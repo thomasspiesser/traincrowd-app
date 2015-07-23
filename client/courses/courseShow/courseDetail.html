@@ -36,7 +36,7 @@
       <div class="rateit rate-star dark-green pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
     </div>
 
-    <div class="col-md-6 col-sm-6 course-center">
+    <div class="col-md-7 col-sm-7 course-center">
       <h1 >{{title}}</h1>
       <h3><a href="{{ pathFor 'trainerProfile.show' _id = owner }}">{{ownerName}}</a></h3>
       {{#each categories}}
@@ -44,8 +44,39 @@
       {{/each}}
       <h4>Beschreibung</h4>
       <p>{{description}}</p>
+
+      {{#if aims}}
+       <h4>Kursziele</h4>
+       <p>{{aims}}</p>
+      {{/if}}
+
+      {{#if methods}}
+        <h4>Lernformen, Methodik und Didaktik</h4>
+        <p>{{methods}}</p>
+      {{/if}}
+
+      {{#if targetGroup}}
+        <h4>Zielgruppe</h4>
+        <p>{{targetGroup}}</p>
+      {{/if}}
+
+      {{#if prerequisites}}
+        <h4>Vorraussetzungen</h4>
+        <p>{{prerequisites}}</p>
+      {{/if}}
+
+      {{#if languages}}
+        <h4>Sprachen</h4>
+        <p>{{languages}}</p>
+      {{/if}}
+
+      {{#if additionalServices}}
+        <h4>Zusätzliche Leistungen</h4>
+        <p>{{additionalServices}}</p>
+      {{/if}}
+
     </div>
-    <div class="col-md-4 col-sm-3 course-right">
+    <div class="col-md-3 col-sm-2 course-right">
 
       {{#if noLocation}}
         <h5>Ort</h5>
@@ -59,195 +90,62 @@
         <hr>
       {{/if}}
 
-      {{#if aims}}
-       <h5>Kursziele</h5>
-       <p>{{aims}}</p>
-       <hr>
-      {{/if}}
+      <p><i class="fa fa-clock-o" ></i> {{duration}} Kurstage</p>
+      <p><i class="fa fa-users" ></i> {{maxParticipants}} Plätze</p>
+      <p><i class="fa fa-euro" ></i> {{feePP}} pP</p>
 
-      {{#if methods}}
-        <h5>Lernformen, Methodik und Didaktik</h5>
-        <p>{{methods}}</p>
+      <hr>
+
+      <h4>Event auswählen:</h4>
+
+      {{#each getCurrent}}
+
+        <i class="fa fa-calendar fa-fw"></i> Daten:<span class="pull-right">{{courseDateRange}}</span>
+
         <hr>
-      {{/if}}
 
-      {{#if targetGroup}}
-        <h5>Zielgruppe</h5>
-        <p>{{targetGroup}}</p>
+        {{#if bookedOut ..}}
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+              Ausgebucht
+            </div>
+          </div>
+        {{else}}
+          <div class="progress">
+            <span class="pull-right openSpots">noch {{openSpots ..}} frei</span>
+            <span class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{percentFull ..}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFull ..}}%; min-width: 0.2em;">
+                <!-- {{percentFull ..}}% -->
+            </span>
+          </div>
+        {{/if}}
+
         <hr>
-      {{/if}}
 
-      {{#if prerequisites}}
-        <h5>Vorraussetzungen</h5>
-        <p>{{prerequisites}}</p>
+        <div class="single-event-item-list">
+          <i class="fa fa-clock-o fa-fw"></i> Laufzeit:<span class="pull-right">noch {{runtime ..}} Tage</span>
+        </div>
+
         <hr>
-      {{/if}}
 
-      {{#if languages}}
-        <h5>Sprachen</h5>
-        <p>{{languages}}</p>
-        <hr>
-      {{/if}}
+        {{#if bookedOut ..}}
 
-      {{#if additionalServices}}
-        <h5>Zusätzliche Leistungen</h5>
-        <p>{{additionalServices}}</p>
-      {{/if}}
+        {{else}}
+            <!-- <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" type="button" class="btn btn-default btn-block btn-xs joinCourseButton"> -->
+          <a href="#" type="button" class="btn btn-default btn-block btn-xs joinCourseButton">
+            Jetzt Buchen
+          </a>
+        {{/if}}
+
+      {{/each}}
+
+
 
     </div>
 
 
   </div>
 
-    <div class="row">
 
-      <div class="col-md-2 course-detail-left">
-        <div class="course-detail-head-image" style="background-image: url( {{#if imageId}} '{{imageId}}' {{else}} {{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}} '/dummyUser.jpg' {{/if}} {{/if}} );"></div>
 
-        <div class="course-detail-body-location-wrapper">
-          <div id="location">
-            <strong>Ort</strong>
-            {{#if noLocation}}
-              <p>steht noch nicht fest</p>
-            {{else}}
-              <p> {{street}} {{streetNumber}} <br>
-              {{#if streetAdditional}} {{streetAdditional}} <br> {{/if}}
-              {{plz}} {{city}} </p>
-              <a href="https://www.google.de/maps/place/{{street}}+{{streetNumber}},{{plz}}" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?markers={{street}}+{{streetNumber}},{{plz}}&zoom=14&size=200x200&sensor=false" alt="" style="width: 100%;"></a>
-            {{/if}}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 course-detail-right">
-        <div class="course-detail-head-text-wrapper">
-          <p><a href="{{ pathFor 'trainerProfile.show' _id = owner }}">{{ownerName}}</a></p>
-          <h3 class="course-title-detail">{{title}}</h3>
-          <p class="course-detail-head-categories">
-            {{#each categories}}
-              <span class="label label-default tags">{{this}}</span>
-            {{/each}}
-          </p>
-          <p><div class="mystars rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></p>
-        </div>
-
-        <div class="course-detail-body-text-wrapper">
-          {{#if description}}
-            <p> <strong>Beschreibung</strong> <br>
-              <div class="contain-format">{{description}}</div>
-            </p>
-          {{/if}}
-          {{#if aims}}
-            <p> <strong>Kursziele</strong> <br>
-              <div class="contain-format">{{aims}}</div>
-            </p>
-          {{/if}}
-          {{#if methods}}
-            <p> <strong>Lernformen, Methodik und Didaktik</strong> <br>
-              <div class="contain-format">{{methods}}</div>
-            </p>
-          {{/if}}
-          {{#if targetGroup}}
-            <p> <strong>Zielgruppe</strong> <br>
-              <div class="contain-format">{{targetGroup}}</div>
-            </p>
-          {{/if}}
-          {{#if prerequisites}}
-            <p> <strong>Vorraussetzungen</strong> <br>
-              <div class="contain-format">{{prerequisites}}</div>
-            </p>
-          {{/if}}
-          {{#if languages}}
-            <p> <strong>Sprachen</strong> <br>
-              <div class="contain-format">{{languages}}</div>
-            </p>
-          {{/if}}
-          {{#if additionalServices}}
-            <p> <strong>zusätzliche Leistungen</strong> <br>
-              <div class="contain-format">{{additionalServices}}</div>
-            </p>
-          {{/if}}
-        </div>
-      </div>
-
-      <div class="col-md-4 course-detail-event-panel">
-        <!-- <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button> -->
-        <div class="row">
-          <div class="col-xs-6">
-            <span data-toggle="tooltip" title="Kursdauer">
-            <i class="fa fa-clock-o" ></i>
-              {{duration}} Kurstage
-            </span>
-          </div>
-          <div class="col-xs-6">
-            <span class="pull-right" data-toggle="tooltip" title="Anzahl Kursplätze">
-            <i class="fa fa-users" ></i>
-            {{maxParticipants}} Plätze
-            </span>
-          </div>
-        </div>
-
-        <hr>
-
-        <div class="row">
-          <div class="col-xs-6">
-            <span data-toggle="tooltip" title="Kurspreis pro Person">
-            <i class="fa fa-euro" ></i>
-            {{feePP}} pP
-            </span>
-          </div>
-          <div class="col-xs-6">
-            <span class="pull-right" data-toggle="tooltip" title="">
-
-            </span>
-          </div>
-        </div>
-
-        <hr>
-
-        Event auswählen:
-        {{#each getCurrent}}
-          <div class="row single-event">
-
-            <div class="col-md-8 single-event-left">
-              <div class="single-event-item-list">
-                <i class="fa fa-calendar fa-fw"></i> Daten:<span class="pull-right">{{courseDateRange}}</span>
-              </div>
-              {{#if bookedOut ..}}
-                <div class="progress">
-                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                    Ausgebucht
-                  </div>
-                </div>
-<!--                     <div class="single-event-item-list">
-                  <i class="fa fa-users fa-fw"></i> Status:<div class="pull-right">Ausgebucht</div>
-                </div> -->
-              {{else}}
-                <div class="progress">
-                <span class="pull-right openSpots">noch {{openSpots ..}} frei</span>
-                  <span class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{percentFull ..}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFull ..}}%; min-width: 0.2em;">
-                    <!-- {{percentFull ..}}% -->
-                  </span>
-                </div>
-              {{/if}}
-              <div class="single-event-item-list">
-                <i class="fa fa-clock-o fa-fw"></i> Laufzeit:<span class="pull-right">noch {{runtime ..}} Tage</span>
-              </div>
-            </div>
-
-            <div class="col-md-4 single-event-right">
-              {{#if bookedOut ..}}
-
-              {{else}}
-                <!-- <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" type="button" class="btn btn-default btn-block btn-xs joinCourseButton"> -->
-                <a href="#" type="button" class="btn btn-default btn-block btn-xs joinCourseButton">
-                  Jetzt Buchen
-                </a>
-              {{/if}}
-            </div>
-          </div>
-        {{/each}}
-      </div>
-    </div>
   </section>
 </template>
