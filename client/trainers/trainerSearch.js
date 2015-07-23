@@ -1,5 +1,15 @@
 Template.trainerPreview.helpers({
-  hostedCourses: function () {
-    return Courses.find( { owner: this._id, isPublic: true }, {fields: {title: 1, slug:1}} );
+  descriptionPreview: function () {
+    if ( !this.profile.description ) {
+      return 'Keine Kurzbeschreibung angegeben';
+    }
+    var descriptionPreview = this.profile.description.replace("\n", " "); // remove linebreaks
+    var breaker = 110;
+    if (descriptionPreview.length > breaker) {
+      return descriptionPreview.slice(0, breaker) + "...";
+    }
+    else {
+      return descriptionPreview;
+    }
   }
 });
