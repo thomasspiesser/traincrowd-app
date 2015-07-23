@@ -11,6 +11,12 @@ Template.courseBoxSmall.helpers({
     };
     return data;
   },
+  trainerImageId: function (id) {
+    var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );
+    if (trainer.profile && trainer.profile.imageId)
+      return trainer.profile.imageId;
+    return false;
+  },
   titlePreview: function () {
     if ( !this.title ) {
       return false;
