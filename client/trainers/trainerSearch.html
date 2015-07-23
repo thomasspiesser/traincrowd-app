@@ -45,18 +45,7 @@
     <i class="fa fa-map-marker"></i> Berlin
   </div>
   <div class="box-content">
-    {{#if hostedCourses.count}}
-      <strong>Meine Kurse:</strong>
-      <ul>
-        {{#each hostedCourses}}
-          <li>
-            <a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a>
-          </li>
-        {{/each}}
-      </ul>
-    {{else}}
-      <strong>Bietet zur Zeit keine Kurse an.</strong>
-    {{/if}}
+    {{ descriptionPreview }}
   </div>
   <div class="box-footer">
     <div class="box-footer-left">
