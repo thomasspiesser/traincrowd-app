@@ -1,11 +1,15 @@
 <template name="courseDetail">
  {{> paymentModal}}
-  <div class="container">
+
+   <div class="separator separator-inverted">
+     <h2>Kurse > {{title}}</h2>
+   </div>
+  <section class="container">
 <!--     {{#if canEdit owner}}
     <div class="row" id="editProfile">
 
       <div class="well well-sm">
-        
+
         {{#unless isPublic}}
           <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="requestPublicCourseButton"> <span class="fa fa-globe"></span> Freigeben</button>
         {{/unless}}
@@ -16,6 +20,84 @@
 
     </div>
     {{/if}} -->
+
+  <div class="row course-detail">
+
+    <div class="col-md-2 col-sm-3 course-left">
+      <div class="trainer-img" style="background-image: url( {{#if imageId}} '{{imageId}}' {{else}} {{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}} '/dummyUser.jpg' {{/if}} {{/if}} );"></div>
+      <div class="share-container ">
+        <div class="share-open">
+          <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+        </div>
+        <div class="share-btns">
+          {{ > share shareData }}
+        </div>
+      </div>
+      <div class="rateit rate-star dark-green pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+    </div>
+
+    <div class="col-md-6 col-sm-6 course-center">
+      <h1 >{{title}}</h1>
+      <h3><a href="{{ pathFor 'trainerProfile.show' _id = owner }}">{{ownerName}}</a></h3>
+      {{#each categories}}
+        <button type="button" class="btn btn-dark-blue btn-xs">{{this}}</button>
+      {{/each}}
+      <h4>Beschreibung</h4>
+      <p>{{description}}</p>
+    </div>
+    <div class="col-md-4 col-sm-3 course-right">
+
+      {{#if noLocation}}
+        <h5>Ort</h5>
+        <p>steht noch nicht fest</p>
+      {{else}}
+        <h5>Ort</h5>
+        <p> {{street}} {{streetNumber}} <br>
+        {{#if streetAdditional}} {{streetAdditional}} <br> {{/if}}
+        {{plz}} {{city}} </p>
+        <a href="https://www.google.de/maps/place/{{street}}+{{streetNumber}},{{plz}}" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?markers={{street}}+{{streetNumber}},{{plz}}&zoom=14&size=200x200&sensor=false" alt="" style="width: 100%;"></a>
+        <hr>
+      {{/if}}
+
+      {{#if aims}}
+       <h5>Kursziele</h5>
+       <p>{{aims}}</p>
+       <hr>
+      {{/if}}
+
+      {{#if methods}}
+        <h5>Lernformen, Methodik und Didaktik</h5>
+        <p>{{methods}}</p>
+        <hr>
+      {{/if}}
+
+      {{#if targetGroup}}
+        <h5>Zielgruppe</h5>
+        <p>{{targetGroup}}</p>
+        <hr>
+      {{/if}}
+
+      {{#if prerequisites}}
+        <h5>Vorraussetzungen</h5>
+        <p>{{prerequisites}}</p>
+        <hr>
+      {{/if}}
+
+      {{#if languages}}
+        <h5>Sprachen</h5>
+        <p>{{languages}}</p>
+        <hr>
+      {{/if}}
+
+      {{#if additionalServices}}
+        <h5>Zusätzliche Leistungen</h5>
+        <p>{{additionalServices}}</p>
+      {{/if}}
+
+    </div>
+
+
+  </div>
 
     <div class="row">
 
@@ -43,7 +125,7 @@
           <h3 class="course-title-detail">{{title}}</h3>
           <p class="course-detail-head-categories">
             {{#each categories}}
-              <span class="label label-default tags">{{this}}</span> 
+              <span class="label label-default tags">{{this}}</span>
             {{/each}}
           </p>
           <p><div class="mystars rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></p>
@@ -56,38 +138,38 @@
             </p>
           {{/if}}
           {{#if aims}}
-            <p> <strong>Kursziele</strong> <br> 
+            <p> <strong>Kursziele</strong> <br>
               <div class="contain-format">{{aims}}</div>
             </p>
           {{/if}}
           {{#if methods}}
-            <p> <strong>Lernformen, Methodik und Didaktik</strong> <br> 
+            <p> <strong>Lernformen, Methodik und Didaktik</strong> <br>
               <div class="contain-format">{{methods}}</div>
             </p>
           {{/if}}
           {{#if targetGroup}}
-            <p> <strong>Zielgruppe</strong> <br> 
+            <p> <strong>Zielgruppe</strong> <br>
               <div class="contain-format">{{targetGroup}}</div>
             </p>
           {{/if}}
           {{#if prerequisites}}
-            <p> <strong>Vorraussetzungen</strong> <br> 
+            <p> <strong>Vorraussetzungen</strong> <br>
               <div class="contain-format">{{prerequisites}}</div>
             </p>
           {{/if}}
           {{#if languages}}
-            <p> <strong>Sprachen</strong> <br> 
+            <p> <strong>Sprachen</strong> <br>
               <div class="contain-format">{{languages}}</div>
             </p>
           {{/if}}
           {{#if additionalServices}}
-            <p> <strong>zusätzliche Leistungen</strong> <br> 
+            <p> <strong>zusätzliche Leistungen</strong> <br>
               <div class="contain-format">{{additionalServices}}</div>
             </p>
           {{/if}}
         </div>
       </div>
-              
+
       <div class="col-md-4 course-detail-event-panel">
         <!-- <button type="button" class="btn btn-danger" id="inquireCourseDatesButton">Inquire dates</button> -->
         <div class="row">
@@ -104,9 +186,9 @@
             </span>
           </div>
         </div>
-        
+
         <hr>
-        
+
         <div class="row">
           <div class="col-xs-6">
             <span data-toggle="tooltip" title="Kurspreis pro Person">
@@ -116,13 +198,13 @@
           </div>
           <div class="col-xs-6">
             <span class="pull-right" data-toggle="tooltip" title="">
-            
+
             </span>
           </div>
         </div>
-        
+
         <hr>
-        
+
         Event auswählen:
         {{#each getCurrent}}
           <div class="row single-event">
@@ -155,7 +237,7 @@
 
             <div class="col-md-4 single-event-right">
               {{#if bookedOut ..}}
-                
+
               {{else}}
                 <!-- <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" type="button" class="btn btn-default btn-block btn-xs joinCourseButton"> -->
                 <a href="#" type="button" class="btn btn-default btn-block btn-xs joinCourseButton">
@@ -167,6 +249,5 @@
         {{/each}}
       </div>
     </div>
-  </div>
+  </section>
 </template>
-
