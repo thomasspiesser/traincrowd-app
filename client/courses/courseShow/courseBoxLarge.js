@@ -3,7 +3,7 @@ Template.courseBoxLarge.rendered = function () {
 };
 
 Template.courseBoxLarge.helpers({
-  shareURL: function () {
+  shareData: function () {
     var data = {
       // method: 'feed',
       title: this.title,
