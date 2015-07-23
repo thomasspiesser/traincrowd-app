@@ -7,6 +7,12 @@ Template.courseDetail.rendered = function() {
   }
 };
 
+Template.courseDetail.events({
+  'click .share-open': function (event, template) {
+    $(event.currentTarget).next().toggleClass('in');
+  },
+});
+
 Template.courseDetail.helpers({
   isPublic: function () {
     return this.isPublic;
@@ -30,7 +36,7 @@ Template.courseDetail.helpers({
   feePP: function () {
     var commision = calcCommision( this.fee );
     return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(2);
-  }, 
+  },
   percentFull: function (course) {
     // data context is current, which is why function get par: course
     if (course.maxParticipants)
@@ -72,7 +78,7 @@ Template.courseDetail.events({
   //       itemName: this.title
   //     };
   //     Meteor.call('sendRequestPublicationEmail', options, function (error, result) {
-  //       if (error) 
+  //       if (error)
   //         toastr.error( error.reason );
   //       else
   //         toastr.success( 'Anfrage zur Freigabe gesendet.' );
@@ -84,7 +90,7 @@ Template.courseDetail.events({
   //     toastr.error('This is your own course' );
   //     return false
   //   }
-  //   var bookedCourse = _.find(this.current, function (item) { 
+  //   var bookedCourse = _.find(this.current, function (item) {
   //     return _.contains(item.participants, Meteor.userId() )
   //   });
   //   if (bookedCourse) {
