@@ -37,7 +37,7 @@
     </div>
 
     <div class="col-md-7 col-sm-7 course-center">
-      <h1 >{{title}}</h1>
+      <h1>{{title}}</h1>
       <h3><a href="{{ pathFor 'trainerProfile.show' _id = owner }}">{{ownerName}}</a></h3>
       {{#each categories}}
         <button type="button" class="btn btn-dark-blue btn-xs">{{this}}</button>
@@ -106,14 +106,14 @@
 
         {{#if bookedOut ..}}
           <div class="progress">
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
               Ausgebucht
             </div>
           </div>
         {{else}}
           <div class="progress">
             <span class="pull-right openSpots">noch {{openSpots ..}} frei</span>
-            <span class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{percentFull ..}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFull ..}}%; min-width: 0.2em;">
+            <span class="progress-bar" role="progressbar" aria-valuenow="{{percentFull ..}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFull ..}}%; min-width: 0.2em;">
                 <!-- {{percentFull ..}}% -->
             </span>
           </div>
