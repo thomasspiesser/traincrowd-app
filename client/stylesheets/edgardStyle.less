@@ -11,6 +11,10 @@
 
 @bg-grunge: url("/bedge-grunge.png");
 
+@screen-sm-min: 768px;
+@screen-md-min: 992px;
+@screen-lg-min: 1200px;
+
 /* @import (css) url("//hello.myfonts.net/count/xyzxyz");
 @import (css) url("//hello.myfonts.net/count/2ea386");
  */
@@ -346,21 +350,39 @@ input.input-blue {
 }
 
 .form-control::-webkit-input-placeholder {
-  color: @dark-blue;
-  padding-left: 10px;
+  color: #fff;
 }
 .form-control:-moz-placeholder {
-  color: @dark-blue;
-  padding-left: 10px;
+  color: #fff;
 }
 .form-control::-moz-placeholder {
-  color: @dark-blue;
-  padding-left: 10px;
+  color: #fff;
 }
 .form-control:-ms-input-placeholder {
-  color: @dark-blue;
-  padding-left: 10px;
+  color: #fff;
 }
+@media (min-width: @screen-md-min) {
+  .form-control::-webkit-input-placeholder {
+    color: @dark-blue;
+    padding-left: 10px;
+  }
+  .form-control:-moz-placeholder {
+    color: @dark-blue;
+    padding-left: 10px;
+  }
+  .form-control::-moz-placeholder {
+    color: @dark-blue;
+    padding-left: 10px;
+  }
+  .form-control:-ms-input-placeholder {
+    color: @dark-blue;
+    padding-left: 10px;
+  }
+}
+
+
+
+
 .form-control-feedback {
   margin-right: 40px;
   margin-top: 20px;
@@ -434,7 +456,7 @@ ul.sort {
   p {
     margin: 0 0 2px 0;
     button {
-      @media only screen and (min-width : 768px) {
+      @media only screen and (min-width : @screen-sm-min) {
         margin-right: 20px;
       }
     }
@@ -446,7 +468,7 @@ ul.sort {
     margin-bottom: 10px;
     width: 100%;
     min-height: 300px;
-    @media only screen and (min-width : 768px) {
+    @media only screen and (min-width : @screen-sm-min) {
       min-height: 145px;
     }
     background-position: 50% 50%;
@@ -464,7 +486,7 @@ ul.sort {
   .box-content {
     .box-content-top {
       padding-left: 10px;
-      @media only screen and (min-width : 768px) {
+      @media only screen and (min-width : @screen-sm-min) {
         min-height: 145px;
         padding: 20px;
         padding-top: 10px;
@@ -561,7 +583,7 @@ ul.sort {
 
   .unselectable;
 
-  @media only screen and (min-width : 768px) {
+  @media only screen and (min-width : @screen-sm-min) {
     position: absolute;
     right: 0;
     transform: translateX(190px);
@@ -598,7 +620,7 @@ ul.sort {
     }
   }
   .btn-bar-right {
-    @media only screen and (min-width : 768px) {
+    @media only screen and (min-width : @screen-sm-min) {
       //display: none;
     }
     ul {
@@ -618,7 +640,7 @@ ul.sort {
       padding: 2px 5px 2px 10px;
     }
   }
-  @media only screen and (max-width : 768px) {
+  @media only screen and (max-width : @screen-sm-min) {
     .btn-bar-inverted;
   }
 }
@@ -907,7 +929,7 @@ section {
     .trainer-img {
       margin-bottom: 10px;
       min-height: 300px;
-      @media only screen and (min-width : 768px) {
+      @media only screen and (min-width : @screen-sm-min) {
         min-height: 145px;
       }
       background-position: 50% 50%;
@@ -964,7 +986,7 @@ section {
     .trainer-img {
       margin-bottom: 10px;
       min-height: 300px;
-      @media only screen and (min-width : 768px) {
+      @media only screen and (min-width : @screen-sm-min) {
         min-height: 145px;
       }
       background-position: 50% 50%;
