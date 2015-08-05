@@ -436,9 +436,10 @@ ul.sort {
   overflow: hidden;
   .margin-bottom;
   background-color: #fff;
-
-  > [class^="col-"], > [class*=" col-"] {
-    min-height: 204px;
+  @media only screen and (min-width : @screen-sm-min) {
+    > [class^="col-"], > [class*=" col-"] {
+      min-height: 204px;
+    }
   }
   p {
     margin: 0 0 2px 0;
@@ -473,7 +474,9 @@ ul.sort {
   .box-content {
     .box-content-top {
       padding-left: 10px;
+      margin-top: 80px;
       @media only screen and (min-width : @screen-sm-min) {
+        margin-top:0;
         min-height: 145px;
         padding: 20px;
         padding-top: 10px;
@@ -892,6 +895,13 @@ section {
   background-color: @light-blue;
   padding: 70px 0;
 }
+#trainer-preview {
+  @media only screen and (max-width : @screen-md-min) {
+    .btn {
+      margin-bottom: 20px;
+    }
+  }
+}
 #home-steps {
   background-image: url('/bg-section-steps.jpg');
   background-attachment: fixed;
@@ -912,7 +922,7 @@ section {
   text-align: center;
   h2 {
     margin: 0;
-    padding: 30px 0;
+    padding: 30px 10px;
     background-color: @dark-gray;
   }
 }
@@ -968,6 +978,10 @@ section {
     padding: 0;
   }
   .course-center {
+    margin-top: 80px;
+    @media only screen and (min-width : @screen-sm-min) {
+      margin-top:0;
+    }
   }
   .course-right {
     i {
@@ -1025,6 +1039,10 @@ section {
     padding: 0;
   }
   .profile-center {
+    margin-top: 80px;
+    @media only screen and (min-width : @screen-sm-min) {
+      margin-top:0;
+    }
   }
 
   h1 {
