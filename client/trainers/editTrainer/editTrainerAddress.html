@@ -27,7 +27,7 @@
       <h4 class="text-center" style="margin-top:35px;">Nicht Öffentlich</h4>
 
       {{ > editPhone data=profile collection='User' }}
-      {{ > editAddress data=profile collection='User' }}
+      {{ > editAddress data=profile.billingAddresses.[0] collection='User' }}
 
     </div>
 
