@@ -834,6 +834,31 @@ section {
   display: block;
 
   .intro-content {
+    @logo-width : 300px;
+    @logo-height : 141px;
+    img.img-logo {
+      width: @logo-width * 0.7;
+      height: @logo-height * 0.7;
+    }
+    @media only screen and (min-width : @screen-sm-min) {
+      img.img-logo {
+        width: @logo-width;
+        height: @logo-height;
+      }
+    }
+    @media only screen and (min-width : @screen-md-min) {
+      img.img-logo {
+        width: @logo-width * 1.3;
+        height: @logo-height * 1.3;
+      }
+    }
+    @media only screen and (min-width : @screen-lg-min) {
+      img.img-logo {
+        width: @logo-width * 1.5;
+        height: @logo-height * 1.5;
+      }
+    }
+
     color: white;
     text-align: center;
     width: 70%;
