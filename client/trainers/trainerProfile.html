@@ -1,14 +1,33 @@
 <template name="trainerProfile">
-  <div class="container">
 
-    <div class="row">
+  <div class="separator separator-inverted">
+    <h2>Trainers > {{profile.name}}</h2>
+  </div>
 
-      <div class="col-md-5 profile-left">
-        {{#if profile.imageId}}
-          <img src="{{profile.imageId}}" alt="" class="center-block img-responsive">
-        {{else}}
-          <img src="/dummyUser.jpg" alt="" class="center-block img-responsive">
-        {{/if}}
+  <section class="container">
+
+    <div class="row profile-detail">
+
+      <div class="col-md-2 col-sm-3 profile-left">
+        <div class="trainer-img" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}});"></div>
+        <div class="share-container ">
+          <div class="share-open">
+            <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+          </div>
+          <div class="share-btns">
+            {{ > share shareData }}
+          </div>
+        </div>
+        <div class="rateit rate-star dark-green pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+      </div>
+
+      <div class="col-md-7 col-sm-7 profile-center">
+
+        <h1>{{profile.name}}</h1>
+
+        <p>{{profile.description}}</p>
+
+        <hr>
 
         {{#if profile.videoId}}
           <div class="video-wrapper embed-responsive embed-responsive-16by9">
@@ -17,26 +36,16 @@
         {{/if}}
       </div>
 
-      <div class="col-md-7">
-        
-        <h2>{{profile.name}}</h2>
+      <div class="col-md-3 col-sm-2 profile-right">
 
-        <p>
-          <div class="contain-format">{{profile.description}}</div>
-        </p>
-        
         {{#if profile.homepage}}
-          <p><strong>Homepage:</strong> <br>
-            <a href="http://{{profile.homepage}}" target="_blank">{{profile.homepage}}</a>
-          </p>
+          <h5>Homepage</h5>
+          <p><a href="http://{{profile.homepage}}" target="_blank">{{profile.homepage}}</a></p>
+          <hr>
         {{/if}}
 
-        <p><strong>Bewertung:</strong> <br> 
-          <div class="rateit mystars" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-        </p>
-
         {{#if hostedCourses.count}}
-          <p> <strong>Meine Kurse:</strong>
+          <h5>Meine Kurse</h5>
             <ul>
               {{#each hostedCourses}}
                 <li>
@@ -44,23 +53,23 @@
                 </li>
               {{/each}}
             </ul>
-          </p>
+            <hr>
         {{/if}}
 
         {{#if profile.languages}}
-          <p><strong>Sprachen:</strong> <br> 
-            {{profile.languages}}
-          </p>
+          <h5>Sprachen</h5>
+          <p>{{profile.languages}}</p>
+          <hr>
         {{/if}}
 
         {{#if profile.certificates}}
-          <p><strong>Zertifikate und Referenzen:</strong> <br> 
-            {{profile.certificates}}
-          </p>
+          <h5>Zertifikate und Referenzen</h5>
+          <p>{{profile.certificates}}</p>
+          <hr>
         {{/if}}
 
       </div>
 
     </div>
-  </div>
+  </section>
 </template>

@@ -943,11 +943,56 @@ section {
 
 
 }
-.course-detail-left {
-  background-color: red;
-}
-.coruse-detail-right {
-  background-color: yellow;
+
+
+/* Trainer Profile Detail */
+.profile-detail {
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+
+  .profile-left {
+    .trainer-img {
+      margin-bottom: 10px;
+      min-height: 300px;
+      @media only screen and (min-width : 768px) {
+        min-height: 145px;
+      }
+      background-position: 50% 50%;
+      background-size: cover;
+    }
+    div.rate-star {
+      margin-right: 20px;
+      margin-top: 12px;
+    }
+    padding: 0;
+  }
+  .profile-center {
+  }
+
+  h1 {
+    .Choplin-Medium;
+    font-size: 26px;
+    text-transform: none;
+  }
+  h3 {
+    margin: 0;
+    margin-bottom: 15px;
+    .Choplin-ExtraLight;
+    font-size: 20px;
+  }
+  h4 {
+    margin-top: 20px;
+    .Choplin-Medium;
+    font-size: 18px;
+    color: @dark-blue;
+    text-transform: none;
+  }
+  a {
+    color: @dark-gray;
+  }
+
+
 }
 
 
