@@ -7,7 +7,7 @@ Template.editUser.helpers({
     return this.profile.title && this.profile.name && this.profile.employer && this.profile.position && this.profile.industry && this.profile.workExperience ? true : false;
   },
   deservesCheckUserAddress: function () {
-    return this.profile.phone && this.profile.mobile && this.profile.street && this.profile.streetNumber && this.profile.plz && this.profile.city ? true : false;
+    return this.profile.phone && this.profile.mobile && this.profile.billingAddresses[0].street && this.profile.billingAddresses[0].streetNumber && this.profile.billingAddresses[0].plz && this.profile.billingAddresses[0].city ? true : false;
   },
   deservesCheckUserAccount: function () {
     return this.emails[0].address ? true : false;

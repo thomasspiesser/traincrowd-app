@@ -5,6 +5,31 @@
 // });
 
 // Meteor.startup(function () {
+// 	Meteor.users.find( {"profile.billingAddresses": {$exists: false}}, {fields: {_id:1,profile:1}} ).forEach( function (user) {
+// 		console.log(user);
+// 		var firm, street, streetNumber, streetAdditional, plz, city;
+
+// 		firm = user.profile && user.profile.firm || undefined;
+// 		street = user.profile && user.profile.street || undefined;
+// 		streetAdditional = user.profile && user.profile.streetAdditional || undefined;
+// 		streetNumber = user.profile && user.profile.streetNumber || undefined;
+// 		plz = user.profile && user.profile.plz || undefined;
+// 		city = user.profile && user.profile.city || undefined;
+
+// 		var billingAddress = {
+// 			firm: firm,
+// 			street: street,
+// 			streetAdditional: streetAdditional,
+// 			streetNumber: streetNumber,
+// 			plz: plz,
+// 			city: city
+// 		};
+		
+// 		Meteor.users.update( { _id: user._id }, {$set: {"profile.billingAddresses": [ billingAddress ], "profile.selectedBillingAddress": 0 }} );
+// 	} );
+// });
+
+// Meteor.startup(function () {
 // 	Courses.find( {hasDate: {$exists: false}}, {fields: {_id:1}} ).forEach( function (course) {
 // 		Courses.update( { _id: course._id }, {$set: { hasDate: false }}, {validate: false} );
 // 	} );

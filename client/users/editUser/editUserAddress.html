@@ -8,7 +8,7 @@
       <hr>
 
       {{ > editPhone data=profile collection='User' }}
-      {{ > editAddress data=profile collection='User' }}
+      {{ > editAddress data=profile.billingAddresses.[0] collection='User' }}
 
     </div>
 
