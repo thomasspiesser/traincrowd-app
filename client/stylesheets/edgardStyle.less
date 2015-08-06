@@ -147,7 +147,7 @@ h6 {
     border-color: @darker-red;
   }
 }
-.btn-light-blue2 {
+/* .btn-light-blue2 {
   color: white;
   background: @light-blue;
   border-color: @light-blue;
@@ -161,7 +161,7 @@ h6 {
     background-color: @beige;
     border-color: @beige;
   }
-}
+} */
 .btn-dark-blue {
   color: white !important;
   background: @dark-blue;
@@ -217,6 +217,24 @@ h6 {
     border-color: @darker-red;
   }
 }
+.btn-ghost {
+  padding: 5px 10px !important;
+  margin: 8px;
+  color: @beige;
+  background: transparent;
+  border-color: @beige;
+  &:hover {
+    color: white;
+    background-color: transparent;
+    border-color: #fff;
+  }
+  &.active {
+    background-color: transparent;
+    border-color: @darker-red;
+  }
+}
+
+
 
 .btn-lg {
   padding: 15px 35px;
@@ -273,6 +291,7 @@ h6 {
 }
 
 /* Accordion */
+
 .panel-default {
   border-radius: 0 !important;
   border: none;
@@ -283,7 +302,7 @@ h6 {
   border-radius: 0 !important;
   border: none;
 
-  padding: 15px;
+  padding: 0;
 
   > h4 {
     color: @dark-blue;
@@ -293,6 +312,7 @@ h6 {
       color: @dark-blue;
       width: 100%;
       display: inline-block;
+      padding: 15px;
     }
   }
   &:hover {
@@ -310,6 +330,29 @@ h6 {
   a {
     text-decoration: none;
   }
+
+  [data-toggle="collapse"].collapsed:after {
+  	-webkit-transform: rotate(0deg);
+  	-moz-transform:    rotate(0deg);
+  	-ms-transform:     rotate(0deg);
+  	-o-transform:      rotate(0deg);
+  	transform: rotate(0deg);
+  }
+  [data-toggle="collapse"]:after {
+  	font-family: 'FontAwesome';
+  	content: "\f0dd";
+  	float: right;
+  	color: @light-red;
+  	font-size: 18px;
+  	line-height: 10px;
+
+  	-webkit-transform: rotate(180deg);
+  	-moz-transform:    rotate(180deg);
+  	-ms-transform:     rotate(180deg);
+  	-o-transform:      rotate(180deg);
+  	transform: rotate(180deg) translateY(-7px);
+  }
+
 }
 .in ~ .panel-heading {
   background-color: @light-blue;
@@ -499,9 +542,11 @@ ul.sort {
     background-size: cover;
   }
   .box-title {
-    min-height: 100px;
-    padding: 20px 10px;
+    height: 110px;
+    overflow: hidden;
+    padding: 20px 10px 0 10px;
     background-color: @dark-blue;
+    border-bottom: 20px solid @dark-blue;
     a, h4, p {
       color: #fff;
     }
@@ -509,19 +554,6 @@ ul.sort {
       margin-top: 0;
       margin-bottom: 0;
     }
-  }
-  .box-title {
-    min-height: 100px;
-    padding: 20px 16px;
-    background-color: @dark-blue;
-    h5, p {
-      color: #fff;
-    }
-    h5 {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-    p {}
   }
   .box-subtitle {
     background-color: @dark-gray;
@@ -565,7 +597,18 @@ ul.sort {
 }
 
 .trainerbox-light {
+  .img-circle {
+    padding: 0;
+    background-color: transparent;
+    border: 1px solid @light-gray;
+  }
   text-align: center;
+  .box-footer-center {
+    margin-top: 20px;
+  }
+  a {
+    color: @dark-gray;
+  }
 }
 
 /* Button Bar */
@@ -803,11 +846,40 @@ div.rate-star.dark-gray button.rateit-reset {
 }
 .navbar-inverse {
   background-color: rgba(0, 0, 0, 0.6);
-  .navbar-nav > li > a {
-    color: @beige;
-    font-size: 17px;
-    // padding-top: 21px;
-    padding-bottom: 10px;
+  .navbar-nav {
+    .open {
+      .divider {
+        background-color: fade(@beige, 50%);
+      }
+      a, a:focus, a:hover {
+        color: @beige;
+        background-color: transparent;
+      }
+      a:hover {
+        color: #fff;
+      }
+      .dropdown-toggle {
+        background: none;
+      }
+      .dropdown-menu {
+        margin-top: 15px;
+        margin-right: 0;
+        position: absolute;
+        min-width: 160px;
+        padding: 5px 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        border: none;
+        border-radius: 0;
+        -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, .175);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .175);
+
+      }
+    }
+    > li > a {
+      color: @beige;
+      font-size: 16px;
+      padding-bottom: 10px;
+    }
   }
 }
 .navbar-invisibles {
@@ -816,6 +888,8 @@ div.rate-star.dark-gray button.rateit-reset {
 .nav-up {
     top: -70px;
 }
+
+
 
 /* Sections */
 section {
