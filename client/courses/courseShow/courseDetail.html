@@ -102,8 +102,6 @@
 
         <i class="fa fa-calendar fa-fw"></i> Daten:<span class="pull-right">{{courseDateRange}}</span>
 
-        <hr>
-
         {{#if bookedOut ..}}
           <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
@@ -119,24 +117,25 @@
           </div>
         {{/if}}
 
-        <hr>
-
-        <div class="single-event-item-list">
+<!--         <div class="single-event-item-list">
           <i class="fa fa-clock-o fa-fw"></i> Laufzeit:<span class="pull-right">noch {{runtime ..}} Tage</span>
-        </div>
+        </div> -->
 
-        <hr>
 
         {{#if bookedOut ..}}
 
         {{else}}
             <!-- <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" type="button" class="btn btn-default btn-block btn-xs joinCourseButton"> -->
-          <a href="#" type="button" class="btn btn-default btn-block btn-xs joinCourseButton">
-            Jetzt Buchen
+          <a href="#" type="button" class="btn btn-red  joinCourseButton">
+            Jetzt Buchen 
+            <!-- <i class="fa fa-2x fa-angle-right"></i> -->
           </a>
         {{/if}}
 
+      <hr>
+
       {{/each}}
+      
 
 
 
