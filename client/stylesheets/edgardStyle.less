@@ -241,6 +241,13 @@ h6 {
     background-color: transparent;
     border-color: @darker-red;
   }
+
+  @media only screen and (max-width: @screen-sm-min) {
+    text-align: left;
+    border: none;
+    padding: 10px 15px !important;
+    margin: 0;
+  }
 }
 
 
@@ -907,7 +914,10 @@ div.rate-star.dark-gray button.rateit-reset {
     }
   }
   .navbar-right {
-    margin-right: -20px;
+    margin-right: -15px;
+    @media only screen and (min-width: @screen-sm-min) {
+      margin-right: -20px;
+    }
   }
 }
 .navbar-invisibles {
