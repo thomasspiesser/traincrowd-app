@@ -1,7 +1,9 @@
 <template name="trainerBoxLight">
   <div class="trainerbox-light">
     <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">
-      <img src="{{#if profile.imageId}} {{profile.imageId}} {{else}} /dummyUser.jpg {{/if}}" class="img-circle img-thumbnail" style="width:180px;">
+      <div class="circle-img">
+        <div class="img-zoom" style="background-image: url( {{#if profile.imageId}} {{profile.imageId}} {{else}} /dummyUser.jpg {{/if}} )"></div>
+      </div>
     </a>
     <div class="box-footer-center">
       <div class="rateit rate-star dark-gray" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
