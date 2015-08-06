@@ -499,9 +499,11 @@ ul.sort {
     background-size: cover;
   }
   .box-title {
-    min-height: 100px;
-    padding: 20px 10px;
+    height: 110px;
+    overflow: hidden;
+    padding: 20px 10px 0 10px;
     background-color: @dark-blue;
+    border-bottom: 20px solid @dark-blue;
     a, h4, p {
       color: #fff;
     }
@@ -509,19 +511,6 @@ ul.sort {
       margin-top: 0;
       margin-bottom: 0;
     }
-  }
-  .box-title {
-    min-height: 100px;
-    padding: 20px 16px;
-    background-color: @dark-blue;
-    h5, p {
-      color: #fff;
-    }
-    h5 {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-    p {}
   }
   .box-subtitle {
     background-color: @dark-gray;
