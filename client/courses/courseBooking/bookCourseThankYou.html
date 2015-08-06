@@ -4,7 +4,11 @@
 
     <p>
       Vielen Dank für Ihre Buchung auf traincrowd. Teilen Sie Ihren Schritt zum persönlichen Erfolg
-      <!-- {{ > shareprivate options=options }} -->
+    </p>
+    <p>  
+      {{ #if Template.subscriptionsReady }}
+        {{ > share shareData }}
+      {{ /if }}
     </p>
 
     <p>Hier nochmal die Einzelheiten Ihrer Buchung:</p>
