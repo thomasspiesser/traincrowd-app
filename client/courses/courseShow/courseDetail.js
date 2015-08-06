@@ -14,6 +14,14 @@ Template.courseDetail.events({
 });
 
 Template.courseDetail.helpers({
+  shareData: function () {
+    var data = {
+      title: this.title,
+      description: this.description,
+      url: Meteor.absoluteUrl() + 'course/' + this.slug
+    };
+    return data;
+  },
   isPublic: function () {
     return this.isPublic;
   },
@@ -126,15 +134,15 @@ Template.courseDetail.events({
   //   return false
   // },
   'click .joinCourseButton': function (event, template) {
-    // var current = this;
-    // var course = Template.parentData(1);
-    // Meteor.call('createBooking', current._id, course._id, function (error, result) {
-    //   if(error)
-    //     toastr.error( error.reason );
-    //   else
-    //     Router.go('book.course', { _id: result } );
-    // });
-    // return false;
+    var current = this;
+    var course = Template.parentData(1);
+    Meteor.call('createBooking', current._id, course._id, function (error, result) {
+      if(error)
+        toastr.error( error.reason );
+      else
+        Router.go('book.course', { _id: result } );
+    });
+    return false;
     Session.set("currentId", this._id);
     Session.set("currentDate", this.courseDate);
     if ( !Meteor.userId() ) {
