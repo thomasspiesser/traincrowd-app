@@ -61,6 +61,14 @@
   font-style: normal;
 }
 
+.Default-Transition {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
 
 html, body {
   height: 100%;
@@ -625,11 +633,7 @@ ul.sort {
     -o-transform: translateX(190px);
     transform: translateX(190px);
 
-    -webkit-transition: ease 0.3s;
-    -moz-transition: ease 0.3s;
-    -ms-transition: ease 0.3s;
-    -o-transition: ease 0.3s;
-    transition: ease 0.3s ;
+    .Default-Transition;
   }
 
   span .form-control {
@@ -834,7 +838,7 @@ div.rate-star.dark-gray button.rateit-reset {
 .navbar {
   padding: 10px 20px;
   border: none;
-  transition: top 0.4s ease-in-out;
+  .Default-Transition;
 }
 .navbar-brand {
   padding-top: 0;
@@ -865,7 +869,7 @@ div.rate-star.dark-gray button.rateit-reset {
         margin-top: 15px;
         margin-right: 0;
         position: absolute;
-        min-width: 160px;
+        min-width: 240px;
         padding: 5px 0;
         background-color: rgba(0, 0, 0, 0.6);
         border: none;
@@ -880,6 +884,9 @@ div.rate-star.dark-gray button.rateit-reset {
       font-size: 16px;
       padding-bottom: 10px;
     }
+  }
+  .navbar-right {
+    margin-right: -20px;
   }
 }
 .navbar-invisibles {
@@ -1253,11 +1260,8 @@ footer {
     -o-transform: translate(-123px,0);
     transform: translate(-123px,0);
 
-    -webkit-transition: ease 1s;
-    -moz-transition: ease 1s;
-    -ms-transition: ease 1s;
-    -o-transition: ease 1s;
-    transition: ease 0.3s;
+    .Default-Transition;
+
     a {
       padding: 6px 12px;
       text-align: center;
