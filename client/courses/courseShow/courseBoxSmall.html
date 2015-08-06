@@ -3,7 +3,9 @@
   <div class="row no-gutters coursebox">
     <div class="col-sm-4">
       <a href="{{ pathFor 'course.show' slug=this.slug }}">
-        <div class="box-img" style="background-image: url({{#if imageId}} '{{imageId}}' {{else}} {{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}} /Kurs.jpg {{/if}} {{/if}})"></div>
+        <div class="box-img">
+          <div class="img-zoom" style="background-image: url({{#if imageId}} '{{imageId}}' {{else}} {{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}} /Kurs.jpg {{/if}} {{/if}})"></div>
+        </div>
       </a>
 
       <!-- <div class="box-img" style="background-image: url(/Kurs.jpg)"></div> -->
