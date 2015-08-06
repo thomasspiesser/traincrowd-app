@@ -506,13 +506,24 @@ ul.sort {
   .box-img {
     margin-bottom: 10px;
     width: 100%;
-    min-height: 300px;
+    height: 300px;
     @media only screen and (min-width : @screen-sm-min) {
-      min-height: 145px;
+      height: 145px;
     }
-    background-position: 50% 50%;
-    background-size: cover;
+    overflow: hidden;
+    .img-zoom {
+      width: 100%;
+      height: 100%;
+      background-position: 50% 50%;
+      background-size: cover;
+      background-image: none;
+      .Default-Transition;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
+
   .rate-btns {
     padding-top: 10px;
     padding-left: 60px;
@@ -545,9 +556,18 @@ ul.sort {
   .margin-bottom;
   .box-img {
     width: 100%;
-    min-height: 150px;
-    background-position: 50% 50%;
-    background-size: cover;
+    height: 150px;
+    overflow: hidden;
+    .img-zoom {
+      width: 100%;
+      height: 100%;
+      background-position: 50% 50%;
+      background-size: cover;
+      .Default-Transition;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
   .box-title {
     height: 110px;
