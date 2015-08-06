@@ -792,11 +792,40 @@ div.rate-star.dark-gray button.rateit-reset {
 }
 .navbar-inverse {
   background-color: rgba(0, 0, 0, 0.6);
-  .navbar-nav > li > a {
-    color: @beige;
-    font-size: 17px;
-    // padding-top: 21px;
-    padding-bottom: 10px;
+  .navbar-nav {
+    .open {
+      .divider {
+        background-color: fade(@beige, 50%);
+      }
+      a, a:focus, a:hover {
+        color: @beige;
+        background-color: transparent;
+      }
+      a:hover {
+        color: #fff;
+      }
+      .dropdown-toggle {
+        background: none;
+      }
+      .dropdown-menu {
+        margin-top: 15px;
+        margin-right: 0;
+        position: absolute;
+        min-width: 160px;
+        padding: 5px 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        border: none;
+        border-radius: 0;
+        -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, .175);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .175);
+
+      }
+    }
+    > li > a {
+      color: @beige;
+      font-size: 17px;
+      padding-bottom: 10px;
+    }
   }
 }
 .navbar-invisibles {
@@ -805,6 +834,8 @@ div.rate-star.dark-gray button.rateit-reset {
 .nav-up {
     top: -70px;
 }
+
+
 
 /* Sections */
 section {
