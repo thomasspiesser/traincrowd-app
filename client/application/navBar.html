@@ -46,9 +46,9 @@
     <li>
       <div class="custom-nav-item" style="padding-left:15px;">
       {{#if currentUser.profile.imageId}}
-        <img class="img-circle" src="{{currentUser.profile.imageId}}" alt="{{username currentUser._id}}" style="width:50px; max-height:50px;">
+        <img class="img-rounded" src="{{currentUser.profile.imageId}}" alt="{{username currentUser._id}}" style="height:50px;">
       {{else}}
-        <img class="img-circle" src="/dummyUser.jpg" alt="" style="width:50px">
+        <img class="img-rounded" src="/dummyUser.jpg" alt="" style="height:50px">
       {{/if}}
       </div>
     </li>
