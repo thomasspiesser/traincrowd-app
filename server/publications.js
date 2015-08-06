@@ -7,7 +7,12 @@ Meteor.publish('courses', function () {
 
 Meteor.publish('singleCourse', function (slug) {
 	check(slug, String);
-	return Courses.find({slug: slug});
+	return Courses.find( { slug: slug } );
+});
+
+Meteor.publish('singleCourseById', function ( id ) {
+	check( id, String );
+	return Courses.find( { _id: id } );
 });
 
 Meteor.publish('topCourses', function () {
@@ -42,7 +47,8 @@ Meteor.publish('trainer', function () {
 
 Meteor.publish('topTrainer', function () {
 	// Meteor._sleepForMs(5000);
-  return Meteor.users.find( { roles: 'trainer', isPublic: true }, { limit: 4, fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
+  // return Meteor.users.find( { roles: 'trainer', isPublic: true }, { limit: 4, fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
+  return Meteor.users.find( { 'profile.name': { $in: ['launchlabs', 'Miriam Janke', 'Christian Sauter', 'Wiebke Witt'] } }, { fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
 });
 
 // Meteor.publish('singleTrainer', function (id) {

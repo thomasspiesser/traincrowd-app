@@ -93,17 +93,17 @@ Template.paymillForm.events({
 
     return false;
   },
-  'click #language_switch': function () {
+  'click #language_switch': function (event) {
     var language = formlang;
     var newimg;
     if (formlang === 'en'){
-      newimg = "/gb.png";
+      newimg = "/paymill/gb.png";
       language = "de";
     } else {
-      newimg = "/de.png";
+      newimg = "/paymill/de.png";
       language = "en";
     }
-    $(this).attr("src", newimg);
+    $(event.currentTarget).attr("src", newimg);
     translateForm(language);
   },
   'keyup .card-expiry': function() {
@@ -154,10 +154,10 @@ function paymillResponseHandler(error, result) {
         toastr.error(error.error);
       }
       else {
-        Modal.hide('payModal');
-        // $('#paymentModal').modal('hide');
         toastr.success('Buchung erfolgreich.');
         $('#paymill-form')[0].reset();
+        Router.go('book.course.thank.you', { _id: data.bookingId });
+        Modal.hide('payModal');
         // Meteor.setTimeout( redirect , 3000 );
       }
     });

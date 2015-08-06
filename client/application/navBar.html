@@ -39,8 +39,8 @@
 <template name='navItemsRight'>
   {{#unless isInRole 'trainer'}}
     <li><a href="{{ pathFor 'becomeTrainerLanding' }}">Trainer werden</a></li>
-  {{else}}
-    <li><a href="{{ pathFor 'createCourse' }}">Kurs erstellen</a></li>
+  <!-- {{else}} -->
+    <!-- <li><a href="{{ pathFor 'createCourse' }}">Kurs erstellen</a></li> -->
   {{/unless}}
   {{#if currentUser}}
     <li>
