@@ -1,6 +1,8 @@
 <template name="trainerBox">
   <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">
-    <div class="box-img" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}} )"></div>
+    <div class="box-img">
+      <div class="img-zoom" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}} )"></div>
+    </div>
   </a>
   <div class="box-title">
     <h3><a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">{{username this._id}} jshgd hjgs dhg sdjhg h</a></h3>
