@@ -5,21 +5,14 @@ Meteor.methods({
       courseDate: [ Date ]
     });
 
-    if (! this.userId)
+    if ( ! this.userId )
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
     
-    var course = Courses.findOne({_id: options.courseId}, {fields: { owner:1, title:1 } });
+    var fields = { owner: 1, title: 1 };
+    var course = Courses.findOne({_id: options.courseId}, {fields: fields });
+    checkExistance( course, "Kurs", fields );
 
-    if (! course)
-      throw new Meteor.Error(403, "Kurs nicht gefunden");
-
-    if (! course.owner)
-      throw new Meteor.Error(403, "Kurs-Besitzer nicht gefunden");
-
-    if (! course.title)
-      throw new Meteor.Error(403, "Kurstitel nicht gefunden");
-
-    if (this.userId !== course.owner)
+    if ( this.userId !== course.owner )
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
     var user = Meteor.users.findOne( this.userId );
@@ -45,27 +38,16 @@ Meteor.methods({
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
 
-    var course = Courses.findOne({_id: options.courseId}, {fields: {owner:1, dates:1 }});
-
-    if (! course) 
-      throw new Meteor.Error(423, "Kurs nicht gefunden.");
-
-    if (! course.owner) 
-      throw new Meteor.Error(423, "Kurs hat keinen Besitzer.");
+    var fields = { owner: 1, dates: 1 };
+    var course = Courses.findOne( { _id: options.courseId }, { fields: fields } );
+    checkExistance( course, "Kurs", fields );
 
     if (this.userId !== course.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
-    if (! course.dates) 
-      throw new Meteor.Error(423, "Kursdatum für Event nicht gefunden.");
-
-    var current = Current.findOne({_id: options.currentId}, {fields: {owner:1}});
-
-    if (! current) 
-      throw new Meteor.Error(423, "Event nicht gefunden.");
-
-    if (! current.owner) 
-      throw new Meteor.Error(423, "Event hat keinen Besitzer.");
+    fields = { owner: 1 };
+    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
+    checkExistance( current, "Event", fields );
 
     if (this.userId !== current.owner)
       throw new Meteor.Error(422, "Sie können nur Ihre eigenen Events löschen");
@@ -83,36 +65,22 @@ Meteor.methods({
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
 
-    var current = Current.findOne( { token: token }, { fields: { owner: 1, course: 1, participants: 1, courseDate:1 } } );
+    var fields = { owner: 1, course: 1, participants: 1, courseDate: 1 };
+    var current = Current.findOne( { token: token }, { fields: fields } );
+    checkExistance( current, "Event", fields );
 
-    if (!current || !current.owner) 
-      throw new Meteor.Error(407, "Event oder Trainer nicht gefunden.");
+    if ( !current.participants.length )
+      throw new Meteor.Error(403, "Keine Teilnehmer gefunden");
 
     if (this.userId !== current.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
-    if (!current.course)
-      throw new Meteor.Error(403, "Kurs-Id von Event nicht gefunden");
-
-    if (!current.courseDate)
-      throw new Meteor.Error(403, "Event Termin nicht gefunden");
-
-    if (!current.participants || !current.participants.length)
-      throw new Meteor.Error(403, "Keine Teilnehmer gefunden");
-
-    var course = Courses.findOne({_id: current.course}, {fields: {owner:1, dates:1 }});
-
-    if (! course) 
-      throw new Meteor.Error(423, "Kurs nicht gefunden.");
-
-    if (! course.owner) 
-      throw new Meteor.Error(423, "Kurs hat keinen Besitzer.");
+    fields = { owner: 1, dates: 1 };
+    var course = Courses.findOne( { _id: current.course }, { fields: fields } );
+    checkExistance( course, "Kurs", fields );
 
     if (this.userId !== course.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
-
-    if (! course.dates) 
-      throw new Meteor.Error(423, "Kursdatum für Event nicht gefunden.");
 
     Meteor.call('sendEventDeclinedParticipantsEmail', {course: current.course, participants: current.participants} );
 
@@ -129,10 +97,9 @@ Meteor.methods({
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
 
-    var current = Current.findOne({token: token}, {fields: {owner:1}});
-
-    if (!current || !current.owner) 
-      throw new Meteor.Error(407, "Event oder Trainer nicht gefunden.");
+    var fields = { owner: 1 };
+    var current = Current.findOne( { token: token }, { fields: fields } );
+    checkExistance( current, "Event", fields );
 
     if (this.userId !== current.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
