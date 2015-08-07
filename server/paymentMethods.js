@@ -12,11 +12,9 @@ Meteor.methods({
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
 
+    var fields = { eventId: 1, course: 1, courseFeePP: 1 };
     var booking = Bookings.findOne( { _id: options.bookingId } );
-
-    if ( ! booking )
-      throw new Meteor.Error(403, "Buchung nicht gefunden");
-    // do i need to check other stuff here?
+    checkExistance( booking, "Buchung", fields );
 
     // the next one works only for 1 person, need to adapt for paying 2 or more seats
     if ( options.amount === booking.courseFeePP ) 
@@ -25,18 +23,18 @@ Meteor.methods({
     var currentId = booking.eventId;
     var courseId = booking.course;
 
-    // check if event is already booked out
-    var current = Current.findOne( { _id: currentId }, { fields: { participants: 1, course: 1 } } );
-    if (! current)
-      throw new Meteor.Error(403, "Event nicht gefunden");
+    fields = { participants: 1 };
+    var current = Current.findOne( { _id: currentId }, { fields: fields } );
+    checkExistance( current, "Event", fields );
 
-    var course = Courses.findOne( { _id: courseId }, { fields: { maxParticipants: 1, title: 1 } } );
-    if (! course)
-      throw new Meteor.Error(403, "Kurs nicht gefunden");
+    fields = { maxParticipants: 1, title: 1 };
+    var course = Courses.findOne( { _id: courseId }, { fields: fields } );
+    checkExistance( course, "Kurs", fields );
 
     var beforeBooking = current.participants.length;
     var afterBooking = current.participants.length + 1;
 
+    // check if event is already booked out
     if (beforeBooking < course.maxParticipants) {
       // good, there are places available in this course
       // here i need to add the participant to block the course-place already for time of payment and remove the participant again if payment is no good (error) to unblock place (let others book this place)
