@@ -1143,7 +1143,7 @@ section {
   .course-right {
     i {
       margin-right: 10px;
-      text-align: right;
+      min-width: 15px;
       color: @dark-blue;
     }
   }
@@ -1167,6 +1167,12 @@ section {
     font-size: 18px;
     color: @dark-blue;
     text-transform: none;
+  }
+  h5 {
+    .Noto-Bold;
+    font-size: 14px;
+    color: @dark-blue;
+    text-transform: uppercase;
   }
 
 
@@ -1305,6 +1311,10 @@ footer {
   height: 24px;
   color: #fff;
   line-height: 24px;
+  text-align: right;
+  span {
+    margin-right: 10px;
+  }
 }
 .progress-bar {
   background: @dark-blue;
