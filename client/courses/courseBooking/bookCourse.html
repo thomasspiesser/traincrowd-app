@@ -78,35 +78,6 @@
   </div>
 </template>
 
-
-<!-- <template name="courseInquiry">
-  <div class="container notHome">
-    <div class="row">
-      <div class="col-md-6">
-      <form class="form-horizontal" role="form" id="createCourseForm">
-        <div class="form-group">
-          <label for="inquireDatesDatepicker" class="col-sm-5 control-label">Choose dates wisely my friend!</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" id="inquireDatesDatepicker">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-5 col-sm-6">
-            <button type="button" class="btn btn-primary" id="inquireCourseDatesButton">Send</button>
-            <button type="button" class="btn btn-default pull-right" id="cancelBookCourseButton">Cancel</button>
-          </div>
-        </div>
-      </form>
-
-      </div>
-      <div class="col-md-6">
-        {{> course}}
-      </div>
-    </div>
-  </div>
-</template> -->
-
 <!--  /////////////////////////////////////////////////// -->
 
 <template name="paymentModal">
@@ -146,36 +117,6 @@
           </div>
         </div>
 
-         <hr>
-
-        <h4>Simulation</h4>
-
-          {{#if message}}
-            <div class="alert alert-danger">{{message}} {{countdown}}</div>
-          {{/if}}
-          {{#if errorMessage}}
-            <div class="alert alert-danger">{{errorMessage}}</div>
-          {{/if}}
-
-        <form class="form-inline">
-          <div class="form-group">
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="dummy1" placeholder="Name">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="dummy1" placeholder="visa number">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="col-sm-3">
-              <button name="" type="button" class="btn btn-primary" id="bookCourseButton">Book course</button>
-            </div>
-          </div>
-        </form> 
         {{/if}}
       </div>
       <div class="modal-footer">
