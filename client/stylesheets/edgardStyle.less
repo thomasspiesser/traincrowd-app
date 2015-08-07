@@ -115,6 +115,14 @@ h6 {
   .Choplin-ExtraLight;
   font-size: 16px;
 }
+a {
+  color: @dark-blue;
+}
+ol {
+  > li {
+    margin: 5px 0;
+  }
+}
 
 /* Buttons */
 .btn {
@@ -948,11 +956,27 @@ div.rate-star.dark-gray button.rateit-reset {
     top: -70px;
 }
 
+/* Navtabs */
+.nav-tabs {
+  > li > a {
+    color: @dark-blue;
+  }
+}
 
 
 /* Sections */
 section {
   padding: 100px 0;
+}
+.container-inverted {
+  [class^="col-"], [class*=" col-"] {
+    background-color: #fff;
+    padding: 20px;
+  }
+  h3 {
+    color: @dark-blue;
+    margin-top: 30px;
+  }
 }
 
 /* Home */
@@ -1341,6 +1365,13 @@ footer {
   }
 }
 
+.blockquote-reverse {
+  border-right: 6px solid @dark-blue;
+  color: @dark-blue;
+  margin: 30px 0;
+  .Choplin-Medium;
+}
+
 /* Helpers */
 
 .unselectable {
@@ -1369,7 +1400,7 @@ p.pre-wrap {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
-  display:         flex;
+  display: flex;
 }
 
 .dark-gray {
