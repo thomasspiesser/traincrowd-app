@@ -100,7 +100,7 @@
 
       {{#each getCurrent}}
 
-        <i class="fa fa-calendar fa-fw"></i> Daten:<span class="pull-right">{{courseDateRange}}</span>
+        <h5><i class="fa fa-calendar fa-fw"></i> Daten: {{courseDateRange}}</h5>
 
         {{#if bookedOut ..}}
           <div class="progress">
@@ -110,7 +110,7 @@
           </div>
         {{else}}
           <div class="progress">
-            <span class="pull-right openSpots">noch {{openSpots ..}} frei</span>
+            <span>noch {{openSpots ..}} frei</span>
             <span class="progress-bar" role="progressbar" aria-valuenow="{{percentFull ..}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFull ..}}%; min-width: 0.2em;">
                 <!-- {{percentFull ..}}% -->
             </span>
@@ -127,7 +127,7 @@
         {{else}}
             <!-- <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" type="button" class="btn btn-default btn-block btn-xs joinCourseButton"> -->
           <a href="#" type="button" class="btn btn-red  joinCourseButton">
-            Jetzt Buchen 
+            Jetzt Buchen
             <!-- <i class="fa fa-2x fa-angle-right"></i> -->
           </a>
         {{/if}}
@@ -135,7 +135,7 @@
       <hr>
 
       {{/each}}
-      
+
 
 
 
