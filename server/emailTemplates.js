@@ -43,41 +43,40 @@ Meteor.methods({
     sendEmail(options);
   },
   sendAskIfEventExpiredTrainerEmail: function (options) {
-    // this.unblock();
     check(options, {
-      currentId: String,
-      course: String,
-      token: String
+      currentId: NonEmptyString,
+      course: NonEmptyString,
+      token: NonEmptyString
     });
 
-    var course = Courses.findOne( {_id: options.course} ); // specify fields to return or omit
-    if (!course)
-      throw new Meteor.Error("Can't find course: "+options.course);
-    if (!course.title)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
-    if (!course.owner)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have an owner.");
-    if (!course.slug)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have an URL slug.");
-    if (!course.fee)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have a fee.");
-    if (!course.maxParticipants)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have maxParticipants.");
+    var fields = { title: 1, owner: 1, slug: 1, fee: 1, maxParticipants: 1 };
+    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
+    var pass = checkExistanceSilent( course, "course", options.course, fields );
+
+    if ( ! pass )
+      return;
     
     var owner = Meteor.users.findOne( course.owner );
+    var email;
     if (owner.emails && owner.emails[0])
-      var email = owner.emails[0].address;
-    else
-      throw new Meteor.Error("Don't have an Email for course.owner: " + owner);
+      email = owner.emails[0].address;
+    else {
+      console.log("Don't have an Email for course.owner: " + owner);
+      return;
+    }
     var name = displayName(owner);
 
-    var current = Current.findOne({_id: options.currentId}, { fields: { courseDate:1, participants:1 } });
-    if (!current)
-      throw new Meteor.Error("Can't find current: " + options.currentId);
-    if (!current.courseDate)
-      throw new Meteor.Error("Current: " + options.currentId + " doesn't have a courseDate.");
-    if (!current.participants || !current.participants.length)
-      throw new Meteor.Error("Current: " + options.currentId + " doesn't have participants.");
+    fields = { courseDate: 1, participants: 1 };
+    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
+    pass = checkExistanceSilent( current, "event", options.currentId, fields );
+
+    if ( ! pass )
+      return;
+
+    if ( ! current.participants.length ) {
+      console.log("Event: " + options.currentId + " doesn't have participants.");
+      return;
+    }
 
     var urlYES = Meteor.absoluteUrl('course/' + course.slug + '/confirm-event/' + options.token);
     var urlNO = Meteor.absoluteUrl('course/' + course.slug + '/decline-event/' + options.token);
@@ -93,7 +92,7 @@ Meteor.methods({
 
     var subject = "Ihr Kurs: '" + course.title + "'" + " ist leider nicht voll geworden.";
     var html = Spacebars.toHTML(dataContext, Assets.getText('askIfEventExpiredTrainerEmail.html'));
-    var options = { 
+    options = { 
         to: email, 
         subject: subject, 
         html: html 
@@ -102,32 +101,34 @@ Meteor.methods({
     sendEmail(options);
   },
   sendInformEventExpiredTrainerEmail: function (options) {
-    // this.unblock();
     check(options, {
       currentId: String,
       course: String
     });
 
-    var course = Courses.findOne( {_id: options.course}, {fields:{title:1, owner:1}} ); // specify fields to return or omit
-    if (!course)
-      throw new Meteor.Error("Can't find course: "+options.course);
-    if (!course.title)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
-    if (!course.owner)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have an owner.");
+    var fields = { title: 1, owner: 1 };
+    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
+    var pass = checkExistanceSilent( course, "course", options.course, fields );
+
+    if ( ! pass )
+      return;
     
+    var email;
     var owner = Meteor.users.findOne( course.owner );
     if (owner.emails && owner.emails[0])
-      var email = owner.emails[0].address;
-    else
-      throw new Meteor.Error("Don't have an Email for course.owner: " + owner);
+      email = owner.emails[0].address;
+    else {
+      console.log("Don't have an Email for course.owner: " + owner);
+      return;
+    }
     var name = displayName(owner);
 
-    var current = Current.findOne({_id: options.currentId}, { fields: { courseDate:1 } });
-    if (!current)
-      throw new Meteor.Error("Can't find current: " + options.currentId);
-    if (!current.courseDate)
-      throw new Meteor.Error("Current: " + options.currentId + " doesn't have a courseDate.");
+    fields = { courseDate: 1 };
+    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
+    pass = checkExistanceSilent( current, "event", options.currentId, fields );
+
+    if ( ! pass )
+      return;
 
     var dataContext = {
       name: name,
@@ -137,7 +138,7 @@ Meteor.methods({
 
     var subject = "Ihr Kurs: '" + course.title + "'" + " ist leider nicht voll geworden.";
     var html = Spacebars.toHTML(dataContext, Assets.getText('informEventExpiredTrainerEmail.html'));
-    var options = { 
+    options = { 
         to: email, 
         subject: subject, 
         html: html 
@@ -148,16 +149,15 @@ Meteor.methods({
   sendEventDeclinedParticipantsEmail: function (options) {
     check(options, {
       course: String,
-      participants: [String]
+      participants: [ String ]
     });
 
-    var course = Courses.findOne({_id: options.course}, {fields: {title: 1, slug:1}});
-    if (!course)
-      throw new Meteor.Error("Can't find course: "+options.course);
-    if (!course.title)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
-    if (!course.slug)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have an URL slug.");
+    var fields = { title: 1, slug: 1 };
+    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
+    var pass = checkExistanceSilent( course, "course", options.course, fields );
+
+    if ( ! pass )
+      return;
 
     var url = Meteor.absoluteUrl('course/' + course.slug);
     _.each(options.participants, function( participant ) {
@@ -168,8 +168,9 @@ Meteor.methods({
         console.log("Can't find user: " + participant);
         return; // jump out of current iteration, keeps looping
       }
+      var email;
       if (user.emails && user.emails[0])
-        var email = user.emails[0].address;
+        email = user.emails[0].address;
       else {
         // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
         console.log("Don't have an Email for user: " + participant);
@@ -194,28 +195,30 @@ Meteor.methods({
     });
   },
   sendRateCourseEmail: function (options) {
-    // this.unblock();
     check(options, {
       course: String,
       participants: [String]
     });
 
-    var course = Courses.findOne({_id: options.course}, {fields: {title: 1}});
-    if (!course)
-      throw new Meteor.Error("Can't find course: "+options.course);
-    if (!course.title)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
+    var fields = { title: 1 };
+    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
+    var pass = checkExistanceSilent( course, "course", options.course, fields );
+
+    if ( ! pass )
+      return;
+
     var url = Meteor.absoluteUrl('user-courses');
     _.each(options.participants, function(participant) {
       var user = Meteor.users.findOne( participant );
-      if (!user) {
+      if ( ! user ) {
         // don't throw new Meteor.Error("Can't find user");
         // still wanna email the others
         console.log("Can't find user: "+participant);
         return; // jump out of current iteration, keeps looping
       }
+      var email;
       if (user.emails && user.emails[0])
-        var email = user.emails[0].address;
+        email = user.emails[0].address;
       else {
         // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
         console.log("Don't have an Email for user: "+participant);
@@ -247,24 +250,27 @@ Meteor.methods({
     });
   },
   sendBookingConfirmationEmail: function (options) {
-    // this.unblock();
     check(options, {
       course: String
     });
+
     var user = Meteor.users.findOne( this.userId );
+    var email;
     if (user.emails && user.emails[0])
-      var email = user.emails[0].address;
-    else
-      throw new Meteor.Error("Don't have an Email for user: " + this.userId);
+      email = user.emails[0].address;
+    else {
+      console.log("Don't have an Email for user: " + this.userId);
+      return;
+    }
     var name = displayName(user);
 
-    var course = Courses.findOne( {_id: options.course} ); 
-    if (!course)
-      throw new Meteor.Error("Can't find course: "+options.course);
-    if (!course.title)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
-    if (!course.slug)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have an URL slug.");
+    var fields = { title: 1, slug: 1, description: 1, aims: 1, methods: 1, targetGroup: 1, prerequisites: 1, languages: 1, additionalServices: 1 };
+    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
+    var pass = checkExistanceSilent( course, "course", options.course, fields );
+
+    if ( ! pass )
+      return;
+
     var url = Meteor.absoluteUrl('course/' + course.slug);
     var dataContext = {
       name: name,
@@ -274,7 +280,7 @@ Meteor.methods({
 
     var subject = "Buchungsbestätigung: '" + course.title +"'";
     var html = Spacebars.toHTML(dataContext, Assets.getText('bookingConfirmationEmail.html'));
-    var options = { 
+    options = { 
         to: email, 
         subject: subject, 
         html: html 
@@ -283,35 +289,35 @@ Meteor.methods({
     sendEmail(options);
   },
   sendCourseFullTrainerEmail: function (options) {
-    // this.unblock();
     check(options, {
       currentId: String,
       course: String,
       token: String
     });
 
-    var course = Courses.findOne( {_id: options.course} ); // specify fields to return or omit
-    if (!course)
-      throw new Meteor.Error("Can't find course: "+options.course);
-    if (!course.title)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
-    if (!course.owner)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have an owner.");
-    if (!course.slug)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have an URL slug.");
+    var fields = { title: 1, slug: 1, owner: 1 };
+    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
+    var pass = checkExistanceSilent( course, "course", options.course, fields );
+
+    if ( ! pass )
+      return;
     
     var owner = Meteor.users.findOne( course.owner );
+    var email;
     if (owner.emails && owner.emails[0])
-      var email = owner.emails[0].address;
-    else
-      throw new Meteor.Error("Don't have an Email for course.owner: " + owner);
+      email = owner.emails[0].address;
+    else {
+      console.log("Don't have an Email for user: " + owner );
+      return;
+    }
     var name = displayName(owner);
 
-    var current = Current.findOne({_id: options.currentId}, { fields: { courseDate:1 } });
-    if (!current)
-      throw new Meteor.Error("Can't find current: " + options.currentId);
-    if (!current.courseDate)
-      throw new Meteor.Error("Current: " + options.currentId + " doesn't have a courseDate.");
+    fields = { courseDate: 1 };
+    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
+    pass = checkExistanceSilent( current, "event", options.currentId, fields );
+
+    if ( ! pass )
+      return;
 
     var url = Meteor.absoluteUrl('course/' + course.slug + '/confirm-event/' + options.token);
     var dataContext = {
@@ -323,7 +329,7 @@ Meteor.methods({
 
     var subject = "Event Bestätigung: '" + course.title +"'";
     var html = Spacebars.toHTML(dataContext, Assets.getText('courseFullTrainerEmail.html'));
-    var options = { 
+    options = { 
         to: email, 
         subject: subject, 
         html: html 
@@ -332,7 +338,6 @@ Meteor.methods({
     sendEmail(options);
   },
   sendCourseFullParticipantsEmail: function (options) {
-    // this.unblock();
     check(options, {
       currentId: String,
       course: String,
@@ -344,19 +349,19 @@ Meteor.methods({
       personalMessage: String
     });
 
-    var course = Courses.findOne( {_id: options.course} ); // specify fields to return or omit
-    if (!course)
-      throw new Meteor.Error("Can't find course: "+options.course);
-    if (!course.title)
-      throw new Meteor.Error("Course: " + options.course + " doesn't have a title.");
-    
-    var current = Current.findOne({_id: options.currentId}, { fields: { courseDate:1, participants:1 } });
-    if (!current)
-      throw new Meteor.Error("Can't find current: "+options.currentId);
-    if (!current.courseDate)
-      throw new Meteor.Error("Current: " + options.currentId + " doesn't have a courseDate.");
-    if (!current.participants)
-      throw new Meteor.Error("Current: " + options.currentId + " doesn't have participant.");
+    var fields = { title: 1 };
+    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
+    var pass = checkExistanceSilent( course, "course", options.course, fields );
+
+    if ( ! pass )
+      return;
+
+    fields = { courseDate: 1, participants: 1 };
+    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
+    pass = checkExistanceSilent( current, "event", options.currentId, fields );
+
+    if ( ! pass )
+      return;
 
     var dataContext = {
       course: course,
@@ -371,17 +376,18 @@ Meteor.methods({
 
     _.each(current.participants, function(participant) {
       var user = Meteor.users.findOne( participant );
-      if (!user) {
+      if ( ! user ) {
         // don't throw new Meteor.Error("Can't find user");
         // still wanna email the others
         console.log("Can't find user: "+participant);
         return; // jump out of current iteration, keeps looping
       }
+      var email;
       if (user.emails && user.emails[0])
-        var email = user.emails[0].address;
+        email = user.emails[0].address;
       else {
         // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
-        console.log("Don't have an Email for user: "+participant);
+        console.log("Don't have an Email for user: " + participant);
         return;
       }
       var name = displayName(user);
