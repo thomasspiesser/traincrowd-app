@@ -28,8 +28,9 @@
         <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}"><h6>von {{ ownerName }}</h6></a>
       </div>
       <div class="box-content-bottom">
-        <button type="button" class="btn btn-dark-blue btn-xs">Design</button>
-        <button type="button" class="btn btn-dark-blue btn-xs">Digitalart</button>
+        {{ #each categories }}
+          <a href="#" type="button" class="btn btn-dark-blue btn-xs">{{ this }}</a>
+        {{ /each }}
       </div>
     </div>
 
@@ -45,11 +46,12 @@
         </div>
         <div class="btn-bar-right">
           <ul>
-            <li>&nbsp;{{nextEvent}}</li>
-            <li>Berlin</li>
-            <li><span class="places places-6">only 3 of 10 places left</span></li>
+            <li> {{ nextEvent }} </li>
+            <li> {{ #if city }} {{ city }} {{ else }} Ort steht noch nicht fest {{ /if }}</li>
+            <!-- <li><span class="places places-6">only 3 of 10 places left</span></li> -->
+            <li><span class="places places-6"> {{ openSpots }} </span></li>
             <li>24 hours total</li>
-            <li>&nbsp;{{feePP}}</li>
+            <li> {{ feePP }} </li>
           </ul>
         </div>
       </div>

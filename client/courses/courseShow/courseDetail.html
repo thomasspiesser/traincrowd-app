@@ -100,7 +100,7 @@
 
       {{#each getCurrent}}
 
-        <h5><i class="fa fa-calendar fa-fw"></i> Daten: {{courseDateRange}}</h5>
+        <h5><i class="fa fa-calendar fa-fw"></i> {{courseDateRange}} </h5>
 
         {{#if bookedOut ..}}
           <div class="progress">
@@ -121,14 +121,11 @@
           <i class="fa fa-clock-o fa-fw"></i> Laufzeit:<span class="pull-right">noch {{runtime ..}} Tage</span>
         </div> -->
 
-
         {{#if bookedOut ..}}
 
         {{else}}
-            <!-- <a href="{{#if currentUser}}#{{else}}{{pathFor 'atSignIn'}}{{/if}}" type="button" class="btn btn-default btn-block btn-xs joinCourseButton"> -->
           <a href="#" type="button" class="btn btn-red  joinCourseButton">
             Jetzt Buchen
-            <!-- <i class="fa fa-2x fa-angle-right"></i> -->
           </a>
         {{/if}}
 
@@ -136,15 +133,9 @@
 
       {{/each}}
 
-
-
-
     </div>
 
-
   </div>
-
-
 
   </section>
 </template>
