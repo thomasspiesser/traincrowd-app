@@ -34,8 +34,8 @@ Template.bookCourseRegister.events({
         }
         Session.set('bookCourseTemplate', "bookCourseAddress");
 
-        $('#bookCourseRegister').children('.progress-tracker').removeClass('active').addClass('inactive');
-        $('#bookCourseAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
+        $('#bookCourseRegister').parent().removeClass('active');
+        $('#bookCourseAddress').parent().addClass('active');
       }
     });
   },
@@ -120,8 +120,8 @@ Template.bookCourseRegister.events({
             }
             Session.set('bookCourseTemplate', "bookCourseAddress");
 
-            $('#bookCourseRegister').children('.progress-tracker').removeClass('active').addClass('inactive');
-            $('#bookCourseAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
+            $('#bookCourseRegister').parent().removeClass('active');
+            $('#bookCourseAddress').parent().addClass('active');
           }
         });
       }

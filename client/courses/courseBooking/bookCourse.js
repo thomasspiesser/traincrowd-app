@@ -1,10 +1,10 @@
 Template.bookCourse.rendered = function () {
   if ( ! Meteor.userId() )
-    Session.set("bookCourseTemplate", "bookCourseRegister");
+    Session.set( "bookCourseTemplate", "bookCourseRegister" );
   else {
-    Session.set("bookCourseTemplate", "bookCourseAddress");
-    $('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#bookCourseAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
+    Session.set( "bookCourseTemplate", "bookCourseAddress" );
+    $('.dynamic-template-selector').parent().removeClass('active');
+    $('#bookCourseAddress').parent().addClass('active');
   }
 };
 
@@ -13,7 +13,7 @@ Template.bookCourse.helpers({
     return Meteor.userId() ? true : false;
   },
   deservesCheckBookCourseAddress: function () {
-    if ( ! this.billingAddress) 
+    if ( ! this.billingAddress ) 
       return false;
     var address = this.billingAddress;
     return address.street || address.streetNumber || address.plz || address.city ? true : false;
@@ -25,18 +25,18 @@ Template.bookCourse.helpers({
     return this.maxParticipants && this.fee ? true : false;
   },
   active: function() {
-    return Session.get('bookCourseTemplate');
+    return Session.get( 'bookCourseTemplate' );
   }
 });
 
-Template.bookCourse.events({ 
-  'click .dynamic-template-selector': function (event) {
-    Session.set('bookCourseTemplate', event.currentTarget.id);
+// Template.bookCourse.events({ 
+//   'click .dynamic-template-selector': function (event) {
+//     Session.set('bookCourseTemplate', event.currentTarget.id);
 
-    $('.progress-tracker').removeClass('active').addClass('inactive');
-    $(event.currentTarget).children('.progress-tracker').removeClass('inactive').addClass('active');
-  }
-});
+//     $('.progress-tracker').removeClass('active').addClass('inactive');
+//     $(event.currentTarget).children('.progress-tracker').removeClass('inactive').addClass('active');
+//   }
+// });
 
 //////////// paymentModal template /////////
 
