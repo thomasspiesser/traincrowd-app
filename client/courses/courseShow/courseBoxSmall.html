@@ -48,8 +48,9 @@
           <ul>
             <li> {{ nextEvent }} </li>
             <li> {{ #if city }} {{ city }} {{ else }} Ort steht noch nicht fest {{ /if }}</li>
+            <li>
               {{ #if hasDate }}
-                <div class="progress">
+                <div class="progress progress-inverted">
                   <span>noch {{ openSpots }} Plätze frei</span>
                   <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull }}%; min-width: 0.2em;">
                   </span>
@@ -57,6 +58,8 @@
               {{ else }}
                 Kein Event
               {{ /if }}
+            </li>
+
             <li>24 hours total</li>
             <li> {{ feePP }} pP </li>
           </ul>
