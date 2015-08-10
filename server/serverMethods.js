@@ -1,4 +1,27 @@
 Meteor.methods({
+  // testMethod: function () {
+  //   // plan
+  //   // meteor defer damit es später passiert
+  //   // callback oder try/catch um fehler zu fangen
+  //   console.log('testMethod called');
+  //   Meteor.defer( function() {
+  //     try {
+  //       Meteor.call('sendTestMail', false, 5000 );
+  //     // Meteor.call('sendTestMail', false, 5000, function (error, result) {
+  //     //   if (error)
+  //     //     console.log(error);
+  //     // });
+  //     }
+  //     catch(error) {
+  //       console.log(error);
+  //     }
+
+  //   });
+  //   // console.log('going to sleep');
+  //   // Meteor._sleepForMs( 2000 );
+  //   // console.log('sleep over');
+  //   console.log('method end');
+  // },
   createEvent: function (options) {
     check(options, {
       courseId: NonEmptyString,
@@ -35,7 +58,7 @@ Meteor.methods({
       courseDate: [ Date ]
     });
 
-    if (! this.userId)
+    if ( ! this.userId )
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
 
     var fields = { owner: 1, dates: 1 };
@@ -59,10 +82,10 @@ Meteor.methods({
 
     Current.remove({_id: options.currentId});
   },
-  declineEvent: function (token) {
-    check(token, NonEmptyString);
+  declineEvent: function ( token ) {
+    check( token, NonEmptyString );
 
-    if (! this.userId)
+    if ( ! this.userId )
       throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
 
     var fields = { owner: 1, course: 1, participants: 1, courseDate: 1 };
@@ -82,19 +105,25 @@ Meteor.methods({
     if (this.userId !== course.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
-    Meteor.call('sendEventDeclinedParticipantsEmail', {course: current.course, participants: current.participants} );
-
-    if (course.dates.length === 1) 
-      Courses.update( {_id: current.course }, { $pull: { dates: current.courseDate }, $set: { hasDate: false } } );
+    if ( course.dates.length === 1 ) 
+      Courses.update( { _id: current.course }, { $pull: { dates: current.courseDate }, $set: { hasDate: false } } );
     else
-      Courses.update( {_id: current.course }, { $pull: { dates: current.courseDate } } );
+      Courses.update( { _id: current.course }, { $pull: { dates: current.courseDate } } );
 
     Current.remove( { token: token } );
+
+    Meteor.defer( function () {
+      Meteor.call( 'sendEventDeclinedParticipantsEmail', { course: current.course, participants: current.participants }, function ( error, result ) {
+        if ( error ) {
+          console.log( error );
+        }
+      });
+    });
   }, 
-  confirmEvent: function (token) {
+  confirmEvent: function ( token, options ) {
     check(token, NonEmptyString);
 
-    if (! this.userId)
+    if ( ! this.userId )
       throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
 
     var fields = { owner: 1 };
@@ -104,15 +133,23 @@ Meteor.methods({
     if (this.userId !== current.owner)
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
-    Current.update( { token: token }, { $set: {confirmed: true, token: ""} } );
+    Current.update( { token: token }, { $set: { confirmed: true, token: "" } } );
+
+    Meteor.defer( function () {
+      Meteor.call( 'sendCourseFullParticipantsEmail', options, function ( error, result ) {
+        if ( error ) {
+          console.log( error );
+        }
+      });
+    });
   },
   updateRoles: function () {
-    if (! this.userId)
+    if ( ! this.userId )
       throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
     Roles.setUserRoles(this.userId, 'trainer');
   },
   deleteMyAccount: function () {
-    if (! this.userId)
+    if ( ! this.userId )
       throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
 
     if ( Roles.userIsInRole( this.userId, 'trainer' ) ) {

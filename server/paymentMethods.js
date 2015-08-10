@@ -37,58 +37,74 @@ Meteor.methods({
     // check if event is already booked out
     if (beforeBooking < course.maxParticipants) {
       // good, there are places available in this course
-      // here i need to add the participant to block the course-place already for time of payment and remove the participant again if payment is no good (error) to unblock place (let others book this place)
+      // here i need to add the participant to block the course-place already for time of payment and remove the participant again if payment is no good ( error ) to unblock place (let others book this place)
       Current.update( { _id: currentId }, { $push: { participants: this.userId } } );
 
       // synchronous paymill call
       var paymillCreateTransactionSync = Meteor.wrapAsync(paymill.transactions.create);
 
-      try{
+      try {
+
         var user = Meteor.users.findOne( this.userId );
 
         var result = paymillCreateTransactionSync({
-          amount: options.amount,
-          currency: 'EUR',
-          token: options.token,
-          description: 'user: ' + this.userId + ' ' + displayName( user ) + ' ; course: ' + courseId + ' ' + course.title + '; event: ' + currentId
+          amount      : options.amount,
+          currency    : 'EUR',
+          token       : options.token,
+          description : 'user: ' + this.userId + ' ' + displayName( user ) + ' ; course: ' + courseId + ' ' + course.title + '; event: ' + currentId
         });
 
         // update booking
-
         var modifier = {
-          transaction: result.data.id,
-          transactionDate: new Date(result.data.created_at * 1000), // unix timestamp is in sec, need millisec, hence * 1000
-          amount: result.data.amount / 100,
-          bookingStatus: 'completed'
+          transaction     :  result.data.id,
+          transactionDate :  new Date(result.data.created_at * 1000), // unix timestamp is in sec, need millisec, hence * 1000
+          amount          :  result.data.amount / 100,
+          bookingStatus   :  'completed'
         };
 
-        Bookings.update( { _id: booking._id }, { $set: modifier } );
-
-        // inform participant via email - with callback: may return error but rest of try-block will be run anyway, w/o callback on error will invoke catch-block
-        Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function (error, result) {
-          if (error) {
-            console.log(error);
+        // non-blocking coz with callback, also error doesnt invoke catch, which is good coz money is with us
+        Bookings.update( { _id: booking._id }, { $set: modifier }, function ( error, result ) {
+          if ( error ) {
+            console.log( error );
           }
         });
 
+        // defer to later - method runs on..
+        Meteor.defer( function() {
+          // inform participant via email - with callback: may return error but rest of try-block will run anyway, w/o callback on error will invoke catch-block
+          Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function ( error, result ) {
+            if ( error ) {
+              console.log( error );
+            }
+          });
+        });
+
         // check if course is full now:
-        if (afterBooking === course.maxParticipants) {
+        if ( afterBooking === course.maxParticipants ) {
           // generate token for trainer to confirm the event 
           var token = Random.hexString(64); 
           // save in current
-          Current.update( { _id : currentId }, { $set: { token: token } } );
-          // inform trainer (owner) that current event is full so that he can confirm the event
-          Meteor.call('sendCourseFullTrainerEmail', {currentId: currentId, course: course._id, token: token }, function (error, result) {
-            if (error) {
-              console.log(error);
+          Current.update( { _id : currentId }, { $set: { token: token } }, function ( error, result ) {
+            if ( error ) {
+              console.log( error );
+            }
+            else {
+              Meteor.defer( function() {
+                // inform trainer (owner) that current event is full so that he can confirm the event
+                Meteor.call('sendCourseFullTrainerEmail', { currentId: currentId, course: course._id, token: token }, function ( error, result ) {
+                  if ( error ) {
+                    console.log( error );
+                  }
+                });
+              });
             }
           });
         }
         return result;
       }
-      catch(error){
-        console.log(error);
-        // remove Participant again - coz payment failed
+      catch( error ){
+        console.log( error );
+        // remove Participant again - coz payment failed - careful this operation will pull ALL participants with this Id from the list
         Current.update( { _id: currentId }, { $pull: { participants: this.userId } } );
         throw new Meteor.Error( error.message );
       }

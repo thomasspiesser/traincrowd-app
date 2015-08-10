@@ -23,7 +23,7 @@ Template.trainerProfile.events({
   },
   'click #requestPublicProfileButton': function () {
     if (confirm( "Anfrage zur Freigabe senden?" ) ) {
-      if (!this._id || !this.profile.name) {
+      if ( ! this._id || ! this.profile.name ) {
         toastr.error( "Sie müssen eingeloggt sein und Ihren Namen angeben." );
         return false;
       }
@@ -32,8 +32,8 @@ Template.trainerProfile.events({
         itemId: this._id,
         itemName: this.profile.name
       };
-      Meteor.call('sendRequestPublicationEmail', options, function (error, result) {
-        if (error) 
+      Meteor.call( 'sendRequestPublicationEmail', options, function (error, result) {
+        if ( error ) 
           toastr.error( error.reason );
         else
           toastr.success( 'Anfrage zur Freigabe gesendet.' );
