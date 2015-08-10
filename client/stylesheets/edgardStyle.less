@@ -192,13 +192,12 @@ ol {
   }
 }
 .btn-white {
-  color: @dark-gray;
+  color: @dark-blue !important;
   background: #fff;
-  border-color: @beige;
+  border-color: @dark-blue;
   &:hover {
-    color: white;
-    background-color: @light-red;
-    border-color: @light-red;
+    color: #fff !important;
+    background-color: @light-blue;
   }
   &.active {
     color: white;
@@ -676,16 +675,16 @@ ul.sort {
 /* Button Bar */
 .btn-bar {
 
-  .unselectable;
+  width: 250px;
 
   @media only screen and (min-width : @screen-sm-min) {
     position: absolute;
     right: 0;
-    -webkit-transform: translateX(190px);
-    -moz-transform: translateX(190px);
-    -ms-transform: translateX(190px);
-    -o-transform: translateX(190px);
-    transform: translateX(190px);
+    -webkit-transform: translateX(210px);
+    -moz-transform: translateX(210px);
+    -ms-transform: translateX(210px);
+    -o-transform: translateX(210px);
+    transform: translateX(210px);
 
     .Default-Transition;
   }
@@ -719,6 +718,7 @@ ul.sort {
     }
   }
   .btn-bar-right {
+    width: 210px;
     @media only screen and (min-width : @screen-sm-min) {
       //display: none;
     }
@@ -732,7 +732,7 @@ ul.sort {
       background-color: @dark-blue;
       margin-bottom: 1px;
       color: #fff;
-      padding: 10px 10px 10px 20px;
+      padding: 10px 10px 10px 10px;
     }
     span.places {
       background-color: @light-blue !important;
@@ -762,7 +762,13 @@ ul.sort {
       margin-bottom: 1px;
     }
   }
-
+}
+.btn-bar-inverted.in {
+  .btn-bar-left {
+    ul {
+      cursor: default;
+    }
+  }
 }
 
 
@@ -1146,6 +1152,9 @@ section {
       min-width: 15px;
       color: @dark-blue;
     }
+    .progress {
+      margin-bottom: 10px;
+    }
   }
   h1 {
     .Choplin-Medium;
@@ -1305,21 +1314,33 @@ footer {
 /* Progress Bars */
 
 .progress {
-  background: @light-blue;
+  background-color: @light-blue;
   border: none;
   border-radius: 3px;
-  height: 24px;
+  height: 20px;
   color: #fff;
-  line-height: 24px;
+  line-height: 20px;
   text-align: right;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   span {
     margin-right: 10px;
+    font-size: 13px;
+  }
+  span.progress-bar {
+    background: @dark-blue;
   }
 }
-.progress-bar {
-  background: @dark-blue;
+
+.progress-inverted {
+  background-color: #fff;
+  span {
+    color: @dark-blue;
+  }
+  span.progress-bar {
+    background: @light-blue;
+  }
 }
+
 /* Share Button */
 
 .share-container {
