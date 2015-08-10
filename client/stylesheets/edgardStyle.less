@@ -1314,6 +1314,7 @@ footer {
 /* Progress Bars */
 
 .progress {
+  position: relative;
   background-color: @light-blue;
   border: none;
   border-radius: 3px;
@@ -1322,8 +1323,9 @@ footer {
   line-height: 20px;
   text-align: right;
   margin-bottom: 0;
-  span {
-    margin-right: 10px;
+  span.progress-text {
+    position: absolute;
+    right: 10px;
     font-size: 13px;
   }
   span.progress-bar {
