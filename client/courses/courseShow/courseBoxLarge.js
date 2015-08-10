@@ -25,6 +25,14 @@ Template.courseBoxLarge.helpers({
     var commision = calcCommision( this.fee );
     return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(2);
   },
+  percentFull: function () {
+    var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1 } } ).fetch();
+    return ( currents[0].participants.length / this.maxParticipants ).toFixed(1) * 100;
+  },
+  openSpots: function () {
+    var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1 } } ).fetch();
+    return this.maxParticipants - currents[0].participants.length;
+  },
   titlePreview: function () {
     if ( !this.title ) {
       return false;
