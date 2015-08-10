@@ -12,8 +12,8 @@ Template.editTrainerPreview.events({
         }
         return false;
       }
-      Meteor.call('setProfilePublishRequest', function (error) {
-        if (error) 
+      Meteor.call( 'setProfilePublishRequest', function ( error, result ) {
+        if ( error ) 
           toastr.error( error.reason );
         else
           toastr.success( 'Danke, wir prüfen Ihr Profil und schalten es frei.' );
@@ -22,8 +22,8 @@ Template.editTrainerPreview.events({
   },
   'click #unpublishProfileButton': function () {
     if (confirm( "Möchten Sie wirklich, dass Ihr Profil und alle Ihre Kurse nicht mehr öffentlich sind? Drücken Sie ok und Ihr Profil und alle Ihre Kurse sind nicht länger öffentlich auf traincrowd zu finden." ) ) {
-      Meteor.call('unpublishProfile', function (error) {
-        if (error) 
+      Meteor.call( 'unpublishProfile', function ( error, result ) {
+        if ( error ) 
           toastr.error( error.reason );
         else
           toastr.success( 'Ihr Profil und alle Ihre Kurse sind jetzt nicht mehr öffentlich.' );

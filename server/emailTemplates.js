@@ -28,8 +28,29 @@ Meteor.startup(function() {
 });
 
 Meteor.methods({
+  // sendTestMail: function ( error, delay ) {
+
+  //   Meteor._sleepForMs( delay );
+    
+  //   if ( error )
+  //     throw new Meteor.Error(123, 'Error: test');
+
+  //   var subject = "testmail";
+  //   options = { 
+  //     to: 'thomas@herro', 
+  //     // to: 'thomas@traincrowd.de', 
+  //     subject: subject, 
+  //     text: "testmail" 
+  //   };
+    
+  //   console.log('sending mail now...');
+
+  //   sendEmail(options);
+
+  //   console.log('after send...');
+    
+  // },
   sendRequestPublicationEmail: function (options) {
-    // this.unblock();
     // check done in method setCoursePublishRequest
     var subject = "Anfrage zur Freischaltung von " + options.what + ": " + options.itemName;
     var html = Spacebars.toHTML(options, Assets.getText('requestPublicationEmail.html'));
@@ -250,7 +271,7 @@ Meteor.methods({
     });
   },
   sendBookingConfirmationEmail: function (options) {
-    check(options, {
+    check( options, {
       course: String
     });
 

@@ -74,65 +74,6 @@ Template.courseDetail.events({
   'click #editCourseButton': function () {
     Router.go("course.edit", {slug: this.slug} );
   },
-  // 'click #requestPublicCourseButton': function () {
-  //   if (confirm( "Anfrage zur Freigabe senden?" ) ) {
-  //     if (!this._id || !this.title) {
-  //       toastr.error( "Sie müssen eingeloggt sein und einen Kurstitel angeben." );
-  //       return false;
-  //     }
-  //     var options = {
-  //       what: 'Kurs',
-  //       itemId: this._id,
-  //       itemName: this.title
-  //     };
-  //     Meteor.call('sendRequestPublicationEmail', options, function (error, result) {
-  //       if (error)
-  //         toastr.error( error.reason );
-  //       else
-  //         toastr.success( 'Anfrage zur Freigabe gesendet.' );
-  //     });
-  //   }
-  // },
-  // 'click #inquireCourseDatesButton': function () {
-  //   if (this.owner === Meteor.userId()) {
-  //     toastr.error('This is your own course' );
-  //     return false
-  //   }
-  //   var bookedCourse = _.find(this.current, function (item) {
-  //     return _.contains(item.participants, Meteor.userId() )
-  //   });
-  //   if (bookedCourse) {
-  //     toastr.error('You alreday booked this course for the '+bookedCourse.courseDate );
-  //     return false
-  //   } else {
-  //     Router.go("course.inquire", {_id: this._id} );
-  //   }
-  // },
-  // 'click .confirmDateButton': function (event,template) {
-  //   var date = template.find('input:radio[name='+this._id+']:checked');
-  //   if (date) {
-  //     var options = {
-  //       courseId: this.course,
-  //       courseOwner: this.owner,
-  //       id: this._id,
-  //       inquirer: this.inquirer,
-  //       confirmedDate: date.value
-  //     }
-  //     Meteor.call('confirmInquired', options, function (error, result) {
-  //       if(error) {
-  //         toastr.error( error.reason );
-  //       } else {
-  //         // Session.set( "instanceId", result );
-  //         toastr.success( 'Wenn sich genug Teilnehmer finden, findet Dein Kurs am' + date.value + 'statt.' );
-  //       }
-  //     });
-  //     return false
-  //   }
-  //   else {
-  //     toastr.error( 'Bitte einen Termin auswählen.' );
-  //   }
-  //   return false
-  // },
   'click .joinCourseButton': function (event, template) {
     var current = this;
     var course = Template.parentData(1);

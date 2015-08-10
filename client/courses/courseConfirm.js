@@ -37,31 +37,25 @@ Template.courseConfirmForm.events({
     var currentId = this.current._id,
         course = this.course._id;
 
-    Meteor.call('confirmEvent', Session.get('token'), function (error) {
-      if (error) {
+  	var options = {
+  		currentId: currentId,
+  		course: course,
+  		trainerEmail: email,
+  		trainerName: name,
+  		street: street,
+  		streetAdditional: streetAdditional,
+  		plz: plz,
+  		personalMessage: personalMessage
+  	};
+    Meteor.call('confirmEvent', Session.get('token'), options, function ( error, result ) {
+      if ( error ) {
         toastr.error( error.reason );
         return false;
       }
       else {
-      	toastr.success( "Event bestätigt." );
-      	Session.set('token', "");
-      	var options = {
-      		currentId: currentId,
-      		course: course,
-      		trainerEmail: email,
-      		trainerName: name,
-      		street: street,
-      		streetAdditional: streetAdditional,
-      		plz: plz,
-      		personalMessage: personalMessage
-      	};
-      	Meteor.call('sendCourseFullParticipantsEmail', options, function (error) {
-		      if (error)
-		        toastr.error( error.reason );
-		      else {
-		        Router.go('home');
-		      }
-		    });
+        toastr.success( "Event bestätigt." );
+        Session.set('token', "");
+		    Router.go('home');
       }
     });
 	}
