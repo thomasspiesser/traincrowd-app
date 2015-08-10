@@ -118,6 +118,9 @@ h6 {
 a {
   color: @dark-blue;
 }
+a:hover {
+  color: @dark-gray;
+}
 ol {
   > li {
     margin: 5px 0;
@@ -415,6 +418,15 @@ input.input-blue {
   color: @dark-blue;
 }
 
+.form-group {
+  margin-top: 10px;
+  label.control-label {
+    color: @dark-gray;
+    font-weight: normal;
+    margin-bottom: 2px;
+  }
+}
+
 
 .form-control::-webkit-input-placeholder {
   color: @dark-blue;
@@ -450,9 +462,10 @@ input.input-gray {
   width: 100%;
   height: 80px;
 }
-input.input-beige {
+input.input-beige, select.input-beige {
   background-color: @beige;
   height: 40px;
+  color: @dark-gray;
 
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -974,14 +987,20 @@ div.rate-star.dark-gray button.rateit-reset {
 section {
   padding: 100px 0;
 }
-.container-inverted {
-  [class^="col-"], [class*=" col-"] {
-    background-color: #fff;
-    padding: 20px;
-  }
+.panel-inverted {
+  padding: 15px;
+  background-color: #fff;
+  margin-left: -15px;
+  margin-right: -15px;
+  border-radius: 0;
+  border: none;
   h3 {
     color: @dark-blue;
     margin-top: 30px;
+  }
+  > [class^="col-"], > [class*=" col-"] {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 }
 
@@ -1435,7 +1454,104 @@ footer {
   .Choplin-Medium;
 }
 
+/* Progress Tracker */
+.tracker {
+  > [class^="col-"], > [class*=" col-"] {
+    text-align: center;
+    background-color: #fff;
+    color: @light-gray;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    .separator-right;
+
+    a {
+      width: 100%;
+      height: 100%;
+      padding-top: 15px;
+      display: inline-block;
+      color: @light-gray;
+      font-size: 11px;
+      @media only screen and (min-width: @screen-lg-min) {
+        font-size: 13px;
+        padding-top: 12px;
+      }
+    }
+    a:hover {
+      text-decoration: none;
+      color: @dark-blue;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+
+    height: 60px;
+    margin-bottom: 40px;
+    .step-nr {
+
+    }
+    .step-text {
+      .Noto-Bold;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+    @media only screen and (min-width: @screen-lg-min) {
+      .step-text {
+        font-size: 16px;
+      }
+    }
+
+  }
+
+   > [class^="col-"]:last-child, > [class*=" col-"]:last-child {
+      background-image: none;
+   }
+
+
+   > [class^="col-"].active, > [class*=" col-"].active {
+     /* background-color: @light-blue; */
+     color: @dark-gray;
+     a {
+      color: @dark-blue;
+      cursor: default;
+     }
+     a:hover {
+       color: @dark-blue;
+     }
+   }
+   > [class^="col-"].active:after, > [class*=" col-"].active:after {
+     content: "";
+     background: url('/separator-arrow-inverted.png') no-repeat center center;
+     background-size: 74px 30px;
+     width: 74px;
+     height: 30px;
+     display: block;
+     margin-top: 0;
+     text-align: center;
+     width: 100%;
+   }
+
+   .fa {
+  /*    vertical-align: middle;
+  font-size: 32px; */
+   }
+
+}
+
+
+
 /* Helpers */
+
+.separator-right {
+  @media only screen and (min-width: @screen-md-min) {
+    background-image: url('/bg-separator.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 1px 80%;
+  }
+}
 
 .unselectable {
   -webkit-user-select: none;
@@ -1460,10 +1576,12 @@ p.pre-wrap {
 }
 
 .row-eq-height {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  @media only screen and (min-width: @screen-md-min) {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
 }
 
 .dark-gray {

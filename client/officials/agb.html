@@ -4,24 +4,24 @@
 		<h2>Allgemeine Geschäftsbedingungen</h2>
 	</div>
 
-	<section class="container container-inverted">
+	<section class="container">
+		<div class="panel panel-inverted">
+			<!-- Nav tabs -->
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active unselectable"><a href="#agbUser" aria-controls="agbUser" role="tab" data-toggle="tab">Nutzer</a></li>
+						<li role="presentation" class="unselectable"><a href="#agbTrainer" aria-controls="agbTrainer" role="tab" data-toggle="tab">Trainer</a></li>
+					</ul>
+				</div>
+			</div>
 
-	  <!-- Nav tabs -->
-		<div class="row">
-			<div class="col-md-12">
-				<ul class="nav nav-tabs" role="tablist">
-			    <li role="presentation" class="active unselectable"><a href="#agbUser" aria-controls="agbUser" role="tab" data-toggle="tab">Nutzer</a></li>
-			    <li role="presentation" class="unselectable"><a href="#agbTrainer" aria-controls="agbTrainer" role="tab" data-toggle="tab">Trainer</a></li>
-			  </ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="agbUser"> {{ > agbUser }} </div>
+				<div role="tabpanel" class="tab-pane" id="agbTrainer"> {{ > agbTrainer }} </div>
 			</div>
 		</div>
-
-
-	  <!-- Tab panes -->
-	  <div class="tab-content">
-	    <div role="tabpanel" class="tab-pane active" id="agbUser"> {{ > agbUser }} </div>
-	    <div role="tabpanel" class="tab-pane" id="agbTrainer"> {{ > agbTrainer }} </div>
-	  </div>
-
 	</section>
 </template>

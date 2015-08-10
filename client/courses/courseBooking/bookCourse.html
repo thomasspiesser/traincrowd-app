@@ -1,81 +1,148 @@
 <template name="bookCourse">
+
   <div class="container">
+    <div class="row tracker">
+      <div class="col-md-2 ">
+        <a href="#">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
+            <span class="fa fa-check fa-stack-1x"></span>
+          </span>
 
-    <div class="row progress-tracker-wrapper">
+          <span class="step-text">Anmelden</span>
+        </a>
+      </div>
+      <div class="col-md-2 ">
+        <a href="#">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
+            <span class="fa fa-check fa-stack-1x"></span>
+          </span>
+          <span class="step-text">Allgemeines</span>
+        </a>
+      </div>
+      <div class="col-md-2 active">
+        <a href="#">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
 
-      <a href="#" class="dynamic-template-selector" id="bookCourseRegister">
-        <div class="col-md-2 progress-tracker active">
-          <div class="row">
-            <div class="col-md-3 progress-tracker-icon-wrapper">
-              {{#if deservesCheckBookCourseRegister}}
-                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
-              {{else}}
-                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
-              {{/if}}
-            </div>
-            <div class="col-md-9 progress-tracker-text-wrapper">
-              <span class="progress-tracker-step"> 1. Schritt: </span> <br> <span class="progress-tracker-text"> Anmelden </span>
-            </div>
-          </div>
-        </div>
-      </a>
+          </span>
+          <span class="step-text">Zahlungsart</span>
+        </a>
+      </div>
+      <div class="col-md-2">
+        <a href="#">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
 
-      <a href="#" class="dynamic-template-selector" id="bookCourseAddress">
-        <div class="col-md-2 progress-tracker">
-          <div class="row">
-            <div class="col-md-3 progress-tracker-icon-wrapper">
-              {{#if deservesCheckBookCourseAddress}}
-                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
-              {{else}}
-                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
-              {{/if}}
-            </div>
-            <div class="col-md-9 progress-tracker-text-wrapper">
-              <span class="progress-tracker-step"> 2. Schritt: </span> <br> <span class="progress-tracker-text"> Rechnungsadresse </span>
-            </div>
-          </div>
-        </div>
-      </a>
+          </span>
+          <span class="step-text">Bestätigen</span>
+        </a>
+      </div>
+      <div class="col-md-2">
+        <a href="#">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
 
-      <a href="#" class="dynamic-template-selector" id="bookCoursePaymentMethod">
-        <div class="col-md-2 progress-tracker inactive">
-          <div class="row">
-            <div class="col-md-3 progress-tracker-icon-wrapper">
-              {{#if deservesCheckBookCoursePaymentMethod}}
-                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
-              {{else}}
-                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
-              {{/if}}
-            </div>
-            <div class="col-md-9 progress-tracker-text-wrapper">
-              <span class="progress-tracker-step"> 3. Schritt: </span> <br> <span class="progress-tracker-text"> Zahlungsart </span>
-            </div>
-          </div>
-        </div>
-      </a>
+          </span>
+          <span class="step-text">Bestätigen</span>
+        </a>
+      </div>
+      <div class="col-md-2">
+        <a href="#">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
 
-      <a href="#" class="dynamic-template-selector" id="bookCourseConfirm">
-        <div class="col-md-2 progress-tracker inactive">
-          <div class="row">
-            <div class="col-md-3 progress-tracker-icon-wrapper">
-              {{#if deservesCheckBookCourseConfirm}}
-                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
-              {{else}}
-                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
-              {{/if}}
-            </div>
-            <div class="col-md-9 progress-tracker-text-wrapper">
-              <span class="progress-tracker-step"> 4. Schritt: </span> <br> <span class="progress-tracker-text"> Bestätigen </span>
-            </div>
-          </div>
-        </div>
-      </a>
-
+          </span>
+          <span class="step-text">Veröffentlichen</span>
+        </a>
+      </div>
     </div>
 
-    {{> Template.dynamic template=active}}
 
   </div>
+
+<!--   <div class="container">
+
+  <div class="row progress-tracker-wrapper">
+
+    <a href="#" class="dynamic-template-selector" id="bookCourseRegister">
+      <div class="col-md-2 progress-tracker active">
+        <div class="row">
+          <div class="col-md-3 progress-tracker-icon-wrapper">
+            {{#if deservesCheckBookCourseRegister}}
+              <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+            {{else}}
+              <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+            {{/if}}
+          </div>
+          <div class="col-md-9 progress-tracker-text-wrapper">
+            <span class="progress-tracker-step"> 1. Schritt: </span> <br> <span class="progress-tracker-text"> Anmelden </span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="dynamic-template-selector" id="bookCourseAddress">
+      <div class="col-md-2 progress-tracker">
+        <div class="row">
+          <div class="col-md-3 progress-tracker-icon-wrapper">
+            {{#if deservesCheckBookCourseAddress}}
+              <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+            {{else}}
+              <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+            {{/if}}
+          </div>
+          <div class="col-md-9 progress-tracker-text-wrapper">
+            <span class="progress-tracker-step"> 2. Schritt: </span> <br> <span class="progress-tracker-text"> Rechnungsadresse </span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="dynamic-template-selector" id="bookCoursePaymentMethod">
+      <div class="col-md-2 progress-tracker inactive">
+        <div class="row">
+          <div class="col-md-3 progress-tracker-icon-wrapper">
+            {{#if deservesCheckBookCoursePaymentMethod}}
+              <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+            {{else}}
+              <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+            {{/if}}
+          </div>
+          <div class="col-md-9 progress-tracker-text-wrapper">
+            <span class="progress-tracker-step"> 3. Schritt: </span> <br> <span class="progress-tracker-text"> Zahlungsart </span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="dynamic-template-selector" id="bookCourseConfirm">
+      <div class="col-md-2 progress-tracker inactive">
+        <div class="row">
+          <div class="col-md-3 progress-tracker-icon-wrapper">
+            {{#if deservesCheckBookCourseConfirm}}
+              <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
+            {{else}}
+              <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
+            {{/if}}
+          </div>
+          <div class="col-md-9 progress-tracker-text-wrapper">
+            <span class="progress-tracker-step"> 4. Schritt: </span> <br> <span class="progress-tracker-text"> Bestätigen </span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+
+
+</div> -->
+
+{{> Template.dynamic template=active}}
+
+
 </template>
 
 <!--  /////////////////////////////////////////////////// -->

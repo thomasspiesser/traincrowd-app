@@ -1,105 +1,132 @@
 <template name="bookCourseRegister">
-  <div class="row">
+  <div class="container">
 
-    {{#if currentUser}}
+    <div class="panel panel-inverted">
 
-      <div class="text-center">
-        Sie sind bereits angemeldet!
+      <div class="row row-eq-height">
+
+        {{#if currentUser}}
+
+        <div class="text-center">
+          Sie sind bereits angemeldet!
+        </div>
+
+        {{else}}
+
+        <div class="col-md-4 separator-right">
+
+          <h3>Ich bin bereits Kunde</h3>
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="form-group">
+                <label for="sign-in-email" class="control-label">Email</label>
+                <input type="text" class="form-control input-beige" id="sign-in-email" placeholder="Email">
+                <span class="help-block" id="help-text-sign-in-email"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="sign-in-password" class="control-label">Passwort</label>
+                <input type="password" class="form-control input-beige" id="sign-in-password" placeholder="Passwort">
+                <span class="help-block" id="help-text-sign-in-password"></span>
+              </div>
+              <a href="{{pathFor 'atForgotPwd'}}">Passwort vergessen?</a>
+
+              <!-- button -->
+              <div class="form-group pull-right">
+                <button type="button" class="btn btn-red" id="book-course-login-button">Anmelden</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-8">
+          <h3>Ich bin Neukunde</h3>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="sign-up-title" class="control-label">Titel</label>
+                <select class="form-control input-beige" id="sign-up-title">
+                  <option value=""></option>
+                  <option value="Frau">Frau</option>
+                  <option value="Herr">Herr</option>
+                  <option value="Dr.">Dr.</option>
+                  <option value="Prof.">Prof.</option>
+                </select>
+                <span class="help-block" id="help-text-sign-up-title"></span>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <label for="sign-up-name" class="control-label">Name</label>
+                <input type="text" class="form-control input-beige" id="sign-up-name" placeholder="Max Mustermann">
+                <span class="help-block" id="help-text-sign-up-name"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="sign-up-email" class="control-label">Email</label>
+                <input type="text" class="form-control input-beige" id="sign-up-email" placeholder="Email">
+                <span class="help-block" id="help-text-sign-up-email"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="sign-up-email-again" class="control-label">Email wiederholen</label>
+                <input type="text" class="form-control input-beige" id="sign-up-email-again" placeholder="Email wiederholen">
+                <span class="help-block" id="help-text-sign-up-email-again"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="sign-up-password" class="control-label">Passwort</label>
+                <input type="password" class="form-control input-beige" id="sign-up-password" placeholder="Passwort">
+                <span class="help-block" id="help-text-sign-up-password"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="sign-up-password-again" class="control-label">Passwort wiederholen</label>
+                <input type="password" class="form-control input-beige" id="sign-up-password-again" placeholder="Passwort wiederholen">
+                <span class="help-block" id="help-text-sign-up-password-again"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              Durch die Registrierung akzeptieren Sie unsere <a href="{{pathFor 'privacy'}}">Datenschutzerklärungen</a> und <a href="{{pathFor 'agb'}}">Geschäftsbedingungen</a>.
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-md-offset-6">
+              <!-- button -->
+              <div class="form-group">
+                <button type="button" class="btn btn-red pull-right" id="book-course-register-button"> Registrieren</button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        {{/if}}
       </div>
-    
-    {{else}}
-
-      <div class="col-md-4">
-        <h4 class="editContentTitles">Ich bin bereits Kunde</h4>
-
-        <div class="form-group">
-          <input type="text" class="form-control" id="sign-in-email" placeholder="Email">
-          <span class="help-block" id="help-text-sign-in-email"></span>
-        </div>
-
-        <div class="form-group">
-          <input type="password" class="form-control" id="sign-in-password" placeholder="Passwort">
-          <span class="help-block" id="help-text-sign-in-password"></span>
-        </div>
-        <a href="{{pathFor 'atForgotPwd'}}">Passwort vergessen?</a>
-
-        <!-- button -->
-        <div class="form-group">
-          <button type="button" class="btn btn-primary btn-block" id="book-course-login-button"> Anmelden</button>
-        </div>
-
-      </div>
-
-      <div class="col-md-8" >
-        <h4 class="editContentTitles">Ich bin Neukunde</h4>
-
-        <div class="row">
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="sign-up-title" class="control-label">Titel</label>
-              <select class="form-control" id="sign-up-title">
-                <option value=""></option>
-                <option value="Frau">Frau</option>
-                <option value="Herr">Herr</option>
-                <option value="Dr.">Dr.</option>
-                <option value="Prof.">Prof.</option>
-              </select>
-              <span class="help-block" id="help-text-sign-up-title"></span>
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="form-group">
-              <label for="sign-up-name" class="control-label">Name</label>
-              <input type="text" class="form-control" id="sign-up-name" placeholder="Max Mustermann">
-              <span class="help-block" id="help-text-sign-up-name"></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input type="text" class="form-control" id="sign-up-email" placeholder="Email">
-              <span class="help-block" id="help-text-sign-up-email"></span>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <input type="text" class="form-control" id="sign-up-email-again" placeholder="Email wiederholen">
-              <span class="help-block" id="help-text-sign-up-email-again"></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input type="password" class="form-control" id="sign-up-password" placeholder="Passwort">
-              <span class="help-block" id="help-text-sign-up-password"></span>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <input type="password" class="form-control" id="sign-up-password-again" placeholder="Passwort wiederholen">
-              <span class="help-block" id="help-text-sign-up-password-again"></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 col-md-offset-6">
-            <!-- button -->
-            <div class="form-group">
-              <button type="button" class="btn btn-primary btn-block pull-right" id="book-course-register-button"> Registrieren</button>
-            </div>
-          </div>
-        </div>
-
-        Durch die Registrierung akzeptieren Sie unsere <a href="{{pathFor 'privacy'}}">Datenschutzerklärungen</a> und <a href="{{pathFor 'agb'}}">Geschäftsbedingungen</a>.
-
-      </div>
-    {{/if}}
+    </div>
   </div>
 </template>
