@@ -12,8 +12,5 @@ Template.bookCourseThankYou.helpers({
       url: Meteor.absoluteUrl() + 'course/' + course.slug
     };
     return data;
-  },
-  niceDate: function () {
-    return moment(this).format("DD.MM.YYYY");
-  },
+  }
 });

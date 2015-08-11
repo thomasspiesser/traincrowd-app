@@ -21,19 +21,6 @@ Template.editCourseDates.rendered=function() {
     });
 };
 
-Template.editCourseDates.helpers({
-  niceDate: function () {
-    return moment(this).format("DD.MM.YYYY");
-  },
-  // allowInquiry: function () {
-  //   if (typeof this.allowInquiry !== 'undefined')
-  //     Session.setDefault("allowInquiry", this.allowInquiry);
-  //   else
-  //     Session.setDefault("allowInquiry", false);
-  //   return Session.get("allowInquiry");
-  // }
-});
-
 Template.editCourseDates.events({
   'input .form-control': function (event, template) {
     var field = event.currentTarget.id.split('-')[2];
@@ -118,10 +105,7 @@ Template.editCourseDates.events({
     $('#editCourseLogistics').children('.progress-tracker').removeClass('inactive').addClass('active');
 
     return false;
-  },
-  // 'change #editCourseAllowInquiry': function (event) {
-  //   Session.set("allowInquiry", event.target.checked);
-  // },
+  }
 });
 
 Template.editCourseDates.events( hoverCheckEvents );
