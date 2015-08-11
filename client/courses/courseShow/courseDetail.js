@@ -7,12 +7,6 @@ Template.courseDetail.rendered = function() {
   }
 };
 
-Template.courseDetail.events({
-  'click .share-open': function (event, template) {
-    $(event.currentTarget).next().toggleClass('in');
-  },
-});
-
 Template.courseDetail.helpers({
   shareData: function () {
     var data = {
@@ -71,8 +65,8 @@ Template.courseDetail.helpers({
 });
 
 Template.courseDetail.events({
-  'click #editCourseButton': function () {
-    Router.go("course.edit", {slug: this.slug} );
+  'click .share-open': function (event, template) {
+    $(event.currentTarget).next().toggleClass('in');
   },
   'click .joinCourseButton': function (event, template) {
     var current = this;
