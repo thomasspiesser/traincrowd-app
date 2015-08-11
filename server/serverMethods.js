@@ -112,12 +112,10 @@ Meteor.methods({
 
     Current.remove( { token: token } );
 
-    Meteor.defer( function () {
-      Meteor.call( 'sendEventDeclinedParticipantsEmail', { course: current.course, participants: current.participants }, function ( error, result ) {
-        if ( error ) {
-          console.log( error );
-        }
-      });
+    Meteor.call( 'sendEventDeclinedParticipantsEmail', { course: current.course, participants: current.participants }, function ( error, result ) {
+      if ( error ) {
+        console.log( error );
+      }
     });
   }, 
   confirmEvent: function ( token, options ) {
@@ -135,12 +133,10 @@ Meteor.methods({
 
     Current.update( { token: token }, { $set: { confirmed: true, token: "" } } );
 
-    Meteor.defer( function () {
-      Meteor.call( 'sendCourseFullParticipantsEmail', options, function ( error, result ) {
-        if ( error ) {
-          console.log( error );
-        }
-      });
+    Meteor.call( 'sendCourseFullParticipantsEmail', options, function ( error, result ) {
+      if ( error ) {
+        console.log( error );
+      }
     });
   },
   updateRoles: function () {

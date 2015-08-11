@@ -69,14 +69,11 @@ Meteor.methods({
           }
         });
 
-        // defer to later - method runs on..
-        Meteor.defer( function() {
-          // inform participant via email - with callback: may return error but rest of try-block will run anyway, w/o callback on error will invoke catch-block
-          Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function ( error, result ) {
-            if ( error ) {
-              console.log( error );
-            }
-          });
+        // inform participant via email - with callback: may return error but rest of try-block will run anyway, w/o callback on error will invoke catch-block
+        Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function ( error, result ) {
+          if ( error ) {
+            console.log( error );
+          }
         });
 
         // check if course is full now:
@@ -89,13 +86,11 @@ Meteor.methods({
               console.log( error );
             }
             else {
-              Meteor.defer( function() {
-                // inform trainer (owner) that current event is full so that he can confirm the event
-                Meteor.call('sendCourseFullTrainerEmail', { currentId: currentId, course: course._id, token: token }, function ( error, result ) {
-                  if ( error ) {
-                    console.log( error );
-                  }
-                });
+              // inform trainer (owner) that current event is full so that he can confirm the event
+              Meteor.call('sendCourseFullTrainerEmail', { currentId: currentId, course: course._id, token: token }, function ( error, result ) {
+                if ( error ) {
+                  console.log( error );
+                }
               });
             }
           });
