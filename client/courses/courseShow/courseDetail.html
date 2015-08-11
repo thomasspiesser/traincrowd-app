@@ -1,25 +1,16 @@
 <template name="courseDetail">
  {{> paymentModal}}
 
-   <div class="separator separator-inverted">
-     <h2>Kurse > {{title}}</h2>
-   </div>
+  <div class="separator separator-inverted">
+    <h2>Kurse > {{title}}</h2>
+  </div>
+
   <section class="container">
-<!--     {{#if canEdit owner}}
-    <div class="row" id="editProfile">
-
-      <div class="well well-sm">
-
-        {{#unless isPublic}}
-          <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="requestPublicCourseButton"> <span class="fa fa-globe"></span> Freigeben</button>
-        {{/unless}}
-        {{#if canEdit owner}}
-          <button type="button" class="btn btn-default btn-sm pull-right top-menu-btn" id="editCourseButton"> <span class="fa fa-pencil"></span> Bearbeiten</button>
-        {{/if}}
-      </div>
-
+  {{#if canEdit owner}}
+    <div class="row">
+      <a href="{{ pathFor route='course.edit' slug=slug }}" class="btn btn-red pull-right" type="button"><i class="fa fa-pencil" style="color:white;"></i> Kurs Bearbeiten</a>
     </div>
-    {{/if}} -->
+  {{/if}}
 
   <div class="row course-detail">
 
@@ -77,7 +68,6 @@
 
     </div>
     <div class="col-md-3 col-sm-3 course-right">
-
       {{#if noLocation}}
         <h5>Ort</h5>
         <p>steht noch nicht fest</p>
