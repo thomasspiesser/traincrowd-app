@@ -1,33 +1,32 @@
 <template name="bookCoursePaymentMethod">
-  <div class="row">
+  <section class="container">
+    <div class="panel panel-inverted">
 
-    <div class="col-md-6 col-md-offset-3">
-      <h4 class="editContentTitles">Zahlungsart</h4>
 
-      <hr>
-      <div class="radio">
-        <label>
-          <input type="radio" name="book-course-select-payment-method-radio" id="optionsRadios1" value="Kreditkarte">
-          Kreditkarte
-        </label>
-      </div>
-      <hr>
-      <div class="radio">
-        <label>
-          <input type="radio" name="book-course-select-payment-method-radio" id="optionsRadios2" value="Rechnung">
-          Rechnung
-        </label>
-      </div>
-      <hr>
 
-      <!-- button -->
-      <div class="form-group">
-        <button type="button" class="btn btn-primary pull-right" id="book-course-select-paymentMethod"> Weiter</button>
+      <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+          <div class="form-group">
+            <div class="well">
+            <p>
+              <label>
+                <input type="radio" name="book-course-select-payment-method-radio" id="optionsRadios1" value="Kreditkarte"> Kreditkarte
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="radio" name="book-course-select-payment-method-radio" id="optionsRadios2" value="Rechnung"> Rechnung
+              </label>
+            </p>
+            </div>
+            <p>
+              <button type="button" class="btn btn-red pull-right" id="book-course-select-paymentMethod"> Weiter</button>
+            </p>
+          </div>
+        </div>
       </div>
+
 
     </div>
-
-
-
-  </div>
+  </section>
 </template>

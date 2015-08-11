@@ -1,59 +1,54 @@
 <template name="bookCourseAddress">
-  <h4 class="editContentTitles">Ihre Rechnungsadresse</h4>
-  
-  <div class="row">
-    {{ #each billingAddresses }}
-      <div class="col-md-3">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <input type="radio" name="book-course-select-address-radio" id="{{ _index }}" {{checked _index}}> Rechnungsadresse {{ plusone _index }}
-          </div>
-          <div class="panel-body">
-            {{ #if firm }}
-              {{ firm }}<br> 
-            {{ /if }}
-            {{ username currentUser._id }}<br>
-            {{ street }} {{ streetNumber }}<br>
-            {{ plz }}, {{ city }}<br>
-            {{ #if streetAdditional }}
-              {{ streetAdditional }}<br> 
-            {{ /if }}
-            <a href="#" id="{{ _index }}" class="edit-billing-address-button">Rechnungsadresse ändern</a>
+
+  <section class="container">
+    <div class="panel panel-inverted">
+      <div class="row row-eq-height">
+        {{ #each billingAddresses }}
+        <div class="col-md-3">
+          <div class="well">
+
+          <h5> <input type="radio" name="book-course-select-address-radio" id="{{ _index }}" {{checked _index}}> Rechnungsadresse {{ plusone _index }}</h5>
+          {{ #if firm }} {{ firm }} {{ /if }}
+            <p>
+              {{ username currentUser._id }} <br>
+              {{ street }} {{ streetNumber }} <br>
+              {{ plz }}, {{ city }}
+              {{ #if streetAdditional }} <br> {{ streetAdditional }} {{ /if }}
+            </p>
+            <p><a href="#" id="{{ _index }}" class="edit-billing-address-button">Rechnungsadresse ändern</a></p>
           </div>
         </div>
-      </div>  
-    {{ /each }}
-
-    {{ #if showNewBillingAddress }}
-      <div class="col-md-3">
-        <div class="panel panel-default">
-          <div class="panel-heading">Neue Rechnungsadresse </div>
-          <div class="panel-body">
-            <a href="#" id="new-billing-address-button">neue Rechnungsadresse anlegen</a>
+        {{ /each }}
+        {{ #if showNewBillingAddress }}
+          <div class="col-md-3">
+            <h5>Neue Rechnungsadresse</h5>
+            <p><a href="#" class="btn btn-red" id="new-billing-address-button">Neue Rechnungsadresse</a></p>
           </div>
-        </div>
-      </div> 
-    {{ /if }}
+        {{ /if }}
 
-    <div class="col-md-10 col-md-offset-1">
-      <h4 class="editContentTitles">Wie können wir Sie schnellst möglich erreichen?</h4>
-      <div>
-        <p>
-          Im Falle von kurzfristigen Änderungen könnte eine Email Sie zu spät erreichen. Helfen Sie uns, Ihnen den besten Service zu bieten, auch wenn es mal schnell gehen muss. Die Angabe der Telefonnummern ist optional. Natürlich geben wir diese nicht weiter.
-        </p>
       </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center">
+          <h3 class="editContentTitles">Wie können wir Sie schnellst möglich erreichen?</h3>
+            <p>
+              Im Falle von kurzfristigen Änderungen könnte eine Email Sie zu spät erreichen. Helfen Sie uns, Ihnen den besten Service zu bieten, auch wenn es mal schnell gehen muss. Die Angabe der Telefonnummern ist optional. Natürlich geben wir diese nicht weiter.
+            </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <p>{{ > editPhone data=currentUser.profile collection='User' }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center">
+          <div class="form-group">
+            <button type="button" class="btn btn-red pull-right" id="book-course-select-address-button"> Weiter</button>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <div class="col-md-6 col-md-offset-3">
-
-      {{ > editPhone data=currentUser.profile collection='User' }}
-
-    </div>
-
-  </div>
-
-    <div class="form-group">
-      <button type="button" class="btn btn-primary pull-right" id="book-course-select-address-button"> Weiter</button>
-    </div>
+  </section>
 
 </template>

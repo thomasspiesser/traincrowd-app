@@ -399,6 +399,12 @@ ol {
   vertical-align: middle;
 }
 
+/* Wells */
+.well {
+  background-color: @beige;
+  border-color: darken(@beige, 5%);
+}
+
 /* Input Fields */
 .form-control:focus {
   border-color: @light-blue;
@@ -419,7 +425,7 @@ input.input-blue {
 }
 
 .form-group {
-  margin-top: 10px;
+
   label.control-label {
     color: @dark-gray;
     font-weight: normal;
@@ -445,6 +451,9 @@ input.input-blue {
   padding-left: 10px;
 }
 
+input[type="radio"], input[type="checkbox"] {
+  margin-right: 5px;
+}
 
 
 
@@ -988,7 +997,7 @@ section {
   padding: 50px 0;
 }
 .panel-inverted {
-  padding: 15px;
+  padding: 40px 20px;
   background-color: #fff;
   margin-left: -15px;
   margin-right: -15px;
@@ -1001,6 +1010,9 @@ section {
   [class^="col-"], [class*=" col-"] {
     padding-left: 20px !important;
     padding-right: 20px !important;
+  }
+  .form-group {
+    margin-top: 10px;
   }
 }
 
@@ -1481,7 +1493,7 @@ footer {
         padding-top: 12px;
       }
     }
-    a:hover {
+    a:hover, a:focus {
       text-decoration: none;
       color: @dark-blue;
     }
@@ -1590,6 +1602,7 @@ p.pre-wrap {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    position: rela
   }
 }
 
