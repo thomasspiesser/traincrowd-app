@@ -7,7 +7,13 @@
         <div class="col-md-3">
           <div class="well">
 
-          <h5> <input type="radio" name="book-course-select-address-radio" id="{{ _index }}" {{checked _index}}> Rechnungsadresse {{ plusone _index }}</h5>
+          <h5>
+            {{ #if isBooking }}
+              <input type="radio" name="book-course-select-address-radio" id="{{ _index }}" {{checked _index}}> Rechnungsadresse {{ plusone _index }}
+            {{ else }}
+              Rechnungsadresse {{ plusone _index }}
+            {{ /if }}
+          </h5>
           {{ #if firm }} {{ firm }} {{ /if }}
             <p>
               {{ username currentUser._id }} <br>
@@ -43,7 +49,11 @@
       <div class="row">
         <div class="col-md-8 col-md-offset-2 text-center">
           <div class="form-group">
-            <button type="button" class="btn btn-red pull-right" id="book-course-select-address-button"> Weiter</button>
+            {{ #if isBooking }}
+              <button type="button" class="btn btn-red pull-right" id="book-course-select-address-button"> Weiter</button>
+            {{ else }}
+              <button type="button" class="btn btn-red pull-right" id="edit-user-address-button"> Weiter</button>
+            {{ /if }}
           </div>
         </div>
       </div>

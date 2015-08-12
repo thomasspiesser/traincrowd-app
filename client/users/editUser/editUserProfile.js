@@ -6,10 +6,12 @@ Template.editUserProfile.events({
     lazysaveUserField( { argName: field, argValue: event.currentTarget.value } );
   },
   'click #saveEditUserProfile': function (event, template) {
-    Session.set('editUserTemplate', "editUserAddress");
+    // Session.set('editUserTemplate', "editUserAddress");
+    Session.set('editUserTemplate', "bookCourseAddress");
 
     $('#editUserProfile').parent().removeClass('active');
-    $('#editUserAddress').parent().addClass('active');
+    $('#bookCourseAddress').parent().addClass('active');
+    // $('#editUserAddress').parent().addClass('active');
 
     return false;
   },

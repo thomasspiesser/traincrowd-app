@@ -1,4 +1,7 @@
 Template.bookCourseAddress.helpers({
+  isBooking: function () {
+    return Router.current().location.get().path === "/edit-user-profile" ? false : true;
+  },
   billingAddresses: function ( argument ) {
     var user = Meteor.user();
     if ( user ) {
@@ -96,6 +99,12 @@ Template.bookCourseAddress.events({
       }
     });
   },
+  'click #edit-user-address-button': function () {
+    Session.set('editUserTemplate', "editUserAccount");
+
+    $('#bookCourseAddress').parent().removeClass('active');
+    $('#editUserAccount').parent().addClass('active');
+  }
   // 'change input:radio[name=book-course-address-radio]': function (event) {
   //   Session.set("bookCourseAddress", event.currentTarget.id);
   // }
