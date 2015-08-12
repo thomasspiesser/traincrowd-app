@@ -51,29 +51,6 @@
     </table>
     {{/if}}
 
-    {{#if inquiredCourses}}
-    <h3>Angefragte Kurse</h3>
-    <table class='table table-striped'>
-      <thead>
-        <tr>
-          <td></td>
-          <td>Titel</td>
-          <td>Angefragte Daten</td>
-          <td>Bewertung</td>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each inquiredCourses}}
-          <tr>
-            <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
-            <td>{{inquiredDates}}</td>
-            <td><div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
-
     {{#if currentCourses}}
     <h3>Gebuchte Kurse</h3>
     <table class='table table-striped'>

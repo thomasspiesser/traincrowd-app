@@ -101,8 +101,8 @@ Template.editCourseDates.events({
 
     Session.set('editCourseTemplate', "editCourseLogistics");
 
-    $('#editCourseDates').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editCourseLogistics').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editCourseDates').parent().removeClass('active');
+    $('#editCourseLogistics').parent().addClass('active');
 
     return false;
   }

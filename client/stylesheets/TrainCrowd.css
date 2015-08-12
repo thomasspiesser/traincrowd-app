@@ -8,71 +8,16 @@
 .comma-list li:last-child:after { content: "" }
 
 
-.progress-tracker {
-  background-color: #f5f5f5;
-  padding: 5px 5px;
-  height: 60px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  margin-right: 0.43%;
-  margin-left: 0.43%;
-  width: 15.8%;
-  border-radius: 4px;
-  border: 1px solid #e3e3e3;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
-}
-
-.progress-tracker-last-item {
-  margin-right: 0;
-}
-
-.progress-tracker.active {
-  border: 1px solid green;
-  background-color: #dff0d8;
-  color: #3c763d;
-}
-
-.progress-tracker.inactive {
-  color: rgba(0, 0, 0, 0.3);;
-}
-
-.progress-tracker-wrapper a {
-  text-decoration: none;
-  color: #5a5a5a;
-}
-
-.progress-tracker-wrapper a:hover > div {
-  border: 1px solid green;
-  color: #3c763d;
-  /*color: #5a5a5a;*/
-}
-
-.progress-tracker-icon-wrapper {
-  position: relative;
-}
-
-.progress-tracker-text-wrapper {
-  line-height: 1.3;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -9% 0 0 -30%;
-}
-
-.progress-tracker-text {
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.progress-tracker-step {
-  font-size: 12px;
-}
-
-.progress-tracker .fa {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: 20% 0 0 -15%;
+#preview-wrapper { height: 500px; padding: 0; }
+#preview-frame { width:200%; height: 1000px; border: 1px solid black; }
+#preview-frame {
+    -ms-zoom: 0.5;
+    -moz-transform: scale(0.5);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.5);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
 }
 
 /*************** Layout ***************/

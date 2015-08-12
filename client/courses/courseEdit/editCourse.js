@@ -18,6 +18,9 @@ Template.editCourse.helpers({
   deservesCheckCourseLogistics: function () {
     return this.noLocation || this.street ? true : false;
   },
+  deservesCheckCoursePreview: function () {
+    return this.isPublic ? true : false;
+  },
   active: function() {
     return Session.get('editCourseTemplate');
   }
