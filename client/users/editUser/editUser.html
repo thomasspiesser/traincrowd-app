@@ -1,73 +1,63 @@
 <template name="editUser">
-  <div class="container">
-  {{#if canEdit _id}}
 
-    <div class="text-center">
-      <h3 class="text-uppercase">
-        Mein Profil bearbeiten
-      </h3>
-      <hr>
-    </div>
+  {{ #if canEdit _id }}
+    <div class="container">
 
-    <div class="row progress-tracker-wrapper">
+      <div class="row tracker">
 
-      <a href="#" class="dynamic-template-selector" id="editUserProfile">
-        <div class="col-md-2 progress-tracker active">
-          <div class="row">
-            <div class="col-md-3 progress-tracker-icon-wrapper">
-              {{#if deservesCheckUserProfile}}
-                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
-              {{else}}
-                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
-              {{/if}}
-            </div>
-            <div class="col-md-9 progress-tracker-text-wrapper">
-              <span class="progress-tracker-step"> 1. Schritt: </span> <br> <span class="progress-tracker-text"> Mein Profil </span>
-            </div>
+        <div class="col-md-4 active">
+          <a href="#" class="dynamic-template-selector" id="editUserProfile">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckUserProfile }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Mein Profil</span>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a href="#" class="dynamic-template-selector" id="editUserAddress">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckUserAddress }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Meine Adresse</span>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a href="#" class="dynamic-template-selector" id="editUserAccount">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckUserAccount }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Mein Account</span>
+          </a>
+        </div>
+
+      </div> <!-- row -->
+
+    </div> <!-- container -->
+
+    {{ > Template.dynamic template=active data=this }}
+
+  {{ else }}
+    <section class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="alert alert-danger text-center">
+            <h5>Fehler</h5>
+            Sie dürfen nur Ihr eigenes Profil bearbeiten.
           </div>
         </div>
-      </a>
+      </div>
+    </section>
+  {{ /if }}
 
-      <a href="#" class="dynamic-template-selector" id="editUserAddress">
-        <div class="col-md-2 progress-tracker inactive">
-          <div class="row">
-            <div class="col-md-3 progress-tracker-icon-wrapper">
-              {{#if deservesCheckUserAddress}}
-                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
-              {{else}}
-                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
-              {{/if}}
-            </div>
-            <div class="col-md-9 progress-tracker-text-wrapper">
-              <span class="progress-tracker-step"> 2. Schritt: </span> <br> <span class="progress-tracker-text"> Meine Adresse </span>
-            </div>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="dynamic-template-selector" id="editUserAccount">
-        <div class="col-md-2 progress-tracker inactive">
-          <div class="row">
-            <div class="col-md-3 progress-tracker-icon-wrapper">
-              {{#if deservesCheckUserAccount}}
-                <span class="fa fa-check-circle-o fa-2x fa-fw"></span>
-              {{else}}
-                <span class="fa fa fa-circle-o fa-2x fa-fw"></span>
-              {{/if}}
-            </div>
-            <div class="col-md-9 progress-tracker-text-wrapper">
-              <span class="progress-tracker-step"> 3. Schritt: </span> <br> <span class="progress-tracker-text"> Mein Account </span>
-            </div>
-          </div>
-        </div>
-      </a>
-
-    </div>
-
-    {{> Template.dynamic template=active data=this}}
-
-  {{else}}
-    <div class="alert alert-danger">Sie können nur Ihr eigenes Profil bearbeiten.</div>
-  {{/if}}
-  </div>
 </template>

@@ -9,8 +9,8 @@ Template.editUserAddress.events({
 
     Session.set('editUserTemplate', "editUserAccount");
 
-    $('#editUserAddress').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editUserAccount').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editUserAddress').parent().removeClass('active');
+    $('#editUserAccount').parent().addClass('active');
 
     return false;
   }

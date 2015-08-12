@@ -21,7 +21,7 @@ Template.editUser.events({ 
   'click .dynamic-template-selector': function (event) {
     Session.set('editUserTemplate', event.currentTarget.id);
 
-    $('.progress-tracker').removeClass('active').addClass('inactive');
-    $(event.currentTarget).children('.progress-tracker').removeClass('inactive').addClass('active');
+    $( '.dynamic-template-selector' ).parent().removeClass('active');
+    $( event.currentTarget ).parent().addClass('active');
   }
 });

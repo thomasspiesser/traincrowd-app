@@ -8,8 +8,8 @@ Template.editUserProfile.events({
   'click #saveEditUserProfile': function (event, template) {
     Session.set('editUserTemplate', "editUserAddress");
 
-    $('#editUserProfile').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editUserAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editUserProfile').parent().removeClass('active');
+    $('#editUserAddress').parent().addClass('active');
 
     return false;
   },
