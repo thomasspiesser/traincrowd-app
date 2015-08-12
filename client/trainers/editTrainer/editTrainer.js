@@ -1,5 +1,5 @@
 Template.editTrainer.created = function () {
-  Session.set("editTrainerTemplate", "editTrainerProfile");
+  Session.set( "editTrainerTemplate", "editTrainerProfile" );
 };
 
 Template.editTrainer.helpers({
@@ -18,10 +18,10 @@ Template.editTrainer.helpers({
 });
 
 Template.editTrainer.events({ 
-  'click .dynamic-template-selector': function (event) {
-    Session.set('editTrainerTemplate', event.currentTarget.id);
+  'click .dynamic-template-selector': function ( event ) {
+    Session.set( 'editTrainerTemplate', event.currentTarget.id) ;
 
-    $('.progress-tracker').removeClass('active').addClass('inactive');
-    $(event.currentTarget).children('.progress-tracker').removeClass('inactive').addClass('active');
+    $( '.dynamic-template-selector' ).parent().removeClass('active');
+    $( event.currentTarget ).parent().addClass('active');
   }
 });

@@ -1,60 +1,67 @@
 <template name="editUserAccount">
-
-  <div class="row">
-
-    <div class="col-md-5 col-md-offset-1">
-      <h4 class="editContentTitles">Account-Details bearbeiten</h4>
-
-      <hr>
-
-      {{ > editEmail data=email collection='User' }}
-
-      <div class="form-group">
-        <label for="edit-user-password-new" class="control-label">Neues Passwort</label>
-        <input type="password" class="form-control" id="edit-user-password-new">
-        <span class="help-block" id="help-text-edit-user-password-new"></span>
-      </div>
-
-      <div class="form-group">
-        <label for="edit-user-password-new-again" class="control-label">Neues Passwort Wiederholen</label>
-        <input type="password" class="form-control" id="edit-user-password-new-again">
-        <span class="help-block" id="help-text-edit-user-password-new-again"></span>
-      </div>
-
-      <div class="form-group">
-        <label for="edit-user-password-old" class="control-label">Altes Passwort</label>
-        <input type="password" class="form-control" id="edit-user-password-old">
-        <span class="help-block" id="help-text-edit-user-password-old"></span>
-      </div>
-
-      <div class="text-center">
-        <button type="button" class="btn btn-success large-btn" id="changeUserPassword">Passwort ändern </button>
-      </div>
-
-      <hr >
-      <a href="#" class="text-danger" id="deleteMyAccount"> Mein Benutzerkonto Löschen </a>
-
-    </div>
-
-    <div class="col-md-5" style="margin-top: 20px;">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h3 class="panel-title">Mein Account</h3>
-        </div>
-        <div class="panel-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste enim repellendus alias eaque minima magnam dignissimos, aperiam harum sed, incidunt modi odit obcaecati, nemo! Odit soluta libero voluptatum illum, in!. 
-        </div>
-      </div>
+  <section class="container">
+    <div class="panel panel-inverted">
       
-      {{#if hoverText}}
-        <div class="well hover-text">
-          {{hoverText}}
+      <div class="row">
+
+        <div class="col-md-7">
+
+          {{ > editEmail data=email collection='User' }}
+
+          <div class="form-group">
+            <label for="edit-user-password-new" class="control-label">Neues Passwort</label>
+            <input type="password" class="form-control" id="edit-user-password-new">
+            <span class="help-block" id="help-text-edit-user-password-new"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-user-password-new-again" class="control-label">Neues Passwort Wiederholen</label>
+            <input type="password" class="form-control" id="edit-user-password-new-again">
+            <span class="help-block" id="help-text-edit-user-password-new-again"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-user-password-old" class="control-label">Altes Passwort</label>
+            <input type="password" class="form-control" id="edit-user-password-old">
+            <span class="help-block" id="help-text-edit-user-password-old"></span>
+          </div>
+
+          <div class="text-center">
+            <button type="button" class="btn btn-red" id="changeUserPassword">Passwort ändern </button>
+          </div>
+
+          <hr >
+          <a href="#" class="text-danger" id="deleteMyAccount"> Mein Benutzerkonto Löschen </a>
+
         </div>
-      {{/if}}
+
+        <div class="col-md-5">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Meinen Account bearbeiten</h3>
+            </div>
+            <div class="panel-body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste enim repellendus alias eaque minima magnam dignissimos, aperiam harum sed, incidunt modi odit obcaecati, nemo! Odit soluta libero voluptatum illum, in!. 
+            </div>
+          </div>
+
+          <div class="text-center">
+            {{ #if isInRole 'trainer'}}
+              <button type="button" class="btn btn-red" id="next">Weiter</button>
+            {{ else }}
+              <button type="button" class="btn btn-red" id="logout">Ausloggen</button>
+            {{ /if }}
+          </div>
+          
+          {{#if hoverText}}
+            <div class="well hover-text">
+              {{hoverText}}
+            </div>
+          {{/if}}
+        </div>
+
+      </div>
     </div>
-
-  </div>
-
+  </section>
 
 </template>
-

@@ -18,8 +18,8 @@ Template.editTrainerProfile.events({
 
     Session.set('editTrainerTemplate', "editTrainerAddress");
 
-    $('#editTrainerProfile').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editTrainerAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editTrainerProfile').parent().removeClass('active');
+    $('#editTrainerAddress').parent().addClass('active');
 
     return false;
   }

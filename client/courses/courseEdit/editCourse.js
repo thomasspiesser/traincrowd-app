@@ -18,9 +18,6 @@ Template.editCourse.helpers({
   deservesCheckCourseLogistics: function () {
     return this.noLocation || this.street ? true : false;
   },
-  deservesCheckCoursePreview: function () {
-    return this.isPublic ? true : false;
-  },
   active: function() {
     return Session.get('editCourseTemplate');
   }
@@ -30,7 +27,7 @@ Template.editCourse.events({ 
   'click .dynamic-template-selector': function ( event ) {
     Session.set( 'editCourseTemplate', event.currentTarget.id );
 
-    $('.dynamic-template-selector').parent().removeClass('active');
+    $( '.dynamic-template-selector' ).parent().removeClass('active');
     $( event.currentTarget ).parent().addClass('active');
   }
 });
