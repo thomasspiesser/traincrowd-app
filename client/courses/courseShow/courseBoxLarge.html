@@ -25,8 +25,11 @@
       <div class="box-content-top">
         <a href="{{ pathFor route='course.show' slug=this.slug }}"><h3>{{titlePreview}}</h3></a>
         <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}"><h6>{{ownerName}}</h6></a>
-        <button type="button" class="btn btn-dark-blue btn-xs">Arquitecture</button>
-        <button type="button" class="btn btn-dark-blue btn-xs">Digitalart</button>
+
+        {{ #each categories }}
+          <a href="#" type="button" class="btn btn-dark-blue btn-xs">{{ this }}</a>
+        {{ /each }}
+
         <p class="course-description-preview">{{descriptionPreview}}</p>
         <p><a href="{{ pathFor route='course.show' slug=this.slug }}">see more <i class="fa fa-arrow-right"></i></a></p>
       </div>

@@ -11,6 +11,9 @@ Template.courseBoxSmall.helpers({
     };
     return data;
   },
+  twocategories: function () {
+    return _.first( this.categories, 2 );
+  },
   trainerImageId: function (id) {
     var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );
     if (trainer.profile && trainer.profile.imageId)
