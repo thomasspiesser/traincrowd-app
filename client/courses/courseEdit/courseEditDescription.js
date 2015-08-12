@@ -112,7 +112,7 @@ Template.editCourseDescription.events({
           toastr.error( error.message );
         }
         else {
-          Meteor.call('updateSingleCourseField', { id: self._id, argName: 'imageId', argValue: downloadUrl }, function (error) {
+          Meteor.call('updateSingleCourseField', { id: self._id, argName: 'imageId', argValue: encodeURI( downloadUrl ) }, function (error) {
             if (error) 
               toastr.error( error.reason );
           });
