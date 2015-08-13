@@ -1,144 +1,173 @@
 <template name="userCourses">
-  {{> ratingModal}}
-  <div class="container">
-  <h2 class="text-center">Meine Kurse</h2>
-    {{#if hostedCourses.count}}
-    <h3>Angebotene Kurse</h3>
-    <table class='table table-hover'>
-      <thead>
-        <tr>
-          <td>Titel</td>
-          <td>Bewertung</td>
-          <td></td>
-          <td>Status</td>
-          <td>Status verändern</td>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each hostedCourses}}
-          <tr class="{{#unless isPublic}}{{else}}success{{/unless}}">
-            <td><a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a></td>
-            <td><div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></td>
-            <td>
-              {{#unless hasPublishRequest}}
-                <a href="{{ pathFor route='course.edit' slug=this.slug }}" title="Kurs bearbeiten"><i class="fa fa-pencil"></i> Kurs bearbeiten</a>
-              {{/unless}}
-            </td>
-            <td>
-              {{#if isPublic}}
-                <span style="color: green;"><i class="fa fa-check"></i> öffentlich </span>
-              {{else}}
-                {{#if hasPublishRequest}}
-                  in Prüfung
-                {{else}}
-                  <span style="color: red;"><i class="fa fa-times"></i> deaktiviert </span>
-                {{/if}}
-              {{/if}}
-            </td>
 
-            <td>
-              {{#if isPublic}}
-                <a href="#" class="deactivate">deaktivieren</a>
-              {{else}}
-                {{#unless hasPublishRequest}}
-                  <a href="#" class="activate">veröffentlichen</a>
-                {{/unless}}
-              {{/if}}
-            </td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
-
-    {{#if inquiredCourses}}
-    <h3>Angefragte Kurse</h3>
-    <table class='table table-striped'>
-      <thead>
-        <tr>
-          <td></td>
-          <td>Titel</td>
-          <td>Angefragte Daten</td>
-          <td>Bewertung</td>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each inquiredCourses}}
-          <tr>
-            <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
-            <td>{{inquiredDates}}</td>
-            <td><div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
-
-    {{#if currentCourses}}
-    <h3>Gebuchte Kurse</h3>
-    <table class='table table-striped'>
-    <thead>
-        <tr>
-          <td>Titel</td>
-          <td>Kurs Datum</td>
-          <td>Bewertung</td>
-        </tr>
-      </thead>
-
-      <tbody>
-        {{#each currentCourses}}
-          <tr>
-            <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
-            <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
-            <td><div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
-
-    {{#if elapsedCourses}}
-    <h3>Besuchte Kurse</h3>
-    <table class='table table-striped'>
-    <thead>
-        <tr>
-          <td>Titel</td>
-          <td>Datum</td>
-          <td>Meine Bewertung</td>
-          <td>Bewertung</td>
-        </tr>
-      </thead>
-
-      <tbody>
-        {{#each elapsedCourses}}
-          <tr>
-            <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
-            <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
-            <td>
-              {{#if myRating _id}}
-                <span style="color: green;"><i class="fa fa-check"></i> Bewertung abgegeben</span> 
-                <a href="#" class="rateCourse" title="Bewertung Ändern"><i class="fa fa-pencil"></i> </a>
-              {{else}}
-                <a href="#" class="rateCourse" title="Jetzt bewerten"><span style="color: red;"><i class="fa fa-flag"></i> Bewertung fehlt</span></a>
-              {{/if}}
-            </td>
-            <td><div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div></td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
+  <div class="separator separator-inverted">
+    <h2>Meine Kurse</h2>
   </div>
+
+  <section class="container">
+    <div class="panel panel-inverted">
+      <div class="row">
+        <div class="col-md-12">
+
+
+          {{#if hostedCourses.count}}
+          <table class="table">
+            <thead>
+              <tr>
+                <td>Titel</td>
+                <td>Bewertung</td>
+                <td></td>
+                <td>Status</td>
+                <td>Status verändern</td>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each hostedCourses}}
+              <tr class="{{#unless isPublic}}{{else}}success{{/unless}}">
+                <td><a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a></td>
+                <td>
+                  <div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                </td>
+                <td>
+                  {{#unless hasPublishRequest}}
+                  <a href="{{ pathFor route='course.edit' slug=this.slug }}" title="Kurs bearbeiten"><i class="fa fa-pencil"></i> Kurs bearbeiten</a> {{/unless}}
+                </td>
+                <td>
+                  {{#if isPublic}}
+                  <span style="color: green;"><i class="fa fa-check"></i> öffentlich </span>
+                  {{else}} {{#if hasPublishRequest}} in Prüfung {{else}}
+                  <span style="color: red;"><i class="fa fa-times"></i> deaktiviert </span>
+                  {{/if}} {{/if}}
+                </td>
+
+                <td>
+                  {{#if isPublic}}
+                  <a href="#" class="deactivate">deaktivieren</a> {{else}} {{#unless hasPublishRequest}}
+                  <a href="#" class="activate">veröffentlichen</a> {{/unless}} {{/if}}
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+          {{/if}}
+        </div>
+      </div>
+
+
+      {{#if inquiredCourses}}
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Angefragte Kurse</h3>
+          <table class='table'>
+            <thead>
+              <tr>
+                <td></td>
+                <td>Titel</td>
+                <td>Angefragte Daten</td>
+                <td>Bewertung</td>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each inquiredCourses}}
+              <tr>
+                <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
+                <td>{{inquiredDates}}</td>
+                <td>
+                  <div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      {{/if}} {{#if currentCourses}}
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Gebuchte Kurse</h3>
+          <table class='table'>
+            <thead>
+              <tr>
+                <td>Titel</td>
+                <td>Kurs Datum</td>
+                <td>Bewertung</td>
+              </tr>
+            </thead>
+
+            <tbody>
+              {{#each currentCourses}}
+              <tr>
+                <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
+                <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
+                <td>
+                  <div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {{/if}} {{#if elapsedCourses}}
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Besuchte Kurse</h3>
+          <table class='table'>
+            <thead>
+              <tr>
+                <td>Titel</td>
+                <td>Datum</td>
+                <td>Meine Bewertung</td>
+                <td>Bewertung</td>
+              </tr>
+            </thead>
+
+            <tbody>
+              {{#each elapsedCourses}}
+              <tr>
+                <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
+                <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
+                <td>
+                  {{#if myRating _id}}
+                  <span style="color: green;"><i class="fa fa-check"></i> Bewertung abgegeben</span>
+                  <a href="#" class="rateCourse" title="Bewertung Ändern"><i class="fa fa-pencil"></i> </a> {{else}}
+                  <a href="#" class="rateCourse" title="Jetzt bewerten">
+                    <span style="color: red;"><i class="fa fa-flag"></i> Bewertung fehlt</span>
+                  </a>
+                  {{/if}}
+                </td>
+                <td>
+                  <div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      {{/if}}
+
+
+    </div>
+  </section>
+
+  {{> ratingModal}}
+
 </template>
 
-<!--  /////////////////////////////////////////////////// --> 
+<!--  /////////////////////////////////////////////////// -->
 
 <template name="ratingModal">
   <div id="ratingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
           <h4 class="modal-title" id="myModalLabel">Kurs Bewerten</h4>
         </div>
         <div class="modal-body">
