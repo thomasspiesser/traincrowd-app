@@ -1,16 +1,16 @@
 <template name="editCourseDates">
   <section class="container">
     <div class="panel panel-inverted">
-      
+
       <div class="row">
 
         <div class="col-md-7">
-          
+
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="edit-course-duration" class="control-label">Kursdauer (Anzahl Tage)</label>
-                <input type="number" class="form-control hoverCheck" id="edit-course-duration" value="{{duration}}">
+                <input type="number" class="form-control input-beige hoverCheck" id="edit-course-duration" value="{{duration}}">
                 <span class="help-block" id="help-text-edit-course-duration"></span>
         <!--         <select class="form-control hoverCheck" id="edit-course-duration">
                   <option value="" {{selected '' duration}}></option>
@@ -24,7 +24,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="edit-course-expires" class="control-label">gewünschte Vorlaufzeit</label>
-                <select class="form-control hoverCheck" id="edit-course-expires">
+                <select class="form-control input-beige hoverCheck" id="edit-course-expires">
                   <option value="0" {{selected 0 expires}}></option>
                   <option value="1" {{selected 1 expires}}>1 Woche vorher</option>
                   <option value="2" {{selected 2 expires}}>2 Wochen vorher</option>
@@ -43,7 +43,7 @@
                   <div class="form-group" >
                     <label for="edit-course-events" class="control-label">Kurstage eines Events (alle)</label>
                     <div class="input-group">
-                      <input type="text" class="form-control hoverCheck" name="standardDateField" id="edit-course-events" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                      <input type="text" class="form-control input-beige hoverCheck" name="standardDateField" id="edit-course-events" placeholder="tt.mm.jjjj" value=""><div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                     </div>
                     <span class="help-block" id="help-text-edit-course-events"></span>
                   </div>
@@ -56,21 +56,21 @@
                 </div>
               </div>
             </div>
-            
+
 
         <!--     <div class="form-group">
               <button type="button" class="btn btn-default" id="addDateField"><i class="fa fa-plus"></i></button>
             </div> -->
-           
+
           </form>
-          
+
           <label for="" class="control-label">Ihre Events:</label>
           <ol>
             {{#each dates}}
               <li>
                 <ul class="comma-list">
-                  {{#each this}} <li>{{niceDate}}</li> {{/each}} 
-                </ul> 
+                  {{#each this}} <li>{{niceDate}}</li> {{/each}}
+                </ul>
                 (<a href="#" class="removeEvent"><i class="fa fa-times" style='color:red;'> löschen</i></a>)
               </li>
             {{/each}}
@@ -83,11 +83,8 @@
               <h3 class="panel-title">Wann können Sie diesen Kurs anbieten?</h3>
             </div>
             <div class="panel-body">
-              Hier haben Sie die Möglichkeit die Termine für Ihren Kurs festzulegen. Für jedes einzelne Kursevent müssen alle Kurstage einzeln angegeben werden, damit Nutzer genau prüfen können, ob sie an den angegebenen Tagen Zeit haben. Sie können mehrere Events für Ihren Kurs nacheinander hinzufügen. 
+              Hier haben Sie die Möglichkeit die Termine für Ihren Kurs festzulegen. Für jedes einzelne Kursevent müssen alle Kurstage einzeln angegeben werden, damit Nutzer genau prüfen können, ob sie an den angegebenen Tagen Zeit haben. Sie können mehrere Events für Ihren Kurs nacheinander hinzufügen.
             </div>
-          </div>
-          <div class="text-center">
-            <button type="button" class="btn btn-red" id="saveEditCourseDates">Weiter</button>
           </div>
           {{#if hoverText}}
             <div class="well hover-text">
@@ -96,6 +93,11 @@
           {{/if}}
         </div>
 
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-red pull-right" id="saveEditCourseDates">Weiter</button>
+        </div>
       </div>
     </div>
   </section>

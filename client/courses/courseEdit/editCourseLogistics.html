@@ -1,11 +1,11 @@
 <template name="editCourseLogistics">
   <section class="container">
     <div class="panel panel-inverted">
-      
+
       <div class="row">
 
         <div class="col-md-7">
-          
+
           <div class="form-group">
             <div class="checkbox">
               <label>
@@ -30,9 +30,6 @@
               Geben Sie hier bitte an, wo der Kurs stattfinden wird.
             </div>
           </div>
-          <div class="text-center">
-            <button type="button" class="btn btn-red" id="saveEditCourseLogistics">Weiter</button>
-          </div>
           {{#if hoverText}}
             <div class="well hover-text">
               {{hoverText}}
@@ -40,6 +37,11 @@
           {{/if}}
         </div>
 
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-red pull-right" id="saveEditCourseLogistics">Weiter</button>
+        </div>
       </div>
     </div>
   </section>
