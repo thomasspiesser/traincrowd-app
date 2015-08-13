@@ -6,10 +6,12 @@ Template.editUserProfile.events({
     lazysaveUserField( { argName: field, argValue: event.currentTarget.value } );
   },
   'click #saveEditUserProfile': function (event, template) {
-    Session.set('editUserTemplate', "editUserAddress");
+    // Session.set('editUserTemplate', "editUserAddress");
+    Session.set('editUserTemplate', "bookCourseAddress");
 
-    $('#editUserProfile').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editUserAddress').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editUserProfile').parent().removeClass('active');
+    $('#bookCourseAddress').parent().addClass('active');
+    // $('#editUserAddress').parent().addClass('active');
 
     return false;
   },

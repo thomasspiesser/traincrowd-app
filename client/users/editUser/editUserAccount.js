@@ -54,5 +54,21 @@ Template.editUserAccount.events({
         }
       });
     }
+  },
+  'click #logout': function () {
+    Meteor.logout( function ( error ) {
+      if ( error )
+        toastr.error( error.reason );
+      else
+        Router.go( 'home' );
+    });
+  },
+  'click #next': function () {
+    Session.set('editTrainerTemplate', "editTrainerPreview");
+
+    $('#editTrainerAccount').parent().removeClass('active');
+    $('#editTrainerPreview').parent().addClass('active');
+
+    return false;
   }
 });

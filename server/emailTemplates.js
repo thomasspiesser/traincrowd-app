@@ -61,7 +61,16 @@ Meteor.methods({
       html: html 
     };
     
-    sendEmail(options);
+    Meteor.defer( function() {
+      try {
+        sendEmail( options );
+      }
+      catch ( error ) {
+        console.log( options.to );
+        console.log( options.subject );
+        console.log( error );
+      }
+    });
   },
   sendAskIfEventExpiredTrainerEmail: function (options) {
     check(options, {
@@ -119,7 +128,16 @@ Meteor.methods({
         html: html 
       };
     
-    sendEmail(options);
+    Meteor.defer( function() {
+      try {
+        sendEmail( options );
+      }
+      catch ( error ) {
+        console.log( options.to );
+        console.log( options.subject );
+        console.log( error );
+      }
+    });
   },
   sendInformEventExpiredTrainerEmail: function (options) {
     check(options, {
@@ -165,7 +183,16 @@ Meteor.methods({
         html: html 
       };
     
-    sendEmail(options);
+    Meteor.defer( function() {
+      try {
+        sendEmail( options );
+      }
+      catch ( error ) {
+        console.log( options.to );
+        console.log( options.subject );
+        console.log( error );
+      }
+    });
   },
   sendEventDeclinedParticipantsEmail: function (options) {
     check(options, {
@@ -212,7 +239,17 @@ Meteor.methods({
         subject: subject, 
         html: html 
       };
-      sendEmail(options);
+      
+      Meteor.defer( function() {
+        try {
+          sendEmail( options );
+        }
+        catch ( error ) {
+          console.log( options.to );
+          console.log( options.subject );
+          console.log( error );
+        }
+      });
     });
   },
   sendRateCourseEmail: function (options) {
@@ -260,14 +297,16 @@ Meteor.methods({
         subject: subject, 
         html: html 
       };
-      try {
-        sendEmail(options);
-      }
-      catch (error) {
-        console.log(options.to);
-        console.log(options.subject);
-        console.log(error);
-      }
+      Meteor.defer( function() {
+        try {
+          sendEmail( options );
+        }
+        catch ( error ) {
+          console.log( options.to );
+          console.log( options.subject );
+          console.log( error );
+        }
+      });
     });
   },
   sendBookingConfirmationEmail: function (options) {
@@ -287,7 +326,7 @@ Meteor.methods({
 
     var fields = { title: 1, slug: 1, description: 1, aims: 1, methods: 1, targetGroup: 1, prerequisites: 1, languages: 1, additionalServices: 1 };
     var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
-    var pass = checkExistanceSilent( course, "course", options.course, fields );
+    var pass = checkExistanceSilent( course, "course", options.course, { title: 1, slug: 1, description: 1 } );
 
     if ( ! pass )
       return;
@@ -306,8 +345,16 @@ Meteor.methods({
         subject: subject, 
         html: html 
       };
-    
-    sendEmail(options);
+    Meteor.defer( function() {
+      try {
+        sendEmail( options );
+      }
+      catch ( error ) {
+        console.log( options.to );
+        console.log( options.subject );
+        console.log( error );
+      }
+    });
   },
   sendCourseFullTrainerEmail: function (options) {
     check(options, {
@@ -356,7 +403,16 @@ Meteor.methods({
         html: html 
       };
     
-    sendEmail(options);
+    Meteor.defer( function() {
+      try {
+        sendEmail( options );
+      }
+      catch ( error ) {
+        console.log( options.to );
+        console.log( options.subject );
+        console.log( error );
+      }
+    });
   },
   sendCourseFullParticipantsEmail: function (options) {
     check(options, {
@@ -424,7 +480,16 @@ Meteor.methods({
         html: html 
       };
       
-      sendEmail(options);
+      Meteor.defer( function() {
+        try {
+          sendEmail( options );
+        }
+        catch ( error ) {
+          console.log( options.to );
+          console.log( options.subject );
+          console.log( error );
+        }
+      });
     });
   }
 });

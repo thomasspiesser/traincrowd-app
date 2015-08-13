@@ -12,20 +12,6 @@ Template.userCourses.helpers({
   hostedCourses: function () {
     return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, description:1, categories:1, aims:1, maxParticipants:1, fee:1, rating:1, isPublic:1, slug:1, hasPublishRequest:1}, sort:{isPublic:-1}} );
   },
-  inquiredCourses: function () {
-    var inquired = Inquired.find( { inquirer: Meteor.userId() }, {fields: {course:1, inquiredDates:1}} ).fetch();
-    if (inquired.length) {
-      for (var i = 0; i < inquired.length; i++) {
-        var courseId = inquired[i].course;
-        var course = Courses.findOne( { _id: courseId }, {fields: {imageId:1, title:1, rating:1, slug:1}} );
-        delete course._id;
-        _.extend(inquired[i],course);
-      }
-      return inquired;
-    }
-    else
-      return false;
-  },
   currentCourses: function () {
     var current = Current.find( { participants: Meteor.userId() }, { fields: { course: 1, courseDate: 1 } } ).fetch();
 

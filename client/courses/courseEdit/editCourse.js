@@ -27,7 +27,7 @@ Template.editCourse.events({ 
   'click .dynamic-template-selector': function ( event ) {
     Session.set( 'editCourseTemplate', event.currentTarget.id );
 
-    $('.dynamic-template-selector').parent().removeClass('active');
+    $( '.dynamic-template-selector' ).parent().removeClass('active');
     $( event.currentTarget ).parent().addClass('active');
   }
 });

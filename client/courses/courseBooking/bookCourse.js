@@ -29,15 +29,6 @@ Template.bookCourse.helpers({
   }
 });
 
-// Template.bookCourse.events({ 
-//   'click .dynamic-template-selector': function (event) {
-//     Session.set('bookCourseTemplate', event.currentTarget.id);
-
-//     $('.progress-tracker').removeClass('active').addClass('inactive');
-//     $(event.currentTarget).children('.progress-tracker').removeClass('inactive').addClass('active');
-//   }
-// });
-
 //////////// paymentModal template /////////
 
 Template.paymentModal.helpers({

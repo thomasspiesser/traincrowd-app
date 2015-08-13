@@ -13,8 +13,10 @@ Template.editCourseDetails.events({
 
     Session.set('editCourseTemplate', "editCourseCosts");
 
-    $('#editCourseDetails').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editCourseCosts').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editCourseDetails').parent().removeClass('active');
+    $('#editCourseCosts').parent().addClass('active');
+
+    return false;
   }
 });
 

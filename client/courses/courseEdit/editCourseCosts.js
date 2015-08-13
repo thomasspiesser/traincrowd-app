@@ -45,8 +45,10 @@ Template.editCourseCosts.events({
 
     Session.set('editCourseTemplate', "editCourseDates");
 
-    $('#editCourseCosts').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editCourseDates').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editCourseCosts').parent().removeClass('active');
+    $('#editCourseDates').parent().addClass('active');
+
+    return false;
   },
   'input #edit-course-fee': function (event, template) {
     Session.set("courseFee", event.currentTarget.value);

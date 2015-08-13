@@ -69,11 +69,11 @@
           <a href="#" class="dynamic-template-selector" id="editCoursePreview">
             <span class="fa-stack fa-lg">
               <span class="fa fa-circle-thin fa-stack-2x"></span>
-              {{ #if deservesCheckCoursePreview }}
+              {{ #if this.isPublic }}
                 <span class="fa fa-check fa-stack-1x"></span>
               {{ /if }}
             </span>
-            <span class="step-text">Veröffentlichen</span>
+            <span class="step-text">Vorschau</span>
           </a>
         </div>
 

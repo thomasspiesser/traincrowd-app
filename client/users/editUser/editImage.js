@@ -30,7 +30,7 @@ Template.editImage.events({
           toastr.error( error.message );
         }
         else {
-          Meteor.call('updateSingleUserField', { id: "", argName: 'imageId', argValue: downloadUrl }, function (error) {
+          Meteor.call('updateSingleUserField', { id: "", argName: 'imageId', argValue: encodeURI( downloadUrl ) }, function (error) {
             if (error) 
               toastr.error( error.reason );
           });

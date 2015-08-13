@@ -17,10 +17,7 @@ Template.editCourseDescription.helpers({
     var upload = uploader.get();
     if (upload)
       return Math.round(upload.progress() * 100) || 0;
-  },
-  // imageId: function () {
-  //   return this.uploader.url(true);
-  // }
+  }
 });
 
 var lazysaveCourseTitle = _.debounce( function ( args ) {
@@ -88,8 +85,8 @@ Template.editCourseDescription.events({
     
     Session.set('editCourseTemplate', "editCourseDetails");
 
-    $('#editCourseDescription').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editCourseDetails').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editCourseDescription').parent().removeClass('active');
+    $('#editCourseDetails').parent().addClass('active');
 
     return false;
   },
@@ -112,7 +109,7 @@ Template.editCourseDescription.events({
           toastr.error( error.message );
         }
         else {
-          Meteor.call('updateSingleCourseField', { id: self._id, argName: 'imageId', argValue: downloadUrl }, function (error) {
+          Meteor.call('updateSingleCourseField', { id: self._id, argName: 'imageId', argValue: encodeURI( downloadUrl ) }, function (error) {
             if (error) 
               toastr.error( error.reason );
           });

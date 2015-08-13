@@ -19,8 +19,10 @@ Template.editCourseLogistics.events({
 
     Session.set('editCourseTemplate', "editCoursePreview");
 
-    $('#editCourseLogistics').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editCoursePreview').children('.progress-tracker').removeClass('inactive').addClass('active');    
+    $('#editCourseLogistics').parent().removeClass('active');
+    $('#editCoursePreview').parent().addClass('active');  
+
+    return false;
   },
   'change #edit-course-noLocation': function (event) {
     Session.set("noLocation", event.target.checked);

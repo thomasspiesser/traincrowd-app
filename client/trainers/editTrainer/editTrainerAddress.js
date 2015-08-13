@@ -15,8 +15,8 @@ Template.editTrainerAddress.events({
 
     Session.set('editTrainerTemplate', "editTrainerAccount");
 
-    $('#editTrainerAddress').children('.progress-tracker').removeClass('active').addClass('inactive');
-    $('#editTrainerAccount').children('.progress-tracker').removeClass('inactive').addClass('active');
+    $('#editTrainerAddress').parent().removeClass('active');
+    $('#editTrainerAccount').parent().addClass('active');
 
     return false;
   }

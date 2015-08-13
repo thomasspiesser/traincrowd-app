@@ -1,5 +1,4 @@
 <template name="userCourses">
-
   <div class="separator separator-inverted">
     <h2>Meine Kurse</h2>
   </div>
@@ -54,35 +53,8 @@
       </div>
 
 
-      {{#if inquiredCourses}}
-      <div class="row">
-        <div class="col-md-12">
-          <h3>Angefragte Kurse</h3>
-          <table class='table'>
-            <thead>
-              <tr>
-                <td></td>
-                <td>Titel</td>
-                <td>Angefragte Daten</td>
-                <td>Bewertung</td>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each inquiredCourses}}
-              <tr>
-                <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
-                <td>{{inquiredDates}}</td>
-                <td>
-                  <div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                </td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
 
-        </div>
-      </div>
-      {{/if}} {{#if currentCourses}}
+      {{#if currentCourses}}
       <div class="row">
         <div class="col-md-12">
           <h3>Gebuchte Kurse</h3>
