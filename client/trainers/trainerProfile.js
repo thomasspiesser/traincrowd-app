@@ -3,6 +3,14 @@ Template.trainerProfile.rendered = function () {
 };
 
 Template.trainerProfile.helpers({
+  shareData: function () {
+    var data = {
+      title: this.profile.name,
+      description: this.profile.description,
+      url: Meteor.absoluteUrl() + 'profile/' + this._id
+    };
+    return data;
+  },
   isPublic: function () {
     return this.isPublic;
   },
@@ -39,6 +47,8 @@ Template.trainerProfile.events({
           toastr.success( 'Anfrage zur Freigabe gesendet.' );
       });
     }
+  },
+  'click .share-open': function (event, template) {
+    $(event.currentTarget).next().toggleClass('in');
   }
 });
-
