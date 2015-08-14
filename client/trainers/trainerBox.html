@@ -14,15 +14,25 @@
   <div class="box-content">
     {{ descriptionPreview }}
   </div>
+
+      
   <div class="box-footer">
-    <div class="box-footer-left">
-      <a href="" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
-    </div>
-    <div class="box-footer-center">
-      <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i>
-    </div>
-    <div class="box-footer-right">
-      <button type="button" class="btn btn-dark-blue btn-square"><i class="fa fa-arrow-right"></i></button>
-    </div>
+    <span class="box-footer-left">
+      <div class="share-container ">
+        <div class="share-open">
+          <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+        </div>
+        <div class="share-btns">
+          {{ > share shareData }}
+        </div>
+      </div>
+      <!-- <a href="" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a> -->
+    </span>
+    <span class="box-footer-center">
+      <div class="rateit rate-star dark-green" data-rateit-value="{{ profile.rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+    </span>
+    <span class="box-footer-right">
+      <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}" type="button" class="btn btn-dark-blue btn-square"><i class="fa fa-arrow-right"></i></a>
+    </span>
   </div>
 </template>

@@ -656,24 +656,23 @@ ul.sort {
     }
   }
   .box-footer {
+    position: relative;
+    overflow: hidden;
+    
     background-color: #fff;
-    display: table;
     width: 100%;
 
-    .box-footer-left, .box-footer-center, .box-footer-right {
-      display: table-cell;
+    .box-footer-right {
+      float: right;
     }
     .box-footer-left, .box-footer-right {
       width: 40px;
     }
     .box-footer-center {
+      position: absolute;
+      width: 100%;
       text-align: center;
       padding-top: 10px;
-    }
-
-    .fa-star, .fa-star-o, .fa-star-half-o {
-      font-size: 16px;
-      color: @dark-blue;
     }
   }
 }
