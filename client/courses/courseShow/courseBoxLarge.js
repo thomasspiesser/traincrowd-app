@@ -33,6 +33,10 @@ Template.courseBoxLarge.helpers({
     var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1 } } ).fetch();
     return this.maxParticipants - currents[0].participants.length;
   },
+  eventConfirmed: function () {
+    var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1, confirmed: 1 } } ).fetch();
+    return currents[0].confirmed ? true : false;
+  },
   titlePreview: function () {
     if ( !this.title ) {
       return false;

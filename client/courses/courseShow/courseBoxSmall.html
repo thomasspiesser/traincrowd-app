@@ -38,20 +38,27 @@
         <div class="btn-bar-left">
           <ul>
             <li><i class="fa fa-calendar"></i></li>
+            <li><i class="fa fa-clock-o"></i></li>
             <li><i class="fa fa-map-marker"></i></li>
             <li><i class="fa fa-users"></i></li>
-            <li><i class="fa fa-clock-o"></i></li>
             <li><i class="fa fa-euro"></i></li>
           </ul>
         </div>
         <div class="btn-bar-right">
           <ul>
             <li> {{ nextEvent }} </li>
+            <li> {{ duration }} Tag(e) </li>
             <li> {{ #if city }} {{ city }} {{ else }} Ort steht noch nicht fest {{ /if }}</li>
             <li>
               {{ #if hasDate }}
                 <div class="progress progress-inverted">
-                  <span class="progress-text">noch {{ openSpots }} Plätze frei</span>
+                  <span class="progress-text">
+                    {{ #if eventConfirmed }}
+                      YEAH! Kurs findet statt <i class="fa fa-check"></i>
+                    {{ else }}
+                      noch {{ openSpots }} Plätze frei
+                    {{ /if }}
+                  </span>
                   <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull }}%; min-width: 0.2em;">
                   </span>
                 </div>
@@ -60,7 +67,6 @@
               {{ /if }}
             </li>
 
-            <li>24 hours total</li>
             <li> {{ feePP }} pP </li>
           </ul>
         </div>
