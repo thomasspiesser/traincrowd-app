@@ -110,12 +110,14 @@ Meteor.methods({
 
     var urlYES = Meteor.absoluteUrl('course/' + course.slug + '/confirm-event/' + options.token);
     var urlNO = Meteor.absoluteUrl('course/' + course.slug + '/decline-event/' + options.token);
+
+    var commision = calcCommision( course.fee );    
     var dataContext = {
       name: name,
       course: course,
       courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
       participantsLength: current.participants.length,
-      feeReducedTotal: (course.fee / course.maxParticipants * current.participants.length).toFixed(2),
+      feeReducedTotal: ( ( course.fee + commision ) / course.maxParticipants * current.participants.length ).toFixed(0),
       urlYES: urlYES,
       urlNO: urlNO
     };

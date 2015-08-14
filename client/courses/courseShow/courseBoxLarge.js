@@ -23,7 +23,7 @@ Template.courseBoxLarge.helpers({
   },
   feePP: function () {
     var commision = calcCommision( this.fee );
-    return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(2);
+    return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(0);
   },
   percentFull: function () {
     var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1 } } ).fetch();

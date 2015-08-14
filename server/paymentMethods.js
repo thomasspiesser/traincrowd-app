@@ -2,7 +2,7 @@ var secret = Meteor.settings.paymill.testPrivateKey;
 paymill = paymill(secret);
 
 Meteor.methods({
-  createTransaction: function (options) {
+  createTransaction: function ( options ) {
     check(options, {
       token: NonEmptyString,
       amount: Number,

@@ -14,13 +14,13 @@ Template.editCourseCosts.helpers({
     if (Session.equals("courseMaxParticipants", false) )
       return;
     var commision = calcCommision( Session.get("courseFee") );
-    var fee = parseFloat( Session.get("courseFee") );
-    return ( ( fee + commision ) / Session.get("courseMaxParticipants") ).toFixed(2);
+    var fee = parseInt( Session.get("courseFee") );
+    return ( ( fee + commision ) / Session.get("courseMaxParticipants") ).toFixed(0);
   },
   tcCommision: function () {
-    if (Session.equals("courseMaxParticipants", false) )
+    if ( Session.equals("courseMaxParticipants", false ) )
       return;
-    return calcCommision( Session.get("courseFee") ).toFixed(2);
+    return calcCommision( Session.get("courseFee") ).toFixed(0);
   },
 });
 
@@ -29,7 +29,7 @@ Template.editCourseCosts.events({
     var field = event.currentTarget.id.split('-')[2];
     $('#edit-course-'+field).parent().removeClass('has-error');
     $('#help-text-edit-course-'+field).text('speichern...').fadeIn(300);
-    var val = parseInt(event.currentTarget.value);
+    var val = parseInt( event.currentTarget.value );
     lazysaveCourseField( { id: this._id, argName: field, argValue: val } );
   },
   'click #saveEditCourseCosts': function (event, template) {
@@ -51,10 +51,12 @@ Template.editCourseCosts.events({
     return false;
   },
   'input #edit-course-fee': function (event, template) {
-    Session.set("courseFee", event.currentTarget.value);
+    var val = parseInt( event.currentTarget.value );
+    Session.set("courseFee", val );
   },
   'input #edit-course-maxParticipants': function (event, template) {
-    Session.set("courseMaxParticipants", event.currentTarget.value);
+    var val = parseInt( event.currentTarget.value );
+    Session.set("courseMaxParticipants", val );
   }
 });
 
