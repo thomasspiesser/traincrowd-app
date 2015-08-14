@@ -13,12 +13,20 @@
         </div>
       </div>
       <div class="col-md-2">
-        {{> filter}}
+        <!-- {{> filter}} -->
       </div>
     </div>
 
     {{#ifEsIsSearching index="courses"}}
-      <div>Suche...</div>
+      <section class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-default text-center">
+              <h5>Suche...</h5>
+            </div>
+          </div>
+        </div>
+      </section>
     {{else}}
       {{#esEach index="courses"}}
         {{ > courseBoxLarge }}
@@ -32,11 +40,15 @@
     {{/ifEsIsSearching}}
 
     {{#ifEsHasNoResults index="courses"}}
-      <div class="row">
-        <div class="col-lg-12 text-center">
-            <div class="no-results">Keine Dokumente gefunden!</div>
+      <section class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-default text-center">
+              <h5>Ihre Suche ergab keinen Treffer.</h5>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     {{/ifEsHasNoResults}}
 
   </div>

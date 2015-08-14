@@ -16,7 +16,15 @@
 
     <div class="row">
     {{#ifEsIsSearching index="trainer"}}
-      <div>Suche...</div>
+      <section class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-default text-center">
+              <h5>Suche...</h5>
+            </div>
+          </div>
+        </div>
+      </section>
     {{else}}
       {{#esEach index="trainer"}}
         <div class="col-md-3 col-sm-6 trainerbox">
@@ -30,7 +38,15 @@
     </div>
 
     {{#ifEsHasNoResults index="trainer"}}
-      <div class="no-results">Keine Dokumente gefunden!</div>
+      <section class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-default text-center">
+              <h5>Ihre Suche ergab keinen Treffer.</h5>
+            </div>
+          </div>
+        </div>
+      </section>
     {{/ifEsHasNoResults}}
   </div>
 </template>
