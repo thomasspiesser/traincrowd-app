@@ -48,6 +48,6 @@ Template.paymentModal.helpers({
   },
   feePP: function () {
     var commision = calcCommision( this.fee );
-    return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(2);
+    return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(0);
   }
 });  
