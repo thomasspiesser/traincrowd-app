@@ -7,31 +7,31 @@
         <div class="col-md-4">
           <div class="well">
             <h5>Rechnungsadresse</h5>
-            {{ #with billingAddress }} {{ #if firm }} {{ firm }}
-            <br> {{ /if }} {{ ../customerName }}
-            <br> {{ street }} {{ streetNumber }}
-            <br> {{ plz }}, {{ city }}
-            <br> {{ #if streetAdditional }} {{ streetAdditional }}
-            <br> {{ /if }} {{ /with }}
-            <a href="#" id="change-billingAddress">Rechnungsadresse ändern</a>
+            {{ #with billingAddress }} 
+              {{ #if firm }} {{ firm }} <br> {{ /if }} 
+              {{ ../customerName }} <br>
+              {{ street }} {{ streetNumber }} <br>
+              {{ plz }} {{ city }} <br>
+              {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }} 
+            {{ /with }}
+            <br>
+            <p><a href="#" id="change-billingAddress">Rechnungsadresse ändern</a></p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="well">
             <h5>Kontaktinformationen</h5>
-            E-Mail: {{ useremail currentUser._id }}
-            <br> Telefon: {{ currentUser.profile.phone }}
-            <br> Mobil: {{ currentUser.profile.mobile }}
-            <br>
-            <a href="#" id="change-contact">Kontaktinformationen ändern</a>
+            E-Mail: {{ useremail currentUser._id }} <br>
+            Telefon: {{ currentUser.profile.phone }} <br>
+            Mobil: {{ currentUser.profile.mobile }} <br><br>
+            <p><a href="#" id="change-contact">Kontaktinformationen ändern</a></p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="well">
             <h5>Zahlungsart</h5>
-            Zahlungsart: {{ paymentMethod }}
-            <br>
-            <a href="#" id="change-paymentMethod">Zahlungsart ändern</a>
+            Zahlungsart: {{ paymentMethod }} <br><br>
+            <p><a href="#" id="change-paymentMethod">Zahlungsart ändern</a></p>
           </div>
         </div>
       </div>

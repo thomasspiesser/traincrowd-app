@@ -13,7 +13,7 @@ Meteor.methods({
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
 
     var fields = { eventId: 1, course: 1, courseFeePP: 1 };
-    var booking = Bookings.findOne( { _id: options.bookingId } );
+    var booking = Bookings.findOne( { _id: options.bookingId }, { fields: fields } );
     checkExistance( booking, "Buchung", fields );
 
     // the next one works only for 1 person, need to adapt for paying 2 or more seats
@@ -66,6 +66,10 @@ Meteor.methods({
         Bookings.update( { _id: booking._id }, { $set: modifier }, function ( error, result ) {
           if ( error ) {
             console.log( error );
+            console.log( 'modifier: ' + modifier );
+            console.log( 'booking-id: ' + booking._id );
+            console.log( 'event-id: ' + currentId );
+            console.log( 'user-id: ' + this.userId );
           }
         });
 
@@ -103,6 +107,88 @@ Meteor.methods({
         Current.update( { _id: currentId }, { $pull: { participants: this.userId } } );
         throw new Meteor.Error( error.message );
       }
+    }
+    else {
+      throw new Meteor.Error("Event ist leider mittlerweile schon ausgebucht!");
+    } 
+  },
+  createInvoice: function ( options ) {
+    check(options, {
+      bookingId: NonEmptyString
+    });
+    
+    if (! this.userId)
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein");
+
+    var fields = { eventId: 1, course: 1, courseFeePP: 1 };
+    var booking = Bookings.findOne( { _id: options.bookingId }, { fields: fields } );
+    checkExistance( booking, "Buchung", fields );
+
+    var currentId = booking.eventId;
+    var courseId = booking.course;
+
+    fields = { participants: 1 };
+    var current = Current.findOne( { _id: currentId }, { fields: fields } );
+    checkExistance( current, "Event", fields );
+
+    fields = { maxParticipants: 1 };
+    var course = Courses.findOne( { _id: courseId }, { fields: fields } );
+    checkExistance( course, "Kurs", fields );
+
+    var beforeBooking = current.participants.length;
+    var afterBooking = current.participants.length + 1;
+
+    // check if event is already booked out
+    if ( beforeBooking < course.maxParticipants ) {
+      // good, there are places available in this course
+      // here i need to add the participant to block the course-place already for time of payment and remove the participant again if payment is no good ( error ) to unblock place (let others book this place)
+      Current.update( { _id: currentId }, { $push: { participants: this.userId } } );
+
+      // update booking
+      var modifier = {
+        transaction     :  'invoice open',
+        transactionDate :  new Date(),
+        amount          :  0,
+        bookingStatus   :  'completed'
+      };
+
+      // non-blocking coz with callback, also error doesnt end methods
+      Bookings.update( { _id: booking._id }, { $set: modifier }, function ( error, result ) {
+        if ( error ) {
+          console.log( error );
+          console.log( 'booking-id: ' + booking._id );
+          console.log( 'event-id: ' + currentId );
+          console.log( 'user-id: ' + this.userId );
+        }
+      });
+
+      // inform participant via email - with callback: may return error but rest of method will run anyway, w/o callback on error will throw, methods ends
+      Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function ( error, result ) {
+        if ( error ) {
+          console.log( error );
+        }
+      });
+
+      // check if course is full now:
+      if ( afterBooking === course.maxParticipants ) {
+        // generate token for trainer to confirm the event 
+        var token = Random.hexString(64); 
+        // save in current
+        Current.update( { _id : currentId }, { $set: { token: token } }, function ( error, result ) {
+          if ( error ) {
+            console.log( error );
+          }
+          else {
+            // inform trainer (owner) that current event is full so that he can confirm the event
+            Meteor.call('sendCourseFullTrainerEmail', { currentId: currentId, course: course._id, token: token }, function ( error, result ) {
+              if ( error ) {
+                console.log( error );
+              }
+            });
+          }
+        });
+      }
+      return;
     }
     else {
       throw new Meteor.Error("Event ist leider mittlerweile schon ausgebucht!");

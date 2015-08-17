@@ -4,6 +4,9 @@ Template.bookCourseThankYou.onCreated(function () {
 });
 
 Template.bookCourseThankYou.helpers({
+  invoice: function () {
+    return this.paymentMethod === 'Rechnung';
+  },
 	shareData: function () {
 		var course = Courses.findOne( { _id : this.course }, { fields: { title: 1, description: 1, slug: 1 } } );
     var data = {

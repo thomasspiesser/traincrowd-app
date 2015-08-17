@@ -4,7 +4,12 @@
       <div class="row">
         <div class="col-md-12 text-center">
           <h2>Buchung erfolgreich - Vielen Dank!</h2>
-          <p>Vielen Dank für Ihre Buchung auf traincrowd. Teilen Sie Ihren Schritt zum persönlichen Erfolg</p>
+          <p>
+            Vielen Dank für Ihre Buchung auf traincrowd. Teilen Sie Ihren Schritt zum persönlichen Erfolg
+          </p>
+          <p>
+            {{ #if Template.subscriptionsReady }} {{ > share shareData }} {{ /if }}
+          </p> 
         </div>
       </div>
       <div class="row">
@@ -12,7 +17,9 @@
 
           <h3>Hier nochmal die Einzelheiten Ihrer Buchung:</h3>
           <p>
-            <strong>Titel</strong>: {{ courseTitle }}</p>
+            <strong>Kurstitel</strong>: <br>
+            {{ courseTitle }}
+          </p>
           <p>
             <strong>Datum</strong>:
             <ul class="comma-list">
@@ -22,17 +29,28 @@
             </ul>
           </p>
           <p>
-            <strong>Trainer</strong>: {{ trainerName }}</p>
+            <strong>Trainer</strong>: <br>
+            {{ trainerName }}
+          </p>
+          {{ #unless invoice }}
           <p>
-            <strong>Zahlbetrag</strong>: {{ amount }} Euro</p>
-          <p><strong>Bezahlt mit {{ paymentMethod }}</strong></p>
+            <strong>Zahlbetrag</strong>: <br>
+            {{ amount }} Euro
+          </p>
+          {{ /unless }}
           <p>
-            {{ #with billingAddress }} {{ #if firm }} {{ firm }}
-            <br> {{ /if }} {{ ../customerName }}
-            <br> {{ street }} {{ streetNumber }}
-            <br> {{ plz }}, {{ city }}
-            <br> {{ #if streetAdditional }} {{ streetAdditional }}
-            <br> {{ /if }} {{ /with }}
+            <strong>Zahlungsart</strong>: <br>
+            {{ paymentMethod }}
+          </p>
+          <p>
+            <strong>Rechnungsadresse</strong>: <br>
+            {{ #with billingAddress }} 
+              {{ #if firm }} {{ firm }} <br> {{ /if }} 
+              {{ ../customerName }} <br>
+              {{ street }} {{ streetNumber }} <br>
+              {{ plz }} {{ city }} <br>
+              {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }} 
+            {{ /with }}
           </p>
         </div>
       </div>
@@ -42,14 +60,13 @@
           <!-- <p> Auf der <a href="{{pathFor 'user.courses'}}">Meine Kurse</a> Seite finden Sie eine Übersicht Ihrer Buchungen.</p> -->
 
           {{ #if currentUser }}
-          <p> Damit Ihr Trainer sich optimal auf Sie vorbereiten kann, ermöglichen wir es Ihnen, ein paar Angaben zu Ihrer Person zu machen - hier geht es zu <a href="{{ pathFor 'edit.user' }}">Ihrem Profil</a>.</p>
+          <p> Damit Ihr Trainer sich optimal auf Sie vorbereiten kann, ermöglichen wir es Ihnen, ein paar Angaben zu Ihrer Person zu machen - bitte tun Sie dies in <a href="{{ pathFor 'edit.user' }}">Ihrem Profil</a>.</p>
           {{ /if }}
         </div>
       </div>
       <hr>
       <div class="row">
         <div class="col-md-12">
-          <p>{{ #if Template.subscriptionsReady }} {{ > share shareData }} {{ /if }}</p>
           <p>Hier geht es zurück auf die <a href="/">homepage</a>.</p>
         </div>
       </div>

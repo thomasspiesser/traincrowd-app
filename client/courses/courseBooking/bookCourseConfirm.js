@@ -25,13 +25,28 @@ Template.bookCourseConfirm.events({
       return false;
     }
     if ( template.find('#subscribe-newsletter').checked ) {
-      Meteor.call('updateSingleUserField', { argName: 'newsletter', argValue: true }, function ( error, result ) {
+      Meteor.call( 'updateSingleUserField', { argName: 'newsletter', argValue: true }, function ( error, result ) {
         if ( error ) {
           toastr.error( 'Fehler Newsletter: ' + error.reason );
           return false;
         }
       });
     }
-    Modal.show( 'payModal', { bookingId: this._id, feePP: this.courseFeePP } );
+    var bookingId = this._id;
+    switch ( this.paymentMethod ) {
+      case 'Rechnung':
+        Meteor.call( 'createInvoice', { bookingId: bookingId }, function ( error, result ) {
+          if ( error )
+            toastr.error( error.reason );
+          else {
+            toastr.success('Buchung erfolgreich.');
+            Router.go('book.course.thank.you', { _id: bookingId });
+          }
+        });
+        break;
+      case 'Kreditkarte':
+        Modal.show( 'payModal', { bookingId: bookingId, feePP: this.courseFeePP } );
+        break;
+    }
   }
 });
