@@ -422,15 +422,13 @@ Meteor.methods({
       course: String,
       trainerEmail: String,
       trainerName: String,
-      street: String,
-      streetAdditional: String,
-      plz: String,
+      begin: String,
       personalMessage: String
     });
 
-    var fields = { title: 1 };
+    var fields = { title: 1, street: 1, streetNumber: 1, plz: 1, city: 1, streetAdditional: 1, firm: 1 };
     var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
-    var pass = checkExistanceSilent( course, "course", options.course, fields );
+    var pass = checkExistanceSilent( course, "course", options.course, _.omit( fields, 'streetAdditional', 'firm' ) );
 
     if ( ! pass )
       return;
@@ -444,32 +442,30 @@ Meteor.methods({
 
     var dataContext = {
       course: course,
-      courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
+      courseDate: moment( current.courseDate[0] ).format( "DD.MM.YYYY" ),
       trainerEmail: options.trainerEmail,
       trainerName: options.trainerName,
-      street: options.street,
-      streetAdditional: options.streetAdditional,
-      plz: options.plz,
+      begin: options.begin,
       personalMessage: options.personalMessage
     };
 
-    _.each(current.participants, function(participant) {
+    _.each( current.participants, function( participant ) {
       var user = Meteor.users.findOne( participant );
       if ( ! user ) {
         // don't throw new Meteor.Error("Can't find user");
         // still wanna email the others
-        console.log("Can't find user: "+participant);
+        console.log( "Can't find user: " + participant );
         return; // jump out of current iteration, keeps looping
       }
       var email;
-      if (user.emails && user.emails[0])
+      if ( user.emails && user.emails[0] )
         email = user.emails[0].address;
       else {
         // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
-        console.log("Don't have an Email for user: " + participant);
+        console.log( "Don't have an Email for user: " + participant);
         return;
       }
-      var name = displayName(user);
+      var name = displayName( user );
 
       dataContext.name = name;
 

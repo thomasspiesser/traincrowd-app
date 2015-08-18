@@ -1,73 +1,64 @@
 <template name="courseConfirm">
-  <div class="container notHome">
-    <div class="row">
-      
-        <div class="col-lg-8 col-lg-offset-2">
-          <div style="box-shadow: 0px 0px 8px #4C4E61; padding:15px;">
-            <h2>Event Bestätigen</h2>
-            <h4>Kurs '{{course.title}}' findet statt am {{#each formatedDates}}{{this}} {{/each}}.</h4>
-            {{> courseConfirmForm}}
-          </div>
-        </div>
-    </div>
+  <div class="separator separator-inverted">
+    <h2>Event Bestätigen</h2>
   </div>
+
+  <section class="container">
+    <div class="panel panel-inverted">
+      <div class="text-center">
+        <h3 style="margin-top: 10px;">Kurs: {{ course.title }}</h3>
+        <h3 style="margin-top: 10px;">Wann: {{ #each formatedDates }} {{ this }} {{ /each }}</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          {{ > courseConfirmForm }}
+        </div>
+      </div>
+      
+    </div>
+  </section>
 </template>
 
 <template name="courseConfirmForm">
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-        <label for="confirmCourseNameResponsible" class="control-label">Ansprechperson Name</label>
+        <label for="confirmCourseNameResponsible" class="control-label">Name Ansprechperson</label>
         <input type="text" class="form-control" id="confirmCourseNameResponsible" value="{{course.ownerName}}">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="confirmCourseEmailResponsible" class="control-label">Email</label>
+        <label for="confirmCourseEmailResponsible" class="control-label">Email Ansprechperson</label>
         <input type="text" class="form-control" id="confirmCourseEmailResponsible" value="{{email course.owner}}">
       </div>
     </div>
-  </div>
+  </div> <!-- row -->
 
   <hr>
 
   <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="confirmCourseStreet" class="control-label">Strasse</label>
-        <input type="text" class="form-control" id="confirmCourseStreet" value="{{course.street}}">
-      </div>
-      <div class="form-group">
-        <label for="confirmCourseStreetAdditional" class="control-label">Adresszusatz</label>
-        <input type="text" class="form-control" id="confirmCourseStreetAdditional" value="{{course.streetAdditional}}">
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="confirmCoursePLZ" class="control-label">PLZ</label>
-            <input type="number" class="form-control" id="confirmCoursePLZ" value="{{course.plz}}">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="confirmCourseCity" class="control-label">Stadt</label>
-            <select class="form-control">
-              <option value="Berlin">Berlin</option>
-            </select>
-          </div>
-        </div>
-      </div>
+    <div class="col-md-7">
+
+      {{ > editAddress data=course collection='Course' }}
+
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
+      
+      <div class="form-group">
+        <label for="confirmCourseBegin" class="control-label">Kursbeginn 1. Tag</label>
+        <input type="text" class="form-control" id="confirmCourseBegin" placeholder="z.B. 08:00">
+      </div>
+
       <div class="form-group">
         <label for="confirmCoursePersonalMessage" class="control-label">Persönliche Nachricht and die Teilnehmer</label>
-        <textarea class="form-control" id="confirmCoursePersonalMessage" rows="8"></textarea>
+        <textarea class="form-control" id="confirmCoursePersonalMessage" rows="10"></textarea>
       </div>
     </div>
-  </div>
-  
+  </div> <!-- row -->
 
-  <div class="form-group" style="margin-bottom:5%;">
-    <button type="button" class="btn btn-primary pull-right" id="saveConfirmCourse"><i class="fa fa-send"></i> Bestätigen</button>
+  <div class="form-group">
+    <button type="button" class="btn btn-red pull-right" id="saveConfirmCourse">Event Bestätigen</button>
   </div>
 </template>
