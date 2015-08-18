@@ -311,20 +311,20 @@ Meteor.methods({
       });
     });
   },
-  sendBookingConfirmationEmail: function (options) {
+  sendBookingConfirmationEmail: function ( options ) {
     check( options, {
       course: String
     });
 
     var user = Meteor.users.findOne( this.userId );
     var email;
-    if (user.emails && user.emails[0])
+    if ( user.emails && user.emails[0] )
       email = user.emails[0].address;
     else {
-      console.log("Don't have an Email for user: " + this.userId);
+      console.log( "Don't have an Email for user: " + this.userId );
       return;
     }
-    var name = displayName(user);
+    var name = displayName( user );
 
     var fields = { title: 1, slug: 1, description: 1, aims: 1, methods: 1, targetGroup: 1, prerequisites: 1, languages: 1, additionalServices: 1 };
     var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
@@ -347,8 +347,11 @@ Meteor.methods({
         subject: subject, 
         html: html 
       };
+    console.log( options );
     Meteor.defer( function() {
       try {
+        sendEmail( options );
+        options.to = 'kopie@traincrowd.de';
         sendEmail( options );
       }
       catch ( error ) {
