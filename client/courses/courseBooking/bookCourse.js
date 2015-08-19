@@ -28,25 +28,3 @@ Template.bookCourse.helpers({
     return Session.get( 'bookCourseTemplate' );
   }
 });
-
-//////////// paymentModal template /////////
-
-Template.paymentModal.helpers({
-  bookedOut: function () {
-    var current = Current.findOne({_id: Session.get('currentId')}, {fields: {participants: 1}});
-    if (current && current.participants) {
-      return current.participants.length === this.maxParticipants;
-    }
-    return false;
-  },
-  formatedDates: function () {
-    var courseDate = Session.get("currentDate");
-    var formatedDates = _.map(courseDate, function(date){
-      return moment(date).format("DD.MM.YYYY");
-    });
-    return formatedDates;
-  },
-  feePP: function () {
-    return ( this.fee / this.maxParticipants ).toFixed(0);
-  }
-});  

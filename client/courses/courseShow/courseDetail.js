@@ -1,10 +1,6 @@
 Template.courseDetail.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip(); //initialize all tooltips in this template
   $('.rateit').rateit();
-  if ( Session.get('showBookingModalOnReturn') && Meteor.userId() ) {
-    Session.set('showBookingModalOnReturn', false);
-    $('#paymentModal').modal('show');
-  }
 };
 
 Template.courseDetail.helpers({
@@ -74,22 +70,11 @@ Template.courseDetail.events({
     var current = this;
     var course = Template.parentData(1);
     Meteor.call('createBooking', current._id, course._id, function (error, result) {
-      if(error)
+      if ( error )
         toastr.error( error.reason );
       else
         Router.go('book.course', { _id: result } );
     });
     return false;
-    Session.set("currentId", this._id);
-    Session.set("currentDate", this.courseDate);
-    if ( !Meteor.userId() ) {
-      Session.set('showBookingModalOnReturn', true);
-      Router.go('atSignUp');
-      return false;
-    }
-    else {
-      $('#paymentModal').modal('show');
-      return false;
-    }
   }
 });
