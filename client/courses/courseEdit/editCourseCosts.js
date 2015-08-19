@@ -13,15 +13,16 @@ Template.editCourseCosts.helpers({
   feePP: function () {
     if (Session.equals("courseMaxParticipants", false) )
       return;
-    var commision = calcCommision( Session.get("courseFee") );
+    // var commision = calcCommision( Session.get("courseFee") );
     var fee = parseInt( Session.get("courseFee") );
-    return ( ( fee + commision ) / Session.get("courseMaxParticipants") ).toFixed(0);
+    return ( fee / Session.get("courseMaxParticipants") ).toFixed(0);
   },
   tcCommision: function () {
-    if ( Session.equals("courseMaxParticipants", false ) )
-      return;
     return calcCommision( Session.get("courseFee") ).toFixed(0);
   },
+  trainerFee: function () {
+    return ( parseInt( Session.get("courseFee") ) - calcCommision( Session.get("courseFee") ) ).toFixed(0);
+  }
 });
 
 Template.editCourseCosts.events({

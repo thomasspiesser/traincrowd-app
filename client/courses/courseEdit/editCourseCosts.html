@@ -11,13 +11,7 @@
             <input type="number" class="form-control hoverCheck" id="editCourseMinParticipants" value="{{minParticipants}}">
           </div> -->
           <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="edit-course-maxParticipants" class="control-label">Teilnehmerzahl (Pflichtfeld)</label>
-                <input type="number" class="form-control hoverCheck" id="edit-course-maxParticipants" value="{{maxParticipants}}">
-                <span class="help-block" id="help-text-edit-course-maxParticipants"></span>
-              </div>
-            </div>
+            
             <div class="col-md-6">
               <div class="form-group">
                 <label for="edit-course-fee" class="control-label">Gesamtpreis brutto (Pflichtfeld)</label>
@@ -28,17 +22,29 @@
                 <span class="help-block" id="help-text-edit-course-fee"></span>
               </div>
             </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="edit-course-maxParticipants" class="control-label">Teilnehmerzahl (Pflichtfeld)</label>
+                <input type="number" class="form-control hoverCheck" id="edit-course-maxParticipants" value="{{maxParticipants}}">
+                <span class="help-block" id="help-text-edit-course-maxParticipants"></span>
+              </div>
+            </div>
+
           </div>
 
           <div class="row">
-            <div class="col-md-6 col-md-offset-6">
+            <div class="col-md-6">
               <div class="form-group">
-                <label for="showCommission" class="control-label">18% traincrowd Kommission</label>
+                <label for="showCommission" class="control-label">traincrowd Kommission (18%)</label>
                 <div class="input-group">
                   <input type="number" class="form-control hoverCheck" id="showCommission" value="{{tcCommision}}" readonly>
                   <div class="input-group-addon"><i class="fa fa-euro"></i></div>
                 </div>
               </div>
+            </div>
+
+            <div class="col-md-6">
               <div class="form-group">
                 <label for="showFeePP" class="control-label">Kurspreis pro Person</label>
                 <div class="input-group">
@@ -48,6 +54,22 @@
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="showFeePP" class="control-label">Sie erhalten</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="showTrainerFee" value="{{trainerFee}}" readonly>
+                  <div class="input-group-addon"><i class="fa fa-euro"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <a href="https://s3.eu-central-1.amazonaws.com/traincrowd-pdfs/Gebuehrenverzeichnis.pdf" target="_blank">weitere Informationen zu Preisen</a>
         </div>
 
         <div class="col-md-5">

@@ -36,8 +36,7 @@ Template.courseDetail.helpers({
       return moment(_.first(this.courseDate) ).format("DD.MM") + ' - ' + moment(_.last(this.courseDate) ).format("DD.MM.YYYY");
   },
   feePP: function () {
-    var commision = calcCommision( this.fee );
-    return ( ( this.fee + commision ) / this.maxParticipants ).toFixed(0);
+    return ( this.fee / this.maxParticipants ).toFixed(0);
   },
   percentFull: function (course) {
     // data context is current, which is why function get par: course

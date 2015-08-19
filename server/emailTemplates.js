@@ -94,7 +94,7 @@ Meteor.methods({
       console.log("Don't have an Email for course.owner: " + owner);
       return;
     }
-    var name = displayName(owner);
+    var name = displayName( owner );
 
     fields = { courseDate: 1, participants: 1 };
     var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
@@ -104,20 +104,22 @@ Meteor.methods({
       return;
 
     if ( ! current.participants.length ) {
-      console.log("Event: " + options.currentId + " doesn't have participants.");
+      console.log( "Event: " + options.currentId + " doesn't have participants." );
       return;
     }
 
-    var urlYES = Meteor.absoluteUrl('course/' + course.slug + '/confirm-event/' + options.token);
-    var urlNO = Meteor.absoluteUrl('course/' + course.slug + '/decline-event/' + options.token);
+    var urlYES = Meteor.absoluteUrl( 'course/' + course.slug + '/confirm-event/' + options.token );
+    var urlNO = Meteor.absoluteUrl( 'course/' + course.slug + '/decline-event/' + options.token );
 
-    var commision = calcCommision( course.fee );    
+    var feeReducedTotal = ( course.fee / course.maxParticipants * current.participants.length ).toFixed(0);
+    var commision = calcCommision( feeReducedTotal );
     var dataContext = {
       name: name,
       course: course,
       courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
       participantsLength: current.participants.length,
-      feeReducedTotal: ( ( course.fee + commision ) / course.maxParticipants * current.participants.length ).toFixed(0),
+      feeReducedTotal: feeReducedTotal,
+      commision: commision,
       urlYES: urlYES,
       urlNO: urlNO
     };
@@ -347,7 +349,7 @@ Meteor.methods({
         subject: subject, 
         html: html 
       };
-    console.log( options );
+
     Meteor.defer( function() {
       try {
         sendEmail( options );

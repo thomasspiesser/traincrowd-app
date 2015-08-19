@@ -28,9 +28,9 @@ hoverText = {
      // "Geben Sie bitte hier die maximale Anzahl von Teilnehmern für den Kurs an. Wenn mehr Teilnehmer als die Mindestteilnehmeranzahl Ihren Kurs buchen erhalten Sie je Teilnehmer zusätzlich Einnahmen:      und zwar den Kurspreis pro Teilnehmer abzüglich der traincrowd Kommission bis die Maximale Gruppengröße erreicht ist.",
      "Geben Sie bitte hier die gewünschte Anzahl von Teilnehmern für Ihren Kurs an. Wir informieren Sie, sobald sich die gewünschte Anzahl von Teilnehmern gefunden hat. Sollte diese Teilnehmerzahl zum Stichtag nicht erreicht werden, haben Sie die Option, den Kurs für entsprechend weniger Personen abzuhalten.",
     'edit-course-fee':
-      "Geben Sie hier Ihr Honorar, inkl. MwSt, für den gesamten Kurs an. traincrowd erhebt auf diesen Preis eine Kommission von 15% plus 3% Bezahlgebühr zuzüglich MwSt. Aus dem Gesamtpreis und der Teilnehmerzahl ergibt sich der Kurspreis pro Person, der auf der Kursseite angezeigt wird.",
+      "Geben Sie hier den Gesamtpreis, inkl. MwSt, für den Kurs an. Aus diesem Preis ergibt sich der Kurspreis pro Person, der auf der Kursseite angezeigt wird. traincrowd erhebt auf den Gesamtpreis eine Kommission von 18% (inkl MwSt). Die Kommission behalten wir ein und stellen Ihnen diese in Rechnung.",
     'edit-course-duration':
-      "Bitte runden Sie die Kursdauer auf halbe Tage auf oder ab.",
+      "Bitte geben Sie hier die Anzahl der Tage an, an denen der Kurs stattfindet.",
     'edit-course-events':
       "Geben Sie bitte alle Tage an, an denen der Kurs stattfindet. Wenn alle Tage ausgewählt sind, fügen Sie das Event hinzu.",
     // 'edit-course-AllowInquiry':
