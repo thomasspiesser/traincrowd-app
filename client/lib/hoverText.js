@@ -17,7 +17,7 @@ hoverText = {
     'edit-course-targetGroup':
       "Welche Berufsgruppen können besonders von Ihrem Kurs profitieren?",
     'edit-course-prerequisites':
-      "Soweit zutreffend, geben Sie bitte in Schlagworten an, welche Voraussetzungen Teilnehmer für den Kurs mitbringen müssen.",
+      "Welche Voraussetzungen müssen Teilnehmer für Ihren Kurs mitbringen?",
     'edit-course-languages':
       "Viele Teilnehmer sind an Weiterbildung auf Englisch, Spanisch und in anderen Sprachen interessiert. Bitte geben Sie hier die Sprache an, in der Sie diesen Kurs halten. Die beta-Version von traincrowd erlaubt nur eine Sprache pro Kurs. Falls Sie denselben Kurs auch in anderen Sprachen halten können, legen Sie bitte jeweils eine eigene Kursbeschreibung für jede Sprache an.",
     'edit-course-additionalServices':
@@ -29,6 +29,8 @@ hoverText = {
      "Geben Sie bitte hier die gewünschte Anzahl von Teilnehmern für Ihren Kurs an. Wir informieren Sie, sobald sich die gewünschte Anzahl von Teilnehmern gefunden hat. Sollte diese Teilnehmerzahl zum Stichtag nicht erreicht werden, haben Sie die Option, den Kurs für entsprechend weniger Personen abzuhalten.",
     'edit-course-fee':
       "Geben Sie hier den Gesamtpreis, inkl. MwSt, für den Kurs an. Aus diesem Preis ergibt sich der Kurspreis pro Person, der auf der Kursseite angezeigt wird. traincrowd erhebt auf den Gesamtpreis eine Kommission von 18% (inkl MwSt). Die Kommission behalten wir ein und stellen Ihnen diese in Rechnung.",
+    'edit-course-taxRate':
+      "Geben Sie hier bitte Ihren zutreffenden Umsatzsteuersatz an.",
     'edit-course-duration':
       "Bitte geben Sie hier die Anzahl der Tage an, an denen der Kurs stattfindet.",
     'edit-course-events':
@@ -43,7 +45,7 @@ hoverText = {
     'edit-user-name':
       "Bitte geben Sie Ihren vollständigen Namen an.",
     'edit-user-description':
-      "Geht aus Ihrer Beschreibung klar hervor, was Ihr Alleinstellungsmerkmal gegenüber anderen Anbietern ist? Was macht Sie für Ihre Kunden interessant? Sind Sie eher Spezialist oder Generalist? So zutreffend, haben Sie spezielle Branchenerfahrung erwähnt?",
+      "Was ist Ihr Alleinstellungsmerkmal? Was macht Sie Kunden interessant? Haben Sie spezielle Branchenerfahrung erwähnt?",
     'edit-user-homepage': 
       "Bitte geben Sie die URL Ihrer Homepage ohne 'http://' oder 'https://' an.",
     'edit-user-videoURL': 
@@ -53,7 +55,7 @@ hoverText = {
     'edit-user-mobile':
       "Helfen Sie uns Sie zu erreichen, falls z.B. Teilnehmer  Räumlichkeiten nicht finden oder ähnliches. Wir geben ihre Telefonnummern natürlich nicht weiter.",
     'edit-user-languages': 
-      "Viele Teilnehmer sind an Weiterbildung auf Englisch, Spanisch und anderen Sprachen interessiert. Bitte geben Sie die Sprachen an, in denen sie Ihre Kurse anbieten. Trennen sie die Sprachen durch Kommata.",
+      "Viele Teilnehmer sind an Weiterbildung auf Englisch, Spanisch und anderen Sprachen interessiert. Bitte geben Sie die Sprachen an, in denen Sie Ihre Kurse anbieten. Trennen Sie die Sprachen durch Kommata.",
     'edit-user-certificates':
-      "Hier können Sie Zertifikate Auswahl Ihrer Referenzen angeben.",
+      "Hier können Sie Zertifikate und eine Auswahl Ihrer Referenzen angeben.",
 };
