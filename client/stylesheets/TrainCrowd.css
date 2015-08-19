@@ -1,3 +1,9 @@
+.taxStatus {
+  opacity: 0.5;
+  font-style: italic;
+  font-size: 12px;
+  padding-left: 5px;
+}
 
 .comma-list { 
   list-style-type: none;
@@ -20,33 +26,10 @@
     -webkit-transform-origin: 0 0;
 }
 
-/*************** Layout ***************/
-
-.not-found {
-  text-align: center;
-}
-
-.not-found h2 {
-  font-size: 60px;
-  font-weight: 100;
-}
-
 /*************** Course Edit ***************/
-
-#editCourseHeader {
-  height: 39px;
-}
 
 .hover-text {
   margin-top: 20px;
-}
-
-/*************** Content Edit ***************/
-
-.editContentTitles {
-  margin-top: 20px;
-  /*margin-bottom: 15px;*/
-  text-align: center;
 }
 
 /*************** Course Preview Menu ***************/
@@ -86,18 +69,6 @@
 }
 
 /***************  ***************/
-
-.editHelperText {
-  position: fixed;
-  width: 25%;
-  /*margin-top: 24px;*/
-  padding: 15px;
-  /*background-color:rgba(165, 214, 255, 0.3);*/
-  background-color:#f5f5f5;
-  border-radius: 3px;
-  box-shadow: 0px 1px 2px #888;
-  font-size: small;
-}
 
 .searchInput {
   margin-bottom: 25px;
