@@ -12,9 +12,9 @@
           </div> -->
           <div class="row">
             
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group">
-                <label for="edit-course-fee" class="control-label">Gesamtpreis brutto (Pflichtfeld)</label>
+                <label for="edit-course-fee" class="control-label">Gesamtpreis brutto</label>
                 <div class="input-group">
                   <input type="number" class="form-control hoverCheck" id="edit-course-fee" value="{{fee}}">
                   <div class="input-group-addon"><i class="fa fa-euro"></i></div>
@@ -23,9 +23,20 @@
               </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group">
-                <label for="edit-course-maxParticipants" class="control-label">Teilnehmerzahl (Pflichtfeld)</label>
+                <label for="edit-course-taxRate" class="control-label">Steuersatz</label>
+                <select class="form-control" id="edit-course-taxRate">
+                  <option value="0" {{selected 0 taxRate}}>0 %</option>
+                  <option value="19" {{selected 19 taxRate}}>19 %</option>
+                </select>
+                <span class="help-block" id="help-text-edit-course-taxRate"></span>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="edit-course-maxParticipants" class="control-label">Teilnehmerzahl</label>
                 <input type="number" class="form-control hoverCheck" id="edit-course-maxParticipants" value="{{maxParticipants}}">
                 <span class="help-block" id="help-text-edit-course-maxParticipants"></span>
               </div>
@@ -46,7 +57,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="showFeePP" class="control-label">Kurspreis pro Person</label>
+                <label for="showFeePP" class="control-label">Kurspreis brutto pro Person</label>
                 <div class="input-group">
                   <input type="number" class="form-control hoverCheck" id="showFeePP" value="{{feePP}}" readonly>
                   <div class="input-group-addon"><i class="fa fa-euro"></i></div>
