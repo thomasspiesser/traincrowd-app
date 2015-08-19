@@ -14,7 +14,7 @@ Template.faq.helpers({
       {
         number: 3,
         question: "Wie registriere ich mich?",
-        answer: "Sie haben zwei Möglichkeiten sich zu registrieren: <ol> <li> Sie klicken auf Anmelden am oberen Rand unserer Seite und anschließend auf Registrieren. Geben Sie Ihre E-Mailadresse und ein Passwort an und klicken Sie registrieren. </li> <li> Sie wählen einen Kurs und klicken neben dem gewünschten Termin auf Jetzt Buchen. Klicken Sie dann auf Registrieren am unteren Rand des erscheinenden Anmelde-Fensters. Geben Sie Ihre E-Mailadresse und ein Passwort an und klicken Sie registrieren. </li> </ol> "
+        answer: "Sie haben zwei Möglichkeiten sich zu registrieren: <ol> <li> Sie klicken auf Anmelden am oberen Rand unserer Seite und anschließend auf Registrieren. Geben Sie Ihre E-Mailadresse und ein Passwort an und klicken Sie registrieren. </li> <li> Sie wählen einen Kurs und klicken neben dem gewünschten Termin auf Jetzt Buchen. Füllen Sie anschließend das Formular für Neukunden aus und klicken auf Registrieren. </li> </ol> "
       },
       {
         number: 4,
@@ -39,7 +39,7 @@ Template.faq.helpers({
       {
         number: 1,
         question: "Wann und wie zahle ich für meinen Kurs?",
-        answer: "Die Bezahlung wird unmittelbar nach Buchung fällig und kann per Kreditkarte oder Sofortüberweisung erfolgen. Sollte es einmal nicht genügend Teilnehmer für ein Training geben und der Kurs deshalb nicht zustande kommen, überweist traincrowd den von Ihnen gezahlten Betrag umgehend auf das angegebene Konto zurück."
+        answer: "Die Bezahlung wird unmittelbar nach Buchung fällig und kann per Kreditkarte oder auf Rechnung erfolgen. Sollte es einmal nicht genügend Teilnehmer für eine Veranstaltung geben und der Kurs deshalb nicht zustande kommen, überweist traincrowd den von Ihnen gezahlten Betrag umgehend auf das angegebene Konto zurück."
       },
       {
         number: 2,
@@ -74,7 +74,7 @@ Template.faq.helpers({
       {
         number: 8,
         question: "Kann ich einen gebuchten Kurs stornieren?",
-        answer: "Wir verstehen, dass immer Mal etwas dazwischen kommen kann. Deshalb haben Sie bis zu der finalen Buchungsbestätigung durch den Trainer die Möglichkeit, ihre Buchung kostenfrei zu stornieren (exklusive Service-Gebühr). Ab der Buchungsbestätigung durch den Trainer sind Sie ein verbindlicher Teil einer Kursgruppe. Ab diesem Zeitpunkt können wir leider keine Rückerstattung mehr vornehmen. <a href='mailto:info&#64;traincrowd.de'>Wenden Sie sich direkt an uns</a>, wenn Sie einen Kurs nicht wahrnehmen können und wir finden gemeinsam eine Lösung."
+        answer: "Wir verstehen, dass immer Mal etwas dazwischen kommen kann. Deshalb haben Sie bis zu der finalen Buchungsbestätigung durch den Trainer die Möglichkeit, Ihre Buchung kostenfrei zu stornieren. Ab der Buchungsbestätigung durch den Trainer sind Sie ein verbindlicher Teil einer Kursgruppe. Ab diesem Zeitpunkt können wir leider keine Rückerstattung mehr vornehmen. <a href='mailto:info&#64;traincrowd.de'>Wenden Sie sich direkt an uns</a>, wenn Sie einen Kurs nicht wahrnehmen können und wir finden gemeinsam eine Lösung."
       },
       {
         number: 9,
@@ -94,22 +94,22 @@ Template.faq.helpers({
       {
         number: 2,
         question: "Beschäftigt traincrowd eigene Trainer? ",
-        answer: "Nein. traincrowd vermittelt als Plattform für Weiterbildung einzelne Trainings und Seminare an interessierte Teilnehmer. Wir führen keine eigenen Trainings durch und alle Anbieter und Anbietrinnen sind ausschließlich selbst für die Inhalte der Veranstaltungen verantwortlich."
+        answer: "Nein. traincrowd vermittelt als Plattform für Weiterbildung einzelne Trainings und Seminare an interessierte Teilnehmer. Wir führen keine eigenen Trainings durch und alle Anbieter und Anbieterinnen sind ausschließlich selbst für die Inhalte der Veranstaltungen verantwortlich."
       },
       {
         number: 3,
         question: "Nach welchen Kriterien wird ausgewählt, wer bei traincrowd Kurse anbieten kann?",
-        answer: "traincrowd steht vielfältigen Anbietern von Weiterbildung offen, sofern ihre Arbeit im Einklang mit dem traincrowd Qualitätsanspruch steht. traincrowd bietet keine langfristigen Lehrgänge und Ausbildungen an, auch keine reinen Informationsveranstaltungen und Reden. Rassistische, extremistische, oder auf sonstige Art und Weise diskriminierende Inhalte finden auf traincrowd natürlich keinen Platz und führen zum sofortigen Ausschluss."
+        answer: "traincrowd steht vielfältigen Anbietern von Weiterbildung offen, sofern ihre Arbeit im Einklang mit dem traincrowd Qualitätsanspruch steht. Urteile von Kunden und Partnern spielen bei der Auswahl unserer Trainer und Trainerinnen eine wichtige Rolle. Wer keine Empfehlung und zufriedene Kunden aufweisen kann, hat auf traincrowd keine Chance. Wir treffen alle Anbieter persönlich und lassen uns dabei Konzepte und Metoden genau erklären. Häufig sitzen wir selbst in den Kursen, um Qualität direkt sicherzustellen."
       },
       {
         number: 4,
         question: "Wie stellt traincrowd die Qualität der Weiterbildungsangebote sicher?",
-        answer: "Wir legen Wert auf ein gemeinsames Bekenntnis zu Qualität. Gemeinsam mit unseren ersten Anbietern und ausgewählten Experten haben wir deshalb einen Codex entwickelt, der allen Anbieter Orientierung bietet und die Grundlage für die Bewertung aller Veranstaltungen darstellt. Hier finden Sie genauere Informationen zum Codex."
+        answer: "Bei der Auswahl unserer Trainer und Trainerinnen gehen wir keine Kompromisse ein. Indem Teilnehmer besuchte Veranstaltungen selbst bewerten, helfen sie uns, dieses Verprechen auch in Zukunft einzuhalten."
       },
       {
         number: 5,
         question: "Wie erstelle ich ein öffentliches Trainer- oder Firmenprofil?",
-        answer: "Im Bereich Anbieter werden können Sie Ihr persönliches Profil anlegen und einzelne Kurse einstellen. Dort können Sie auch als Firma ein Profil anlegen. <br><br> Derzeit unterstützt unsere Plattform noch keine Firmenaccounts mit mehreren Trainern pro Firma. Wir bitten Sie, bei Bedarf einfach mehrere Profile für jeden Ihrer Mitarbeiter anzulegen. "
+        answer: "Im Bereich Trainer werden können Sie Ihr persönliches Profil anlegen und einzelne Kurse einstellen. Dort können Sie auch als Firma ein Profil anlegen. <br><br> Derzeit unterstützt unsere Plattform noch keine Firmenaccounts mit mehreren Trainern pro Firma. Wir bitten Sie, bei Bedarf einfach mehrere Profile für jeden Ihrer Mitarbeiter anzulegen. "
       },
       {
         number: 6,
@@ -134,17 +134,12 @@ Template.faq.helpers({
       {
         number: 10,
         question: "Wie setzen sich die Preise bei traincrowd zusammen?",
-        answer: "Das Anlegen Ihres Profils und die Veröffentlichung von Kursen sind für Sie kostenlos. traincrowd erhebt eine erfolgsabhängige Kommission für erfolgreiche Buchungen sowie einen kleinen Betrag für jeden Buchungsvorgang. "
+        answer: "Das Anlegen Ihres Profils und die Veröffentlichung von Kursen sind für Sie kostenlos. traincrowd erhebt eine erfolgsabhängige Kommission für erfolgreiche Buchungen."
       },
       {
         number: 11,
         question: "Wie kalkuliere ich den Preis für den gesamten Kurs?",
-        answer: "traincrowd überlässt die Preisgestaltung den Anbietern. Wir empfehlen grundsätzlich eine Kalkulation wie bei in-house Seminaren. Legen Sie dazu fest, welchen Betrag Sie insgesamt für Ihren Aufwand erwarten. Bei einem Tagessatz von 2.000 Euro ergibt sich so beispielsweise für ein zweitägiges Training inklusive einem Tag Vorbereitung ein gewünschtes Honorar von 6.000 Euro. Geben Sie dann die Mindestteilnehmerzahl für Ihren Kurs an. Teilnehmer sehen den Preis pro Teilnehmer, also das Honorar geteilt durch die Mindestteilnehmeranzahl – zuzüglich der traincrowd Servicegebühr. Bei mindestens 10 Teilnehmern entspricht der angezeigte Kurspreis pro Person also 600 Euro plus Gebühren. Finden sich für Ihren Kurs mehr als 10 Teilnehmer, steigen Ihre Einnahmen um jeweils 600 Euro pro Person bis zum Erreichen der maximalen Teilnehmerzahl. "
-      },
-      {
-        number: 12,
-        question: "Was bedeutet Mindest- und Maximalteilnehmerzahl?",
-        answer: "Die Mindestteilnehmerzahl gibt an, ab welcher Gruppengrößte die Veranstaltung garantiert stattfinden soll. Die Maximalteilnehmerzahl gibt an, wie groß die Gruppe maximal sein soll. Für die Berechnung des Preises pro Person ist die Mindestteilnehmeranzahl ausschlaggebend. Je nach Art der Veranstaltung sind unterschiedliche Gruppengrößen zu empfehlen. Vertrauen Sie auf Ihre Erfahrung bei der Festlegung der Gruppengröße – oder fragen Sie uns, wenn Sie unsicher sind. "
+        answer: "traincrowd überlässt die Preisgestaltung den Anbietern. Wir empfehlen grundsätzlich eine Kalkulation wie bei in-house Seminaren. Legen Sie dazu fest, welchen Betrag Sie insgesamt für Ihren Aufwand erwarten. Bei einem Tagessatz von 2.000 Euro ergibt sich so beispielsweise für ein zweitägiges Training inklusive einem Tag Vorbereitung ein gewünschtes Gesamtpreis von 6.000 Euro. Geben Sie dann die Teilnehmerzahl für Ihren Kurs an. Teilnehmer sehen den Preis pro Teilnehmer, also das Gesamtpreis geteilt durch die Teilnehmerzahl. Bei 10 Teilnehmern entspricht der angezeigte Kurspreis pro Person also 600 Euro."
       }
     ];
     return faqs;
