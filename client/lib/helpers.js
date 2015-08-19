@@ -4,9 +4,10 @@
 // varible -> project scope
 
 lazysaveField = _.debounce( function ( collection, args ) {
-  Meteor.call('updateSingle'+collection+'Field', args, function (error) {
-    if (error)
-      toastr.error( error.reason );
+  Meteor.call('updateSingle'+collection+'Field', args, function ( error ) {
+    if ( error ) {
+      toastr.error( error.reason || error.message );
+    }
     else {
       formFeedbackSaved('#edit-'+args.argName, 3000, '#help-text-edit-'+args.argName);
     }
@@ -14,9 +15,10 @@ lazysaveField = _.debounce( function ( collection, args ) {
 }, 1000 );
 
 lazysaveCourseField = _.debounce( function ( args ) {
-  Meteor.call('updateSingleCourseField', args, function (error) {
-    if (error)
-      toastr.error( error.reason );
+  Meteor.call('updateSingleCourseField', args, function ( error ) {
+    if ( error ) {
+      toastr.error( error.reason || error.message );
+    }
     else {
       formFeedbackSaved('#edit-course-'+args.argName, 3000, '#help-text-edit-course-'+args.argName);
     }
@@ -24,9 +26,10 @@ lazysaveCourseField = _.debounce( function ( args ) {
 }, 1000 );
 
 lazysaveUserField = _.debounce( function ( args ) {
-  Meteor.call('updateSingleUserField', args, function (error) {
-    if (error) 
-      toastr.error( error.reason );
+  Meteor.call('updateSingleUserField', args, function ( error ) {
+    if ( error ) {
+      toastr.error( error.reason || error.message );
+    }
     else {
       formFeedbackSaved('#edit-user-'+args.argName, 3000, '#help-text-edit-user-'+args.argName);
     }
