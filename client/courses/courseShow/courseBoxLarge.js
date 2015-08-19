@@ -28,6 +28,9 @@ Template.courseBoxLarge.helpers({
     var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1 } } ).fetch();
     return ( currents[0].participants.length / this.maxParticipants ).toFixed(1) * 100;
   },
+  taxStatus: function () {
+    return this.taxRate === 19 ? 'inkl. MwSt' : 'MwSt-befreit';
+  },
   openSpots: function () {
     var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1 } } ).fetch();
     return this.maxParticipants - currents[0].participants.length;

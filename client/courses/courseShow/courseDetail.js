@@ -38,6 +38,9 @@ Template.courseDetail.helpers({
   feePP: function () {
     return ( this.fee / this.maxParticipants ).toFixed(0);
   },
+  taxStatus: function () {
+    return this.taxRate === 19 ? 'inkl. MwSt' : 'MwSt-befreit';
+  },
   percentFull: function (course) {
     // data context is current, which is why function get par: course
     if (course.maxParticipants)
