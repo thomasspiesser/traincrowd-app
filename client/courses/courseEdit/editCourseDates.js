@@ -26,7 +26,8 @@ Template.editCourseDates.events({
     var field = event.currentTarget.id.split('-')[2];
     $('#edit-course-'+field).parent().removeClass('has-error');
     $('#help-text-edit-course-'+field).text('speichern...').fadeIn(300);
-    lazysaveCourseField( { id: this._id, argName: field, argValue: event.currentTarget.value } );
+    var val = parseInt( event.currentTarget.value );
+    lazysaveCourseField( { id: this._id, argName: field, argValue: val } );
   },
   'click #addEventButton': function (event, template) {
     event.preventDefault();
