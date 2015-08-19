@@ -25,7 +25,7 @@
               <tr class="{{#unless isPublic}}{{else}}success{{/unless}}">
                 <td><a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a></td>
                 <td>
-                  <div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                  <div class="rateit rate-star dark-green" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                 </td>
                 <td>
                   {{#unless hasPublishRequest}}
@@ -73,7 +73,7 @@
                 <td><a href="{{ pathFor route='course.show' slug=slug }}">{{title}}</a></td>
                 <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
                 <td>
-                  <div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                  <div class="rateit rate-star dark-green" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                 </td>
               </tr>
               {{/each}}
@@ -110,7 +110,7 @@
                   {{/if}}
                 </td>
                 <td>
-                  <div class="rateit mystars" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                  <div class="rateit rate-star dark-green" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                 </td>
               </tr>
               {{/each}}
@@ -133,7 +133,7 @@
 
 <template name="ratingModal">
   <div id="ratingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">
@@ -142,39 +142,44 @@
           </button>
           <h4 class="modal-title" id="myModalLabel">Kurs Bewerten</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="overflow:auto;">
 
+          Kommunikation im Vorfeld und Vorbereitung des Kurses
           <input type="range" value="0" step="0.5" id="backing0">
-          <div class="rateit mystars rateitModal0" data-rateit-backingfld="#backing0" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Kommunikation im Vorfeld und Vorbereitung des Kurses
+          <div class="rateit rate-star pull-right dark-green rateitModal0" data-rateit-backingfld="#backing0" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
+          Erreichen der angegebenen Lernziele der Weiterbildung
           <input type="range" value="0" step="0.5" id="backing1">
-          <div class="rateit mystars rateitModal1" data-rateit-backingfld="#backing1" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Erreichen der angegebenen Lernziele der Weiterbildung
+          <div class="rateit rate-star pull-right dark-green rateitModal1" data-rateit-backingfld="#backing1" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
+          Qualität und Angemessenheit der eingesetzten Methoden und Didaktik
           <input type="range" value="0" step="0.5" id="backing2">
-          <div class="rateit mystars rateitModal2" data-rateit-backingfld="#backing2" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Qualität und Angemessenheit der eingesetzten Methoden und Didaktik
+          <div class="rateit rate-star pull-right dark-green rateitModal2" data-rateit-backingfld="#backing2" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
+          Eingehen auf Vorwissen und individuelle Lernbedarfe der Teilnehmer
           <input type="range" value="0" step="0.5" id="backing3">
-          <div class="rateit mystars rateitModal3" data-rateit-backingfld="#backing3" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Eingehen auf Vorwissen und individuelle Lernbedarfe der Teilnehmer
+          <div class="rateit rate-star pull-right dark-green rateitModal3" data-rateit-backingfld="#backing3" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
+          Kompetenz des Trainers/der Trainerin und Logistik und Räumlichkeiten
           <input type="range" value="0" step="0.5" id="backing4">
-          <div class="rateit mystars rateitModal4" data-rateit-backingfld="#backing4" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Kompetenz des Trainers/der Trainerin und Logistik und Räumlichkeiten
+          <div class="rateit rate-star pull-right dark-green rateitModal4" data-rateit-backingfld="#backing4" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
-          <button type="button" class="btn btn-default" id="saveRating"><i class="fa fa-save"></i> Speichern</button>
+          <button type="button" class="btn btn-red pull-right" id="saveRating">Speichern</button>
 
         </div>
       </div>
