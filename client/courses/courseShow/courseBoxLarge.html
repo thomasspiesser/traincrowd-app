@@ -40,7 +40,6 @@
           <ul>
             <li><i class="fa fa-calendar"></i></li>
             <li><i class="fa fa-clock-o"></i></li>
-
             <li><i class="fa fa-map-marker"></i></li>
             <li><i class="fa fa-users"></i></li>
             <li><i class="fa fa-euro"></i></li>
@@ -50,23 +49,32 @@
           <ul>
             <li> {{ nextEvent }} </li>
             <li> {{ duration }} Tag(e) </li>
-            <li> {{ #if city }} {{ city }} {{ else }} Ort steht noch nicht fest {{ /if }} </li>
+            <li> {{ #if city }} {{ city }} {{ else }} Ort steht noch nicht fest {{ /if }}</li>
             <li>
               {{ #if hasDate }}
-                <div class="progress">
-                  
-                  <span class="progress-text">
-                    {{ #if eventConfirmed }}
-                      findet sicher statt <i class="fa fa-check"></i>
-                    {{ else }}
-                      
-                      <span data-toggle="tooltip" title="Kursdauer eine kleine erklärung und noch bissl text hier">noch {{ openSpots }} Personen <i class="fa fa-question-circle"></i></span>
-                    {{ /if }}
-                  </span>
-                  <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull }}%; min-width: 0.2em;">
-                  </span>
-                </div>
-                
+                {{ #with getCurrent }}
+
+                  {{ #if bookedOut .. }}
+                    <div class="progress">
+                      <div class="progress-bar progress-booked-out" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        Ausgebucht
+                      </div>
+                    </div>
+                  {{ else }}
+                    <div class="progress">
+                      <span class="progress-text">
+                        {{ #if confirmed }}
+                          <span data-toggle="tooltip" title="Dieser Kurs findet garantiert statt. In der Gruppe ist noch Platz für {{ openSpots .. }} Personen.">findet sicher statt <i class="fa fa-check"></i></span>
+                        {{ else }}
+                          <span data-toggle="tooltip" title="Diese Gruppe braucht noch {{ openSpots .. }} Personen, damit der Kurs garantiert stattfindet.">noch {{ openSpots .. }} Personen <i class="fa fa-question-circle"></i></span>
+                        {{ /if }}
+                      </span>
+                      <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull .. }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull .. }}%; min-width: 0.2em;">
+                      </span>
+                    </div>
+                  {{ /if }}
+
+                {{ /with }}
               {{ else }}
                 Kein Event
               {{ /if }}

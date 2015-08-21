@@ -91,14 +91,20 @@
 
             {{ #if bookedOut .. }}
               <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <div class="progress-bar progress-booked-out" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                   Ausgebucht
                 </div>
               </div>
             {{ else }}
               <div class="progress">
-                <span class="progress-text">braucht noch <span style="color:red;">{{ openSpots .. }}</span> Personen</span>
-                <span class="progress-bar" role="progressbar" aria-valuenow="{{percentFull ..}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFull ..}}%; min-width: 0.2em;">
+                <span class="progress-text">
+                  {{ #if confirmed }}
+                    <span data-toggle="tooltip" title="Dieser Kurs findet garantiert statt. In der Gruppe ist noch Platz für {{ openSpots .. }} Personen.">findet sicher statt <icon class="fa fa-check"></icon></span>
+                  {{ else }}
+                    <span data-toggle="tooltip" title="Diese Gruppe braucht noch {{ openSpots .. }} Personen, damit der Kurs garantiert stattfindet.">noch {{ openSpots .. }} Personen <icon class="fa fa-question-circle"></icon></span>
+                  {{ /if }}
+                </span>
+                <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull .. }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull .. }}%; min-width: 0.2em;">
                 </span>
               </div>
             {{ /if }}

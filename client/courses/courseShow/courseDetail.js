@@ -1,5 +1,6 @@
 Template.courseDetail.rendered = function() {
   $('.rateit').rateit();
+  $('[data-toggle="tooltip"]').tooltip(); //initialize all tooltips in this template
 };
 
 Template.courseDetail.helpers({
@@ -21,7 +22,7 @@ Template.courseDetail.helpers({
     return false;
   },
   getCurrent: function () {
-    return Current.find({course: this._id}, {sort:{courseDate: 1}, fields: {participants: 1, courseDate:1} });
+    return Current.find( { course: this._id }, { sort:{ courseDate: 1 }, fields: { participants: 1, courseDate: 1, confirmed: 1 } } );
   },
   courseDateRange: function () {
     // context is current

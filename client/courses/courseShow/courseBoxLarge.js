@@ -25,20 +25,28 @@ Template.courseBoxLarge.helpers({
   feePP: function () {
     return ( this.fee / this.maxParticipants ).toFixed(0);
   },
-  percentFull: function () {
-    var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1 } } ).fetch();
-    return ( currents[0].participants.length / this.maxParticipants ).toFixed(1) * 100;
-  },
   taxStatus: function () {
     return this.taxRate === 19 ? 'inkl. MwSt' : 'MwSt-befreit';
   },
-  openSpots: function () {
-    var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1 } } ).fetch();
-    return this.maxParticipants - currents[0].participants.length;
+  getCurrent: function () {
+    var self = this;
+    var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, fields: { participants: 1, confirmed: 1 } } ).fetch();
+    var current = _.find( currents, function ( current ) {
+      return current.participants.length !== self.maxParticipants;
+    });
+    if ( current )
+      return current;
+    else
+      return currents[0];
   },
-  eventConfirmed: function () {
-    var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, limit: 1, fields: { participants: 1, confirmed: 1 } } ).fetch();
-    return currents[0].confirmed ? true : false;
+  bookedOut: function ( course ) {
+    return this.participants.length === course.maxParticipants;
+  },
+  percentFull: function ( course ) {
+    return ( this.participants.length / course.maxParticipants ).toFixed(1) * 100;
+  },
+  openSpots: function ( course ) {
+    return course.maxParticipants - this.participants.length;
   },
   titlePreview: function () {
     if ( !this.title ) {
