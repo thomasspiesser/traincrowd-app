@@ -30,11 +30,13 @@ function setExpired() {
       return;
 
     var date = _.first( current.courseDate ); // first day of the event
+    date = moment( date );
 
     if ( course.expires ) {
       // calc when the event expires: courseDate - no.of weeks before
-      date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * course.expires); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
+      date.subtract( parseInt( course.expires ), 'weeks' );
     }
+    
     if ( date < new Date() ) {
 
       if ( current.participants.length ) {
