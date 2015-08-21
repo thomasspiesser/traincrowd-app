@@ -1,5 +1,6 @@
 Template.courseBoxLarge.rendered = function () {
   $('.rateit').rateit();
+  $('[data-toggle="tooltip"]').tooltip(); //initialize all tooltips in this template
 };
 
 Template.courseBoxLarge.helpers({

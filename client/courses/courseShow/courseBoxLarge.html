@@ -33,13 +33,14 @@
         <p><a href="{{ pathFor route='course.show' slug=this.slug }}">see more <i class="fa fa-arrow-right"></i></a></p>
       </div>
     </div>
-
+    
 
       <div class="btn-bar btn-bar-inverted in">
         <div class="btn-bar-left">
           <ul>
             <li><i class="fa fa-calendar"></i></li>
             <li><i class="fa fa-clock-o"></i></li>
+
             <li><i class="fa fa-map-marker"></i></li>
             <li><i class="fa fa-users"></i></li>
             <li><i class="fa fa-euro"></i></li>
@@ -49,21 +50,23 @@
           <ul>
             <li> {{ nextEvent }} </li>
             <li> {{ duration }} Tag(e) </li>
-            <li> {{ #if city }} {{ city }} {{ else }} Ort steht noch nicht fest {{ /if }}</li>
+            <li> {{ #if city }} {{ city }} {{ else }} Ort steht noch nicht fest {{ /if }} </li>
             <li>
               {{ #if hasDate }}
                 <div class="progress">
                   
                   <span class="progress-text">
                     {{ #if eventConfirmed }}
-                      YEAH! Kurs findet statt <i class="fa fa-check"></i>
+                      findet sicher statt <i class="fa fa-check"></i>
                     {{ else }}
-                      noch {{ openSpots }} Plätze frei
+                      
+                      <span data-toggle="tooltip" title="Kursdauer eine kleine erklärung und noch bissl text hier">noch {{ openSpots }} Personen <i class="fa fa-question-circle"></i></span>
                     {{ /if }}
                   </span>
                   <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull }}%; min-width: 0.2em;">
                   </span>
                 </div>
+                
               {{ else }}
                 Kein Event
               {{ /if }}
