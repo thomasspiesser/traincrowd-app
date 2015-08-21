@@ -37,28 +37,27 @@ Template.courseDetail.helpers({
   taxStatus: function () {
     return this.taxRate === 19 ? 'inkl. MwSt' : 'MwSt-befreit';
   },
-  percentFull: function (course) {
+  percentFull: function ( course ) {
     // data context is current, which is why function get par: course
     if (course.maxParticipants)
       return (this.participants.length / course.maxParticipants ).toFixed(1) * 100;
     return 0;
   },
-  bookedOut: function (course) {
+  bookedOut: function ( course ) {
     return this.participants.length === course.maxParticipants;
   },
-  runtime: function (course) {
+  runtime: function ( course ) {
     var date = _.first( this.courseDate ); // first day of the event
+    date = moment( date );
     if ( course.expires ) {
       // calc when the event expires: courseDate - no.of weeks before
-      date = new Date(+date - 1000 * 60 * 60 * 24 * 7 * parseInt( course.expires ) ); // milliseconds in one second * seconds in a minute * minutes in an hour * hours in a day * days in a week * weeks
+      date.subtract( parseInt( course.expires ), 'weeks' );
     }
-    date = moment( date );
     var today = moment();
     return date.diff( today, 'days' );
   },
-  openSpots: function (course) {
-    if (course.maxParticipants)
-      return course.maxParticipants - this.participants.length;
+  openSpots: function ( course ) {
+    return course.maxParticipants - this.participants.length;
   }
 });
 
