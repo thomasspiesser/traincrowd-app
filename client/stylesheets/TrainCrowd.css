@@ -22,7 +22,8 @@
 
 .comma-list { 
   list-style-type: none;
-  padding-left: 0px;
+  padding-left: 0;
+  margin-bottom: 0;
  }
 .comma-list li { display: inline }
 .comma-list li:after { content: ", " }

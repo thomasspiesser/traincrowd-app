@@ -10,17 +10,18 @@ Template.userCourses.helpers({
     return this.hasPublishRequest ? "true" : undefined;
   },
   hostedCourses: function () {
-    return Courses.find( { owner: Meteor.userId() }, {fields: {imageId:1, title:1, description:1, categories:1, aims:1, maxParticipants:1, fee:1, rating:1, isPublic:1, slug:1, hasPublishRequest:1}, sort:{isPublic:-1}} );
+    return Courses.find( { owner: Meteor.userId() }, { fields: { imageId: 1, title: 1, description: 1, categories: 1, aims: 1, maxParticipants: 1, fee: 1, rating: 1, isPublic: 1, slug: 1, hasPublishRequest: 1 }, sort:{ isPublic: -1 } } );
   },
   currentCourses: function () {
-    var current = Current.find( { participants: Meteor.userId() }, { fields: { course: 1, courseDate: 1 } } ).fetch();
-
-    if (current.length) {
-      for (var i = 0; i < current.length; i++) {
+    var current = Current.find( { participants: Meteor.userId() }, { fields: { course: 1, courseTitle: 1, courseDate: 1 } } ).fetch();
+    if ( current.length ) {
+      for ( var i = 0; i < current.length; i++ ) {
         var courseId = current[i].course;
-        var course = Courses.findOne( { _id: courseId }, { fields: { imageId: 1, title: 1, rating:1, slug:1 } } );
+        var course = Courses.findOne( { _id: courseId }, { fields: { title: 1, rating: 1, slug: 1 } } );
+        if ( ! course )
+          continue; // stop here and continue with next iteration, might happen if course is offline or deleted
         delete course._id;
-        _.extend(current[i],course);
+        _.extend( current[i], course );
       }
       return current;
     }
@@ -28,11 +29,13 @@ Template.userCourses.helpers({
       return false;
   },
   elapsedCourses: function () {
-    var elapsed = Elapsed.find( { participants: Meteor.userId() }, { fields: { course: 1, courseDate: 1 } } ).fetch();
-    if (elapsed.length) {
-      for (var i = 0; i < elapsed.length; i++) {
+    var elapsed = Elapsed.find( { participants: Meteor.userId() }, { fields: { course: 1, courseTitle: 1, courseDate: 1 } } ).fetch();
+    if ( elapsed.length ) {
+      for ( var i = 0; i < elapsed.length; i++ ) {
         var courseId = elapsed[i].course;
-        var course = Courses.findOne( { _id: courseId }, { fields: { imageId: 1, title: 1, rating: 1, slug:1 } } );
+        var course = Courses.findOne( { _id: courseId }, { fields: { title: 1, rating: 1, slug: 1 } } );
+        if ( ! course )
+          continue; // stop here and continue with next iteration, might happen if course is offline or deleted
         delete course._id;
         _.extend( elapsed[i], course );
       }
@@ -41,18 +44,15 @@ Template.userCourses.helpers({
     else
       return false;
   },
-  formated: function (courseDate) {
-    return _.map(courseDate, function(date) {return moment(date).format("DD.MM.YYYY"); } );
-  },
   myRating: function (id) {
-    var elapsed = Elapsed.findOne( {_id: id }, {fields: {ratings:1}} );
-    var myRating = _.find(elapsed.ratings, function (item) { return item.participant === Meteor.userId(); });
-    if (myRating) {
-      Session.set(id, myRating.rating);
+    var elapsed = Elapsed.findOne( { _id: id }, { fields: { ratings: 1 } } );
+    var myRating = _.find( elapsed.ratings, function ( item ) { return item.participant === Meteor.userId(); } );
+    if ( myRating ) {
+      Session.set( id, myRating.rating );
       return true;
     }
     else {
-      Session.set(id, [0,0,0,0,0]);
+      Session.set( id, [0,0,0,0,0] );
       return false;
     }
   }
