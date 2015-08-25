@@ -3,9 +3,12 @@
 }
 
 #agb-wrapper li {
-  display: block
+  display: block;
+  text-indent: -33px;
 }
 
 #agb-wrapper li:before {
-  content: counters(item, ".") " "; counter-increment: item
+  content: counters(item, ".") " "; 
+  counter-increment: item;
+  padding-right: 10px;
 }

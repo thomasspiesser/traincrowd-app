@@ -14,6 +14,9 @@ Template.bookCourseConfirm.events({
   'click #change-contact': function ( event, template ) {
     Modal.show('editContactModal');
   },
+  'click #agb-link': function () {
+    Modal.show('agbModal');
+  },
   'click #book-course-pay': function ( event, template ) {
     if ( ! Meteor.userId() ){
       toastr.error( "Sie müssen eingeloggt sein." );

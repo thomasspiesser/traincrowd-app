@@ -28,7 +28,7 @@ fastclick@1.0.3
 fortawesome:fontawesome@4.4.0
 geojson-utils@1.0.3
 gwendall:session-json@0.1.7
-houston:admin@2.0.3
+houston:admin@2.0.5
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
@@ -70,7 +70,7 @@ natestrauser:select2@3.5.1
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 okgrow:analytics@0.3.0
-okgrow:iron-router-autoscroll@0.0.8
+okgrow:iron-router-autoscroll@0.0.9
 ongoworks:spiderable@1.0.7
 ordered-dict@1.0.3
 peppelg:bootstrap-3-modal@1.0.3
@@ -99,9 +99,9 @@ twbs:bootstrap-noglyph@3.3.5
 ui@1.0.6
 underscore@1.0.3
 url@1.0.4
-useraccounts:bootstrap@1.12.1
-useraccounts:core@1.12.1
-useraccounts:iron-routing@1.12.1
+useraccounts:bootstrap@1.12.3
+useraccounts:core@1.12.3
+useraccounts:iron-routing@1.12.3
 webapp@1.2.0
 webapp-hashing@1.0.3
 yasaricli:slugify@0.0.7
