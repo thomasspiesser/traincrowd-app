@@ -5,17 +5,12 @@
         <div class="col-md-12 text-center">
           <h2>Buchung erfolgreich - Vielen Dank!</h2>
           <p>
-            Vielen Dank für Ihre Buchung auf traincrowd. Teilen Sie Ihren Schritt zum persönlichen Erfolg
+            <strong>Vielen Dank für Ihre Buchung auf traincrowd. Erzählen Sie es weiter und erhalten einen 10-Euro Amazon Gutschein als Dankeschön!</strong>
           </p>
-          <p>
-            {{ #if Template.subscriptionsReady }} {{ > share shareData }} {{ /if }}
-          </p> 
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 col-inverted">
 
-          <h3>Hier nochmal die Einzelheiten Ihrer Buchung:</h3>
+        <div class="col-md-5 col-md-offset-1">
+          <h3>Details zu Ihrer Buchung:</h3>
           <p>
             <strong>Kurstitel</strong>: <br>
             {{ courseTitle }}
@@ -53,22 +48,16 @@
             {{ /with }}
           </p>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <!-- <p> Auf der <a href="{{pathFor 'user.courses'}}">Meine Kurse</a> Seite finden Sie eine Übersicht Ihrer Buchungen.</p> -->
-
-          {{ #if currentUser }}
-          <p> Damit Ihr Trainer sich optimal auf Sie vorbereiten kann, ermöglichen wir es Ihnen, ein paar Angaben zu Ihrer Person zu machen - bitte tun Sie dies in <a href="{{ pathFor 'edit.user' }}">Ihrem Profil</a>.</p>
-          {{ /if }}
+        <div class="col-md-5">
+          <div class="promo-box">
+            <h3 style="margin-top: 0;">Jetzt teilen und 10-Euro Amazon Gutschein sichern!</h3>
+            {{ #if Template.subscriptionsReady }} {{ > share shareData }} {{ /if }}
+          </div>
+          <p>
+            Nein Danke, ohne Weitersagen <a href="{{ #if currentUser }}{{ pathFor 'edit.user' }}{{ else }}{{ pathFor 'home' }}{{ /if }}">abschliessen</a>.
+          </p>
         </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-md-12">
-          <p>Hier geht es zurück auf die <a href="/">homepage</a>.</p>
-        </div>
+
       </div>
     </div>
   </section>
