@@ -1,5 +1,5 @@
 // Meteor.subscribe('courses');
-Meteor.subscribe('inquired');
+// Meteor.subscribe('bookings');
 Meteor.subscribe('current');
 Meteor.subscribe('elapsed');
 Meteor.subscribe('userData');

@@ -1,0 +1,45 @@
+<template name="bookCoursePaymentMethod">
+  <section class="container">
+    <div class="panel panel-inverted">
+
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <div class="form-group">
+            <div class="well">
+            <p>
+              <label style="padding-top: 5px;">
+                <input type="radio" name="book-course-select-payment-method-radio" id="optionsRadios1" value="Kreditkarte"> Kreditkarte
+              </label>
+              <span class="pull-right">
+                <img src="http://www.credit-card-logos.com/images/visa_credit-card-logos/visa_logo_2.gif" width="50" alt="logo creditcard visa">
+                <img src="http://www.credit-card-logos.com/images/mastercard_credit-card-logos/mastercard_logo_7.jpg" width="50" alt="logo creditcard mastercard">
+              </span>
+            </p>
+            <hr class="white">
+            <p style="margin-bottom: 5px;">
+              <label style="padding-top: 5px;">
+                <input type="radio" name="book-course-select-payment-method-radio" id="optionsRadios2" value="Rechnung"> Rechnung
+              </label>
+              <span class="pull-right">
+                <img src="/icon-invoice.jpg" width="50" alt="icon invoice">
+              </span>
+            </p>
+            </div>
+            <p>
+              <button type="button" class="btn btn-red pull-right" id="book-course-select-paymentMethod"> Weiter</button>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <span class="promo-text">Powered by Paymill</span>
+          <img src="/paymill/paymill-logo-signet.png" width="50" alt="logo paymill">
+            Kreditkartenzahlungen werden über Paymill abgewickelt (Informationen zu Paymills <a href="https://www.paymill.com/de/faq/welche-sicherheitsstandards-haelt-paymill-ein" target="_blank">Sicherheitsstandards</a> & <a href="https://www.paymill.com/de/datenschutz">Datenschutz</a>). Ihre Kreditkarteninformationen werden direkt im Browser verschlüsselt und an Paymill übermittelt. Die traincrowd-server kommen so nie direkt mit Kreditkarteninformationen in Kontakt.
+        </div>
+
+      </div> <!-- row -->
+
+
+    </div>
+  </section>
+</template>

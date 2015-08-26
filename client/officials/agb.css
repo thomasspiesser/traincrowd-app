@@ -1,0 +1,14 @@
+#agb-wrapper ol {
+  counter-reset: item
+}
+
+#agb-wrapper li {
+  display: block;
+  text-indent: -33px;
+}
+
+#agb-wrapper li:before {
+  content: counters(item, ".") " "; 
+  counter-increment: item;
+  padding-right: 10px;
+}

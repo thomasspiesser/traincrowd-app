@@ -1,0 +1,52 @@
+<template name="searchTrainer">
+
+  <div class="separator separator-inverted">
+    <h2>Die Trainer</h2>
+  </div>
+
+  <div class="container margin-top">
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="searchInput">
+          {{> esInput index="trainer" placeholder="Suchen..." class="form-control" allDocsOnEmpty=true }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+    {{#ifEsIsSearching index="trainer"}}
+      <section class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-default text-center">
+              <h5>Suche...</h5>
+            </div>
+          </div>
+        </div>
+      </section>
+    {{else}}
+      {{#esEach index="trainer"}}
+        <div class="col-md-3 col-sm-6 trainerbox">
+          {{ > trainerBox }}
+        </div>
+      {{/esEach}}
+      <div class="col-md-2 col-md-offset-5">
+        {{> esLoadMoreButton index="trainer" class="btn btn-default btn-block" content="Mehr" howMany=80}}
+      </div>
+    {{/ifEsIsSearching}}
+    </div>
+
+    {{#ifEsHasNoResults index="trainer"}}
+      <section class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-default text-center">
+              <h5>Ihre Suche ergab keinen Treffer.</h5>
+            </div>
+          </div>
+        </div>
+      </section>
+    {{/ifEsHasNoResults}}
+  </div>
+</template>

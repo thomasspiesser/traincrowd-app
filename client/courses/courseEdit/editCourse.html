@@ -1,0 +1,99 @@
+<template name="editCourse">
+
+  {{#if canEdit owner}}
+    <div class="container">
+
+      <div class="row tracker">
+
+        <div class="col-md-2 active">
+          <a href="#" class="dynamic-template-selector" id="editCourseDescription">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckCourseDescription }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Allgemeines</span>
+          </a>
+        </div>
+
+        <div class="col-md-2">
+          <a href="#" class="dynamic-template-selector" id="editCourseDetails">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckCourseDetails }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Details</span>
+          </a>
+        </div>
+
+        <div class="col-md-2">
+          <a href="#" class="dynamic-template-selector" id="editCourseCosts">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckCourseCosts }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Kosten</span>
+          </a>
+        </div>
+
+        <div class="col-md-2">
+          <a href="#" class="dynamic-template-selector" id="editCourseDates">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckCourseDates }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Termine</span>
+          </a>
+        </div>
+
+        <div class="col-md-2">
+          <a href="#" class="dynamic-template-selector" id="editCourseLogistics">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckCourseLogistics }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Ort</span>
+          </a>
+        </div>
+
+        <div class="col-md-2">
+          <a href="#" class="dynamic-template-selector" id="editCoursePreview">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if this.isPublic }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Vorschau</span>
+          </a>
+        </div>
+
+      </div> <!-- row -->
+
+    </div> <!-- container -->
+
+    {{ > Template.dynamic template=active data=this }}
+
+  {{else}}
+    <section class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="alert alert-danger text-center">
+            <h5>Fehler</h5>
+            Sie dürfen nur Ihre eigenen Kurse bearbeiten.
+          </div>
+        </div>
+      </div>
+    </section>
+  {{/if}}
+
+</template>

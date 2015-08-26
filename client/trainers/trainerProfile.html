@@ -1,0 +1,75 @@
+<template name="trainerProfile">
+
+  <div class="separator separator-inverted">
+    <h2>Die Trainer > {{ profile.name }}</h2>
+  </div>
+
+  <section class="container">
+
+    <div class="row profile-detail">
+
+      <div class="col-md-2 col-sm-3 profile-left">
+        <div class="trainer-img" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}});"></div>
+        <div class="share-container ">
+          <div class="share-open">
+            <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+          </div>
+          <div class="share-btns">
+            {{ > share shareData }}
+          </div>
+        </div>
+        <div class="rateit rate-star dark-green pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+      </div>
+
+      <div class="col-md-7 col-sm-6 profile-center">
+
+        <h1>{{profile.name}}</h1>
+
+        <p class="pre-wrap">{{profile.description}}</p>
+
+        <hr>
+
+        {{#if profile.videoId}}
+          <div class="video-wrapper embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item center-block" src="https://www.youtube.com/embed/{{profile.videoId}}" allowfullscreen></iframe>
+          </div>
+        {{/if}}
+      </div>
+
+      <div class="col-md-3 col-sm-3 profile-right">
+
+        {{#if profile.homepage}}
+          <h5>Homepage</h5>
+          <p><a href="http://{{profile.homepage}}" target="_blank">{{profile.homepage}}</a></p>
+          <hr>
+        {{/if}}
+
+        {{#if hostedCourses.count}}
+          <h5>Meine Kurse</h5>
+            <ul>
+              {{#each hostedCourses}}
+                <li>
+                  <a href="{{ pathFor route='course.show' slug=this.slug }}">{{title}}</a>
+                </li>
+              {{/each}}
+            </ul>
+            <hr>
+        {{/if}}
+
+        {{#if profile.languages}}
+          <h5>Sprachen</h5>
+          <p>{{profile.languages}}</p>
+          <hr>
+        {{/if}}
+
+        {{#if profile.certificates}}
+          <h5>Zertifikate und Referenzen</h5>
+          <p>{{profile.certificates}}</p>
+          <hr>
+        {{/if}}
+
+      </div>
+
+    </div>
+  </section>
+</template>

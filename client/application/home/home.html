@@ -1,0 +1,161 @@
+<template name="home">
+
+  <section id="intro">
+    <div class="intro-content">
+      <img src="/logo-full.svg" class="img-logo" />
+      <hr>
+      <!-- <h1>Improve yourself. Learn Together.</h1> -->
+      <h1>Die besten Seminare gemeinsam buchen</h1>
+      <h6>Wählen Sie Ihr Wunschthema und die passende Gruppe</h6>
+    </div>
+    <i class="fa fa-angle-down fa-4x" id="scroll-indicator"></i>
+  </section>
+
+  <section id="home-search">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <form id="home-search-form">
+            <div class="form-group">
+              <input type="text" class="form-control input-blue" name="searchBox" placeholder="Suchen Sie nach Seminaren, Schlagworten, Trainern oder Orten...">
+              <i class="fa fa-search form-control-feedback"></i>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--   <div class="separator">
+    <h2>Ihre Vorteile auf einen Blick</h2>
+  </div> -->
+
+<!--   <section id="zero-risk">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h4>Wir vermitteln Seminare von höchster Qualität an Gruppen. Auf traincrowd treten Sie einer Gruppe bei, um von den günstigen Konditionen zu profitieren.</h4>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <div class="separator">
+    <h2>So funktioniert traincrowd</h2>
+  </div>
+
+  <section id="home-steps">
+    <div class="container">
+      <div class="row no-gutter">
+
+        <div class="col-md-3 col-sm-6">
+          <div class="box-md">
+            <div class="box-md-inner">
+              <div class="box-md-title">
+                <h5>Schritt</h5>
+                <h4>01</h4>
+              </div>
+              <div class="box-md-content text-center">
+                <img src="/icon-find-your-course.png" alt="find your course" width="90" height="90">
+                <h3>Thema wählen</h3>
+                <p>Finden Sie einfach den passenden Kurs und treten einer der Gruppen bei.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="box-md">
+            <div class="box-md-inner">
+              <div class="box-md-title">
+                <h5>Schritt</h5>
+                <h4>02</h4>
+              </div>
+              <div class="box-md-content text-center">
+                <img src="/icon-form-a-group.png" alt="find your course" width="90" height="90">
+                <h3>Weitersagen</h3>
+                <p>Erzählen Sie Ihren Peers davon. So finden wir gemeinsam die notwendigen Teilnehmer.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="box-md">
+            <div class="box-md-inner">
+              <div class="box-md-title">
+                <h5>Schritt</h5>
+                <h4>03</h4>
+              </div>
+              <div class="box-md-content text-center">
+                <img src="/icon-learn-together.png" alt="find your course" width="90" height="90">
+                <h3>Lernen</h3>
+                <p>Glückwunsch, die notwendige Gruppengröße<sup>*</sup> ist erreicht und der Kurs findet statt.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="box-md">
+            <div class="box-md-inner">
+              <div class="box-md-title">
+                <h5>Schritt</h5>
+                <h4>04</h4>
+              </div>
+              <div class="box-md-content text-center">
+                <img src="/icon-rate-your-course.png" alt="find your course" width="90" height="90">
+                <h3>Bewerten</h3>
+                <p>Sie bewerten Ihre Erfahrung und helfen damit Qualität zu sichern.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center margin-top" style="color: white;">
+        <h4>Null Risiko</h4>
+        <p><sup>*</sup> Wir überweisen Ihnen Ihr Geld einfach zurück, sollten sich
+                einmal nicht genug Teilnehmer für einen Kurs finden.</p>
+      </div>
+
+      <div class="row margin-top">
+        <div class="col-md-12 text-center">
+          <a href="{{pathFor 'aboutUs'}}" class="btn btn-lg btn-red">Über traincrowd</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="separator">
+    <h2>Top Kurse</h2>
+  </div>
+
+  <section id="course-preview" class="container">
+    {{ > homePromoCourses }}
+
+    <div class="row margin-top">
+      <div class="col-md-12 text-center">
+        <a href="{{pathFor 'search.course'}}" class="btn btn-lg btn-red">Alle Kurse</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="separator">
+    <h2>Top Trainer</h2>
+  </div>
+
+  <section id="trainer-preview" class="container">
+    {{ > homePromoTrainer }}
+
+    <div class="row margin-top">
+      <div class="col-md-12 text-center">
+        <a href="{{pathFor 'search.trainer'}}" class="btn btn-lg btn-red">Alle Trainer</a>
+        <a href="{{pathFor 'becomeTrainerLanding'}}" class="btn btn-lg btn-red">Trainer werden</a>
+      </div>
+    </div>
+  </section>
+
+
+</template>

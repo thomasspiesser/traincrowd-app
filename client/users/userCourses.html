@@ -1,144 +1,228 @@
 <template name="userCourses">
-  {{> ratingModal}}
-  <div class="container notHome">
-    {{#if hostedCourses.count}}
-    <h3>Angebotene Kurse</h3>
-    <table class='table table-hover'>
-      <tbody>
-        {{#each hostedCourses}}
-          <tr class="{{#unless public}}{{else}}info{{/unless}}">
-            <td><a href="{{ pathFor route='course.show' _id=this._id }}">{{title}}</a></td>
-            <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
-            <td>{{#if public}}<span style="color: green;"><i class="fa fa-check"></i> online</span>{{else}}<span style="color: red;"><i class="fa fa-times"></i> offline</span>{{/if}}</td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
-
-    {{#if inquiredCourses}}
-    <h3>Angefragte Kurse</h3>
-    <table class='table table-striped'>
-      <thead>
-        <tr>
-          <td></td>
-          <td>Titel</td>
-          <td>Angefragte Daten</td>
-          <td>Bewertung</td>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each inquiredCourses}}
-          <tr>
-            <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
-            <td>{{inquiredDates}}</td>
-            <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
-
-    {{#if currentCourses}}
-    <h3>Gebuchte Kurse</h3>
-    <table class='table table-striped'>
-    <thead>
-        <tr>
-          <td>Titel</td>
-          <td>Kurs Datum</td>
-          <td>Bewertung</td>
-        </tr>
-      </thead>
-
-      <tbody>
-        {{#each currentCourses}}
-          <tr>
-            <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
-            <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
-            <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
-
-    {{#if elapsedCourses}}
-    <h3>Besuchte Kurse</h3>
-    <table class='table table-striped'>
-    <thead>
-        <tr>
-          <td>Titel</td>
-          <td>Datum</td>
-          <td>Meine Bewertung</td>
-          <td>Bewertung</td>
-        </tr>
-      </thead>
-
-      <tbody>
-        {{#each elapsedCourses}}
-          <tr>
-            <td><a href="{{ pathFor route='course.show' _id=course }}">{{title}}</a></td>
-            <td>{{#each formated courseDate}}{{this}} {{/each}}</td>
-            <td>
-              {{#if myRating _id}}
-                <span style="color: green;"><i class="fa fa-check"></i> Bewertung abgegeben</span> 
-                <a href="#" class="rateCourse" title="Bewertung Ändern"><i class="fa fa-pencil"></i> </a>
-              {{else}}
-                <a href="#" class="rateCourse" title="Jetzt bewerten"><span style="color: red;"><i class="fa fa-flag"></i> Jetzt Bewerten</span></a>
-              {{/if}}
-            </td>
-            <td><span class="rateit" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></span></td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    {{/if}}
+  <div class="separator separator-inverted">
+    <h2>Meine Kurse</h2>
   </div>
+
+  <section class="container">
+    <div class="panel panel-inverted">
+
+      {{ #if hostedCourses.count }}
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Angebotene Kurse</h3>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <td>Titel</td>
+                  <td>Bewertung</td>
+                  <td></td>
+                  <td>Status</td>
+                  <td>Status verändern</td>
+                </tr>
+              </thead>
+              <tbody>
+                {{ #each hostedCourses }}
+                  <tr class="{{ #unless isPublic }}{{ else }}success{{ /unless }}">
+                    <td><a href="{{ pathFor route='course.show' slug=this.slug }}">{{ title }}</a></td>
+                    <td>
+                      <div class="rateit rate-star dark-green" data-rateit-value="{{ rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                    </td>
+                    <td>
+                      {{ #unless hasPublishRequest }}
+                        <a href="{{ pathFor route='course.edit' slug=this.slug }}" title="Kurs bearbeiten"><i class="fa fa-pencil"></i> Kurs bearbeiten</a> 
+                      {{ /unless }}
+                    </td>
+                    <td>
+                      {{ #if isPublic }}
+                        <span style="color: green;"><i class="fa fa-check"></i> öffentlich </span>
+                      {{ else }} 
+                        {{ #if hasPublishRequest }}
+                          in Prüfung 
+                        {{ else }}
+                          <span style="color: red;"><i class="fa fa-times"></i> deaktiviert </span>
+                        {{ /if }} 
+                      {{ /if }}
+                    </td>
+
+                    <td>
+                      {{ #if isPublic }}
+                        <a href="#" class="deactivate">deaktivieren</a> 
+                      {{ else }} 
+                        {{ #unless hasPublishRequest }}
+                          <a href="#" class="activate">veröffentlichen</a> 
+                        {{ /unless }} 
+                      {{ /if }}
+                    </td>
+                  </tr>
+                {{ /each }}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {{ /if }}
+
+
+
+      {{ #if currentCourses }}
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Gebuchte Kurse</h3>
+            <table class='table'>
+              <thead>
+                <tr>
+                  <td>Titel</td>
+                  <td>Kurs Datum</td>
+                  <td>Bewertung</td>
+                </tr>
+              </thead>
+
+              <tbody>
+                {{ #each currentCourses }}
+                  <tr>
+                    <td>
+                      {{ #if title }}
+                        <a href="{{ pathFor route='course.show' slug=slug }}">{{ title }}</a>
+                      {{ else }}
+                        {{ courseTitle }}
+                      {{ /if }}
+                    </td>
+                    <td>
+                      <ul class="comma-list">
+                        {{ #each courseDate }}
+                        <li>{{ niceDate }}</li>
+                        {{ /each }}
+                      </ul>
+                    </td>
+                    <td>
+                      {{ #if ratingUndef }}
+                        nicht verfügbar
+                      {{ else }}
+                        <div class="rateit rate-star dark-green" data-rateit-value="{{ rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                      {{ /if }}
+                    </td>
+                  </tr>
+                {{ /each }}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {{ /if }} 
+
+      {{ #if elapsedCourses }}
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Besuchte Kurse</h3>
+            <table class='table'>
+              <thead>
+                <tr>
+                  <td>Titel</td>
+                  <td>Datum</td>
+                  <td>Bewertungsstatus</td>
+                  <td>allg. Bewertung</td>
+                </tr>
+              </thead>
+
+              <tbody>
+                {{ #each elapsedCourses }}
+                  <tr>
+                    <td>
+                      {{ #if title }}
+                        <a href="{{ pathFor route='course.show' slug=slug }}">{{ title }}</a>
+                      {{ else }}
+                        {{ courseTitle }}
+                      {{ /if }}
+                    </td>
+                    <td>
+                      <ul class="comma-list">
+                        {{ #each courseDate }}
+                        <li>{{ niceDate }}</li>
+                        {{ /each }}
+                      </ul>
+                    </td>
+                    <td>
+                      {{ #if myRating _id }}
+                        <span style="color: green;"><i class="fa fa-check"></i> bewertet </span>
+                        ( <a href="#" class="rateCourse" title="Bewertung Ändern"><i class="fa fa-pencil"></i></a> )
+                      {{ else }}
+                        <a href="#" class="rateCourse" title="Jetzt bewerten">
+                          <span style="color: red;"><i class="fa fa-flag"></i> Jetzt bewerten</span>
+                        </a>
+                      {{ /if }}
+                    </td>
+                    <td>
+                      {{ #if title }}
+                        <div class="rateit rate-star dark-green" data-rateit-value="{{ rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                      {{ else }}
+                        nicht verfügbar
+                      {{ /if }}
+                    </td>
+                  </tr>
+                {{ /each }}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      {{ /if }}
+
+    </div>
+  </section>
+
+  {{ > ratingModal }}
+
 </template>
 
-<!--  /////////////////////////////////////////////////// --> 
+<!--  /////////////////////////////////////////////////// -->
 
 <template name="ratingModal">
   <div id="ratingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
           <h4 class="modal-title" id="myModalLabel">Kurs Bewerten</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="overflow:auto;">
 
+          Kommunikation im Vorfeld und Vorbereitung des Kurses
           <input type="range" value="0" step="0.5" id="backing0">
-          <div class="rateit rateitModal0" data-rateit-backingfld="#backing0" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Kommunikation im Vorfeld und Vorbereitung des Kurses
+          <div class="rateit rate-star pull-right dark-green rateitModal0" data-rateit-backingfld="#backing0" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
+          Erreichen der angegebenen Lernziele der Weiterbildung
           <input type="range" value="0" step="0.5" id="backing1">
-          <div class="rateit rateitModal1" data-rateit-backingfld="#backing1" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Erreichen der angegebenen Lernziele der Weiterbildung
+          <div class="rateit rate-star pull-right dark-green rateitModal1" data-rateit-backingfld="#backing1" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
+          Qualität und Angemessenheit der eingesetzten Methoden und Didaktik
           <input type="range" value="0" step="0.5" id="backing2">
-          <div class="rateit rateitModal2" data-rateit-backingfld="#backing2" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Qualität und Angemessenheit der eingesetzten Methoden und Didaktik
+          <div class="rateit rate-star pull-right dark-green rateitModal2" data-rateit-backingfld="#backing2" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
+          Eingehen auf Vorwissen und individuelle Lernbedarfe der Teilnehmer
           <input type="range" value="0" step="0.5" id="backing3">
-          <div class="rateit rateitModal3" data-rateit-backingfld="#backing3" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Eingehen auf Vorwissen und individuelle Lernbedarfe der Teilnehmer
+          <div class="rateit rate-star pull-right dark-green rateitModal3" data-rateit-backingfld="#backing3" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
+          Kompetenz des Trainers/der Trainerin und Logistik und Räumlichkeiten
           <input type="range" value="0" step="0.5" id="backing4">
-          <div class="rateit rateitModal4" data-rateit-backingfld="#backing4" data-rateit-resetable="true" data-rateit-ispreset="true">
-          </div> Kompetenz des Trainers/der Trainerin und Logistik und Räumlichkeiten
+          <div class="rateit rate-star pull-right dark-green rateitModal4" data-rateit-backingfld="#backing4" data-rateit-resetable="true" data-rateit-ispreset="true">
+          </div> 
 
           <hr>
 
-          <button type="button" class="btn btn-default" id="saveRating"><i class="fa fa-save"></i> Speichern</button>
+          <button type="button" class="btn btn-red pull-right" id="saveRating">Speichern</button>
 
         </div>
       </div>

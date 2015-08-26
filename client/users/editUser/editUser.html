@@ -1,0 +1,64 @@
+<template name="editUser">
+
+  {{ #if canEdit _id }}
+    <div class="container">
+
+      <div class="row tracker">
+
+        <div class="col-md-4 active">
+          <a href="#" class="dynamic-template-selector" id="editUserProfile">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckUserProfile }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Mein Profil</span>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <!-- <a href="#" class="dynamic-template-selector" id="editUserAddress"> -->
+          <a href="#" class="dynamic-template-selector" id="bookCourseAddress">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckUserAddress }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Meine Adressen</span>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a href="#" class="dynamic-template-selector" id="editUserAccount">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckUserAccount }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Mein Account</span>
+          </a>
+        </div>
+
+      </div> <!-- row -->
+
+    </div> <!-- container -->
+
+    {{ > Template.dynamic template=active data=this }}
+
+  {{ else }}
+    <section class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="alert alert-danger text-center">
+            <h5>Fehler</h5>
+            Sie dürfen nur Ihr eigenes Profil bearbeiten.
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ /if }}
+
+</template>

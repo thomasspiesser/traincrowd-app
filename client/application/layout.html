@@ -1,5 +1,10 @@
 <head>
-  <title>TrainCrowd</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+  <meta name="google-site-verification" content="3GJb158XIfKtD9uRKDfPruwJkAyL8to8Zwx694wVSTg" />
+  <meta property="fb:app_id" content="1419012125078098" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.png"> 
 </head>
 
 <!--  /////////////////////////////////////////////////// --> 
@@ -24,7 +29,20 @@
 <!--  /////////////////////////////////////////////////// --> 
 
 <template name="loadingTemplate">
-  {{>spinner}}
+  <div class="loading">{{ > spinner }}</div>
 </template>
 
 <!--  /////////////////////////////////////////////////// --> 
+
+<template name="notFound">
+  <section class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="jumbotron text-center">
+          <h2>Fehler 404</h2>
+          <p>Entschuldigung, diese Seite konnte leider nicht gefunden werden.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

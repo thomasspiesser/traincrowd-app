@@ -1,22 +1,42 @@
 <html>
 <head>
-  <title>Eventbestätigung</title>
+  <title>Ihr Kurs findet statt!</title>
 </head>
 <body>
 
-  <p>Hallo {{ name }},</p>
-  <p>Herzlichen Glückwunsch, es haben sich genügend Teilnehmer für den Kurs '{{course.title}}' beginnend am {{courseDate}} über Traincrowd zusammengefunden.</p>
-  <p>Ihre Ansprechperson ist: <a href="mailto:{{trainerEmail}}">{{trainerName}}</a></p>
+  <p>
+    Hallo {{ name }},
+  </p>
+  <p>
+    Herzlichen Glückwunsch, die Gruppe für den Kurs '{{ course.title }}' beginnend am {{ courseDate }} ist nun vollständig. Der Anbieter hat die Veranstaltung verbindlich bestätigt.
+  </p>
+  <p>
+    Ihre Ansprechperson ist {{ trainerName }} (<a href="mailto:{{ trainerEmail }}">{{ trainerEmail }}</a>)
+  </p>
 
   <p>Der Kurs findet hier statt: </p>
-  <p>{{street}} <br> {{streetAdditional}} <br> {{plz}} Berlin </p>
-  {{#if personalMessage}}
-  	<p>{{trainerName}} hat folgende Nachricht für Sie hinterlassen: </p> 
-  	<p>{{personalMessage}} </p> 
-  {{/if}}
+  <p>
+    {{ #if course.firm }} {{ course.firm }} <br> {{ /if }}
+    {{ course.street }} {{ course.streetNumber }} <br> 
+    {{ course.plz }} {{ course.city }} <br>
+    {{ course.streetAdditional }} 
+  </p> 
+  <p>
+    Ihre Veranstaltung beginnt am ersten Tag um {{ begin }} Uhr.
+  </p>
+  {{ #if personalMessage }}
+    <p>
+      {{ trainerName }} hat folgende Nachricht für Sie hinterlassen:
+    </p> 
+    <p>
+      {{ personalMessage }}
+    </p> 
+  {{ /if }}
 
-  <p>Wir wünschen einen erfolgreichen Kurs,<br>
-  das Traincrowd Team</p> 
+  <p>
+    Wir wünschen frohes Lernen, bis zum nächsten Mal! <br>
+    Ihr traincrowd Team
+  </p> 
   
 </body>
 </html>

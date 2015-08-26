@@ -1,0 +1,43 @@
+<template name="paymillForm">
+  <div id="paymill_example_form">
+  <div id="top_switch" class="minimal">
+    <img src="/paymill/gb.png" id="language_switch">
+  </div>
+  <form id="paymill-form">
+    <header id="paymill-form-header">
+      <img alt="Logo" src="/paymill/paymill-logo-signet.png">
+      <h1 class="form-signin-heading">{{title}}</h1>
+      <h2 class="form-signin-heading">{{description}}</h2>
+    </header>
+
+    <div class="payment_errors">&nbsp;</div>
+
+    <fieldset>
+      <label for="card-number" class="card-number-label field-left"></label>
+      <input id ="card-number" class="card-number field-left" type="text" maxlength="16">
+      <label for="card-expiry" class="card-expiry-label field-right"></label>
+      <input id="card-expiry" class="card-expiry field-right" type="text" placeholder="MM/YY" maxlength="7">
+
+    </fieldset>
+
+    <fieldset>
+      <label for="card-holdername" class="card-holdername-label field-left"></label>
+      <input id="card-holdername" class="card-holdername field-left" type="text">
+      <label for="card-cvc" class="field-right"><span class="card-cvc-label"></span><span id="cvc-popover" data-toggle="popover" data-content="" data-trigger="hover">?</span></label>
+      <input id="card-cvc" class="card-cvc field-right" type="text" placeholder="CVC" maxlength="4">
+    </fieldset>
+
+    <fieldset>
+      <label for="amount" class="amount-label field-left"></label>
+      <input id="amount" class="amount field-left" type="text" value={{amount}} name="amount" readonly>
+      <label for="currency" class="currency-label field-right"></label>
+      <input id="currency" class="currency field-right" type="text" value={{currency}} name="currency" readonly>
+    </fieldset>
+
+    <fieldset id="buttonWrapper">
+      <button id="paymill-submit-button" class="submit-button btn btn-primary" type="submit"></button>
+    </fieldset>
+
+  </form>
+  </div>
+</template>

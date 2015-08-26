@@ -1,0 +1,37 @@
+<template name="trainerBox">
+  <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">
+    <div class="box-img">
+      <div class="img-zoom" style="background-image: url( {{#if profile.imageId}} '{{profile.imageId}}' {{else}} '/dummyUser.jpg' {{/if}} )"></div>
+    </div>
+  </a>
+  <div class="box-title">
+    <h3><a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">{{username this._id}} </a></h3>
+    <!-- <p>Heading 11</p> -->
+  </div>
+  <div class="box-subtitle">
+    <i class="fa fa-map-marker"></i> Berlin
+  </div>
+  <div class="box-content">
+    {{ descriptionPreview }}
+  </div>
+
+      
+  <div class="box-footer">
+    <span class="box-footer-left">
+      <div class="share-container ">
+        <div class="share-open">
+          <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+        </div>
+        <div class="share-btns">
+          {{ > share shareData }}
+        </div>
+      </div>
+    </span>
+    <span class="box-footer-center">
+      <div class="rateit rate-star dark-green" data-rateit-value="{{ profile.rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+    </span>
+    <span class="box-footer-right">
+      <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}" type="button" class="btn btn-dark-blue btn-square"><i class="fa fa-arrow-right"></i></a>
+    </span>
+  </div>
+</template>

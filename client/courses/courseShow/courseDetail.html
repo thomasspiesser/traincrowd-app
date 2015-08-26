@@ -1,0 +1,140 @@
+<template name="courseDetail">
+
+  <div class="separator separator-inverted">
+    <h2>Kurse > {{title}}</h2>
+  </div>
+
+  <section class="container">
+    {{#if canEdit owner}}
+      <div class="row">
+        <a href="{{ pathFor route='course.edit' slug=slug }}" class="btn btn-red pull-right" type="button"><i class="fa fa-pencil" style="color:white;"></i> Kurs Bearbeiten</a>
+      </div>
+    {{/if}}
+
+    <div class="row course-detail">
+
+      <div class="col-md-2 col-sm-3 course-left">
+        <div class="trainer-img" style="background-image: url( {{#if imageId}} '{{imageId}}' {{else}} {{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}} '/dummyUser.jpg' {{/if}} {{/if}} );"></div>
+        <div class="share-container ">
+          <div class="share-open">
+            <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+          </div>
+          <div class="share-btns">
+            {{ > share shareData }}
+          </div>
+        </div>
+        <div class="rateit rate-star dark-green pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+      </div> <!-- col course-right -->
+
+      <div class="col-md-7 col-sm-6 course-center">
+        <h1>{{title}}</h1>
+        <h3><a href="{{ pathFor 'trainerProfile.show' _id = owner }}">{{ownerName}}</a></h3>
+        {{#each categories}}
+          <button type="button" class="btn btn-dark-blue btn-xs">{{this}}</button>
+        {{/each}}
+        <h4>Beschreibung</h4>
+        <p class="pre-wrap">{{description}}</p>
+
+        {{#if aims}}
+         <h4>Kursziele</h4>
+         <p class="pre-wrap">{{aims}}</p>
+        {{/if}}
+
+        {{#if methods}}
+          <h4>Lernformen, Methodik und Didaktik</h4>
+          <p class="pre-wrap">{{methods}}</p>
+        {{/if}}
+
+        {{#if targetGroup}}
+          <h4>Zielgruppe</h4>
+          <p class="pre-wrap">{{targetGroup}}</p>
+        {{/if}}
+
+        {{#if prerequisites}}
+          <h4>Vorraussetzungen</h4>
+          <p class="pre-wrap">{{prerequisites}}</p>
+        {{/if}}
+
+        {{#if languages}}
+          <h4>Sprachen</h4>
+          <p class="pre-wrap">{{languages}}</p>
+        {{/if}}
+
+        {{#if additionalServices}}
+          <h4>Zusätzliche Leistungen</h4>
+          <p class="pre-wrap">{{additionalServices}}</p>
+        {{/if}}
+
+      </div> <!-- col course-center -->
+
+      <div class="col-md-3 col-sm-3 course-right">
+        <h4>Kurzinfos:</h4>
+        <p><i class="fa fa-fw fa-clock-o" ></i> {{ duration }} Kurstag(e)</p>
+        <p><i class="fa fa-fw fa-users" ></i> {{ maxParticipants }} Plätze</p>
+        <p><i class="fa fa-fw fa-euro" ></i> {{ feePP }},- <span class="taxStatus">{{ taxStatus }}</span> </p>
+
+        <hr>
+
+        <!-- groups here -->
+        <h4>Gruppe auswählen:</h4>
+
+        {{ #each getCurrent }}
+
+          <div class="well">
+
+            <p><i class="fa fa-calendar fa-fw"></i> Termin: {{courseDateRange}} </p>
+            {{ #if bookedOut .. }}
+              <p><i class="fa fa-hourglass-start fa-fw"></i> nicht mehr buchbar</p>
+            {{ else }}
+              <p><i class="fa fa-hourglass-start fa-fw"></i> noch {{ runtime .. }} Tage buchbar</p>
+            {{ /if }}
+
+            {{ #if bookedOut .. }}
+              <div class="progress">
+                <div class="progress-bar progress-booked-out" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                  Ausgebucht
+                </div>
+              </div>
+            {{ else }}
+              <div class="progress">
+                <span class="progress-text">
+                  {{ #if confirmed }}
+                    <span data-toggle="tooltip" title="Dieser Kurs findet garantiert statt. In der Gruppe ist noch Platz für {{ openSpots .. }} Personen.">findet sicher statt <icon class="fa fa-check"></icon></span>
+                  {{ else }}
+                    <span data-toggle="tooltip" title="Diese Gruppe braucht noch {{ openSpots .. }} Personen, damit der Kurs garantiert stattfindet.">noch {{ openSpots .. }} Personen <icon class="fa fa-question-circle"></icon></span>
+                  {{ /if }}
+                </span>
+                <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull .. }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull .. }}%; min-width: 0.2em;">
+                </span>
+              </div>
+            {{ /if }}
+
+            {{ #unless bookedOut .. }}
+              <div class="row text-center">
+                <h5>Gruppe beitreten:</h5>
+                <a href="#" type="button" class="btn btn-red joinCourseButton">Jetzt Buchen</a>
+              </div>
+            {{ /unless }}
+
+          </div> 
+
+        {{ /each }}
+
+        <hr>
+
+        <h4>Ort:</h4>
+        {{#if noLocation}}
+          <p>steht noch nicht fest</p>
+        {{else}}
+          <p> {{street}} {{streetNumber}} <br>
+          {{#if streetAdditional}} {{streetAdditional}} <br> {{/if}}
+          {{plz}} {{city}} </p>
+          <a href="https://www.google.de/maps/place/{{street}}+{{streetNumber}},{{plz}}" target="_blank"><img src="http://maps.googleapis.com/maps/api/staticmap?markers={{street}}+{{streetNumber}},{{plz}}&zoom=14&size=300x300&sensor=false" alt="" style="width: 100%;"></a>
+        {{/if}}
+
+      </div> <!-- col course-right -->
+
+    </div> <!-- row course -->
+
+  </section>
+</template>

@@ -1,0 +1,28 @@
+<template name="agbModal">
+  <div class="modal fade">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Allg. Geschäftsbedingungen</h4>
+        </div>
+
+        <div class="modal-body">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active unselectable"><a href="#agbUser" aria-controls="agbUser" role="tab" data-toggle="tab">Nutzer</a></li>
+            <li role="presentation" class="unselectable"><a href="#agbTrainer" aria-controls="agbTrainer" role="tab" data-toggle="tab">Trainer</a></li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="agbUser"> {{ > agbUser }} </div>
+            <div role="tabpanel" class="tab-pane" id="agbTrainer"> {{ > agbTrainer }} </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>

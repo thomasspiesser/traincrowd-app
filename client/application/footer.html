@@ -1,0 +1,90 @@
+<template name="footer">
+  <div class="container-fluid">
+
+    <div class="row footer-banner">
+      <div class="container">
+        <div class="row margin-top">
+          <div class="col-sm-12">
+            <img src="/logo-icon.svg" width="45" height="60"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>Wir finden den</h3>
+            <h3>richtigen Kurs.</h3>
+            <h3>Schreiben Sie uns!</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row footer-social">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3">
+            <h6 class="follow-us">Folgen Sie uns auf</h6>
+          </div>
+          <div class="col-sm-9">
+            <a href="https://www.facebook.com/traincrowd" class="btn btn-social btn-round" target="_blank"><i class="fa fa-facebook"></i></a>
+            <a href="https://twitter.com/traincrowd" class="btn btn-social btn-round" target="_blank"><i class="fa fa-twitter"></i></a>
+            <!-- <a href="#" class="btn btn-social btn-round" target="_blank"><i class="fa fa-instagram"></i></a> -->
+            <a href="https://plus.google.com/100571658359876853984/posts" class="btn btn-social btn-round" target="_blank"><i class="fa fa-google-plus"></i></a>
+            <a href="https://www.linkedin.com/company/6413966" class="btn btn-social btn-round" target="_blank"><i class="fa fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row footer-bottom">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-3">
+            <h6>Fragen</h6>
+            <hr>
+            <ul>
+              <li><a href="{{pathFor 'faq'}}">Häufige Fragen</a></li>
+              <li><a href="{{pathFor 'impressum'}}">Kontakt</a></li>
+            </ul>
+          </div>
+
+          <div class="col-md-3">
+            <h6>Informationen</h6>
+            <hr>
+            <ul>
+              <li><a href="{{pathFor 'aboutUs'}}">Über uns</a></li>
+              <li><a href="{{pathFor 'agb'}}">AGB</a></li>
+              <li><a href="{{pathFor 'privacy'}}">Datenschutz</a></li>
+              <li><a href="{{pathFor 'impressum'}}">Impressum</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <h6>Newsletter abonnieren</h6>
+            <hr>
+
+            <!-- Begin MailChimp Signup Form -->
+            <div id="mc_embed_signup">
+              <form action="//traincrowd.us10.list-manage.com/subscribe/post?u=0ff46c08bfac063d147159878&amp;id=5504ca022e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate="">
+                <div id="mc_embed_signup_scroll" class="form-group">
+                  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required="">
+                  <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                  <div style="position: absolute; left: -5000px;"><input type="text" name="b_0ff46c08bfac063d147159878_5504ca022e" tabindex="-1" value=""></div>
+                </div>
+                <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-sm btn-light-blue">Absenden</button>
+              </form>
+            </div>
+            <!--End mc_embed_signup-->
+
+          </div>
+          <div class="col-md-3 text-center margin-top">
+            <img src="/logo-full.svg" width="120" height="56"/>
+            <p class="copy">&copy; 2015 traincrowd UG. All rights reserved </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</template>

@@ -1,0 +1,61 @@
+<template name="bookCourse">
+
+  <div class="container">
+
+    <div class="row tracker">
+
+      <div class="col-md-3 active">
+        <a href="#" class="dynamic-template-selector unclickable" id="bookCourseRegister">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
+            {{ #if deservesCheckBookCourseRegister }}
+              <span class="fa fa-check fa-stack-1x"></span>
+            {{ /if }}
+          </span>
+          <span class="step-text">Anmelden</span>
+        </a>
+      </div>
+
+      <div class="col-md-3">
+        <a href="#" class="dynamic-template-selector unclickable" id="bookCourseAddress">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
+            {{ #if deservesCheckBookCourseAddress }}
+              <span class="fa fa-check fa-stack-1x"></span>
+            {{ /if }}
+          </span>
+          <span class="step-text">Rechnungsadresse</span>
+        </a>
+      </div>
+
+      <div class="col-md-3">
+        <a href="#" class="dynamic-template-selector unclickable" id="bookCoursePaymentMethod">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
+            {{ #if deservesCheckBookCoursePaymentMethod }}
+              <span class="fa fa-check fa-stack-1x"></span>
+            {{ /if }}
+          </span>
+          <span class="step-text">Zahlungsart</span>
+        </a>
+      </div>
+
+      <div class="col-md-3">
+        <a href="#" class="dynamic-template-selector unclickable" id="bookCourseConfirm">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
+            {{ #if deservesCheckBookCourseConfirm }}
+              <span class="fa fa-check fa-stack-1x"></span>
+            {{ /if }}
+          </span>
+          <span class="step-text">Bestätigen</span>
+        </a>
+      </div>
+
+    </div> <!-- row -->
+
+  </div> <!-- container -->
+
+{{ > Template.dynamic template=active }}
+
+</template>

@@ -1,0 +1,77 @@
+<template name="searchCourse">
+
+  <div class="separator separator-inverted">
+    <h2>Berlins Top Kurse</h2>
+  </div>
+
+  <div class="container margin-top">
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="searchInput">
+          {{ > esInput index="courses" placeholder="Suchen..." class="form-control" allDocsOnEmpty=true value=query }}
+        </div>
+      </div>
+      <div class="col-md-2">
+        {{ > filter }}
+      </div>
+    </div>
+
+    {{#ifEsIsSearching index="courses"}}
+      <section class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-default text-center">
+              <h5>Suche...</h5>
+            </div>
+          </div>
+        </div>
+      </section>
+    {{else}}
+      {{#esEach index="courses"}}
+        {{ > courseBoxLarge }}
+      {{/esEach}}
+
+      <div class="row">
+        <div class="col-lg-2 col-lg-offset-5">
+          {{> esLoadMoreButton index="courses" class="btn btn-default btn-block" content="Mehr" howMany=50}}
+        </div>
+      </div>
+    {{/ifEsIsSearching}}
+
+    {{#ifEsHasNoResults index="courses"}}
+      <section class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-default text-center">
+              <h5>Ihre Suche ergab keinen Treffer.</h5>
+            </div>
+          </div>
+        </div>
+      </section>
+    {{/ifEsHasNoResults}}
+
+  </div>
+</template>
+
+<template name="filter">
+  <div class="filters pull-right">
+    <ul class="nav nav-pills">
+
+      <li role="presentation" class="dropdown">
+
+        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+          Kategorien <span class="fa fa-caret-right"></span>
+        </a>
+
+        <ul class="dropdown-menu" role="menu">
+          <li role="presentation" class="filter left-menu-item"><a href="#" id="Alle">Alle</a></li>
+          {{#each categories}}
+            <li role="presentation" class="filter left-menu-item"><a href="#" id="{{this}}">{{this}}</a></li>
+          {{/each}}
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+</template>

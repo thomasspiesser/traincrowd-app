@@ -1,8 +1,12 @@
 <template name="faq">
-  <div class="container">
-    <h3 class="text-center">Häufig gestellte Fragen</h3>
 
-    <h4 class="text-uppercase"><strong>Allgemein</strong></h4>
+  <div class="separator separator-inverted">
+    <h2>Häufig gestellte Fragen</h2>
+  </div>
+
+  <div class="container margin-top">
+
+    <h4>Allgemein</h4>
     <div class="panel-group" role="tablist" aria-multiselectable="false">
       {{#each generalFAQs}}
       <div class="panel panel-default">
@@ -22,7 +26,7 @@
       {{/each}}
     </div>
 
-    <h4 class="text-uppercase"><strong>Buchungen</strong></h4>
+    <h4>Buchungen</h4>
     <div class="panel-group" role="tablist" aria-multiselectable="false">
       {{#each bookingFAQs}}
       <div class="panel panel-default">
@@ -42,7 +46,7 @@
       {{/each}}
     </div>
 
-    <h4 class="text-uppercase"><strong>Kurse Anbieten</strong></h4>
+    <h4>Kurse Anbieten</h4>
     <div class="panel-group" role="tablist" aria-multiselectable="false">
       {{#each offerCoursesFAQs}}
       <div class="panel panel-default">

@@ -1,0 +1,74 @@
+<template name="editTrainer">
+
+  {{ #if canEdit _id }}
+    <div class="container">
+
+      <div class="row tracker">
+
+        <div class="col-md-3 active">
+          <a href="#" class="dynamic-template-selector" id="editTrainerProfile">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckTrainerProfile }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Mein Profil</span>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a href="#" class="dynamic-template-selector" id="editTrainerAddress">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckTrainerAddress }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Meine Adresse</span>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a href="#" class="dynamic-template-selector" id="editTrainerAccount">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if deservesCheckTrainerAccount }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Mein Account</span>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a href="#" class="dynamic-template-selector" id="editTrainerPreview">
+            <span class="fa-stack fa-lg">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              {{ #if this.isPublic }}
+                <span class="fa fa-check fa-stack-1x"></span>
+              {{ /if }}
+            </span>
+            <span class="step-text">Vorschau</span>
+          </a>
+        </div>
+
+      </div> <!-- row -->
+
+    </div> <!-- container -->
+
+    {{ > Template.dynamic template=active data=this }}
+
+  {{ else }}
+    <section class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="alert alert-danger text-center">
+            <h5>Fehler</h5>
+            Sie dürfen nur Ihr eigenes Profil bearbeiten.
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ /if }}
+</template>

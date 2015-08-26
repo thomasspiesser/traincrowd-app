@@ -1,0 +1,62 @@
+<template name="editTrainerAddress">
+  <section class="container">
+    <div class="panel panel-inverted">
+      
+      <div class="row">
+
+        <div class="col-md-7">
+
+          <h4 class="text-center">Öffentlich</h4>
+
+          <div class="form-group">
+            <label for="edit-user-homepage" class="control-label">Homepage</label>
+            <div class="input-group">
+            <div class="input-group-addon">http://</div>
+              <input type="text" class="form-control edit-trainer hoverCheck" id="edit-user-homepage" value="{{profile.homepage}}">
+            </div>
+            <span class="help-block" id="help-text-edit-user-homepage"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-user-videoURL" class="control-label">Video (Youtube-Link)</label>
+            <input type="text" class="form-control edit-trainer hoverCheck" id="edit-user-videoURL" value="{{profile.videoURL}}" placeholder="e.g. https://www.youtube.com/watch?v=123">
+            <span class="help-block" id="help-text-edit-user-videoURL"></span>
+          </div>
+
+          <h4 class="text-center" style="margin-top:35px;">Nicht Öffentlich</h4>
+
+          {{ > editPhone data=profile collection='User' }}
+
+          <div class="form-group">
+            <label for="edit-user-taxNumber" class="control-label">Steuernummer</label>
+            <input type="text" class="form-control edit-trainer hoverCheck" id="edit-user-taxNumber" value="{{profile.taxNumber}}">
+            <span class="help-block" id="help-text-edit-user-taxNumber"></span>
+          </div>
+
+          {{ > editAddress data=profile.billingAddresses.[0] collection='User' }}
+
+        </div>
+
+        <div class="col-md-5">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Wo ich zu finden bin</h3>
+            </div>
+            <div class="panel-body">
+              Bitte teilen Sie uns Ihre Kontaktdaten mit. Selbstverständlich geben wir diese nicht an Dritte weiter. Öffentlich angezeigt werden nur der Link zu Ihrer Homepage und falls gewünscht ein Video.
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-red" id="saveEditTrainerAddress">Weiter </button>
+          </div>
+          {{#if hoverText}}
+            <div class="well hover-text">
+              {{hoverText}}
+            </div>
+          {{/if}}
+        </div>
+
+      </div>
+    </div>
+  </section>
+</template>

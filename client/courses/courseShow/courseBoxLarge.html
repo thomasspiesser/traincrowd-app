@@ -1,0 +1,88 @@
+<template name="courseBoxLarge">
+  <div class="row no-gutters coursebox">
+    <div class="col-lg-2 col-md-3 col-sm-3">
+      <a href="{{ pathFor 'course.show' slug=this.slug }}">
+        <div class="box-img">
+          <div class="img-zoom" style="background-image: url({{#if imageId}} '{{imageId}}' {{else}}{{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}}/dummyUser.jpg {{/if}} {{/if}})"></div>
+        </div>
+      </a>
+
+      <div class="share-container ">
+        <div class="share-open">
+          <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
+        </div>
+        <div class="share-btns">
+          {{ > share shareData }}
+        </div>
+      </div>
+
+      <div class="rateit rate-star dark-green pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+
+    </div>
+
+    <div class="col-lg-7 col-md-6 col-sm-5 box-content">
+      <div class="box-content-top">
+        <a href="{{ pathFor route='course.show' slug=this.slug }}"><h3>{{titlePreview}}</h3></a>
+        <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}"><h6>{{ownerName}}</h6></a>
+
+        {{ #each categories }}
+          <a href="#" type="button" class="btn btn-dark-blue btn-xs">{{ this }}</a>
+        {{ /each }}
+
+        <p class="course-description-preview">{{descriptionPreview}}</p>
+        <p><a href="{{ pathFor route='course.show' slug=this.slug }}">see more <i class="fa fa-arrow-right"></i></a></p>
+      </div>
+    </div>
+    
+
+      <div class="btn-bar btn-bar-inverted in">
+        <div class="btn-bar-left">
+          <ul>
+            <li><i class="fa fa-calendar"></i></li>
+            <li><i class="fa fa-clock-o"></i></li>
+            <li><i class="fa fa-map-marker"></i></li>
+            <li><i class="fa fa-users"></i></li>
+            <li><i class="fa fa-euro"></i></li>
+          </ul>
+        </div>
+        <div class="btn-bar-right">
+          <ul>
+            <li> {{ nextEvent }} </li>
+            <li> {{ duration }} Tag(e) </li>
+            <li> {{ #if city }} {{ city }} {{ else }} Ort steht noch nicht fest {{ /if }}</li>
+            <li>
+              {{ #if hasDate }}
+                {{ #with getCurrent }}
+
+                  {{ #if bookedOut .. }}
+                    <div class="progress">
+                      <div class="progress-bar progress-booked-out" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        Ausgebucht
+                      </div>
+                    </div>
+                  {{ else }}
+                    <div class="progress">
+                      <span class="progress-text">
+                        {{ #if confirmed }}
+                          <span data-toggle="tooltip" title="Dieser Kurs findet garantiert statt. In der Gruppe ist noch Platz für {{ openSpots .. }} Personen.">findet sicher statt <i class="fa fa-check"></i></span>
+                        {{ else }}
+                          <span data-toggle="tooltip" title="Diese Gruppe braucht noch {{ openSpots .. }} Personen, damit der Kurs garantiert stattfindet.">noch {{ openSpots .. }} Personen <i class="fa fa-question-circle"></i></span>
+                        {{ /if }}
+                      </span>
+                      <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull .. }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull .. }}%; min-width: 0.2em;">
+                      </span>
+                    </div>
+                  {{ /if }}
+
+                {{ /with }}
+              {{ else }}
+                Kein Event
+              {{ /if }}
+            </li>
+            <li> {{ feePP }},- <span class="taxStatus">{{ taxStatus }}</span> </li>
+          </ul>
+        </div>
+      </div>
+
+  </div>
+</template>

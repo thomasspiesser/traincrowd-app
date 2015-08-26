@@ -1,0 +1,23 @@
+<template name="payModal">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Bezahlen</h4>
+        </div>
+
+        <div class="modal-body">
+          <p>
+            {{ > paymillForm bookingId=bookingId amount=feePP currencyc="EUR" title="PAYMILL" description="Sicher und einfach online bezahlen" }}
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
