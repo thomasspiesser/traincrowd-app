@@ -53,7 +53,8 @@
             {{ #unless hasShared }}
               <h3 style="margin-top: 0;">Jetzt teilen und 10-Euro Amazon Gutschein sichern!</h3>
               {{ #if Template.subscriptionsReady }} 
-                <a href="https://www.facebook.com/dialog/share?app_id=1419012125078098&display=popup&href={{ shareData.url }}&redirect_uri=http://traincrowd.de/close-window" class="btn btn-social btn-round"><i class="fa fa-facebook"></i></a>
+                <!-- <a href="https://www.facebook.com/dialog/share?app_id=1419012125078098&display=popup&href={{ shareData.url }}&redirect_uri=http://traincrowd.de/close-window" class="btn btn-social btn-round"><i class="fa fa-facebook"></i></a> -->
+                <a href="https://www.facebook.com/dialog/share?app_id=1419012125078098&display=popup&href={{ shareData.url }}&redirect_uri={{ shareData.redirectURL }}" class="btn btn-social btn-round"><i class="fa fa-facebook"></i></a>
                 <a href="https://twitter.com/intent/tweet?url={{ shareData.url }}&text={{ shareData.title }}&via=traincrowd" class="btn btn-social btn-round"><i class="fa fa-twitter"></i></a>
                 <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shareData.url }}&title={{ shareData.title }}&summary={{ shareData.description }}&source=traincrowd" class="btn btn-social btn-round"><i class="fa fa-linkedin"></i></a>
               {{ /if }}

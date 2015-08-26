@@ -12,7 +12,8 @@ Template.bookCourseThankYou.helpers({
     var data = {
       title: encodeURIComponent( course.title ),
       description: encodeURIComponent( course.description ),
-      url: encodeURI( Meteor.absoluteUrl() + 'course/' + course.slug )
+      url: encodeURI( Meteor.absoluteUrl() + 'course/' + course.slug ),
+      redirectURL: encodeURI( Meteor.absoluteUrl() + 'close-window' )
     };
     return data;
   }
@@ -30,7 +31,6 @@ Template.bookCourseThankYou.events({
     var sharewindow = window.open( url, windowName, windowSize );
     var timer = Meteor.setInterval( checkClosed, 500 );
     var bookingId = this._id;
-    console.log(bookingId);
 
     function checkClosed() {
       if ( sharewindow.closed ) {
