@@ -26,6 +26,18 @@ Template.trainerProfile.helpers({
 });
 
 Template.trainerProfile.events({
+  'click #impersonate': function ( event, tempalte ) {
+    var userId = this._id;
+    var username = this.profile.name;
+    Meteor.call('impersonate', userId, function ( error, result ) {
+      if ( error )
+        toastr.error( error.reason );
+      else {
+        toastr.success( 'Impersonating ' +  username );
+        Meteor.connection.setUserId( userId );
+      }
+    });
+  },
   'click #editTrainerProfileButton': function () {
     Router.go("edit.trainer", {_id: this._id} );
   },

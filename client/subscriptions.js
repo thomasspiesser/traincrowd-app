@@ -2,6 +2,13 @@
 // Meteor.subscribe('bookings');
 Meteor.subscribe('current');
 Meteor.subscribe('elapsed');
-Meteor.subscribe('userData');
+
+Tracker.autorun( function() {
+  if ( Meteor.userId() ) {
+    Meteor.subscribe('userData');
+  }
+});
+
+// Meteor.subscribe('userData');
 Meteor.subscribe('trainer');
 Meteor.subscribe('categories');

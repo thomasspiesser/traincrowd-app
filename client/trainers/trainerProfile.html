@@ -5,6 +5,17 @@
   </div>
 
   <section class="container">
+    {{ #if canEdit _id }}
+      <div class="row">
+        <a href="{{ pathFor route='edit.trainer' id=_id }}" class="btn btn-red pull-right" type="button"><i class="fa fa-pencil" style="color:white;"></i> Profil Bearbeiten</a>
+      </div>
+    {{ /if }}
+
+    {{ #if isInRole 'admin' }}
+      <div class="row">
+        <a href="#" class="btn btn-red pull-right" id="impersonate" type="button"><i class="fa fa-male" style="color:white;"></i> Impersonate </a>
+      </div>
+    {{ /if }}
 
     <div class="row profile-detail">
 
