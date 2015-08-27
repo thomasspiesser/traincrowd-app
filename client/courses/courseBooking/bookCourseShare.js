@@ -1,9 +1,12 @@
-Template.bookCourseThankYou.onCreated(function () {
+Template.bookCourseShare.onCreated(function () {
   // Use this.subscribe inside onCreated callback
   this.subscribe( 'singleCourseById', this.data.course );
+  this.showShareBox = new ReactiveVar( true );
+  if ( this.data.hasShared )
+    this.showShareBox.set( false );
 });
 
-Template.bookCourseThankYou.helpers({
+Template.bookCourseShare.helpers({
   invoice: function () {
     return this.paymentMethod === 'Rechnung';
   },
@@ -16,11 +19,14 @@ Template.bookCourseThankYou.helpers({
       redirectURL: encodeURI( Meteor.absoluteUrl() + 'close-window' )
     };
     return data;
+  },
+  showShareBox: function() {
+    return Template.instance().showShareBox.get();
   }
 });
 
-Template.bookCourseThankYou.events({
-  'click .btn-social': function ( event ) {
+Template.bookCourseShare.events({
+  'click .btn-social': function ( event, template ) {
     event.preventDefault();
     var url = event.currentTarget.href;
     var windowName = '_blank';
@@ -29,17 +35,25 @@ Template.bookCourseThankYou.events({
     var windowSize = 'width=' + windowSizeX + ',height=' + windowSizeY;
 
     var sharewindow = window.open( url, windowName, windowSize );
-    var timer = Meteor.setInterval( checkClosed, 500 );
     var bookingId = this._id;
-
-    function checkClosed() {
+    var hasShared = this.hasShared;
+    var timer = Meteor.setInterval( function () {
       if ( sharewindow.closed ) {
         Meteor.clearInterval( timer );
-        Meteor.call('setHasShared', bookingId, function ( error, result ) {
-          if ( error )
-            toastr.error( error.reason );
-        });
+        if ( ! hasShared ) {
+          Meteor.call('setHasShared', bookingId, function ( error, result ) {
+            if ( error )
+              toastr.error( error.reason );
+            else
+              template.showShareBox.set( false );
+          });
+        }
+        else
+          template.showShareBox.set( false );
       }
-    }
+    }, 500 );
+  },
+  'click #shareAgain': function ( event, template) {
+    template.showShareBox.set( true );
   }
 });

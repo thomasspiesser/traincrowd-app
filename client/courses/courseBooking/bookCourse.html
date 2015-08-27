@@ -4,7 +4,7 @@
 
     <div class="row tracker">
 
-      <div class="col-md-3 active">
+      <div class="col-md-3 active" style="width:20%;">
         <a href="#" class="dynamic-template-selector unclickable" id="bookCourseRegister">
           <span class="fa-stack fa-lg">
             <span class="fa fa-circle-thin fa-stack-2x"></span>
@@ -16,7 +16,7 @@
         </a>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-3" style="width:20%;">
         <a href="#" class="dynamic-template-selector unclickable" id="bookCourseAddress">
           <span class="fa-stack fa-lg">
             <span class="fa fa-circle-thin fa-stack-2x"></span>
@@ -28,7 +28,7 @@
         </a>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-3" style="width:20%;">
         <a href="#" class="dynamic-template-selector unclickable" id="bookCoursePaymentMethod">
           <span class="fa-stack fa-lg">
             <span class="fa fa-circle-thin fa-stack-2x"></span>
@@ -40,7 +40,7 @@
         </a>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-3" style="width:20%;">
         <a href="#" class="dynamic-template-selector unclickable" id="bookCourseConfirm">
           <span class="fa-stack fa-lg">
             <span class="fa fa-circle-thin fa-stack-2x"></span>
@@ -49,6 +49,18 @@
             {{ /if }}
           </span>
           <span class="step-text">Bestätigen</span>
+        </a>
+      </div>
+
+      <div class="col-md-3" style="width:20%;">
+        <a href="#" class="dynamic-template-selector unclickable" id="bookCourseShare">
+          <span class="fa-stack fa-lg">
+            <span class="fa fa-circle-thin fa-stack-2x"></span>
+            {{ #if deservesCheckBookCourseShare }}
+              <span class="fa fa-check fa-stack-1x"></span>
+            {{ /if }}
+          </span>
+          <span class="step-text">Teilen</span>
         </a>
       </div>
 

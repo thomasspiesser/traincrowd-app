@@ -22,7 +22,10 @@ Template.bookCourse.helpers({
     return this.paymentMethod ? true : false;
   },
   deservesCheckBookCourseConfirm: function () {
-    return this.maxParticipants && this.fee ? true : false;
+    return this.transaction && this.bookingStatus === 'completed' ? true : false;
+  },
+  deservesCheckBookCourseShare: function () {
+    return this.hasShared ? true : false;
   },
   active: function() {
     return Session.get( 'bookCourseTemplate' );

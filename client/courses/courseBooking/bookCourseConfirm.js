@@ -43,7 +43,10 @@ Template.bookCourseConfirm.events({
             toastr.error( error.reason );
           else {
             toastr.success('Buchung erfolgreich.');
-            Router.go('book.course.thank.you', { _id: bookingId });
+            Session.set('bookCourseTemplate', "bookCourseShare");
+
+            $('#bookCourseConfirm').parent().removeClass('active');
+            $('#bookCourseShare').parent().addClass('active');
           }
         });
         break;
