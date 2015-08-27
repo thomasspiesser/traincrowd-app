@@ -3,12 +3,10 @@
     <div class="panel panel-inverted">
       <div class="row">
         <div class="col-md-12 text-center">
-          <!-- <h2>Buchung erfolgreich - Vielen Dank!</h2> -->
-          <h2>Moment! Wissen Ihre Freunde und Kolleginnen schon von dieser Gelegenheit?</h2>
+          <h2>Bitte weitersagen!</h2>
           <p>
             <strong>
-              <!-- Vielen Dank für Ihre Buchung auf traincrowd. Erzählen Sie es weiter und erhalten einen 10-Euro Amazon Gutschein als Dankeschön! -->
-              Teilen Sie diesen Kurs in Ihren Netzwerken und Sie erhalten umgehend einen 10-Euro Amazon Gutschein von uns geschenkt.
+              Helfen Sie, genügend Teilnehmer für Ihre Kursgruppe zu finden! Wenn der Kurs stattfindet, bedanken wir uns mit einem 10-Euro Amazon Gutschein.
             </strong>
           </p>
         </div>
@@ -24,63 +22,22 @@
                 {{ /if }}
               </h3>
               {{ #if Template.subscriptionsReady }} 
-                <!-- <a href="https://www.facebook.com/dialog/share?app_id=1419012125078098&display=popup&href={{ shareData.url }}&redirect_uri=http://traincrowd.de/close-window" class="btn btn-social btn-round"><i class="fa fa-facebook"></i></a> -->
                 <a href="https://www.facebook.com/dialog/share?app_id=1419012125078098&display=popup&href={{ shareData.url }}&redirect_uri={{ shareData.redirectURL }}" class="btn btn-social btn-round"><i class="fa fa-facebook"></i></a>
                 <a href="https://twitter.com/intent/tweet?url={{ shareData.url }}&text={{ shareData.title }}&via=traincrowd" class="btn btn-social btn-round"><i class="fa fa-twitter"></i></a>
                 <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shareData.url }}&title={{ shareData.title }}&summary={{ shareData.description }}&source=traincrowd" class="btn btn-social btn-round"><i class="fa fa-linkedin"></i></a>
               {{ /if }}
             {{ else }}
               <h3 style="margin-top: 0;">Vielen Dank!</h3>
-              <p>Wir senden Ihnen den Gutschein zu, sobald wir die Aktion bestätigt haben.</p>
-              <a href="{{ #if currentUser }}{{ pathFor 'edit.user' }}{{ else }}{{ pathFor 'home' }}{{ /if }}">Jetzt Buchung abschliessen</a> oder 
+              <p>Wir senden Ihnen den Gutschein zu, sobald der Kurs bestätigt wurde.</p>
+              <a href="{{ pathFor 'book.course.thank.you' }}">Jetzt Buchung abschliessen</a> oder 
               <a href="#" id="shareAgain">nochmal teilen</a>
             {{ /if }}
           </div>
           {{ #if showShareBox }}
             <p>
-              Nein Danke, <a href="{{ #if currentUser }}{{ pathFor 'edit.user' }}{{ else }}{{ pathFor 'home' }}{{ /if }}">ohne Weitersagen abschliessen</a>.
+              Nein Danke, <a href="{{ pathFor 'book.course.thank.you' }}">ohne Weitersagen abschliessen</a>.
             </p>
           {{ /if }}
-        </div>
-
-        <div class="col-md-10 col-md-offset-1">
-          <h3>Details zu Ihrer Buchung:</h3>
-          <p>
-            <strong>Kurstitel</strong>: <br>
-            {{ courseTitle }}
-          </p>
-          <p>
-            <strong>Datum</strong>:
-            <ul class="comma-list">
-              {{#each eventDate}}
-              <li>{{ niceDate }}</li>
-              {{/each}}
-            </ul>
-          </p>
-          <p>
-            <strong>Trainer</strong>: <br>
-            {{ trainerName }}
-          </p>
-          {{ #unless invoice }}
-          <p>
-            <strong>Zahlbetrag</strong>: <br>
-            {{ amount }},- Euro
-          </p>
-          {{ /unless }}
-          <p>
-            <strong>Zahlungsart</strong>: <br>
-            {{ paymentMethod }}
-          </p>
-          <p>
-            <strong>Rechnungsadresse</strong>: <br>
-            {{ #with billingAddress }} 
-              {{ #if firm }} {{ firm }} <br> {{ /if }} 
-              {{ ../customerName }} <br>
-              {{ street }} {{ streetNumber }} <br>
-              {{ plz }} {{ city }} <br>
-              {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }} 
-            {{ /with }}
-          </p>
         </div>
 
       </div>

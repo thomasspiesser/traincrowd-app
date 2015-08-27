@@ -1,0 +1,68 @@
+<template name="bookCourseThankYou">
+  <section class="container">
+    <div class="panel panel-inverted">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2>Buchung erfolgreich - Vielen Dank!</h2>
+          <p>
+            <strong>
+              Vielen Dank für Ihre Buchung auf traincrowd. Sie erhalten von uns in Kürze eine Email mit der Buchungsbestätigung. Sollten Sie Fragen haben, oder sollte Sie die Email nicht erreichen, wenden Sie sich bitte an <a href='mailto:info&#64;traincrowd.de'> info AT traincrowd.de</a> oder telefonisch an +49 30 37 30 61 74 (Festnetz).
+            </strong>
+          </p>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+          <h3>Die Details Ihrer Buchung:</h3>
+          <p>
+            <strong>Kurstitel</strong>: <br>
+            {{ courseTitle }}
+          </p>
+          <p>
+            <strong>Datum</strong>:
+            <ul class="comma-list">
+              {{#each eventDate}}
+              <li>{{ niceDate }}</li>
+              {{/each}}
+            </ul>
+          </p>
+          <p>
+            <strong>Trainer</strong>: <br>
+            {{ trainerName }}
+          </p>
+          {{ #unless invoice }}
+          <p>
+            <strong>Zahlbetrag</strong>: <br>
+            {{ amount }},- Euro
+          </p>
+          {{ /unless }}
+          <p>
+            <strong>Zahlungsart</strong>: <br>
+            {{ paymentMethod }}
+          </p>
+          <p>
+            <strong>Rechnungsadresse</strong>: <br>
+            {{ #with billingAddress }} 
+              {{ #if firm }} {{ firm }} <br> {{ /if }} 
+              {{ ../customerName }} <br>
+              {{ street }} {{ streetNumber }} <br>
+              {{ plz }} {{ city }} <br>
+              {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }} 
+            {{ /with }}
+          </p>
+
+        <hr>
+
+        </div>
+
+
+        <div class="col-md-10 col-md-offset-1">
+
+          zurück zur <a href="{{ pathFor 'home'}}">Homepage</a>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</template>

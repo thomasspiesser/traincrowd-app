@@ -2,11 +2,11 @@
 
 Meteor.publish('courses', function () {
 	// Meteor._sleepForMs(5000);
-	return Courses.find({ $or: [ {isPublic: true}, {owner: this.userId} ] });
+	return Courses.find( { $or: [ { isPublic: true }, { owner: this.userId } ] } );
 });
 
-Meteor.publish('singleCourse', function (slug) {
-	check(slug, String);
+Meteor.publish('singleCourse', function ( slug ) {
+	check( slug, String );
 	return Courses.find( { slug: slug } );
 });
 
@@ -20,9 +20,9 @@ Meteor.publish('topCourses', function () {
 	return Courses.find( { isPublic: true }, { limit: 6 } );
 });
 
-Meteor.publish('bookings', function (_id) {
-	check( _id, String);
-	return Bookings.find( {_id: _id} );
+Meteor.publish('bookings', function ( id ) {
+	check( id, String );
+	return Bookings.find( { _id: id } );
 });
 
 Meteor.publish('current', function () {
@@ -37,12 +37,32 @@ Meteor.publish('userData', function () {
 	if (! this.userId ) {
 		this.ready();
 	}
-	return Meteor.users.find( { _id: this.userId }, { fields: {services:0 } } );
+	return Meteor.users.find( { _id: this.userId }, { fields: { services: 0 } } );
 });
 
 // TDOD: don't publish all the info from profile..make more specific here
 Meteor.publish('trainer', function () {
-  return Meteor.users.find( { roles: 'trainer', isPublic: true }, { fields: { services:0, createdAt: 0 } } );
+  return Meteor.users.find( { roles: 'trainer', isPublic: true }, 
+  	{ fields: 
+  		{ 
+  			services: 0, 
+  			createdAt: 0, 
+  			updatedAt: 0, 
+  			emails: 0, 
+  			hasPublishRequest: 0, 
+  			'profile.billingAddresses': 0, 
+  			'profile.selectedBillingAddress': 0, 
+  			'profile.taxNumber': 0, 
+  			'profile.employer': 0, 
+  			'profile.position': 0, 
+  			'profile.industry': 0, 
+  			'profile.workExperience': 0, 
+  			'profile.newsletter': 0, 
+  			'profile.phone': 0, 
+  			'profile.mobile': 0 
+  		} 
+  	} 
+  );
 });
 
 Meteor.publish('topTrainer', function () {

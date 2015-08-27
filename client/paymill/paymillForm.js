@@ -154,13 +154,13 @@ function paymillResponseHandler(error, result) {
         toastr.error(error.error);
       }
       else {
-        toastr.success('Buchung erfolgreich.');
+        toastr.success('Zahlung erfolgreich.');
         $('#paymill-form')[0].reset();
 
         Session.set('bookCourseTemplate', "bookCourseShare");
         $('#bookCourseConfirm').parent().removeClass('active');
         $('#bookCourseShare').parent().addClass('active');
-        
+
         Modal.hide('payModal');
         // Meteor.setTimeout( redirect , 3000 );
       }
