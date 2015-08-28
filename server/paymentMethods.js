@@ -1,4 +1,4 @@
-var secret = Meteor.settings.paymill.testPrivateKey;
+var secret = Meteor.settings.paymill.livePrivateKey;
 paymill = paymill(secret);
 
 Meteor.methods({
