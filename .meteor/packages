@@ -32,7 +32,6 @@ underscore
 yasaricli:slugify
 sacha:spin
 msavin:mongol
-okgrow:analytics
 dfischer:phantomjs
 ongoworks:spiderable
 aldeed:collection2
@@ -41,3 +40,4 @@ manuelschoebel:ms-seo
 less
 tomsp:share
 useraccounts:iron-routing
+astronomerio:core

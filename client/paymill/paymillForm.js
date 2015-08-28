@@ -1,4 +1,4 @@
-PAYMILL_PUBLIC_KEY = Meteor.settings.public.paymill.testPublicKey;
+PAYMILL_PUBLIC_KEY = Meteor.settings.public.paymill.livePublicKey;
 
 var formlang = 'de';
 
