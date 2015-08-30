@@ -17,7 +17,8 @@ Meteor.publish('singleCourseById', function ( id ) {
 
 Meteor.publish('topCourses', function () {
 	// Meteor._sleepForMs(5000);
-	return Courses.find( { isPublic: true }, { limit: 6 } );
+	// return Courses.find( { isPublic: true }, { limit: 6 } );
+	return Courses.find( { 'title': { $in: ['Ihr wirksamer Live-Auftritt', 'Tipps und Tricks für EU Fundraising', 'Bilanzen lesen, BWAs verstehen - Rechnungswesen für Entscheider.', 'Living & Working in Germany – German cultural standards in business', 'Social Media Marketing und Strategie Entwicklung', 'Navigation ohne Karte: Strategie Arbeit in der Organisationsentwicklung'] } } );
 });
 
 Meteor.publish('bookings', function ( id ) {
@@ -68,7 +69,7 @@ Meteor.publish('trainer', function () {
 Meteor.publish('topTrainer', function () {
 	// Meteor._sleepForMs(5000);
   // return Meteor.users.find( { roles: 'trainer', isPublic: true }, { limit: 4, fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
-  return Meteor.users.find( { 'profile.name': { $in: ['launchlabs', 'Miriam Janke', 'Christian Sauter', 'Wiebke Witt'] } }, { fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
+  return Meteor.users.find( { 'profile.name': { $in: ['Der Hauptstadtcoach', 'Karin Seven', 'Tina Gadow', 'Hartmann Rhetorik GmbH'] } }, { fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
 });
 
 // Meteor.publish('singleTrainer', function (id) {
