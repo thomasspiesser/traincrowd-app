@@ -7,8 +7,8 @@
 #scroll-indicator {
   position: absolute;
   bottom: 20px;
+  margin-left: -18px;
   left: 50%;
-  z-index: 1;
   color: white;
   -webkit-animation: indicate-bounce 1.2s ease-in-out 2s infinite;
 }
