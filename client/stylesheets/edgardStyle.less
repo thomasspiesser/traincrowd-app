@@ -948,6 +948,18 @@ div.rate-star.dark-gray button.rateit-reset {
 .navbar-brand {
   padding-top: 0;
   margin-right: 30px;
+  @nav-logo-width : 180px;
+  @nav-logo-height : 47px;
+  img.nav-img-logo {
+    width: @nav-logo-width * 0.9;
+    height: @nav-logo-height;
+  }
+  @media only screen and (min-width : @screen-sm-min) {
+    img.nav-img-logo {
+      width: @nav-logo-width;
+      height: @nav-logo-height;
+    }
+  }
 }
 .navbar-default {
   background-color: transparent;
