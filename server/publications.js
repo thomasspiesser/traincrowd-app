@@ -17,8 +17,14 @@ Meteor.publish('singleCourseById', function ( id ) {
 
 Meteor.publish('topCourses', function () {
 	// Meteor._sleepForMs(5000);
-	// return Courses.find( { isPublic: true }, { limit: 6 } );
-	return Courses.find( { 'title': { $in: ['Ihr wirksamer Live-Auftritt', 'Tipps und Tricks für EU Fundraising', 'Bilanzen lesen, BWAs verstehen - Rechnungswesen für Entscheider.', 'Living & Working in Germany – German cultural standards in business', 'Social Media Marketing und Strategie Entwicklung', 'Navigation ohne Karte: Strategie Arbeit in der Organisationsentwicklung'] } } );
+	return Courses.find( { '_id': { $in: [
+		'RE3cdsSrgwnofgAuE', // billing - live-auftritt
+		'zceXGneZ7vxiLRH5G', // changer - eu fundraising
+		'riZpSyWvdMWMfKhyC', // ruehl - bilanzen lesen
+		'sC3KSEWQqyTwxi8Rd', // witt - living working germany
+		'v9ANydsyGqoijmr6v', // changer - social media marketing
+		'ELd8fLtcMujTGpJNA' // socius - strategieentwicklung
+	] } } );
 });
 
 Meteor.publish('bookings', function ( id ) {
