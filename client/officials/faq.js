@@ -58,8 +58,8 @@ Template.faq.helpers({
       },
       {
         number: 5,
-        question: "Ich möchte an einem Kurs teilnehmen, aber die Mindestteilnehmerzahl ist bereits erreicht. Geht das? ",
-        answer: "In der Regel ja! Je Kurs gibt der Trainer immer eine Mindest- und eine Maximalteilnehmeranzahl an. Beispielsweise braucht ein Trainer mindestens 10 Teilnehmer, damit der Kurs stattfinden kann. Ab dem Zeitpunkt ist die Statusleiste ganz eingefärbt und es wird die Anzahl der Plätze angezeigt, die noch frei sind. Wenn der Trainer als Maximum zwölf Plätze angegeben hat, gibt es nach erreichen der Mindestteilnehmerzahl also noch 2 Plätze. Die Mindest- und Maximalteilnehmeranzahl wird auch oben rechts in der Kursbeschreibung angezeigt. Wenn ein Kurstermin voll ausgebucht ist, können Sie in der Regel Plätze an einem anderen Termins buchen. Wenn diese Möglichkeit nicht mehr besteht, <a href='mailto:info&#64;traincrowd.de'> schreiben Sie uns gerne</a> Ihre Präferenz und wir prüfen für Sie direkt mit dem Anbieter weitere Möglichkeiten.  "
+        question: "Ich möchte an einem Kurs teilnehmen, aber die Teilnehmerzahl ist bereits erreicht. Geht das? ",
+        answer: "In der Regel ja! Je Kurs gibt der Trainer immer eine feste Teilnehmeranzahl an. Beispielsweise braucht ein Trainer mindestens 10 Teilnehmer, damit der Kurs stattfinden kann. Wenn ein Kurstermin voll ausgebucht ist, können Sie in der Regel Plätze an einem anderen Termin buchen. Wenn diese Möglichkeit nicht mehr besteht, <a href='mailto:info&#64;traincrowd.de'> schreiben Sie uns gerne</a> Ihre Präferenz und wir prüfen für Sie direkt mit dem Trainer weitere Möglichkeiten."
       },
       {
         number: 6,
@@ -79,7 +79,7 @@ Template.faq.helpers({
       {
         number: 9,
         question: "Was passiert, wenn mein Trainer einen Kurs storniert? Habe ich Anspruch auf Rückerstattung?",
-        answer: "Sollte dein Trainer aus dringendem Grund einen gebuchten Kurs stornieren müssen, werden Sie natürlich in vollem Umfang (inklusive Service-Gebühr) entschädigt und es entstehen für Sie keinerlei Kosten."
+        answer: "Sollte dein Trainer aus dringendem Grund einen gebuchten Kurs stornieren müssen, werden Sie natürlich in vollem Umfang entschädigt und es entstehen für Sie keinerlei Kosten."
       }
     ]
     return faqs;
@@ -89,17 +89,17 @@ Template.faq.helpers({
       {
         number: 1,
         question: "Ich möchte einen Kurs auf traincrowd anbieten, was muss ich tun?",
-        answer: "Im Bereich Anbieter werden können Sie Ihr persönliches Profil anlegen und einzelne Kurse einstellen. Je ansprechender Ihre Kursbeschreibung und je aussagekräftiger Ihr Profil, desto besser können sich potentielle Kunden ein Bild von Ihnen machen. <br><br> traincrowd lebt von hoher Qualität und wir erwarten von allen Anbietern, dass Sie das gemeinsame Qualitätsversprechen von traincrowd in ihrer Arbeit umsetzen. Wo dies nicht zutrifft, behalten wir uns vor die Zusammenarbeit abzulehnen oder nicht fortzusetzen. <br><br> Setzen Sie sich mit uns in Verbindung, wenn Sie Fragen haben oder Hilfe bei der Erstellung Ihres Profils benötigen."
+        answer: "Im Bereich Trainer werden können Sie Ihr persönliches Profil anlegen und einzelne Kurse einstellen. Je ansprechender Ihre Kursbeschreibung und je aussagekräftiger Ihr Profil, desto besser können sich potentielle Kunden ein Bild von Ihnen machen. <br><br> traincrowd lebt von hoher Qualität und wir erwarten von allen Trainern, dass sie das gemeinsame Qualitätsversprechen von traincrowd in ihrer Arbeit umsetzen. Wo dies nicht zutrifft, behalten wir uns vor die Zusammenarbeit abzulehnen oder nicht fortzusetzen. <br><br> Setzen Sie sich mit uns in Verbindung, wenn Sie Fragen haben oder Hilfe bei der Erstellung Ihres Profils benötigen."
       },
       {
         number: 2,
         question: "Beschäftigt traincrowd eigene Trainer? ",
-        answer: "Nein. traincrowd vermittelt als Plattform für Weiterbildung einzelne Trainings und Seminare an interessierte Teilnehmer. Wir führen keine eigenen Trainings durch und alle Anbieter und Anbieterinnen sind ausschließlich selbst für die Inhalte der Veranstaltungen verantwortlich."
+        answer: "Nein. traincrowd vermittelt als Plattform für Weiterbildung einzelne Trainings und Seminare an interessierte Teilnehmer. Wir führen keine eigenen Trainings durch und alle Trainer und Trainerinnen sind ausschließlich selbst für die Inhalte der Veranstaltungen verantwortlich."
       },
       {
         number: 3,
         question: "Nach welchen Kriterien wird ausgewählt, wer bei traincrowd Kurse anbieten kann?",
-        answer: "traincrowd steht vielfältigen Anbietern von Weiterbildung offen, sofern ihre Arbeit im Einklang mit dem traincrowd Qualitätsanspruch steht. Urteile von Kunden und Partnern spielen bei der Auswahl unserer Trainer und Trainerinnen eine wichtige Rolle. Wer keine Empfehlung und zufriedene Kunden aufweisen kann, hat auf traincrowd keine Chance. Wir treffen alle Anbieter persönlich und lassen uns dabei Konzepte und Metoden genau erklären. Häufig sitzen wir selbst in den Kursen, um Qualität direkt sicherzustellen."
+        answer: "traincrowd steht vielfältigen Trainern von Weiterbildung offen, sofern ihre Arbeit im Einklang mit dem traincrowd Qualitätsanspruch steht. Urteile von Kunden und Partnern spielen bei der Auswahl unserer Trainer und Trainerinnen eine wichtige Rolle. Wer keine Empfehlung und zufriedene Kunden aufweisen kann, hat auf traincrowd keine Chance. Wir treffen alle Trainer persönlich und lassen uns dabei Konzepte und Methoden genau erklären. Häufig sitzen wir selbst in den Kursen, um Qualität direkt sicherzustellen."
       },
       {
         number: 4,
@@ -139,7 +139,7 @@ Template.faq.helpers({
       {
         number: 11,
         question: "Wie kalkuliere ich den Preis für den gesamten Kurs?",
-        answer: "traincrowd überlässt die Preisgestaltung den Anbietern. Wir empfehlen grundsätzlich eine Kalkulation wie bei in-house Seminaren. Legen Sie dazu fest, welchen Betrag Sie insgesamt für Ihren Aufwand erwarten. Bei einem Tagessatz von 2.000 Euro ergibt sich so beispielsweise für ein zweitägiges Training inklusive einem Tag Vorbereitung ein gewünschtes Gesamtpreis von 6.000 Euro. Geben Sie dann die Teilnehmerzahl für Ihren Kurs an. Teilnehmer sehen den Preis pro Teilnehmer, also das Gesamtpreis geteilt durch die Teilnehmerzahl. Bei 10 Teilnehmern entspricht der angezeigte Kurspreis pro Person also 600 Euro."
+        answer: "traincrowd überlässt die Preisgestaltung den Trainern. Wir empfehlen grundsätzlich eine Kalkulation wie bei in-house Seminaren. Legen Sie dazu fest, welchen Betrag Sie insgesamt für Ihren Aufwand erwarten. Bei einem Tagessatz von 2.000 Euro ergibt sich so beispielsweise für ein zweitägiges Training inklusive einem Tag Vorbereitung ein gewünschtes Gesamtpreis von 6.000 Euro. Geben Sie dann die Teilnehmerzahl für Ihren Kurs an. Teilnehmer sehen den Preis pro Teilnehmer, also den Gesamtpreis geteilt durch die Teilnehmerzahl. Bei 10 Teilnehmern entspricht der angezeigte Kurspreis pro Person also 600 Euro."
       }
     ];
     return faqs;
