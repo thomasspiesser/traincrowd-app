@@ -1,16 +1,4 @@
 Template.bookCourseConfirm.events({
-  'click #change-billingAddress': function ( event, template ) {
-    Session.set('bookCourseTemplate', "bookCourseAddress");
-
-    $('#bookCourseConfirm').parent().removeClass('active');
-    $('#bookCourseAddress').parent().addClass('active');
-  },
-  'click #change-paymentMethod': function ( event, template ) {
-    Session.set('bookCourseTemplate', "bookCoursePaymentMethod");
-
-    $('#bookCourseConfirm').parent().removeClass('active');
-    $('#bookCoursePaymentMethod').parent().addClass('active');
-  },
   'click #change-contact': function ( event, template ) {
     Modal.show('editContactModal');
   },
@@ -43,10 +31,7 @@ Template.bookCourseConfirm.events({
             toastr.error( error.reason );
           else {
             toastr.success('Buchung erfolgreich.');
-            Session.set('bookCourseTemplate', "bookCourseShare");
-
-            $('#bookCourseConfirm').parent().removeClass('active');
-            $('#bookCourseShare').parent().addClass('active');
+            Router.go( "book.course", { _id: bookingId, state: "bookCourseShare" } );
           }
         });
         break;

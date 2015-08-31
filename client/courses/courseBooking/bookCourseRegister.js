@@ -32,10 +32,7 @@ Template.bookCourseRegister.events({
               toastr.error( error.reason );
           });
         }
-        Session.set('bookCourseTemplate', "bookCourseAddress");
-
-        $('#bookCourseRegister').parent().removeClass('active');
-        $('#bookCourseAddress').parent().addClass('active');
+        Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
       }
     });
   },
@@ -118,10 +115,7 @@ Template.bookCourseRegister.events({
                   toastr.error( error.reason );
               });
             }
-            Session.set('bookCourseTemplate', "bookCourseAddress");
-
-            $('#bookCourseRegister').parent().removeClass('active');
-            $('#bookCourseAddress').parent().addClass('active');
+            Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
           }
         });
       }

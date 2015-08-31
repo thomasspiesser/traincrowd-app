@@ -1,11 +1,6 @@
 Template.bookCourse.rendered = function () {
-  if ( ! Meteor.userId() )
-    Session.set( "bookCourseTemplate", "bookCourseRegister" );
-  else {
-    Session.set( "bookCourseTemplate", "bookCourseAddress" );
-    $('.dynamic-template-selector').parent().removeClass('active');
-    $('#bookCourseAddress').parent().addClass('active');
-  }
+  $('.dynamic-template-selector').parent().removeClass('active');
+  $('#'+ Router.current().params.state ).parent().addClass('active');
 };
 
 Template.bookCourse.helpers({
@@ -28,6 +23,9 @@ Template.bookCourse.helpers({
     return this.hasShared ? true : false;
   },
   active: function() {
-    return Session.get( 'bookCourseTemplate' );
+    var activeRoute = Router.current().params.state;
+    $('.dynamic-template-selector').parent().removeClass('active');
+    $('#'+ activeRoute ).parent().addClass('active');
+    return Router.current().params.state;
   }
 });

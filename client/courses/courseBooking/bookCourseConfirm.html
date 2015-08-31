@@ -14,7 +14,7 @@
               {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }} 
             {{ /with }}
             <br>
-            <p><a href="#" id="change-billingAddress">Rechnungsadresse ändern</a></p>
+            <p><a href="{{ pathFor route='book.course' _id=this._id state='bookCourseAddress' }}">Rechnungsadresse ändern</a></p>
           </div>
         </div>
         <div class="col-md-4">
@@ -30,7 +30,7 @@
           <div class="well">
             <h5>Zahlungsart</h5>
             Zahlungsart: {{ paymentMethod }} <br><br>
-            <p><a href="#" id="change-paymentMethod">Zahlungsart ändern</a></p>
+            <p><a href="{{ pathFor route='book.course' _id=this._id state='bookCoursePaymentMethod' }}">Zahlungsart ändern</a></p>
           </div>
         </div>
       </div>

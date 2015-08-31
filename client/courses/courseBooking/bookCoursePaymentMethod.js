@@ -17,12 +17,8 @@ Template.bookCoursePaymentMethod.events({
     Meteor.call( 'updateBooking', args, function ( error, result ) {
       if ( error )
         toastr.error( error.reason );
-      else {
-        Session.set('bookCourseTemplate', "bookCourseConfirm");
-
-        $('#bookCoursePaymentMethod').parent().removeClass('active');
-        $('#bookCourseConfirm').parent().addClass('active');
-      }
+      else 
+        Router.go( "book.course", { _id: self._id, state: "bookCourseConfirm" } );
     });
   }
 });

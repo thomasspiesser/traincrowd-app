@@ -90,10 +90,7 @@ Template.bookCourseAddress.events({
           if ( error )
             toastr.error( error.reason );
           else {
-            Session.set('bookCourseTemplate', "bookCoursePaymentMethod");
-
-            $('#bookCourseAddress').parent().removeClass('active');
-            $('#bookCoursePaymentMethod').parent().addClass('active');
+            Router.go( "book.course", { _id: self._id, state: "bookCoursePaymentMethod" } );
           }
         });
       }
@@ -101,7 +98,6 @@ Template.bookCourseAddress.events({
   },
   'click #edit-user-address-button': function () {
     Session.set('editUserTemplate', "editUserAccount");
-
     $('#bookCourseAddress').parent().removeClass('active');
     $('#editUserAccount').parent().addClass('active');
   }
