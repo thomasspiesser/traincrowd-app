@@ -4,7 +4,7 @@ Template.editCourse.created = function () {
 
 Template.editCourse.helpers({
   deservesCheckCourseDescription: function () {
-    return this.title && this.description && this.categories.length ? true : false;
+    return this.title && this.description && this.categories && this.categories.length ? true : false;
   },
   deservesCheckCourseDetails: function () {
     return this.aims ? true : false;
