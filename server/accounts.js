@@ -21,8 +21,8 @@ Meteor.methods({
     // instead of sending a verification email with empty userid.
 		if ( ! userId )
 			throw new Meteor.Error(444, "Beim Erstellung des Nutzerkontos ist ein Fehler aufgetreten.");
-		else 
-			Accounts.sendVerificationEmail( userId, options.email );
+		// else 
+		// 	Accounts.sendVerificationEmail( userId, options.email );
 		
 		return userId;                
 
