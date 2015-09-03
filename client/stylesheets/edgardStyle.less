@@ -142,6 +142,44 @@ ol {
   
 }
 
+/* newletter modal */
+
+#newsletter-modal {
+  margin: 90px auto;
+}
+
+#newsletter-modal-box {
+  text-align: center;
+  background-color: @bg-color;
+}
+
+#modal-body-line {
+  margin: -5px;
+  padding: 15px;
+  border: 1px solid @dark-gray;
+  border-radius: 4px;
+}
+
+#newsletter-modal-heading {
+  margin-top: 22px;
+  color: @dark-blue;
+}
+
+#newsletter-modal-text {
+  font-size:11px;
+}
+
+#mce-EMAIL-newsletter-modal {
+  height: 53px;
+  width: 320px;
+  border-radius: 6px;
+  margin-left: 5px;
+}
+
+#newsletter-modal-logo {
+  width: 220px;
+}
+
 /* Buttons */
 .btn {
   border-radius: 0;
@@ -171,9 +209,7 @@ ol {
   background: @light-blue;
   border-color: @light-blue;
   &:hover {
-    color: white;
-    background-color: @light-red;
-    border-color: @light-red;
+    background-color: darken(@light-blue, 10%);
   }
   &.active {
     color: white;

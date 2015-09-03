@@ -1,0 +1,33 @@
+<template name="newsletterModal">
+  <div class="modal">
+    <div class="modal-dialog" id="newsletter-modal">
+      <div class="modal-content" id="newsletter-modal-box">
+
+        <div class="modal-body">
+          <div id="modal-body-line">
+            <img src="/logo-letters-dark-beta.svg" id="newsletter-modal-logo" />
+
+            <h3 id="newsletter-modal-heading">Newsletter abonnieren</h3>
+
+            <hr>
+            <p id="newsletter-modal-text">Abonnieren Sie unseren Newsletter und wir schicken schicken Informationen zu neuen Kursen, Gutscheinen und speziellen Angeboten direkt in Ihre Inbox.</p>
+            <hr>
+            <!-- Begin MailChimp Signup Form -->
+            <div id="mc_embed_signup">
+              <form action="//traincrowd.us10.list-manage.com/subscribe/post?u=0ff46c08bfac063d147159878&amp;id=5504ca022e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form-inline" target="_blank" novalidate="">
+                <div id="mc_embed_signup_scroll" class="form-group">
+                  <input type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL-newsletter-modal" placeholder="Ihre Email-Adresse" required="">
+                  <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                  <div style="position: absolute; left: -5000px;"><input type="text" name="b_0ff46c08bfac063d147159878_5504ca022e" tabindex="-1" value=""></div>
+                </div>
+                <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-lg btn-light-blue">Abonnieren!</button>
+              </form>
+            </div>
+            <!--End mc_embed_signup-->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
