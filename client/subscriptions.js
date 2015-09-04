@@ -1,5 +1,3 @@
-// Meteor.subscribe('courses');
-// Meteor.subscribe('bookings');
 Meteor.subscribe('current');
 Meteor.subscribe('elapsed');
 
@@ -9,6 +7,4 @@ Tracker.autorun( function() {
   }
 });
 
-// Meteor.subscribe('userData');
 Meteor.subscribe('trainer');
-Meteor.subscribe('categories');

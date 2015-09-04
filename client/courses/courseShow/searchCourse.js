@@ -4,6 +4,10 @@ Template.searchCourse.helpers({
   }
 });
 
+Template.filter.onCreated( function() {
+  this.subscribe("categories");
+});
+
 Template.filter.helpers({
 	categories: function () {
 		return Categories.findOne().categories;

@@ -66,9 +66,11 @@
 
         <ul class="dropdown-menu" role="menu">
           <li role="presentation" class="filter left-menu-item"><a href="#" id="Alle">Alle</a></li>
-          {{#each categories}}
-            <li role="presentation" class="filter left-menu-item"><a href="#" id="{{this}}">{{this}}</a></li>
-          {{/each}}
+          {{ #if Template.subscriptionsReady }}
+            {{ #each categories }}
+              <li role="presentation" class="filter left-menu-item"><a href="#" id="{{ this }}">{{ this }}</a></li>
+            {{ /each }}
+          {{ /if }}
         </ul>
       </li>
 

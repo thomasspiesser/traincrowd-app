@@ -1,11 +1,15 @@
-Template.editCourseDescription.rendered = function () {
-  var categories = Categories.findOne();
-  if (categories) {
-    $('#edit-course-categories').select2({
-      tags: categories.categories
-    });
-  }
-};
+Template.editCourseDescription.onRendered( function () {
+  var sub = this.subscribe("categories");
+  this.autorun(function () {
+    if ( sub.ready() ) {
+      var categories = Categories.findOne();
+      $('#edit-course-categories').select2({
+        data: _.map( categories.categories, function( category ) { return { id: category, text: category }; } ),
+        multiple: "true"
+      });
+    }
+  });
+});
 
 var uploader = new ReactiveVar();
 
@@ -38,13 +42,6 @@ var lazysaveCourseTitle = _.debounce( function ( args ) {
   });
 }, 3000 );
 
-var lazysaveCategories = _.debounce( function ( args ) {
-  Meteor.call('updateCategories', args, function (error) {
-    if (error)
-      toastr.error( error.reason );
-  });
-}, 3000 );
-
 Template.editCourseDescription.events({
   'input #edit-course-title': function (event, template) {
     $('#edit-course-title').parent().removeClass('has-error');
@@ -64,7 +61,6 @@ Template.editCourseDescription.events({
     var categories = event.currentTarget.value.split(',');
     categories = _.without(categories, "", " ");
     lazysaveCourseField( {id: this._id, argName: field, argValue: categories} );
-    lazysaveCategories( categories );
   },
   'click #saveEditCourseDescription': function (event, template) {
     if (! this.title || ! this.title.length ) {
