@@ -145,6 +145,11 @@ ol {
 /* newletter modal */
 
 #newsletter-modal {
+  @media only screen and (max-width : @screen-sm-min) {
+    width: 90%;
+    margin: 90px 5%;
+  }
+  
   margin: 90px auto;
 }
 
@@ -174,10 +179,17 @@ ol {
   width: 320px;
   border-radius: 6px;
   margin-left: 5px;
+  @media only screen and (max-width : @screen-sm-min) {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 #newsletter-modal-logo {
   width: 220px;
+  @media only screen and (max-width : @screen-sm-min) {
+    width: 150px;
+  }
 }
 
 /* Buttons */
@@ -987,7 +999,7 @@ div.rate-star.dark-gray button.rateit-reset {
   @nav-logo-width : 180px;
   @nav-logo-height : 47px;
   img.nav-img-logo {
-    width: @nav-logo-width * 0.9;
+    width: @nav-logo-width * 0.85;
     margin-right: 0;
     height: @nav-logo-height;
   }
