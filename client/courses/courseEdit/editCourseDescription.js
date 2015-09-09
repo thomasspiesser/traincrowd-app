@@ -1,13 +1,10 @@
 Template.editCourseDescription.onRendered( function () {
-  var sub = this.subscribe("categories");
-  this.autorun(function () {
-    if ( sub.ready() ) {
-      var categories = Categories.findOne();
-      $('#edit-course-categories').select2({
-        data: _.map( categories.categories, function( category ) { return { id: category, text: category }; } ),
-        multiple: "true"
-      });
-    }
+  var sub = this.subscribe("categories", function () {
+    var categories = Categories.findOne();
+    $('#edit-course-categories').select2({
+      data: _.map( categories.categories, function( category ) { return { id: category, text: category }; } ),
+      multiple: "true"
+    });
   });
 });
 
