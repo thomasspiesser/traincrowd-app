@@ -21,7 +21,8 @@ Template.bookCourseRegister.events({
       if ( error )
         toastr.error( error.reason );
       else {
-        if ( ! self.customer ){
+        // has no customer yet: update
+        if ( ! self.customer ) {
           var args = {
             bookingId: self._id,
             argName: 'customer',
@@ -30,9 +31,22 @@ Template.bookCourseRegister.events({
           Meteor.call('updateBooking', args, function (error, result) {
             if ( error )
               toastr.error( error.reason );
+            else
+              Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
           });
         }
-        Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
+        // has customer and it's the user -> just proceed
+        else if ( self.customer && self.customer === Meteor.userId() )
+          Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
+        // has customer and it's not the current user -> go create new booking for him
+        else if ( self.customer && self.customer !== Meteor.userId() ) {
+          Meteor.call('createBooking', self.eventId, self.course, function ( error, result ) {
+            if ( error )
+              toastr.error( error.reason );
+            else
+              Router.go('book.course', { _id: result, state: "bookCourseAddress" } );
+          });
+        }
       }
     });
   },
@@ -104,7 +118,8 @@ Template.bookCourseRegister.events({
           if (error)
             toastr.error( error.reason );
           else {
-            if ( ! self.customer ){
+            // has no customer yet: update
+            if ( ! self.customer ) {
               var args = {
                 bookingId: self._id,
                 argName: 'customer',
@@ -113,9 +128,22 @@ Template.bookCourseRegister.events({
               Meteor.call('updateBooking', args, function (error, result) {
                 if ( error )
                   toastr.error( error.reason );
+                else
+                  Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
               });
             }
-            Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
+            // has customer and it's the user -> just proceed
+            else if ( self.customer && self.customer === Meteor.userId() )
+              Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
+            // has customer and it's not the current user -> go create new booking for him
+            else if ( self.customer && self.customer !== Meteor.userId() ) {
+              Meteor.call('createBooking', self.eventId, self.course, function ( error, result ) {
+                if ( error )
+                  toastr.error( error.reason );
+                else
+                  Router.go('book.course', { _id: result, state: "bookCourseAddress" } );
+              });
+            }
           }
         });
       }
