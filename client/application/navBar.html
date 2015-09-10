@@ -1,8 +1,6 @@
 <template name="navBar">
-  <!-- <div class="container"> -->
     <div class="navbar navbar-inverse navbar-fixed-top nav-down" role="navigation">
 
-      <!-- <div class="row"> -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -10,7 +8,6 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <!-- <a class="navbar-brand" href="/"><img src="/logo-letters-beta.svg" class="nav-img-logo" width="180px" height="47px" /></a> -->
           <a class="navbar-brand" href="/"><img src="/logo-letters-beta.svg" class="nav-img-logo" /></a>
 
         </div>
@@ -22,10 +19,8 @@
             {{> navItemsRight}}
           </ul>
         </div>
-      <!-- </div> -->
 
     </div>
-  <!-- </div> -->
 </template>
 
 <!--  /////////////////////////////////////////////////// -->
@@ -33,7 +28,12 @@
 <template name='navItemsLeft'>
   <li><a href="{{pathFor 'search.course'}}">Berlins Top Kurse</a></li>
   <li><a href="{{pathFor 'search.trainer'}}">Die Trainer</a></li>
-  <li><a href="{{pathFor 'faq'}}">Häufige Fragen</a></li>
+  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Über uns</a>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="{{ pathFor 'about.traincrowd' }}">Über traincrowd</a></li>
+      <li><a href="{{ pathFor 'about.us' }}">Das Team</a></li>
+    </ul>
+  </li>
 </template>
 
 <!--  /////////////////////////////////////////////////// -->
@@ -41,8 +41,6 @@
 <template name='navItemsRight'>
   {{#unless isInRole 'trainer'}}
     <li><a href="{{ pathFor 'becomeTrainerLanding' }}">Trainer werden</a></li>
-  <!-- {{else}} -->
-    <!-- <li><a href="{{ pathFor 'createCourse' }}">Kurs erstellen</a></li> -->
   {{/unless}}
   {{#if currentUser}}
     <li>
