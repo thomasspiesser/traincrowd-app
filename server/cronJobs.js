@@ -46,10 +46,10 @@ function setExpired() {
         // save in current
         Current.update( { _id: current._id }, { $set: { token: token } } );
         // email owner: Fragen ob er den Kurs trotzdem machen will
-        // Meteor.call( 'sendAskIfEventExpiredTrainerEmail', { course: current.course, currentId: current._id, token: token }, function (error, result ) {
-        //     if ( error )
-        //       console.log("ERROR: " + error );
-        //   });
+        Meteor.call( 'sendAskIfEventExpiredTrainerEmail', { course: current.course, currentId: current._id, token: token }, function (error, result ) {
+            if ( error )
+              console.log("ERROR: " + error );
+          });
         return;
       }
 

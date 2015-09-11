@@ -44,7 +44,7 @@ Template.userCourses.helpers({
     else
       return false;
   },
-  myRating: function (id) {
+  myRating: function ( id ) {
     var elapsed = Elapsed.findOne( { _id: id }, { fields: { ratings: 1 } } );
     var myRating = _.find( elapsed.ratings, function ( item ) { return item.participant === Meteor.userId(); } );
     if ( myRating ) {
@@ -52,7 +52,7 @@ Template.userCourses.helpers({
       return true;
     }
     else {
-      Session.set( id, [0,0,0,0,0] );
+      Session.set( id, [0,0,0,0,0,0] );
       return false;
     }
   }
@@ -61,12 +61,13 @@ Template.userCourses.helpers({
 Template.userCourses.events({
   'click .rateCourse': function () {
     Session.set("rateId", this._id);
-    var ratedValues = Session.get(this._id); // [1,2,3,4,5]
+    var ratedValues = Session.get( this._id ); // [1,2,3,4,5,2]
     $('.rateitModal0').rateit('value', ratedValues[0]);
     $('.rateitModal1').rateit('value', ratedValues[1]);
     $('.rateitModal2').rateit('value', ratedValues[2]);
     $('.rateitModal3').rateit('value', ratedValues[3]);
     $('.rateitModal4').rateit('value', ratedValues[4]);
+    $('.rateitModal5').rateit('value', ratedValues[5]);
     $('#ratingModal').modal('show');
   },
   'click .activate': function (event, template) {
@@ -123,17 +124,18 @@ Template.ratingModal.events({
     var ratedValue2 = parseFloat(template.find('#backing2').value);
     var ratedValue3 = parseFloat(template.find('#backing3').value);
     var ratedValue4 = parseFloat(template.find('#backing4').value);
-    ratedValues = [ratedValue0, ratedValue1, ratedValue2, ratedValue3, ratedValue4];
+    var ratedValue5 = parseFloat(template.find('#backing5').value);
+    ratedValues = [ratedValue0, ratedValue1, ratedValue2, ratedValue3, ratedValue4, ratedValue5];
 
-    modifier = {_id: Session.get("rateId"),
+    modifier = { _id: Session.get("rateId"),
                 ratedValues: ratedValues };
-    Meteor.call('rateCourse', modifier, function (error, result) {
-      if (error)
+    Meteor.call('rateCourse', modifier, function ( error, result ) {
+      if ( error )
         toastr.error( error.reason );
       else {
         toastr.success( 'Gespeichert.' );
-        Session.set("rateId", "");
-        $('#ratingModal').modal('hide');
+        Session.set( "rateId", "" );
+        $( '#ratingModal' ).modal( 'hide' );
       }
     });    
   }
