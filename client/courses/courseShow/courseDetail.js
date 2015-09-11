@@ -1,5 +1,5 @@
 Template.courseDetail.rendered = function() {
-  $('.rateit').rateit();
+  // $('.rateit').rateit();
   $('[data-toggle="tooltip"]').tooltip(); //initialize all tooltips in this template
 };
 

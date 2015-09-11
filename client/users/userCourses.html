@@ -15,8 +15,7 @@
               <thead>
                 <tr>
                   <td>Titel</td>
-                  <td>Bewertung</td>
-                  <td></td>
+                  <!-- <td>Bewertung</td> -->
                   <td>Status</td>
                   <td>Status verändern</td>
                 </tr>
@@ -24,15 +23,15 @@
               <tbody>
                 {{ #each hostedCourses }}
                   <tr class="{{ #unless isPublic }}{{ else }}success{{ /unless }}">
-                    <td><a href="{{ pathFor route='course.show' slug=this.slug }}">{{ title }}</a></td>
                     <td>
-                      <div class="rateit rate-star dark-green" data-rateit-value="{{ rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                    </td>
-                    <td>
+                      <a href="{{ pathFor route='course.show' slug=this.slug }}">{{ title }}</a>
                       {{ #unless hasPublishRequest }}
-                        <a href="{{ pathFor route='course.edit' slug=this.slug }}" title="Kurs bearbeiten"><i class="fa fa-pencil"></i> Kurs bearbeiten</a> 
+                        ( <a href="{{ pathFor route='course.edit' slug=this.slug }}" title="bearbeiten"><i class="fa fa-pencil"></i> </a> ) 
                       {{ /unless }}
                     </td>
+<!--                     <td>
+                      <div class="rateit rate-star dark-green" data-rateit-value="{{ rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                    </td> -->
                     <td>
                       {{ #if isPublic }}
                         <span style="color: green;"><i class="fa fa-check"></i> öffentlich </span>
@@ -73,7 +72,7 @@
                 <tr>
                   <td>Titel</td>
                   <td>Kurs Datum</td>
-                  <td>Bewertung</td>
+                  <!-- <td>Bewertung</td> -->
                 </tr>
               </thead>
 
@@ -94,13 +93,13 @@
                         {{ /each }}
                       </ul>
                     </td>
-                    <td>
+<!--                     <td>
                       {{ #if ratingUndef }}
                         nicht verfügbar
                       {{ else }}
                         <div class="rateit rate-star dark-green" data-rateit-value="{{ rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                       {{ /if }}
-                    </td>
+                    </td> -->
                   </tr>
                 {{ /each }}
               </tbody>
@@ -119,7 +118,7 @@
                   <td>Titel</td>
                   <td>Datum</td>
                   <td>Bewertungsstatus</td>
-                  <td>allg. Bewertung</td>
+                  <!-- <td>allg. Bewertung</td> -->
                 </tr>
               </thead>
 
@@ -150,13 +149,13 @@
                         </a>
                       {{ /if }}
                     </td>
-                    <td>
+<!--                     <td>
                       {{ #if title }}
                         <div class="rateit rate-star dark-green" data-rateit-value="{{ rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                       {{ else }}
                         nicht verfügbar
                       {{ /if }}
-                    </td>
+                    </td> -->
                   </tr>
                 {{ /each }}
               </tbody>

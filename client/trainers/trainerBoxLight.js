@@ -1,3 +1,3 @@
-Template.trainerBoxLight.rendered = function () {
-  $('.rateit').rateit();
-};
+// Template.trainerBoxLight.rendered = function () {
+//   $('.rateit').rateit();
+// };

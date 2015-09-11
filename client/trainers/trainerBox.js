@@ -1,6 +1,6 @@
-Template.trainerBox.rendered = function () {
-  $('.rateit').rateit();
-};
+// Template.trainerBox.rendered = function () {
+//   $('.rateit').rateit();
+// };
 
 Template.trainerBox.helpers({
   shareData: function () {

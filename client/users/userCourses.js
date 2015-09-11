@@ -1,6 +1,6 @@
-Template.userCourses.rendered = function () {
-  $('.rateit').rateit();
-};
+// Template.userCourses.rendered = function () {
+//   $('.rateit').rateit();
+// };
 
 Template.userCourses.helpers({ 
   isPublic: function () {
