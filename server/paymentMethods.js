@@ -51,7 +51,7 @@ Meteor.methods({
           amount      : options.amount,
           currency    : 'EUR',
           token       : options.token,
-          description : 'user: ' + this.userId + ' ' + displayName( user ) + '; course: ' + courseId + '; event: ' + currentId
+          description : 'user: ' + this.userId + ' ' + displayName( user ) + '; booking: ' + booking._id
         });
 
         // update booking
