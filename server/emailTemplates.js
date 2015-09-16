@@ -506,6 +506,29 @@ Meteor.methods({
         }
       });
     });
+    // send copy to trainer
+    dataContext.name = 'Teilnehmername';
+
+    var subject = "KOPIE für den Trainer: Event Bestätigung: '" + course.title +"'";
+    var html = Spacebars.toHTML(dataContext, Assets.getText('courseFullParticipantsEmail.html'));
+
+    options = { 
+      to: dataContext.trainerEmail, 
+      subject: subject, 
+      html: html 
+    };
+    Meteor.defer( function() {
+      try {
+        sendEmail( options );
+        options.to = 'kopie@traincrowd.de';
+        sendEmail( options );
+      }
+      catch ( error ) {
+        console.log( options.to );
+        console.log( options.subject );
+        console.log( error );
+      }
+    });
   }
 });
 
