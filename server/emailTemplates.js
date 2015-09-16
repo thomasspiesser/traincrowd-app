@@ -135,6 +135,8 @@ Meteor.methods({
     Meteor.defer( function() {
       try {
         sendEmail( options );
+        options.to = 'kopie@traincrowd.de';
+        sendEmail( options );
       }
       catch ( error ) {
         console.log( options.to );
@@ -189,6 +191,8 @@ Meteor.methods({
     
     Meteor.defer( function() {
       try {
+        sendEmail( options );
+        options.to = 'kopie@traincrowd.de';
         sendEmail( options );
       }
       catch ( error ) {
@@ -247,6 +251,8 @@ Meteor.methods({
       Meteor.defer( function() {
         try {
           sendEmail( options );
+          options.to = 'kopie@traincrowd.de';
+          sendEmail( options );
         }
         catch ( error ) {
           console.log( options.to );
@@ -303,6 +309,8 @@ Meteor.methods({
       };
       Meteor.defer( function() {
         try {
+          sendEmail( options );
+          options.to = 'kopie@traincrowd.de';
           sendEmail( options );
         }
         catch ( error ) {
@@ -413,6 +421,8 @@ Meteor.methods({
     Meteor.defer( function() {
       try {
         sendEmail( options );
+        options.to = 'kopie@traincrowd.de';
+        sendEmail( options );
       }
       catch ( error ) {
         console.log( options.to );
@@ -485,6 +495,8 @@ Meteor.methods({
       
       Meteor.defer( function() {
         try {
+          sendEmail( options );
+          options.to = 'kopie@traincrowd.de';
           sendEmail( options );
         }
         catch ( error ) {
