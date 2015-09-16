@@ -116,7 +116,7 @@ Meteor.methods({
     var dataContext = {
       name: name,
       course: course,
-      courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
+      courseDate: moment( current.courseDate[0] ).utcOffset(60).format("DD.MM.YYYY"),
       participantsLength: current.participants.length,
       feeReducedTotal: feeReducedTotal,
       commision: commision,
@@ -176,7 +176,7 @@ Meteor.methods({
     var dataContext = {
       name: name,
       course: course,
-      courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY")
+      courseDate: moment( current.courseDate[0] ).utcOffset(60).format("DD.MM.YYYY")
     };
 
     var subject = "Ihr Kurs: '" + course.title + "'" + " ist leider nicht voll geworden.";
@@ -398,7 +398,7 @@ Meteor.methods({
     var dataContext = {
       name: name,
       course: course,
-      courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
+      courseDate: moment( current.courseDate[0] ).utcOffset(60).format("DD.MM.YYYY"),
       url: url
     };
 
@@ -447,7 +447,7 @@ Meteor.methods({
 
     var dataContext = {
       course: course,
-      courseDate: moment( current.courseDate[0] ).format( "DD.MM.YYYY" ),
+      courseDate: moment( current.courseDate[0] ).utcOffset(60).format( "DD.MM.YYYY" ),
       trainerEmail: options.trainerEmail,
       trainerName: options.trainerName,
       begin: options.begin,
