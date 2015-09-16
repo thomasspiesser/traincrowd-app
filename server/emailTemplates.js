@@ -116,7 +116,7 @@ Meteor.methods({
     var dataContext = {
       name: name,
       course: course,
-      courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
+      courseDate: moment( current.courseDate[0] ).utcOffset(60).format("DD.MM.YYYY"),
       participantsLength: current.participants.length,
       feeReducedTotal: feeReducedTotal,
       commision: commision,
@@ -134,6 +134,8 @@ Meteor.methods({
     
     Meteor.defer( function() {
       try {
+        sendEmail( options );
+        options.to = 'kopie@traincrowd.de';
         sendEmail( options );
       }
       catch ( error ) {
@@ -176,7 +178,7 @@ Meteor.methods({
     var dataContext = {
       name: name,
       course: course,
-      courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY")
+      courseDate: moment( current.courseDate[0] ).utcOffset(60).format("DD.MM.YYYY")
     };
 
     var subject = "Ihr Kurs: '" + course.title + "'" + " ist leider nicht voll geworden.";
@@ -189,6 +191,8 @@ Meteor.methods({
     
     Meteor.defer( function() {
       try {
+        sendEmail( options );
+        options.to = 'kopie@traincrowd.de';
         sendEmail( options );
       }
       catch ( error ) {
@@ -247,6 +251,8 @@ Meteor.methods({
       Meteor.defer( function() {
         try {
           sendEmail( options );
+          options.to = 'kopie@traincrowd.de';
+          sendEmail( options );
         }
         catch ( error ) {
           console.log( options.to );
@@ -303,6 +309,8 @@ Meteor.methods({
       };
       Meteor.defer( function() {
         try {
+          sendEmail( options );
+          options.to = 'kopie@traincrowd.de';
           sendEmail( options );
         }
         catch ( error ) {
@@ -398,7 +406,7 @@ Meteor.methods({
     var dataContext = {
       name: name,
       course: course,
-      courseDate: moment(current.courseDate[0]).format("DD.MM.YYYY"),
+      courseDate: moment( current.courseDate[0] ).utcOffset(60).format("DD.MM.YYYY"),
       url: url
     };
 
@@ -412,6 +420,8 @@ Meteor.methods({
     
     Meteor.defer( function() {
       try {
+        sendEmail( options );
+        options.to = 'kopie@traincrowd.de';
         sendEmail( options );
       }
       catch ( error ) {
@@ -447,7 +457,7 @@ Meteor.methods({
 
     var dataContext = {
       course: course,
-      courseDate: moment( current.courseDate[0] ).format( "DD.MM.YYYY" ),
+      courseDate: moment( current.courseDate[0] ).utcOffset(60).format( "DD.MM.YYYY" ),
       trainerEmail: options.trainerEmail,
       trainerName: options.trainerName,
       begin: options.begin,
@@ -486,6 +496,8 @@ Meteor.methods({
       Meteor.defer( function() {
         try {
           sendEmail( options );
+          options.to = 'kopie@traincrowd.de';
+          sendEmail( options );
         }
         catch ( error ) {
           console.log( options.to );
@@ -493,6 +505,29 @@ Meteor.methods({
           console.log( error );
         }
       });
+    });
+    // send copy to trainer
+    dataContext.name = 'Teilnehmername';
+
+    var subject = "KOPIE für den Trainer: Event Bestätigung: '" + course.title +"'";
+    var html = Spacebars.toHTML(dataContext, Assets.getText('courseFullParticipantsEmail.html'));
+
+    options = { 
+      to: dataContext.trainerEmail, 
+      subject: subject, 
+      html: html 
+    };
+    Meteor.defer( function() {
+      try {
+        sendEmail( options );
+        options.to = 'kopie@traincrowd.de';
+        sendEmail( options );
+      }
+      catch ( error ) {
+        console.log( options.to );
+        console.log( options.subject );
+        console.log( error );
+      }
     });
   }
 });

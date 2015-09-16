@@ -1,4 +1,7 @@
 Template.courseConfirm.helpers({
+  isValidToken: function () {
+    return !!this.current;
+  },
   formatedDates: function () {
     var courseDate = this.current.courseDate;
     var formatedDates = _.map( courseDate, function( date ){
