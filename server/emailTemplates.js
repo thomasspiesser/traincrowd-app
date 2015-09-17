@@ -225,7 +225,7 @@ Meteor.methods({
         return; // jump out of current iteration, keeps looping
       }
       var email;
-      if (user.emails && user.emails[0])
+      if (user && user.emails && user.emails[0])
         email = user.emails[0].address;
       else {
         // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
@@ -285,7 +285,7 @@ Meteor.methods({
         return; // jump out of current iteration, keeps looping
       }
       var email;
-      if (user.emails && user.emails[0])
+      if (user && user.emails && user.emails[0])
         email = user.emails[0].address;
       else {
         // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
@@ -423,7 +423,7 @@ Meteor.methods({
         return; // jump out of current iteration, keeps looping
       }
       var email;
-      if ( user.emails && user.emails[0] )
+      if ( user && user.emails && user.emails[0] )
         email = user.emails[0].address;
       else {
         // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
@@ -490,7 +490,7 @@ sendBookingConfirmationEmail = function ( options ) {
 
   var user = Meteor.users.findOne( options.userId );
   var email;
-  if ( user.emails && user.emails[0] )
+  if ( user && user.emails && user.emails[0] )
     email = user.emails[0].address;
   else {
     console.log( "Don't have an Email for user: " + options.userId );
