@@ -39,7 +39,6 @@ Meteor.methods({
     var course = Courses.findOne( { _id: courseId }, { fields: fields } );
     checkExistance( course, "Kurs", fields );
 
-    var beforeBooking = current.participants.length;
     var afterBooking = current.participants.length + seats;
 
     // check if there are enough seats available
@@ -57,7 +56,6 @@ Meteor.methods({
 
       // add them to current.participants
       Current.update( { _id: currentId }, { $push: { participants: { $each: newParticipants } } } );
-      // Current.update( { _id: currentId }, { $push: { participants: this.userId } } );
 
       // synchronous paymill call
       var paymillCreateTransactionSync = Meteor.wrapAsync(paymill.transactions.create);
@@ -122,7 +120,6 @@ Meteor.methods({
       catch( error ){
         console.log( error );
         // remove Participant again - coz payment failed - careful this operation will pull ALL participants with this Id from the list
-        // Current.update( { _id: currentId }, { $pull: { participants: this.userId } } );
         Current.update( { _id: currentId }, { $pull: { participants: { $each: newParticipants } } } );
         throw new Meteor.Error( error.message );
       }
@@ -133,11 +130,20 @@ Meteor.methods({
   },
   createInvoice: function ( options ) {
     check(options, {
-      bookingId: NonEmptyString
+      bookingId: NonEmptyString,
+      seats: Number,
+      additionalParticipants: [ String ] // the array of emails for the other participants
     });
     
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
+
+    var seats = parseInt(options.seats);
+    if ( seats < 1 )
+      throw new Meteor.Error(403, "Anzahl der Kursplätze muss größer gleich 1 sein.");
+
+    if ( seats !== options.additionalParticipants.length + 1 )
+      throw new Meteor.Error(403, "Anzahl an Emails und Kursplätze stimmen nicht überein.");
 
     var fields = { eventId: 1, course: 1, courseFeePP: 1 };
     var booking = Bookings.findOne( { _id: options.bookingId }, { fields: fields } );
@@ -154,21 +160,31 @@ Meteor.methods({
     var course = Courses.findOne( { _id: courseId }, { fields: fields } );
     checkExistance( course, "Kurs", fields );
 
-    var beforeBooking = current.participants.length;
-    var afterBooking = current.participants.length + 1;
+    var afterBooking = current.participants.length + seats;
 
     // check if event is already booked out
-    if ( beforeBooking < course.maxParticipants ) {
-      // good, there are seats available in this course
-      // here i need to add the participant to block the course-seat already for time of payment and remove the participant again if payment is no good ( error ) to unblock seat (let others book this seat)
-      Current.update( { _id: currentId }, { $push: { participants: this.userId } } );
+    if ( afterBooking <= course.maxParticipants ) {
+      // good, there are enough seats available in this course
+      // here i need to add the participants to block the course-seats already for time of payment and remove the participants again if payment is no good ( error ) to unblock seats (let others book them)
+      var newParticipants = [ this.userId ];
+      // register the other ones if there are any
+      if ( seats > 1 ) {
+        // create new users
+        for ( var i = seats - 2; i >= 0; i-- ) {
+          newParticipants.push( createUserWoPassword( options.additionalParticipants[i] ) );
+        } 
+      }
+
+      // add them to current.participants
+      Current.update( { _id: currentId }, { $push: { participants: { $each: newParticipants } } } );
 
       // update booking
       var modifier = {
         transaction     :  'invoice open',
         transactionDate :  new Date(),
         amount          :  0,
-        bookingStatus   :  'completed'
+        bookingStatus   :  'completed',
+        seats           :  seats
       };
 
       // non-blocking coz with callback, also error doesnt end methods
@@ -181,12 +197,10 @@ Meteor.methods({
         }
       });
 
-      // inform participant via email - with callback: may return error but rest of method will run anyway, w/o callback on error will throw, methods ends
-      Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function ( error, result ) {
-        if ( error ) {
-          console.log( error );
-        }
-      });
+      // inform participants via email
+      for ( var i = newParticipants.length - 1; i >= 0; i-- ) {
+        sendBookingConfirmationEmail( { course: course._id, userId: newParticipants[i] } );
+      }
 
       // check if course is full now:
       if ( afterBooking === course.maxParticipants ) {
@@ -237,8 +251,5 @@ var createUserWoPassword = function ( email ) {
         console.log( error );
       }
     });
-  
   return userId;                
 };
-// create account with email w/o password 
-// when/ how accounts.setpasswrod? -> Accounts.sendEnrollmentEmail (To customize the contents of the email, see Accounts.emailTemplates.)
