@@ -12,7 +12,7 @@ Template.homePromoCourses.helpers({
 			'riZpSyWvdMWMfKhyC', // ruehl - bilanzen lesen
 			'sC3KSEWQqyTwxi8Rd', // witt - living working germany
 			'v9ANydsyGqoijmr6v', // changer - social media marketing
-			'ELd8fLtcMujTGpJNA' // socius - strategieentwicklung
+			'rkJTSDjc2jaYuBp7R' // herzog - chef
 		] } } );
   },
 });
