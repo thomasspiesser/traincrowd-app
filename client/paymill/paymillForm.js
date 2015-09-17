@@ -145,7 +145,9 @@ function paymillResponseHandler(error, result) {
     var options = {
       token: token,
       amount: amount,
-      bookingId: data.bookingId
+      bookingId: data.bookingId,
+      seats: data.seats,
+      additionalParticipants: data.additionalParticipants
     };
 
     Meteor.call('createTransaction', options, function (error, response) {
