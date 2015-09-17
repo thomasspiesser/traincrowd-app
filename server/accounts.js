@@ -24,7 +24,6 @@ Meteor.methods({
 		// else 
 		// 	Accounts.sendVerificationEmail( userId, options.email );
 		
-		return userId;                
-
+		return userId;
 	}
 });

@@ -321,56 +321,6 @@ Meteor.methods({
       });
     });
   },
-  sendBookingConfirmationEmail: function ( options ) {
-    check( options, {
-      course: String
-    });
-
-    var user = Meteor.users.findOne( this.userId );
-    var email;
-    if ( user.emails && user.emails[0] )
-      email = user.emails[0].address;
-    else {
-      console.log( "Don't have an Email for user: " + this.userId );
-      return;
-    }
-    var name = displayName( user );
-
-    var fields = { title: 1, slug: 1, description: 1, aims: 1, methods: 1, targetGroup: 1, prerequisites: 1, languages: 1, additionalServices: 1 };
-    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
-    var pass = checkExistanceSilent( course, "course", options.course, { title: 1, slug: 1, description: 1 } );
-
-    if ( ! pass )
-      return;
-
-    var url = Meteor.absoluteUrl('course/' + course.slug);
-    var dataContext = {
-      name: name,
-      course: course,
-      url: url
-    };
-
-    var subject = "Buchungsbestätigung: '" + course.title +"'";
-    var html = Spacebars.toHTML(dataContext, Assets.getText('bookingConfirmationEmail.html'));
-    options = { 
-        to: email, 
-        subject: subject, 
-        html: html 
-      };
-
-    Meteor.defer( function() {
-      try {
-        sendEmail( options );
-        options.to = 'kopie@traincrowd.de';
-        sendEmail( options );
-      }
-      catch ( error ) {
-        console.log( options.to );
-        console.log( options.subject );
-        console.log( error );
-      }
-    });
-  },
   sendCourseFullTrainerEmail: function (options) {
     check(options, {
       currentId: String,
@@ -531,6 +481,58 @@ Meteor.methods({
     });
   }
 });
+
+sendBookingConfirmationEmail = function ( options ) {
+  check( options, {
+    course: String,
+    userId: String
+  });
+
+  var user = Meteor.users.findOne( options.userId );
+  var email;
+  if ( user.emails && user.emails[0] )
+    email = user.emails[0].address;
+  else {
+    console.log( "Don't have an Email for user: " + options.userId );
+    return;
+  }
+  var name = displayName( user );
+
+  var fields = { title: 1, slug: 1, description: 1, aims: 1, methods: 1, targetGroup: 1, prerequisites: 1, languages: 1, additionalServices: 1 };
+  var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
+  var pass = checkExistanceSilent( course, "course", options.course, { title: 1, slug: 1, description: 1 } );
+
+  if ( ! pass )
+    return;
+
+  var url = Meteor.absoluteUrl('course/' + course.slug);
+  var dataContext = {
+    name: name,
+    course: course,
+    url: url
+  };
+
+  var subject = "Buchungsbestätigung: '" + course.title +"'";
+  var html = Spacebars.toHTML(dataContext, Assets.getText('bookingConfirmationEmail.html'));
+  options = { 
+      to: email, 
+      subject: subject, 
+      html: html 
+    };
+
+  Meteor.defer( function() {
+    try {
+      sendEmail( options );
+      options.to = 'kopie@traincrowd.de';
+      sendEmail( options );
+    }
+    catch ( error ) {
+      console.log( options.to );
+      console.log( options.subject );
+      console.log( error );
+    }
+  });
+};
 
 var sendEmail = function (options) {
   // can only be called in this file! 

@@ -6,19 +6,28 @@ Meteor.methods({
     check(options, {
       token: NonEmptyString,
       amount: Number,
-      bookingId: NonEmptyString
+      bookingId: NonEmptyString,
+      seats: Number,
+      otherParticipants: [ String ] // the array of emails for the other participants
     });
     
     if (! this.userId)
       throw new Meteor.Error(403, "Sie müssen eingelogged sein");
+
+    var seats = parseInt(options.seats);
+    if ( seats < 1 )
+      throw new Meteor.Error(403, "Anzahl der Kursplätze muss größer gleich 1 sein.");
+
+    if ( seats !== options.otherParticipants.length + 1 )
+      throw new Meteor.Error(403, "Anzahl an Emails und Kursplätze stimmen nicht überein.");
 
     var fields = { eventId: 1, course: 1, courseFeePP: 1 };
     var booking = Bookings.findOne( { _id: options.bookingId }, { fields: fields } );
     checkExistance( booking, "Buchung", fields );
 
     // the next one works only for 1 person, need to adapt for paying 2 or more seats
-    if ( options.amount === booking.courseFeePP ) 
-      throw new Meteor.Error(403, "Bezahlbetrag und Kurspreis pro Person stimmen nicht überein");
+    if ( options.amount !== booking.courseFeePP * seats ) 
+      throw new Meteor.Error(403, "Bezahlbetrag und Kurspreis für " + seats + " Person(en) stimmen nicht überein");
 
     var currentId = booking.eventId;
     var courseId = booking.course;
@@ -32,13 +41,29 @@ Meteor.methods({
     checkExistance( course, "Kurs", fields );
 
     var beforeBooking = current.participants.length;
-    var afterBooking = current.participants.length + 1;
+    // var afterBooking = current.participants.length + 1;
+    var afterBooking = current.participants.length + seats;
 
-    // check if event is already booked out
-    if (beforeBooking < course.maxParticipants) {
-      // good, there are places available in this course
-      // here i need to add the participant to block the course-place already for time of payment and remove the participant again if payment is no good ( error ) to unblock place (let others book this place)
-      Current.update( { _id: currentId }, { $push: { participants: this.userId } } );
+    // check if there are enough seats available
+    if ( afterBooking <= course.maxParticipants ) {
+      // good, there are enough seats available in this course
+      // here i need to add the participants to block the course-seats already for time of payment and remove the participants again if payment is no good ( error ) to unblock seats (let others book them)
+      var newParticipants = [ this.userId ];
+
+      // register the other ones if there are any
+      if ( seats > 1) {
+        // create new users + logged in user
+        for ( var i = seats - 1; i >= 0; i-- ) {
+          console.log(i);
+          newParticipants.push( createUserWoPassword( options.otherParticipants[i] ) );
+        } 
+      }
+
+      console.log(newParticipants);
+      // add them to current.participants
+      Current.update( { _id: currentId }, { $push: { participants: { $each: newParticipants } } } );
+      console.log( Current.findOne(currentId) );
+      // Current.update( { _id: currentId }, { $push: { participants: this.userId } } );
 
       // synchronous paymill call
       var paymillCreateTransactionSync = Meteor.wrapAsync(paymill.transactions.create);
@@ -59,7 +84,8 @@ Meteor.methods({
           transaction     :  result.data.id,
           transactionDate :  new Date(result.data.created_at * 1000), // unix timestamp is in sec, need millisec, hence * 1000
           amount          :  result.data.amount / 100,
-          bookingStatus   :  'completed'
+          bookingStatus   :  'completed',
+          seats           :  seats
         };
 
         // non-blocking coz with callback, also error doesnt invoke catch, which is good coz money is with us
@@ -74,11 +100,14 @@ Meteor.methods({
         });
 
         // inform participant via email - with callback: may return error but rest of try-block will run anyway, w/o callback on error will invoke catch-block
-        Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function ( error, result ) {
-          if ( error ) {
-            console.log( error );
-          }
-        });
+        // Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function ( error, result ) {
+        //   if ( error ) {
+        //     console.log( error );
+        //   }
+        // });
+        for ( var i = newParticipants.length - 1; i >= 0; i--) {
+          sendBookingConfirmationEmail( newParticipants[i] );
+        }
 
         // check if course is full now:
         if ( afterBooking === course.maxParticipants ) {
@@ -104,7 +133,8 @@ Meteor.methods({
       catch( error ){
         console.log( error );
         // remove Participant again - coz payment failed - careful this operation will pull ALL participants with this Id from the list
-        Current.update( { _id: currentId }, { $pull: { participants: this.userId } } );
+        // Current.update( { _id: currentId }, { $pull: { participants: this.userId } } );
+        Current.update( { _id: currentId }, { $pull: { participants: { $each: newParticipants } } } );
         throw new Meteor.Error( error.message );
       }
     }
@@ -140,8 +170,8 @@ Meteor.methods({
 
     // check if event is already booked out
     if ( beforeBooking < course.maxParticipants ) {
-      // good, there are places available in this course
-      // here i need to add the participant to block the course-place already for time of payment and remove the participant again if payment is no good ( error ) to unblock place (let others book this place)
+      // good, there are seats available in this course
+      // here i need to add the participant to block the course-seat already for time of payment and remove the participant again if payment is no good ( error ) to unblock seat (let others book this seat)
       Current.update( { _id: currentId }, { $push: { participants: this.userId } } );
 
       // update booking
@@ -196,4 +226,30 @@ Meteor.methods({
   }
 });
 
+// can only be called from this file
+var createUserWoPassword = function ( email ) {
+  check( email, String );
 
+  if (! EMAIL_REGEX.test( email ))
+    throw new Meteor.Error(403, "Bitte überprüfen Sie, ob Sie eine echte Email Adresse eingegeben haben.");
+
+  var userId = Accounts.createUser( { email: email } );
+  // safety belt. createUser is supposed to throw on error. send 500 error instead of sending an enrolment email with empty userid.
+  if ( ! userId )
+    throw new Meteor.Error(444, "Beim Erstellung des Nutzerkontos für weitere Teilnehmer ist ein Fehler aufgetreten.");
+  else
+    Meteor.defer( function () {
+      try {
+        Accounts.sendEnrollmentEmail( userId );
+      }
+      catch ( error ) {
+        console.log( 'ERROR: sendEnrollmentEmail' );
+        console.log( 'userId: ' + userId );
+        console.log( error );
+      }
+    });
+  
+  return userId;                
+};
+// create account with email w/o password 
+// when/ how accounts.setpasswrod? -> Accounts.sendEnrollmentEmail (To customize the contents of the email, see Accounts.emailTemplates.)
