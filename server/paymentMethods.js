@@ -8,7 +8,7 @@ Meteor.methods({
       amount: Number,
       bookingId: NonEmptyString,
       seats: Number,
-      otherParticipants: [ String ] // the array of emails for the other participants
+      additionalParticipants: [ String ] // the array of emails for the other participants
     });
     
     if (! this.userId)
@@ -18,14 +18,13 @@ Meteor.methods({
     if ( seats < 1 )
       throw new Meteor.Error(403, "Anzahl der Kursplätze muss größer gleich 1 sein.");
 
-    if ( seats !== options.otherParticipants.length + 1 )
+    if ( seats !== options.additionalParticipants.length + 1 )
       throw new Meteor.Error(403, "Anzahl an Emails und Kursplätze stimmen nicht überein.");
 
     var fields = { eventId: 1, course: 1, courseFeePP: 1 };
     var booking = Bookings.findOne( { _id: options.bookingId }, { fields: fields } );
     checkExistance( booking, "Buchung", fields );
 
-    // the next one works only for 1 person, need to adapt for paying 2 or more seats
     if ( options.amount !== booking.courseFeePP * seats ) 
       throw new Meteor.Error(403, "Bezahlbetrag und Kurspreis für " + seats + " Person(en) stimmen nicht überein");
 
@@ -41,7 +40,6 @@ Meteor.methods({
     checkExistance( course, "Kurs", fields );
 
     var beforeBooking = current.participants.length;
-    // var afterBooking = current.participants.length + 1;
     var afterBooking = current.participants.length + seats;
 
     // check if there are enough seats available
@@ -49,20 +47,16 @@ Meteor.methods({
       // good, there are enough seats available in this course
       // here i need to add the participants to block the course-seats already for time of payment and remove the participants again if payment is no good ( error ) to unblock seats (let others book them)
       var newParticipants = [ this.userId ];
-
       // register the other ones if there are any
-      if ( seats > 1) {
-        // create new users + logged in user
-        for ( var i = seats - 1; i >= 0; i-- ) {
-          console.log(i);
-          newParticipants.push( createUserWoPassword( options.otherParticipants[i] ) );
+      if ( seats > 1 ) {
+        // create new users
+        for ( var i = seats - 2; i >= 0; i-- ) {
+          newParticipants.push( createUserWoPassword( options.additionalParticipants[i] ) );
         } 
       }
 
-      console.log(newParticipants);
       // add them to current.participants
       Current.update( { _id: currentId }, { $push: { participants: { $each: newParticipants } } } );
-      console.log( Current.findOne(currentId) );
       // Current.update( { _id: currentId }, { $push: { participants: this.userId } } );
 
       // synchronous paymill call
@@ -99,14 +93,9 @@ Meteor.methods({
           }
         });
 
-        // inform participant via email - with callback: may return error but rest of try-block will run anyway, w/o callback on error will invoke catch-block
-        // Meteor.call('sendBookingConfirmationEmail', { course: course._id }, function ( error, result ) {
-        //   if ( error ) {
-        //     console.log( error );
-        //   }
-        // });
-        for ( var i = newParticipants.length - 1; i >= 0; i--) {
-          sendBookingConfirmationEmail( newParticipants[i] );
+        // inform participants via email
+        for ( var i = newParticipants.length - 1; i >= 0; i-- ) {
+          sendBookingConfirmationEmail( { course: course._id, userId: newParticipants[i] } );
         }
 
         // check if course is full now:
