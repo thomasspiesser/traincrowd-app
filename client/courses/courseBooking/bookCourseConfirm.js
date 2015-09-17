@@ -1,4 +1,15 @@
+Template.bookCourseConfirm.helpers({
+  number: function () {
+    return _.range(1,10);
+  }
+});
+
 Template.bookCourseConfirm.events({
+  'change #select-no-of-participants': function (event, template) {
+    console.log(event);
+    console.log(event.currentTarget.value);
+    
+  },
   'click #change-contact': function ( event, template ) {
     Modal.show('editContactModal');
   },

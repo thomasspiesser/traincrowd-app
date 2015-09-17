@@ -42,7 +42,8 @@
                 <td>Kurs</td>
                 <td>Trainer</td>
                 <td>Termine</td>
-                <td>Preis pro Person</td>
+                <td>Anzahl Teilnemer</td>
+                <td class="text-right">Preis pro Person</td>
               </tr>
             </thead>
             <tbody>
@@ -56,11 +57,35 @@
                     {{/each}}
                   </ul>
                 </td>
-                <td>{{ courseFeePP }} Euro</td>
+                <td>
+                  <select id="select-no-of-participants" style="width: 60px;">
+                    {{#each number}}
+                      <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                  </select>
+                </td>
+                <td class="text-right">{{ courseFeePP }} Euro</td>
               </tr>
             </tbody>
           </table>
-          <div class="text-right">
+        </div>
+
+        <div class="col-md-4 col-md-offset-8">
+          <table class="table">
+            <thead>
+              <tr>
+                <td> Teilnemer</td>
+                <td class="text-right">Preis</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ customerName }}</td>
+                <td class="text-right">{{ courseFeePP }} Euro</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-right" style="border-top: 1px solid grey;">
             <strong>zu zahlender Gesamtpreis: {{ courseFeePP }} Euro </strong>
           </div>
         </div>
