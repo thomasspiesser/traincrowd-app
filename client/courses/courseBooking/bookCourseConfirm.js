@@ -39,7 +39,7 @@ Template.bookCourseConfirm.events({
     }
 
     // get total number of seats
-    var seats = template.find('#select-no-of-participants').value;
+    var seats = parseInt( template.find('#select-no-of-participants').value );
     // get the additional emails - array
     var additionalParticipants = [];
     // need fucking flag coz 'return false' in each loop just breaks the loop, not the event
