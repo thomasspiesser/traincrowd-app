@@ -46,12 +46,17 @@ Meteor.methods({
       // good, there are enough seats available in this course
       // here i need to add the participants to block the course-seats already for time of payment and remove the participants again if payment is no good ( error ) to unblock seats (let others book them)
       var newParticipants = [ this.userId ];
+      var user;
       // register the other ones if there are any
       if ( seats > 1 ) {
-        // create new users
+        // look up users by email or create new users
         for ( var i = seats - 2; i >= 0; i-- ) {
-          newParticipants.push( createUserWoPassword( options.additionalParticipants[i] ) );
-        } 
+          user = Meteor.users.findOne( { 'emails.address': options.additionalParticipants[i] }, { fields: { _id: 1 } } );
+          if ( user )
+            newParticipants.push( user._id );
+          else
+            newParticipants.push( createUserWoPassword( options.additionalParticipants[i] ) );
+        }
       }
 
       // add them to current.participants
@@ -62,7 +67,7 @@ Meteor.methods({
 
       try {
 
-        var user = Meteor.users.findOne( this.userId );
+        user = Meteor.users.findOne( this.userId );
 
         var result = paymillCreateTransactionSync({
           amount      : options.amount,
@@ -79,6 +84,9 @@ Meteor.methods({
           bookingStatus   :  'completed',
           seats           :  seats
         };
+
+        if ( seats > 1 )
+          modifier.additionalCustomers = options.additionalParticipants;
 
         // non-blocking coz with callback, also error doesnt invoke catch, which is good coz money is with us
         Bookings.update( { _id: booking._id }, { $set: modifier }, function ( error, result ) {
@@ -171,8 +179,12 @@ Meteor.methods({
       if ( seats > 1 ) {
         // create new users
         for ( var i = seats - 2; i >= 0; i-- ) {
-          newParticipants.push( createUserWoPassword( options.additionalParticipants[i] ) );
-        } 
+          user = Meteor.users.findOne( { 'emails.address': options.additionalParticipants[i] }, { fields: { _id: 1 } } );
+          if ( user )
+            newParticipants.push( user._id );
+          else
+            newParticipants.push( createUserWoPassword( options.additionalParticipants[i] ) );
+        }
       }
 
       // add them to current.participants
@@ -186,6 +198,9 @@ Meteor.methods({
         bookingStatus   :  'completed',
         seats           :  seats
       };
+
+      if ( seats > 1 )
+        modifier.additionalCustomers = options.additionalParticipants;
 
       // non-blocking coz with callback, also error doesnt end methods
       Bookings.update( { _id: booking._id }, { $set: modifier }, function ( error, result ) {
