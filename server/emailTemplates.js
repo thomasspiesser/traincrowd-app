@@ -6,25 +6,27 @@ Meteor.startup(function() {
   Accounts.emailTemplates.siteName = 'traincrowd';
 
   // A Function that takes a user object and returns a String for the subject line of the email.
-  Accounts.emailTemplates.verifyEmail.subject = function(user) {
+  Accounts.emailTemplates.verifyEmail.subject = function( user ) {
     return 'Bitte bestätigen Sie noch Ihre Email Adresse';
   };
-
   // A Function that takes a user object and a url, and returns the body text for the email.
   // Note: if you need to return HTML instead, use Accounts.emailTemplates.verifyEmail.html
-  Accounts.emailTemplates.verifyEmail.text = function(user, url) {
+  Accounts.emailTemplates.verifyEmail.text = function( user, url ) {
     return 'Bitte klicken Sie den folgenden link an, um Ihre Email Adresse zu bestätigen: ' + url;
   };
 
-  Accounts.emailTemplates.resetPassword.subject = function(user) {
+  Accounts.emailTemplates.resetPassword.subject = function( user ) {
     return 'Passwort vergessen?';
   };
-  Accounts.emailTemplates.resetPassword.text = function(user, url) {
-    return 'Guten Tag ' + displayName(user) + ',\n\n' + 'Um Ihr Passwort zurückzusetzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Vielen Dank.';
+  Accounts.emailTemplates.resetPassword.text = function( user, url ) {
+    return 'Guten Tag ' + displayName(user) + ',\n\n' + 'Um Ihr Passwort zurückzusetzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Vielen Dank.\n';
   };
-  // Accounts.emailTemplates.resetPassword.html = function(user, url) {
-  //   return 'bitte den folgenden link anklicken, um Ihre Email Adresse zu bestätigen: ' + url;
-  // };
+  Accounts.emailTemplates.enrollAccount.subject = function( user ) {
+    return "Es wurde für Sie auf " + Accounts.emailTemplates.siteName + " ein Account angelegt";
+  };
+  Accounts.emailTemplates.enrollAccount.text = function( user, url ) {
+    return 'Guten Tag ' + displayName(user) + ',\n\n' + 'Um Ihren neuen Account zu Nutzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Viel Spass.\n';
+  };
 });
 
 Meteor.methods({
