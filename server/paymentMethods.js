@@ -25,7 +25,7 @@ Meteor.methods({
     var booking = Bookings.findOne( { _id: options.bookingId }, { fields: fields } );
     checkExistance( booking, "Buchung", fields );
 
-    if ( options.amount !== booking.courseFeePP * seats ) 
+    if ( options.amount !== booking.courseFeePP * seats * 100 ) // amount is in cents
       throw new Meteor.Error(403, "Bezahlbetrag und Kurspreis für " + seats + " Person(en) stimmen nicht überein");
 
     var currentId = booking.eventId;
