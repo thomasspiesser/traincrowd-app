@@ -152,8 +152,8 @@ function paymillResponseHandler(error, result) {
 
     Meteor.call('createTransaction', options, function (error, response) {
       if (error) {
-        console.log(error.error);
-        toastr.error(error.error);
+        console.log( error );
+        toastr.error( error.message || error.error || error.reason );
       }
       else {
         toastr.success('Zahlung erfolgreich.');
