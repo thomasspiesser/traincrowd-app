@@ -9,7 +9,6 @@ iron:router@1.0.0-pre4
 rajit:bootstrap3-datepicker
 matteodem:easy-search
 alanning:roles
-houston:admin
 
 dandv:jquery-rateit
 percolate:synced-cron
@@ -21,7 +20,6 @@ meteorhacks:kadira
 chrismbeckett:toastr
 dburles:spacebars-tohtml
 fortawesome:fontawesome
-twbs:bootstrap-noglyph
 okgrow:iron-router-autoscroll
 momentjs:moment
 meteorhacks:subs-manager
@@ -46,3 +44,5 @@ u2622:persistent-session
 force-ssl
 softwarerero:accounts-t9n
 doctorpangloss:admin
+twbs:bootstrap
+yogiben:admin
