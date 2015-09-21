@@ -25,7 +25,8 @@ Meteor.startup(function() {
     return "Es wurde für Sie auf " + Accounts.emailTemplates.siteName + " ein Account angelegt";
   };
   Accounts.emailTemplates.enrollAccount.text = function( user, url ) {
-    return 'Guten Tag ' + displayName(user) + ',\n\n' + 'Um Ihren neuen Account zu Nutzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Viel Spass.\n';
+    url = url.replace('#/', '');
+    return 'Hallo.\n\n' + 'Um Ihren neuen Account zu Nutzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Viel Spass.\n';
   };
 });
 
