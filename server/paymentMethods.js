@@ -235,6 +235,8 @@ Meteor.methods({
     if ( ! this.userId )
       throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
 
+    var currentId = options.currentId;
+
     fields = { participants: 1, course: 1 };
     var current = Current.findOne( { _id: currentId }, { fields: fields } );
     checkExistance( current, "Event", fields );

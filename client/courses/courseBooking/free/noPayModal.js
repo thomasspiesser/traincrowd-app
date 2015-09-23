@@ -4,6 +4,17 @@ Template.noPayModal.events({
   'click #forgot-password-link, click #agb-link, click #privacy-link': function () {
     Modal.hide('noPayModal');
   },
+  'click #no-pay-course-button': function () {
+    self = this;
+    Meteor.call('enrollFreeEvent', { currentId: self._id }, function (error, result) {
+      if ( error )
+        toastr.error( error.reason );
+      else {
+        Modal.hide('noPayModal');
+        toastr.success( "Beitritt erfolgreich" );
+      }
+    });
+  },
   'click #no-pay-course-login-button': function (event, template) {
     var email = template.find('#sign-in-email').value;
     var password = template.find('#sign-in-password').value;
@@ -24,32 +35,14 @@ Template.noPayModal.events({
       if ( error )
         toastr.error( error.reason );
       else {
-        // has no customer yet: update
-        if ( ! self.customer ) {
-          var args = {
-            bookingId: self._id,
-            argName: 'customer',
-            argValue: ''
-          };
-          Meteor.call('updateBooking', args, function (error, result) {
-            if ( error )
-              toastr.error( error.reason );
-            else
-              Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
-          });
-        }
-        // has customer and it's the user -> just proceed
-        else if ( self.customer && self.customer === Meteor.userId() )
-          Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
-        // has customer and it's not the current user -> go create new booking for him
-        else if ( self.customer && self.customer !== Meteor.userId() ) {
-          Meteor.call('createBooking', self.eventId, self.course, function ( error, result ) {
-            if ( error )
-              toastr.error( error.reason );
-            else
-              Router.go('book.course', { _id: result, state: "bookCourseAddress" } );
-          });
-        }
+        Meteor.call('enrollFreeEvent', { currentId: self._id }, function (error, result) {
+          if ( error )
+            toastr.error( error.reason );
+          else {
+            Modal.hide('noPayModal');
+            toastr.success( "Beitritt erfolgreich" );
+          }
+        });
       }
     });
   },
@@ -121,32 +114,14 @@ Template.noPayModal.events({
           if (error)
             toastr.error( error.reason );
           else {
-            // has no customer yet: update
-            if ( ! self.customer ) {
-              var args = {
-                bookingId: self._id,
-                argName: 'customer',
-                argValue: ''
-              };
-              Meteor.call('updateBooking', args, function (error, result) {
-                if ( error )
-                  toastr.error( error.reason );
-                else
-                  Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
-              });
-            }
-            // has customer and it's the user -> just proceed
-            else if ( self.customer && self.customer === Meteor.userId() )
-              Router.go( "book.course", { _id: self._id, state: "bookCourseAddress" } );
-            // has customer and it's not the current user -> go create new booking for him
-            else if ( self.customer && self.customer !== Meteor.userId() ) {
-              Meteor.call('createBooking', self.eventId, self.course, function ( error, result ) {
-                if ( error )
-                  toastr.error( error.reason );
-                else
-                  Router.go('book.course', { _id: result, state: "bookCourseAddress" } );
-              });
-            }
+            Meteor.call('enrollFreeEvent', { currentId: self._id }, function (error, result) {
+              if ( error )
+                toastr.error( error.reason );
+              else {
+                Modal.hide('noPayModal');
+                toastr.success( "Beitritt erfolgreich" );
+              }
+            });
           }
         });
       }
