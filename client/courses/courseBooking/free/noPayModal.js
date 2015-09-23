@@ -1,19 +1,23 @@
 var self;
 
+var enroll = function (self) {
+  Meteor.call('enrollFreeEvent', { currentId: self._id }, function (error, result) {
+    if ( error )
+      toastr.error( error.reason );
+    else {
+      Modal.hide('noPayModal');
+      toastr.success( "Beitritt erfolgreich" );
+    }
+  });
+};
+
 Template.noPayModal.events({
   'click #forgot-password-link, click #agb-link, click #privacy-link': function () {
     Modal.hide('noPayModal');
   },
   'click #no-pay-course-button': function () {
     self = this;
-    Meteor.call('enrollFreeEvent', { currentId: self._id }, function (error, result) {
-      if ( error )
-        toastr.error( error.reason );
-      else {
-        Modal.hide('noPayModal');
-        toastr.success( "Beitritt erfolgreich" );
-      }
-    });
+    enroll(self);
   },
   'click #no-pay-course-login-button': function (event, template) {
     var email = template.find('#sign-in-email').value;
@@ -35,14 +39,7 @@ Template.noPayModal.events({
       if ( error )
         toastr.error( error.reason );
       else {
-        Meteor.call('enrollFreeEvent', { currentId: self._id }, function (error, result) {
-          if ( error )
-            toastr.error( error.reason );
-          else {
-            Modal.hide('noPayModal');
-            toastr.success( "Beitritt erfolgreich" );
-          }
-        });
+        enroll(self);
       }
     });
   },
@@ -114,14 +111,7 @@ Template.noPayModal.events({
           if (error)
             toastr.error( error.reason );
           else {
-            Meteor.call('enrollFreeEvent', { currentId: self._id }, function (error, result) {
-              if ( error )
-                toastr.error( error.reason );
-              else {
-                Modal.hide('noPayModal');
-                toastr.success( "Beitritt erfolgreich" );
-              }
-            });
+            enroll(self);
           }
         });
       }
