@@ -241,7 +241,56 @@ Meteor.methods({
     else {
       throw new Meteor.Error("Event ist leider mittlerweile schon ausgebucht!");
     } 
-  }
+  },
+  enrollFreeEvent: function (options) {
+    check(options, {
+      currentId: NonEmptyString
+    });
+
+    if ( ! this.userId )
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
+
+    var currentId = options.currentId;
+
+    fields = { participants: 1, course: 1 };
+    var current = Current.findOne( { _id: currentId }, { fields: fields } );
+    checkExistance( current, "Event", fields );
+
+    fields = { maxParticipants: 1, fee: 1 };
+    var course = Courses.findOne( { _id: current.course }, { fields: fields } );
+    checkExistance( course, "Kurs", fields );
+
+    if ( course.fee !== 0 )
+      throw new Meteor.Error(433, "Dieser Kurs ist nicht gratis!");
+
+    var afterBooking = current.participants.length;
+
+    if ( afterBooking <= course.maxParticipants ) {
+      Current.update( { _id: currentId }, { $push: { participants: this.userId } } );
+      sendBookingConfirmationEmail( { course: course._id, userId: this.userId } );
+      // check if course is full now:
+      if ( afterBooking === course.maxParticipants ) {
+        // generate token for trainer to confirm the event 
+        var token = Random.hexString(64); 
+        // save in current
+        Current.update( { _id : currentId }, { $set: { token: token } }, function ( error, result ) {
+          if ( error ) {
+            console.log( error );
+          }
+          else {
+            // inform trainer (owner) that current event is full so that he can confirm the event
+            Meteor.call('sendCourseFullTrainerEmail', { currentId: currentId, course: course._id, token: token }, function ( error, result ) {
+              if ( error ) {
+                console.log( error );
+              }
+            });
+          }
+        });
+      }
+    }
+    else
+      throw new Meteor.Error("Event ist leider mittlerweile schon ausgebucht!");
+  },
 });
 
 // can only be called from this file

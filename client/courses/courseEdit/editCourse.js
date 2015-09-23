@@ -10,7 +10,7 @@ Template.editCourse.helpers({
     return this.aims ? true : false;
   },
   deservesCheckCourseCosts: function () {
-    return this.maxParticipants && this.fee ? true : false;
+    return this.maxParticipants && !(this.fee == null) ? true : false;
   },
   deservesCheckCourseDates: function () {
     return this.dates && this.dates.length ? true : false;

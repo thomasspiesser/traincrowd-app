@@ -39,7 +39,7 @@ Template.editCourseCosts.events({
       return false;
     }
 
-    if (! this.fee ) {
+    if ( this.fee == null ) {
       formFeedbackError( '#edit-course-fee', '#help-text-edit-course-fee', 'Bitte geben Sie hier den Kurspreis an.', "Der Kurs benötigt einen Preis." );
       return false;
     }
