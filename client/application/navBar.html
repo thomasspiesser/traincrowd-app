@@ -26,12 +26,12 @@
 <!--  /////////////////////////////////////////////////// -->
 
 <template name='navItemsLeft'>
-  <li><a href="{{pathFor 'search.course'}}">Alle Kurse</a></li>
-  <li><a href="{{pathFor 'search.trainer'}}">Alle Trainer</a></li>
-  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Über uns</a>
+  <li><a href="{{pathFor 'search.course'}}">{{ i18n 'navbar.courses' }}</a></li>
+  <li><a href="{{pathFor 'search.trainer'}}">{{ i18n 'navbar.trainers' }}</a></li>
+  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ i18n 'about.us' }}</a>
     <ul class="dropdown-menu" role="menu">
-      <li><a href="{{ pathFor 'about.traincrowd' }}">Über traincrowd</a></li>
-      <li><a href="{{ pathFor 'about.us' }}">Das Team</a></li>
+      <li><a href="{{ pathFor 'about.traincrowd' }}">{{ i18n 'about.traincrowd' }}</a></li>
+      <li><a href="{{ pathFor 'about.us' }}">{{ i18n 'about.team' }}</a></li>
     </ul>
   </li>
   <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ langCode }} <span class="caret"></span></a>
@@ -46,7 +46,7 @@
 
 <template name='navItemsRight'>
   {{#unless isInRole 'trainer'}}
-    <li><a href="{{ pathFor 'becomeTrainerLanding' }}">Trainer werden</a></li>
+    <li><a href="{{ pathFor 'becomeTrainerLanding' }}">{{ i18n 'navbar.becomeTrainer' }}</a></li>
   {{/unless}}
   {{#if currentUser}}
     <li>
@@ -62,21 +62,21 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:10px;">{{username currentUser._id}} <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
         {{#if isInRole 'trainer'}}
-          <li><a href="{{ pathFor 'trainerProfile.show' data=currentUser }}">Mein Profil</a></li>
-          <li><a href="{{ pathFor 'edit.trainer' }}">Mein Profil bearbeiten</a></li>
+          <li><a href="{{ pathFor 'trainerProfile.show' data=currentUser }}">{{ i18n 'navbar.signedIn.profile' }}</a></li>
+          <li><a href="{{ pathFor 'edit.trainer' }}">{{ i18n 'navbar.signedIn.editProfile' }}</a></li>
         {{else}}
-          <li><a href="{{ pathFor 'edit.user' }}">Mein Profil</a></li>
+          <li><a href="{{ pathFor 'edit.user' }}">{{ i18n 'navbar.signedIn.profile' }}</a></li>
         {{/if}}
         <li class="divider"></li>
-        <li><a href="{{pathFor 'user.courses'}}">Meine Kurse</a></li>
+        <li><a href="{{pathFor 'user.courses'}}">{{ i18n 'navbar.signedIn.myCourses' }}</a></li>
         {{#if isInRole 'trainer'}}
-          <li><a href="{{ pathFor 'createCourse' }}">Neuen Kurs anlegen</a></li>
+          <li><a href="{{ pathFor 'createCourse' }}">{{ i18n 'navbar.signedIn.newCourse' }}</a></li>
         {{/if}}
         <li class="divider"></li>
-        <li><a href="#" id="logout">Ausloggen</a></li>
+        <li><a href="#" id="logout">{{ i18n 'navbar.signedIn.logout' }}</a></li>
       </ul>
     </li>
   {{else}}
-    <li><a class="btn btn-ghost" href="{{pathFor 'atSignIn'}}">Anmelden</a></li>
+    <li><a class="btn btn-ghost" href="{{pathFor 'atSignIn'}}">{{ i18n 'navbar.signIn' }}</a></li>
   {{/if}}
 </template>
