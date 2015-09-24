@@ -40,27 +40,27 @@
         <div class="row">
 
           <div class="col-md-3">
-            <h6>Fragen</h6>
+            <h6>{{ i18n 'footer.section1.title' }}</h6>
             <hr>
             <ul>
-              <li><a href="{{pathFor 'faq'}}">Häufige Fragen</a></li>
-              <li><a href="{{pathFor 'impressum'}}">Impressum</a></li>
+              <li><a href="{{pathFor 'faq'}}">{{ i18n 'footer.section1.link1' }}</a></li>
+              <li><a href="{{pathFor 'impressum'}}">{{ i18n 'footer.section1.link2' }}</a></li>
             </ul>
           </div>
 
           <div class="col-md-3">
-            <h6>Informationen</h6>
+            <h6>{{ i18n 'footer.section2.title' }}</h6>
             <hr>
             <ul>
-              <li><a href="{{ pathFor 'about.traincrowd' }}">Über traincrowd</a></li>
-              <li><a href="{{ pathFor 'about.us' }}">Das Team</a></li>
-              <li><a href="{{ pathFor 'agb' }}">AGB</a></li>
-              <li><a href="{{ pathFor 'privacy' }}">Datenschutz</a></li>
+              <li><a href="{{ pathFor 'about.traincrowd' }}">{{ i18n 'footer.section2.link1' }}</a></li>
+              <li><a href="{{ pathFor 'about.us' }}">{{ i18n 'footer.section2.link2' }}</a></li>
+              <li><a href="{{ pathFor 'agb' }}">{{ i18n 'footer.section2.link3' }}</a></li>
+              <li><a href="{{ pathFor 'privacy' }}">{{ i18n 'footer.section2.link4' }}</a></li>
               <!-- <li><a href="{{ pathFor 'impressum' }}">Impressum</a></li> -->
             </ul>
           </div>
           <div class="col-md-3">
-            <h6>Newsletter abonnieren</h6>
+            <h6>{{ i18n 'footer.section3.title' }}</h6>
             <hr>
 
             <!-- Begin MailChimp Signup Form -->
@@ -71,7 +71,7 @@
                   <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                   <div style="position: absolute; left: -5000px;"><input type="text" name="b_0ff46c08bfac063d147159878_5504ca022e" tabindex="-1" value=""></div>
                 </div>
-                <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-sm btn-light-blue">Absenden</button>
+                <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-sm btn-light-blue">{{ i18n 'button.submit' }}</button>
               </form>
             </div>
             <!--End mc_embed_signup-->
