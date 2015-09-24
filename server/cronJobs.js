@@ -92,14 +92,14 @@ function setElapsed() {
         return;
       }
 
-      if ( current.participants && current.participants.length ) {
-        // email current.participants: Aufforderung bewertung
-        Meteor.call( 'sendRateCourseEmail', { course: current.course, participants: current.participants }, function ( error, result ) {
-          if ( error ) {
-            console.log( error );
-          }
-        });
-      }
+      // if ( current.participants && current.participants.length ) {
+      //   // email current.participants: Aufforderung bewertung
+      //   Meteor.call( 'sendRateCourseEmail', { course: current.course, participants: current.participants }, function ( error, result ) {
+      //     if ( error ) {
+      //       console.log( error );
+      //     }
+      //   });
+      // }
 
       // for the record
       elapsedEvents.push( current._id ); 
@@ -130,7 +130,7 @@ function setElapsed() {
 SyncedCron.add({
   name: 'Scan for elapsed',
   schedule: function(parser) {
-    return parser.text('at 03:30 am'); // run at 3:30 in the morning every day
+    return parser.text('at 21:30 am'); // run at 21:30 in the evening every day
   }, 
   job: function() {
     var elapsedEvents = setElapsed();
