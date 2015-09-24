@@ -36,7 +36,7 @@ Template.editCourseDates.events({
       return false;
     }
 
-    if (! this.expires) {
+    if ( this.expires == null ) {
       formFeedbackError( '#edit-course-expires', '#help-text-edit-course-expires', 'Bitte geben Sie hier an, wie viele Wochen im voraus Ihr Kurs voll sein muss.', "Bitte geben Sie erst die gewünschte Vorlaufzeit an." );
       return false;
     }
@@ -54,7 +54,7 @@ Template.editCourseDates.events({
       return false;
     }
 
-    var dateObjectsArray = _.map(datesArray, function(date) { return moment(date, "DD.MM.YYYY")._d; } ); // returns the date object - thats what we will store in the DB
+    var dateObjectsArray = _.map(datesArray, function(date) { return moment(date+' 09', "DD.MM.YYYY HH")._d; } ); // returns the date object - thats what we will store in the DB
     dateObjectsArray.sort(function (a,b) { return a-b; }); // sort dates
 
     var expiredAt = new Date(+dateObjectsArray[0] - 1000 * 60 * 60 * 24 * 7 * this.expires);
