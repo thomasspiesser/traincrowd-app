@@ -4,9 +4,8 @@
     <div class="intro-content">
       <img src="/logo-full-beta.svg" class="img-logo" />
       <hr>
-      <!-- <h1>Improve yourself. Learn Together.</h1> -->
-      <h1>Die besten Seminare gemeinsam buchen</h1>
-      <h6>Wählen Sie Ihr Wunschthema und die passende Gruppe</h6>
+      <h1>{{ i18n 'home.title' }}</h1>
+      <h6>{{ i18n 'home.subtitle' }}</h6>
     </div>
     <i class="fa fa-angle-down fa-4x" id="scroll-indicator"></i>
   </section>
@@ -41,7 +40,7 @@
   </section> -->
 
   <div class="separator">
-    <h2>So funktioniert traincrowd</h2>
+    <h2>{{ i18n 'home.howTraincrowdWorks.title' }}</h2>
   </div>
 
   <section id="home-steps">
@@ -52,7 +51,7 @@
           <div class="box-md">
             <div class="box-md-inner">
               <div class="box-md-title">
-                <h5>Schritt</h5>
+                <h5>{{ i18n 'home.howTraincrowdWorks.step' }}</h5>
                 <h4>01</h4>
               </div>
               <div class="box-md-content text-center">
@@ -68,7 +67,7 @@
           <div class="box-md">
             <div class="box-md-inner">
               <div class="box-md-title">
-                <h5>Schritt</h5>
+                <h5>{{ i18n 'home.howTraincrowdWorks.step' }}</h5>
                 <h4>02</h4>
               </div>
               <div class="box-md-content text-center">
@@ -84,7 +83,7 @@
           <div class="box-md">
             <div class="box-md-inner">
               <div class="box-md-title">
-                <h5>Schritt</h5>
+                <h5>{{ i18n 'home.howTraincrowdWorks.step' }}</h5>
                 <h4>03</h4>
               </div>
               <div class="box-md-content text-center">
@@ -100,7 +99,7 @@
           <div class="box-md">
             <div class="box-md-inner">
               <div class="box-md-title">
-                <h5>Schritt</h5>
+                <h5>{{ i18n 'home.howTraincrowdWorks.step' }}</h5>
                 <h4>04</h4>
               </div>
               <div class="box-md-content text-center">
@@ -121,7 +120,7 @@
 
       <div class="row margin-top">
         <div class="col-md-12 text-center">
-          <a href="{{ pathFor 'about.traincrowd' }}" class="btn btn-lg btn-red">Über traincrowd</a>
+          <a href="{{ pathFor 'about.traincrowd' }}" class="btn btn-lg btn-red">{{ i18n 'about.traincrowd' }}</a>
         </div>
       </div>
 
@@ -137,7 +136,7 @@
 
     <div class="row margin-top">
       <div class="col-md-12 text-center">
-        <a href="{{pathFor 'search.course'}}" class="btn btn-lg btn-red">Alle Kurse</a>
+        <a href="{{pathFor 'search.course'}}" class="btn btn-lg btn-red">{{ i18n 'course.search' }}</a>
       </div>
     </div>
   </section>
@@ -151,8 +150,8 @@
 
     <div class="row margin-top">
       <div class="col-md-12 text-center">
-        <a href="{{pathFor 'search.trainer'}}" class="btn btn-lg btn-red">Alle Trainer</a>
-        <a href="{{pathFor 'becomeTrainerLanding'}}" class="btn btn-lg btn-red">Trainer werden</a>
+        <a href="{{pathFor 'search.trainer'}}" class="btn btn-lg btn-red">{{ i18n 'trainer.search' }}</a>
+        <a href="{{pathFor 'becomeTrainerLanding'}}" class="btn btn-lg btn-red">{{ i18n 'trainer.becomeTrainer' }}</a>
       </div>
     </div>
   </section>
