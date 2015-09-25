@@ -15,7 +15,7 @@ Template.bookCourseConfirm.events({
   'change #select-no-of-participants': function (event, template) {
     var seats = parseInt( event.currentTarget.value );
     var additionalParticipants = seats-1;
-    var inputStr = '<tr class="additional-participants-row"><td> <div><input type="text" class="additional-emails form-control" placeholder="Email"> </div></td><td class="text-right">' + this.courseFeePP + ' Euro</td></tr>';
+    var inputStr = '<tr class="additional-participants-row"><td> <div><input type="text" class="additional-emails form-control" placeholder="Email"> </div></td><td class="text-right">' + this.courseFeePP + ',- Euro</td></tr>';
     $('.additional-participants-row').remove();
     $('#participants-table').find('tbody:last').append( inputStr.repeat( additionalParticipants ) );
     template.totalFee.set( this.courseFeePP * seats );

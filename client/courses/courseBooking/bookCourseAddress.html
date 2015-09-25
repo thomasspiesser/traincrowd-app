@@ -15,7 +15,7 @@
             {{ #if isBooking }}
               <input type="radio" name="book-course-select-address-radio" id="{{ _index }}" {{checked _index}}> {{ i18n 'address.billing' }} {{ plusone _index }}
             {{ else }}
-              Rechnungsadresse {{ plusone _index }}
+              {{ i18n 'address.billing' }} {{ plusone _index }}
             {{ /if }}
           </h5>
           {{ #if firm }} {{ firm }} {{ /if }}

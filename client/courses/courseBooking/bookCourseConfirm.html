@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="well">
-            <h5>Rechnungsadresse</h5>
+            <h5>{{ i18n 'address.billing' }}</h5>
             {{ #with billingAddress }} 
               {{ #if firm }} {{ firm }} <br> {{ /if }} 
               {{ ../customerName }} <br>
@@ -14,23 +14,23 @@
               {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }} 
             {{ /with }}
             <br>
-            <p><a href="{{ pathFor route='book.course' _id=this._id state='bookCourseAddress' }}">Rechnungsadresse ändern</a></p>
+            <a href="{{ pathFor route='book.course' _id=this._id state='bookCourseAddress' }}">{{ i18n 'edit' }}</a>
           </div>
         </div>
         <div class="col-md-4">
           <div class="well">
-            <h5>Kontaktinformationen</h5>
+            <h5>{{ i18n 'contactInformation' }}</h5>
             E-Mail: {{ useremail currentUser._id }} <br>
             Telefon: {{ currentUser.profile.phone }} <br>
             Mobil: {{ currentUser.profile.mobile }} <br><br>
-            <p><a href="#" id="change-contact">Kontaktinformationen ändern</a></p>
+            <a href="#" id="change-contact">{{ i18n 'edit' }}</a>
           </div>
         </div>
         <div class="col-md-4">
           <div class="well">
-            <h5>Zahlungsart</h5>
-            Zahlungsart: {{ paymentMethod }} <br><br>
-            <p><a href="{{ pathFor route='book.course' _id=this._id state='bookCoursePaymentMethod' }}">Zahlungsart ändern</a></p>
+            <h5>{{ i18n 'booking.paymentMethod' }}</h5>
+            {{ i18n 'booking.paymentMethod' }}: {{ paymentMethod }} <br><br>
+            <a href="{{ pathFor route='book.course' _id=this._id state='bookCoursePaymentMethod' }}">{{ i18n 'edit' }}</a>
           </div>
         </div>
       </div>
@@ -39,9 +39,9 @@
           <table class="table">
             <thead>
               <tr>
-                <td>Kurs</td>
+                <td>{{ i18n 'course.course' }}</td>
                 <td>Trainer</td>
-                <td>Termine</td>
+                <td>{{ i18n 'date' }}</td>
                 <td>Anzahl Teilnemer</td>
                 <td class="text-right">Preis pro Person</td>
               </tr>
@@ -64,7 +64,7 @@
                     {{/each}}
                   </select>
                 </td>
-                <td class="text-right">{{ courseFeePP }} Euro</td>
+                <td class="text-right">{{ courseFeePP }},- Euro</td>
               </tr>
             </tbody>
           </table>
@@ -74,19 +74,19 @@
           <table class="table" id="participants-table" style="margin-bottom:0;">
             <thead>
               <tr>
-                <td> Teilnemer</td>
+                <td> {{ i18n 'participants' }}</td>
                 <td class="text-right">Preis</td>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{{ customerName }}</td>
-                <td class="text-right">{{ courseFeePP }} Euro</td>
+                <td class="text-right">{{ courseFeePP }},- Euro</td>
               </tr>
             </tbody>
           </table>
           <div class="text-right" style="border-top: 3px double grey; padding-top:10px;">
-            <strong>zu zahlender Gesamtpreis: {{ totalFee }} Euro </strong>
+            <strong>zu zahlender Gesamtpreis: {{ totalFee }},- Euro </strong>
           </div>
         </div>
       </div>
