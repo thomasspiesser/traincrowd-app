@@ -3,7 +3,8 @@
   <section class="container">
     <div class="panel panel-inverted">
         <div class="text-center">
-          <h3 style="margin-top: 10px;">Wohin dürfen wir Ihnen die Rechnung schicken?</h3>
+          <h3 style="margin-top: 10px;">{{ i18n 'where.billingAddress' }}</h3>
+
         </div>
       <div class="row row-eq-height">
         {{ #each billingAddresses }}
@@ -12,7 +13,7 @@
 
           <h5>
             {{ #if isBooking }}
-              <input type="radio" name="book-course-select-address-radio" id="{{ _index }}" {{checked _index}}> Rechnungsadresse {{ plusone _index }}
+              <input type="radio" name="book-course-select-address-radio" id="{{ _index }}" {{checked _index}}> {{ i18n 'address.billing' }} {{ plusone _index }}
             {{ else }}
               Rechnungsadresse {{ plusone _index }}
             {{ /if }}
@@ -24,14 +25,14 @@
               {{ plz }} {{ city }}
               {{ #if streetAdditional }} <br> {{ streetAdditional }} {{ /if }}
             </p>
-            <p><a href="#" id="{{ _index }}" class="edit-billing-address-button">Rechnungsadresse ändern</a></p>
+            <p><a href="#" id="{{ _index }}" class="edit-billing-address-button">{{ i18n 'edit' }}</a></p>
           </div>
         </div>
         {{ /each }}
         {{ #if showNewBillingAddress }}
           <div class="col-md-3">
-            <h5>Jetzt hinzufügen:</h5>
-            <p><a href="#" class="btn btn-red" id="new-billing-address-button">Neue Rechnungsadresse</a></p>
+            <h5>{{ i18nOrder 'add' 'now' }}:</h5>
+            <p><a href="#" class="btn btn-red" id="new-billing-address-button">{{ i18n 'new' }} {{ i18n 'address.billing' }}</a></p>
           </div>
         {{ /if }}
 
@@ -41,7 +42,7 @@
 
       <div class="row">
         <div class="col-md-8 col-md-offset-2 text-center">
-          <h3>Wie können wir Sie schnellst möglich erreichen?</h3>
+          <h3>{{ i18n 'how.to.contact.you' }}</h3>
             <p>
               Im Falle von kurzfristigen Änderungen könnte eine Email Sie zu spät erreichen. Helfen Sie uns, Ihnen den besten Service zu bieten, auch wenn es mal schnell gehen muss. Die Angabe der Telefonnummern ist optional. Natürlich geben wir diese nicht weiter.
             </p>
@@ -56,9 +57,9 @@
         <div class="col-md-8 col-md-offset-2 text-center">
           <div class="form-group">
             {{ #if isBooking }}
-              <button type="button" class="btn btn-red pull-right" id="book-course-select-address-button"> Weiter</button>
+              <button type="button" class="btn btn-red pull-right" id="book-course-select-address-button"> {{ i18n 'button.next' }}</button>
             {{ else }}
-              <button type="button" class="btn btn-red pull-right" id="edit-user-address-button"> Weiter</button>
+              <button type="button" class="btn btn-red pull-right" id="edit-user-address-button"> {{ i18n 'button.next' }}</button>
             {{ /if }}
           </div>
         </div>
