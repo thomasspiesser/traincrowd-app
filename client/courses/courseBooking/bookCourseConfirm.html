@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="well">
-            <h5>Rechnungsadresse</h5>
+            <h5>{{ i18n 'address.billing' }}</h5>
             {{ #with billingAddress }} 
               {{ #if firm }} {{ firm }} <br> {{ /if }} 
               {{ ../customerName }} <br>
@@ -14,23 +14,23 @@
               {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }} 
             {{ /with }}
             <br>
-            <p><a href="{{ pathFor route='book.course' _id=this._id state='bookCourseAddress' }}">Rechnungsadresse ändern</a></p>
+            <a href="{{ pathFor route='book.course' _id=this._id state='bookCourseAddress' }}">{{ i18n 'edit' }}</a>
           </div>
         </div>
         <div class="col-md-4">
           <div class="well">
-            <h5>Kontaktinformationen</h5>
+            <h5>{{ i18n 'contactInformation' }}</h5>
             E-Mail: {{ useremail currentUser._id }} <br>
             Telefon: {{ currentUser.profile.phone }} <br>
             Mobil: {{ currentUser.profile.mobile }} <br><br>
-            <p><a href="#" id="change-contact">Kontaktinformationen ändern</a></p>
+            <a href="#" id="change-contact">{{ i18n 'edit' }}</a>
           </div>
         </div>
         <div class="col-md-4">
           <div class="well">
-            <h5>Zahlungsart</h5>
-            Zahlungsart: {{ paymentMethod }} <br><br>
-            <p><a href="{{ pathFor route='book.course' _id=this._id state='bookCoursePaymentMethod' }}">Zahlungsart ändern</a></p>
+            <h5>{{ i18n 'booking.paymentMethod' }}</h5>
+            {{ i18n 'booking.paymentMethod' }}: {{ paymentMethod }} <br><br>
+            <a href="{{ pathFor route='book.course' _id=this._id state='bookCoursePaymentMethod' }}">{{ i18n 'edit' }}</a>
           </div>
         </div>
       </div>
@@ -39,11 +39,11 @@
           <table class="table">
             <thead>
               <tr>
-                <td>Kurs</td>
+                <td>{{ i18n 'course.course' }}</td>
                 <td>Trainer</td>
-                <td>Termine</td>
-                <td>Anzahl Teilnemer</td>
-                <td class="text-right">Preis pro Person</td>
+                <td>{{ i18n 'date' }}</td>
+                <td>{{ i18n 'number.of.participants' }}</td>
+                <td class="text-right">{{ i18n 'feePP' }}</td>
               </tr>
             </thead>
             <tbody>
@@ -64,7 +64,7 @@
                     {{/each}}
                   </select>
                 </td>
-                <td class="text-right">{{ courseFeePP }} Euro</td>
+                <td class="text-right">{{ courseFeePP }},- Euro</td>
               </tr>
             </tbody>
           </table>
@@ -74,19 +74,19 @@
           <table class="table" id="participants-table" style="margin-bottom:0;">
             <thead>
               <tr>
-                <td> Teilnemer</td>
-                <td class="text-right">Preis</td>
+                <td> {{ i18n 'participants' }}</td>
+                <td class="text-right">{{ i18n 'fee' }}</td>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{{ customerName }}</td>
-                <td class="text-right">{{ courseFeePP }} Euro</td>
+                <td class="text-right">{{ courseFeePP }},- Euro</td>
               </tr>
             </tbody>
           </table>
           <div class="text-right" style="border-top: 3px double grey; padding-top:10px;">
-            <strong>zu zahlender Gesamtpreis: {{ totalFee }} Euro </strong>
+            <strong>{{ i18n 'fee.total' }}: {{ totalFee }},- Euro </strong>
           </div>
         </div>
       </div>
@@ -94,15 +94,15 @@
       <div class="row margin-top">
         <div class="col-md-12">
 
-          <p><input type="checkbox" id="accept-agb"> Die <a href="#" id="agb-link">AGB</a> von traincrowd habe ich zur Kenntnis genommen und mit ihrer Geltung bin ich einverstanden.</p>
-          <p><input type="checkbox" id="subscribe-newsletter" checked> Ich möchte in den traincrowd-Newsletter eingetragen und über News und Trends informiert werden.</p>
+          <p><input type="checkbox" id="accept-agb"> {{{ i18n 'terms.agreement' }}}</p>
+          <p><input type="checkbox" id="subscribe-newsletter" checked> {{ i18n 'newsletter.agreement' }}</p>
         </div>
       </div>
       
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <button type="button" class="btn btn-red pull-right" id="book-course-pay"> Jetzt kostenpflichtig buchen</button>
+            <button type="button" class="btn btn-red pull-right" id="book-course-pay"> {{ i18n 'booking.book.final' }}</button>
           </div>
         </div>
       </div>

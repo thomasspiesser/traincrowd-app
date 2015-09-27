@@ -1,7 +1,7 @@
 <template name="searchCourse">
 
   <div class="separator separator-inverted">
-    <h2>Berlins Top Kurse</h2>
+    <h2>{{ i18n 'slogan.topCourses' }}</h2>
   </div>
 
   <div class="container margin-top">
@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
         <div class="searchInput">
-          {{ > esInput index="courses" placeholder="Suchen..." class="form-control" allDocsOnEmpty=true value=query }}
+          {{ > esInput index="courses" placeholder=getPlaceholder class="form-control" allDocsOnEmpty=true value=query }}
         </div>
       </div>
       <div class="col-md-2">
@@ -61,7 +61,7 @@
       <li role="presentation" class="dropdown">
 
         <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-          Kategorien <span class="fa fa-caret-right"></span>
+          {{ i18n 'categories' }} <span class="fa fa-caret-right"></span>
         </a>
 
         <ul class="dropdown-menu" role="menu">

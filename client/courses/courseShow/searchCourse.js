@@ -1,6 +1,9 @@
 Template.searchCourse.helpers({
   query: function () {
     return Router.current().params.query.q;
+  },
+  getPlaceholder: function () {
+    return i18n('search.short');
   }
 });
 

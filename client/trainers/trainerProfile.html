@@ -1,13 +1,13 @@
 <template name="trainerProfile">
 
   <div class="separator separator-inverted">
-    <h2>Die Trainer > {{ profile.name }}</h2>
+    <h2>{{ i18n 'trainer.trainer' }} > {{ profile.name }}</h2>
   </div>
 
   <section class="container">
     {{ #if canEdit _id }}
       <div class="row">
-        <a href="{{ pathFor route='edit.trainer' id=_id }}" class="btn btn-red pull-right" type="button"><i class="fa fa-pencil" style="color:white;"></i> Profil Bearbeiten</a>
+        <a href="{{ pathFor route='edit.trainer' id=_id }}" class="btn btn-red pull-right" type="button"><i class="fa fa-pencil" style="color:white;"></i> {{ i18n 'edit' }}</a>
       </div>
     {{ /if }}
 
@@ -56,7 +56,7 @@
         {{/if}}
 
         {{#if hostedCourses.count}}
-          <h5>Meine Kurse</h5>
+          <h5>{{ i18n 'user.signedIn.myCourses' }}</h5>
             <ul>
               {{#each hostedCourses}}
                 <li>
@@ -68,13 +68,13 @@
         {{/if}}
 
         {{#if profile.languages}}
-          <h5>Sprachen</h5>
+          <h5>{{ i18n 'languages' }}</h5>
           <p>{{profile.languages}}</p>
           <hr>
         {{/if}}
 
         {{#if profile.certificates}}
-          <h5>Zertifikate und Referenzen</h5>
+          <h5>{{ i18n 'trainer.certificates' }}</h5>
           <p>{{profile.certificates}}</p>
           <hr>
         {{/if}}
