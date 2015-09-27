@@ -11,7 +11,6 @@ alanning:roles
 
 dandv:jquery-rateit
 percolate:synced-cron
-natestrauser:select2
 zimme:select2-bootstrap3-css
 email
 useraccounts:bootstrap
@@ -60,3 +59,4 @@ ejson
 spacebars
 check
 okgrow:router-autoscroll
+natestrauser:select2
