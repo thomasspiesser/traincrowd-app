@@ -11,7 +11,7 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.0.3.2');
+  api.versionsFrom('1.2.0.1');
   api.export('METEORPAYMILL');
   api.addFiles('paymill-node.js', 'server');
   api.addFiles('paymill-bridge.js', 'client');
