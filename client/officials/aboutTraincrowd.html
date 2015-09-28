@@ -1,6 +1,6 @@
 <template name="aboutTraincrowd">
 	<div class="separator separator-inverted">
-		<h2>Über traincrowd</h2>
+		<h2>{{ i18n 'about.traincrowd' }}</h2>
 	</div>
 	<section class="container">
 
@@ -10,33 +10,20 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							<h3>Unsere Mission</h3>
-							<p>
-								traincrowd hat eine Mission: Wir wollen exzellente Seminare für alle zugänglich machen. Deshalb legen wir Wert auf unschlagbare Konditionen und top Qualität.
-							</p>
+							<h3>{{ i18n 'about.mission.title' }}</h3>
+							<p>{{ i18n 'about.mission.text' }}</p>
 
-							<h3>Unser Konzept</h3>
-							<p>
-								Auf traincrowd buchen Sie Ihr Seminar gemeinsam mit anderen. Wir kaufen das komplette Seminar, sobald die Gruppe vollständig ist oder vorzeitig vom Trainer bestätigt wird. Mit dem Komplettkauf reduziert sich der Aufwand für die Trainer und damit auch die Kosten für alle Teilnehmer.
-							</p>
-<!-- 							<blockquote class="blockquote-reverse">
-								Ein Training für mehrere Tausend Euro kommt für Sie nicht in Frage? Dann buchen Sie stattdessen gleich den ganzen Kurs.
-							</blockquote> -->
+							<h3>{{ i18n 'about.approach.title' }}</h3>
+							<p>{{ i18n 'about.approach.text' }}</p>
 
-							<h3>Auswahl & Qualität</h3>
-							<p>
-								Bei der Auswahl unserer Trainer und Trainerinnen gehen wir keine Kompromisse ein. Indem Teilnehmer besuchte Veranstaltungen bewerten, helfen sie uns, unser Qualitätsversprechen auch in Zukunft einzuhalten. Wir bieten hier keine eigenen Veranstaltungen an, sondern stellen eine garantiert unabhängige Plattform zur Verfügung.
-							</p>
+							<h3>{{ i18n 'about.selection.title' }}</h3>
+							<p>{{ i18n 'about.selection.text' }}</p>
 
-							<h3>Das Team</h3>
-							<p>
-								Im Gründungsteam von traincrowd vereinen wir praktische und wissenschaftliche Erfahrung als Trainer, Organisationsentwickler und Informatiker. <a href="{{ pathFor 'about.us' }}">Mehr zum Team</a>
-							</p>
+							<h3>{{ i18n 'about.team' }}</h3>
+							<p>{{{ i18n 'about.team.short' }}}</p>
 
-							<p>
-								Hier finden Sie Antworten zu den häufigsten Fragen
-							</p>
-							<a href="{{ pathFor 'faq' }}" class="btn btn-red">Häufige Fragen</a>
+							<p>{{ i18n 'official.link.to.faqs' }}</p>
+							<a href="{{ pathFor 'faq' }}" class="btn btn-red">{{ i18n 'official.faq' }}</a>
 
 						</div>
 						<div class="col-md-6">
