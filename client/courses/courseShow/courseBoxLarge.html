@@ -29,8 +29,7 @@
           <a href="#" type="button" class="btn btn-dark-blue btn-xs">{{ this }}</a>
         {{ /each }}
 
-        <p class="course-description-preview">{{descriptionPreview}}</p>
-        <p><a href="{{ pathFor route='course.show' slug=this.slug }}">see more <i class="fa fa-arrow-right"></i></a></p>
+        <p class="course-description-preview"><a href="{{ pathFor route='course.show' slug=this.slug }}">{{ descriptionPreview }}</a></p>
       </div>
     </div>
     
