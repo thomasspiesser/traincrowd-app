@@ -2,7 +2,7 @@ Template.home.onRendered(function() {
   var originalPlaceholder = ($('#home-search-form').find("input[type=text]").attr("placeholder"));
   function checkWidth() {
     if ( $( window ).width() < 992 ) {
-      $( '#home-search-form' ).find( "input[type=text]" ).attr( "placeholder", "Suchen..." );
+      $( '#home-search-form' ).find( "input[type=text]" ).attr( "placeholder", i18n('search.short') );
     } else {
       $( '#home-search-form' ).find( "input[type=text]" ).attr( "placeholder", originalPlaceholder );
     }
