@@ -14,6 +14,13 @@ Template.bookCourseConfirm.helpers({
 Template.bookCourseConfirm.events({
   'change #select-no-of-participants': function (event, template) {
     var seats = parseInt( event.currentTarget.value );
+    if ( seats > 1 ) {
+      $('#new-participants-info').fadeTo('slow',1, function(){});
+    }
+    else {
+      $('#new-participants-info').fadeTo('slow',0, function(){});
+    }
+
     var additionalParticipants = seats-1;
     var inputStr = '<tr class="additional-participants-row"><td> <div><input type="text" class="additional-emails form-control" placeholder="Email"> </div></td><td class="text-right">' + this.courseFeePP + ',- Euro</td></tr>';
     $('.additional-participants-row').remove();
