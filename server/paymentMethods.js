@@ -128,7 +128,7 @@ Meteor.methods({
       catch( error ){
         console.log( error );
         // remove Participant again - coz payment failed - careful this operation will pull ALL participants with this Id from the list
-        Current.update( { _id: currentId }, { $pull: { participants: { $each: newParticipants } } } );
+        Current.update( { _id: currentId }, { $pull: { participants: { $in: newParticipants } } } );
         throw new Meteor.Error( error.message );
       }
     }
