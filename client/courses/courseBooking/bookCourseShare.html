@@ -3,11 +3,9 @@
     <div class="panel panel-inverted">
       <div class="row">
         <div class="col-md-12 text-center">
-          <h2>Bitte weitersagen!</h2>
+          <h2>{{ i18n 'booking.share.title' }}</h2>
           <p>
-            <strong>
-              Helfen Sie, genügend Teilnehmer für Ihre Kursgruppe zu finden! Sie teilen und wir spenden 10,- Euro an die Flüchtlingsinitiative <a href="http://moabit-hilft.com/" target="_blank">Moabit hilft</a>, wenn der Kurs stattfindet.
-            </strong>
+            <strong>{{{ i18n 'booking.share.text' }}}</strong>
           </p>
         </div>
 
@@ -16,9 +14,9 @@
             {{ #if showShareBox }}
               <h3 style="margin-top: 0;">
                 {{ #if hasShared }}
-                  Jetzt nochmal teilen!
+                  {{ i18n 'booking.share.again' }}
                 {{ else }}  
-                  Jetzt teilen und wir spenden 10,- Euro für Flüchtlingshilfe in Berlin!
+                  {{ i18n 'booking.share.prompt' }}
                 {{ /if }}
               </h3>
               {{ #if Template.subscriptionsReady }} 
@@ -27,15 +25,15 @@
                 <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shareData.url }}&title={{ shareData.title }}&summary={{ shareData.description }}&source=traincrowd" class="btn btn-social btn-round"><i class="fa fa-linkedin"></i></a>
               {{ /if }}
             {{ else }}
-              <h3 style="margin-top: 0;">Vielen Dank!</h3>
-              <p>Wir spenden 10,- Euro an <a href="http://moabit-hilft.com/" target="_blank">Moabit hilft</a>, sobald der Kurs bestätigt wurde.</p>
-              <a href="{{ pathFor 'book.course.thank.you' }}">Jetzt Buchung abschliessen</a> oder 
-              <a href="#" id="shareAgain">nochmal teilen</a>
+              <h3 style="margin-top: 0;">{{ i18n 'thank.you' }}</h3>
+              <p>{{{ i18n 'booking.share.done' }}}</p>
+              <a href="{{ pathFor 'book.course.thank.you' }}">{{ i18n 'booking.share.finish' }}</a> {{ i18n 'or' }} 
+              <a href="#" id="shareAgain">{{ i18n 'booking.share.again' }}</a>
             {{ /if }}
           </div>
           {{ #if showShareBox }}
             <p>
-              Nein Danke, <a href="{{ pathFor 'book.course.thank.you' }}">ohne Weitersagen abschliessen</a>.
+              {{ i18n 'booking.share.noThanks' }}, <a href="{{ pathFor 'book.course.thank.you' }}">{{ i18n 'booking.share.noshare' }}</a>.
             </p>
           {{ /if }}
         </div>
