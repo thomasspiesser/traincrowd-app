@@ -41,8 +41,6 @@ u2622:persistent-session
 force-ssl
 softwarerero:accounts-t9n
 doctorpangloss:admin
-twbs:bootstrap
-yogiben:admin
 anti:i18n
 standard-minifiers
 meteor-base
@@ -60,3 +58,5 @@ spacebars
 check
 okgrow:router-autoscroll
 natestrauser:select2
+houston:admin
+twbs:bootstrap-noglyph
