@@ -17,14 +17,7 @@ Meteor.publish('singleCourseById', function ( id ) {
 
 Meteor.publish('topCourses', function () {
 	// Meteor._sleepForMs(5000);
-	return Courses.find( { '_id': { $in: [
-		'RE3cdsSrgwnofgAuE', // billing - live-auftritt
-		'zceXGneZ7vxiLRH5G', // changer - eu fundraising
-		'riZpSyWvdMWMfKhyC', // ruehl - bilanzen lesen
-		'sC3KSEWQqyTwxi8Rd', // witt - living working germany
-		'v9ANydsyGqoijmr6v', // changer - social media marketing
-		'rkJTSDjc2jaYuBp7R' // herzog - chef
-	] } } );
+	return Courses.find( topCourses );
 });
 
 Meteor.publish('bookings', function ( id ) {
@@ -75,7 +68,7 @@ Meteor.publish('trainer', function () {
 Meteor.publish('topTrainer', function () {
 	// Meteor._sleepForMs(5000);
   // return Meteor.users.find( { roles: 'trainer', isPublic: true }, { limit: 4, fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
-  return Meteor.users.find( { 'profile.name': { $in: ['Der Hauptstadtcoach', 'Karin Seven', 'Tina Gadow', 'Hartmann Rhetorik GmbH'] } }, { fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
+  return Meteor.users.find( topTrainer.find, topTrainer.options );
 });
 
 // Meteor.publish('singleTrainer', function (id) {
