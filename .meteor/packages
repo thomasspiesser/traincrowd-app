@@ -26,7 +26,6 @@ tomsp:paymill
 underscore
 yasaricli:slugify
 sacha:spin
-msavin:mongol
 dfischer:phantomjs
 ongoworks:spiderable
 aldeed:collection2
@@ -60,3 +59,4 @@ okgrow:router-autoscroll
 natestrauser:select2
 houston:admin
 twbs:bootstrap-noglyph
+msavin:mongol
