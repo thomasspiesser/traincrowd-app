@@ -12,6 +12,20 @@ Template.bookCourseConfirm.helpers({
 });
 
 Template.bookCourseConfirm.events({
+  'click #redeem-coupon': function (event, template) {
+    var code = template.find('#enter-coupon-code').value;
+    if ( ! code.length ) {
+      toastr.error( "Sie müssen einen validen Code eingeben." );
+      return false;
+    }
+    Meteor.call('redeem-coupon', code, function (error, result) {
+      if ( error )
+        toastr.error( error.reason || error.message );
+      else
+        toastr.success( 'Gutschein eingelöst.' );
+    });
+    $('#enter-coupon-code').val('');
+  },
   'change #select-no-of-participants': function (event, template) {
     var seats = parseInt( event.currentTarget.value );
     if ( seats > 1 ) {
