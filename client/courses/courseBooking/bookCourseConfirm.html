@@ -32,6 +32,12 @@
             {{ i18n 'booking.paymentMethod' }}: {{ paymentMethod }} <br><br>
             <a href="{{ pathFor route='book.course' _id=this._id state='bookCoursePaymentMethod' }}">{{ i18n 'edit' }}</a>
           </div>
+          <div class="well">
+            <h5>Gutschein- und Aktionscodes:</h5>
+            <form class="form-inline" style="width:100%">
+              <input type="text" class="form-control" id="enter-coupon-code" placeholder="{{ i18n 'booking.enter.coupon.code' }}"> <button type="button" class="btn" id="redeem-coupon"> {{ i18n 'booking.redeem.coupon' }}</button>
+            </form>
+          </div>
         </div>
       </div>
       <div class="row margin-top">
