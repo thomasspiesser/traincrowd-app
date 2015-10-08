@@ -41,15 +41,15 @@ Meteor.methods({
     if ( booking.customer !== this.userId )
       throw new Meteor.Error(403, "Diese Buchung gehört zu einem anderen Kunden. Bitte starten Sie den Buchungsprozess von vorne.");
 
-    fields = { coupons: 1 };
-    var current = Current.findOne( { _id: booking.eventId }, { fields: fields } );
-    checkExistance( current, "Event", fields );
+    var current = Current.findOne( { _id: booking.eventId }, { fields: { coupons: 1 } } );
+    if ( ! current.coupons )
+      throw new Meteor.Error(403, "Das ist kein gültiger Gutschein- oder Aktionscode für diese Veranstaltung");
 
     // find coupon that matches the code
     var coupon = _.find( current.coupons, function( coupon ) { return coupon.code === options.code; } );
 
     if ( ! coupon )
-      throw new Meteor.Error(403, "Das ist kein gültiger Gutschein- oder Aktioncode");
+      throw new Meteor.Error(403, "Das ist kein gültiger Gutschein- oder Aktionscode");
 
     if ( ! coupon.isValid )
       throw new Meteor.Error(403, "Gutschein- oder Aktionscode ist nicht mehr gültig");
@@ -57,7 +57,6 @@ Meteor.methods({
     if ( coupon.expires < new Date() )
       throw new Meteor.Error(403, "Gutschein- oder Aktionscode ist abgelaufen");
     
-    // store used code in booking doc
     var modifier = {
       'coupon.code': coupon.code,
       'coupon.amount': coupon.amount,

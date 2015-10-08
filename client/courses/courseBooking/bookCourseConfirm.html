@@ -92,8 +92,19 @@
             </thead>
             <tbody>
               <tr>
-                <td>{{ customerName }}</td>
-                <td class="text-right">{{ courseFeePP }},- Euro</td>
+                <td>
+                  {{ customerName }}
+                  {{ #if coupon }}
+                    <div>Gutschein: {{coupon.code}}</div>
+                  {{ /if }}
+                </td>
+                <td class="text-right">
+                  {{ courseFeePP }},- Euro
+                  {{ #if coupon }}
+                    <div>-{{coupon.amount}},- Euro</div>
+                    <div style="border-top:1px solid grey;">{{ reducedFeePP }},- Euro</div>
+                  {{ /if }}
+                </td>
               </tr>
             </tbody>
           </table>
