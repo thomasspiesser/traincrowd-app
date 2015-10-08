@@ -37,14 +37,14 @@ Template.bookCourseConfirm.events({
       code: code
     };
     var self = this;
-    Meteor.call('redeemCoupon', options, function (error, result) {
+    Meteor.call('redeemCoupon', options, function (error, couponAmount) {
       if ( error ) {
         toastr.error( error.reason || error.message );
         template.showSpinner.set( false );
       }
       else {
         toastr.success( 'Gutschein eingelöst.' );
-        template.totalFee.set( self.courseFeePP - self.coupon.amount );
+        template.totalFee.set( self.courseFeePP - couponAmount );
         // also remove additional participants so that they have to be entered again
         $('.additional-participants-row').remove();
         // and reset selector to 1 participant - like this coupon will be applied to all of them

@@ -63,6 +63,7 @@ Meteor.methods({
     };
 
     Bookings.update( { _id: options.bookingId }, { $set: modifier }, {validate: false} );
+    return coupon.amount;
   },
   createEvent: function (options) {
     check(options, {
