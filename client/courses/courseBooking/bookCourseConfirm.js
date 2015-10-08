@@ -47,9 +47,8 @@ Template.bookCourseConfirm.events({
         template.totalFee.set( self.courseFeePP - self.coupon.amount );
         // also remove additional participants so that they have to be entered again
         $('.additional-participants-row').remove();
-        // and reset selector to 1 participant
+        // and reset selector to 1 participant - like this coupon will be applied to all of them
         $('#select-no-of-participants').val('1');
-        // and empty coupon field
         template.showSpinner.set( false );
       }
     });
