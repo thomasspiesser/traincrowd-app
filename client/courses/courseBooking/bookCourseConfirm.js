@@ -1,5 +1,10 @@
 Template.bookCourseConfirm.onCreated(function () {
-  this.totalFee = new ReactiveVar( this.data.courseFeePP );
+  this.totalFee = new ReactiveVar();
+  this.showSpinner = new ReactiveVar( false );
+  if (this.data.coupon)
+    this.totalFee.set(this.data.courseFeePP - this.data.coupon.amount);
+  else
+    this.totalFee.set(this.data.courseFeePP);
 });
 
 Template.bookCourseConfirm.helpers({
@@ -8,24 +13,75 @@ Template.bookCourseConfirm.helpers({
   },
   totalFee: function () {
     return Template.instance().totalFee.get();
+  },
+  reducedFeePP: function () {
+    return this.courseFeePP - this.coupon.amount;
+  },
+  showSpinner: function () {
+    return Template.instance().showSpinner.get();
   }
 });
 
 Template.bookCourseConfirm.events({
+  'click #redeem-coupon, submit #coupon-form': function (event, template) {
+    template.showSpinner.set( true );
+    event.preventDefault();
+    var code = template.find('#enter-coupon-code').value;
+    if ( ! code.length ) {
+      toastr.error( "Sie müssen einen Code eingeben." );
+      template.showSpinner.set( false );
+      return false;
+    }
+    var options = {
+      bookingId: this._id,
+      code: code
+    };
+    var self = this;
+    Meteor.call('redeemCoupon', options, function (error, couponAmount) {
+      if ( error ) {
+        toastr.error( error.reason || error.message );
+        template.showSpinner.set( false );
+      }
+      else {
+        toastr.success( 'Gutschein eingelöst.' );
+        template.totalFee.set( self.courseFeePP - couponAmount );
+        // also remove additional participants so that they have to be entered again
+        $('.additional-participants-row').remove();
+        // and reset selector to 1 participant - like this coupon will be applied to all of them
+        $('#select-no-of-participants').val('1');
+        template.showSpinner.set( false );
+      }
+    });
+  },
   'change #select-no-of-participants': function (event, template) {
     var seats = parseInt( event.currentTarget.value );
-    if ( seats > 1 ) {
-      $('#new-participants-info').fadeTo('slow',1, function(){});
-    }
-    else {
-      $('#new-participants-info').fadeTo('slow',0, function(){});
-    }
+    if ( seats > 1 )
+      $('#new-participants-info').fadeTo( 'slow', 1 );
+    else
+      $('#new-participants-info').fadeTo( 'slow', 0 );
 
     var additionalParticipants = seats-1;
-    var inputStr = '<tr class="additional-participants-row"><td> <div><input type="text" class="additional-emails form-control" placeholder="Email"> </div></td><td class="text-right">' + this.courseFeePP + ',- Euro</td></tr>';
+    var inputStr;
+    if ( this.coupon ) {
+      inputStr =  '<tr class="additional-participants-row">'+
+                    '<td>'+
+                      '<div><input type="text" class="additional-emails form-control" placeholder="Email"> </div>'+
+                      '<div>Gutschein: ' + this.coupon.code + '</div>'+
+                    '</td>'+
+                    '<td class="text-right">'+ 
+                      this.courseFeePP + ',- Euro'+
+                      '<div>-' + this.coupon.amount + ',- Euro</div>'+
+                      '<div style="border-top:1px solid grey;">' + (this.courseFeePP - this.coupon.amount) + ',- Euro</div>'+
+                    '</td>'+
+                  '</tr>';
+      template.totalFee.set( ( this.courseFeePP - this.coupon.amount ) * seats );
+    }
+    else {
+      inputStr = '<tr class="additional-participants-row"><td> <div><input type="text" class="additional-emails form-control" placeholder="Email"> </div></td><td class="text-right">' + this.courseFeePP + ',- Euro</td></tr>';
+      template.totalFee.set( this.courseFeePP * seats );
+    }
     $('.additional-participants-row').remove();
     $('#participants-table').find('tbody:last').append( inputStr.repeat( additionalParticipants ) );
-    template.totalFee.set( this.courseFeePP * seats );
   },
   'click #change-contact': function ( event, template ) {
     Modal.show('editContactModal');

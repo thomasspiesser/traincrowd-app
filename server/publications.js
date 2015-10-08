@@ -26,7 +26,7 @@ Meteor.publish('bookings', function ( id ) {
 });
 
 Meteor.publish('current', function () {
-	return Current.find();
+	return Current.find({}, { fields: { coupons: 0 } } );
 });
 
 Meteor.publish('elapsed', function () {

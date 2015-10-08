@@ -22,6 +22,49 @@ Meteor.methods({
   //   // console.log('sleep over');
   //   console.log('method end');
   // },
+  redeemCoupon: function ( options ) {
+    check(options, {
+      bookingId: NonEmptyString,
+      code: NonEmptyString
+    });
+
+    if ( ! this.userId )
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein");
+
+    var fields = { customer: 1, bookingStatus: 1, eventId: 1 };
+    var booking = Bookings.findOne( { _id: options.bookingId }, { fields: fields } );
+    checkExistance( booking, "Buchung", fields );
+
+    if ( booking.bookingStatus !== 'inProgress' ) 
+      throw new Meteor.Error(403, "Buchung ist bereits abgeschlossen");
+
+    if ( booking.customer !== this.userId )
+      throw new Meteor.Error(403, "Diese Buchung gehört zu einem anderen Kunden. Bitte starten Sie den Buchungsprozess von vorne.");
+
+    var current = Current.findOne( { _id: booking.eventId }, { fields: { coupons: 1 } } );
+    if ( ! current.coupons )
+      throw new Meteor.Error(403, "Das ist kein gültiger Gutschein- oder Aktionscode für diese Veranstaltung");
+
+    // find coupon that matches the code
+    var coupon = _.find( current.coupons, function( coupon ) { return coupon.code === options.code; } );
+
+    if ( ! coupon )
+      throw new Meteor.Error(403, "Das ist kein gültiger Gutschein- oder Aktionscode");
+
+    if ( ! coupon.isValid )
+      throw new Meteor.Error(403, "Gutschein- oder Aktionscode ist nicht mehr gültig");
+
+    if ( coupon.expires < new Date() )
+      throw new Meteor.Error(403, "Gutschein- oder Aktionscode ist abgelaufen");
+    
+    var modifier = {
+      'coupon.code': coupon.code,
+      'coupon.amount': coupon.amount,
+    };
+
+    Bookings.update( { _id: options.bookingId }, { $set: modifier }, {validate: false} );
+    return coupon.amount;
+  },
   createEvent: function (options) {
     check(options, {
       courseId: NonEmptyString,

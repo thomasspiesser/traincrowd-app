@@ -158,18 +158,9 @@ function paymillResponseHandler(error, result) {
       else {
         toastr.success('Zahlung erfolgreich.');
         $('#paymill-form')[0].reset();
-
-        Session.set('bookCourseTemplate', "bookCourseShare");
-        $('#bookCourseConfirm').parent().removeClass('active');
-        $('#bookCourseShare').parent().addClass('active');
-
         Modal.hide('payModal');
-        // Meteor.setTimeout( redirect , 3000 );
       }
     });
-    // redirect = function( ) {
-    //   Router.go('edit.user', {_id: Meteor.userId()});
-    // };
   }
   $(".submit-button").removeAttr("disabled");
 }
