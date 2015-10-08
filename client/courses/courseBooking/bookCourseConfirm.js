@@ -1,5 +1,6 @@
 Template.bookCourseConfirm.onCreated(function () {
   this.totalFee = new ReactiveVar();
+  this.showSpinner = new ReactiveVar( false );
   if (this.data.coupon)
     this.totalFee.set(this.data.courseFeePP - this.data.coupon.amount);
   else
@@ -16,14 +17,19 @@ Template.bookCourseConfirm.helpers({
   reducedFeePP: function () {
     return this.courseFeePP - this.coupon.amount;
   },
+  showSpinner: function () {
+    return Template.instance().showSpinner.get();
+  }
 });
 
 Template.bookCourseConfirm.events({
   'click #redeem-coupon, submit #coupon-form': function (event, template) {
+    template.showSpinner.set( true );
     event.preventDefault();
     var code = template.find('#enter-coupon-code').value;
     if ( ! code.length ) {
       toastr.error( "Sie müssen einen Code eingeben." );
+      template.showSpinner.set( false );
       return false;
     }
     var options = {
@@ -32,8 +38,10 @@ Template.bookCourseConfirm.events({
     };
     var self = this;
     Meteor.call('redeemCoupon', options, function (error, result) {
-      if ( error )
+      if ( error ) {
         toastr.error( error.reason || error.message );
+        template.showSpinner.set( false );
+      }
       else {
         toastr.success( 'Gutschein eingelöst.' );
         template.totalFee.set( self.courseFeePP - self.coupon.amount );
@@ -42,7 +50,7 @@ Template.bookCourseConfirm.events({
         // and reset selector to 1 participant
         $('#select-no-of-participants').val('1');
         // and empty coupon field
-        $('#enter-coupon-code').val('');
+        template.showSpinner.set( false );
       }
     });
   },
