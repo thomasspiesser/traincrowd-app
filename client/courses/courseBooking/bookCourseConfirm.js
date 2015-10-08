@@ -12,13 +12,18 @@ Template.bookCourseConfirm.helpers({
 });
 
 Template.bookCourseConfirm.events({
-  'click #redeem-coupon': function (event, template) {
+  'click #redeem-coupon, submit #coupon-form': function (event, template) {
+    event.preventDefault();
     var code = template.find('#enter-coupon-code').value;
     if ( ! code.length ) {
-      toastr.error( "Sie müssen einen validen Code eingeben." );
+      toastr.error( "Sie müssen einen Code eingeben." );
       return false;
     }
-    Meteor.call('redeem-coupon', code, function (error, result) {
+    var options = {
+      bookingId: this._id,
+      code: code
+    };
+    Meteor.call('redeemCoupon', options, function (error, result) {
       if ( error )
         toastr.error( error.reason || error.message );
       else
