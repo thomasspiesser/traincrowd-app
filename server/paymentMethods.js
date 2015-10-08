@@ -21,11 +21,13 @@ Meteor.methods({
     if ( seats !== options.additionalParticipants.length + 1 )
       throw new Meteor.Error(403, "Anzahl an Emails und Kursplätze stimmen nicht überein.");
 
-    var fields = { eventId: 1, course: 1, courseFeePP: 1 };
+    var fields = { eventId: 1, course: 1, courseFeePP: 1, coupon: 1 };
     var booking = Bookings.findOne( { _id: options.bookingId }, { fields: fields } );
-    checkExistance( booking, "Buchung", fields );
+    checkExistance( booking, "Buchung", _.omit( fields, 'coupon' ) );
 
-    if ( options.amount !== booking.courseFeePP * seats * 100 ) // amount is in cents
+    var couponAmount = booking.coupon.amount || 0;
+
+    if ( options.amount !== ( booking.courseFeePP - couponAmount ) * seats * 100 ) // amount is in cents
       throw new Meteor.Error(403, "Bezahlbetrag und Kurspreis für " + seats + " Person(en) stimmen nicht überein");
 
     var currentId = booking.eventId;
