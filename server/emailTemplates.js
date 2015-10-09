@@ -48,7 +48,7 @@ Meteor.methods({
     
   //   console.log('sending mail now...');
 
-  //   sendEmail(options);
+  //   _sendEmail(options);
 
   //   console.log('after send...');
     
@@ -64,16 +64,7 @@ Meteor.methods({
       html: html 
     };
     
-    Meteor.defer( function() {
-      try {
-        sendEmail( options );
-      }
-      catch ( error ) {
-        console.log( options.to );
-        console.log( options.subject );
-        console.log( error );
-      }
-    });
+    _deferSendEmail( options );
   },
   sendAskIfEventExpiredTrainerEmail: function (options) {
     check(options, {
@@ -135,18 +126,7 @@ Meteor.methods({
         html: html 
       };
     
-    Meteor.defer( function() {
-      try {
-        sendEmail( options );
-        options.to = 'kopie@traincrowd.de';
-        sendEmail( options );
-      }
-      catch ( error ) {
-        console.log( options.to );
-        console.log( options.subject );
-        console.log( error );
-      }
-    });
+    _deferSendEmail( options );
   },
   sendInformEventExpiredTrainerEmail: function (options) {
     check(options, {
@@ -192,18 +172,7 @@ Meteor.methods({
         html: html 
       };
     
-    Meteor.defer( function() {
-      try {
-        sendEmail( options );
-        options.to = 'kopie@traincrowd.de';
-        sendEmail( options );
-      }
-      catch ( error ) {
-        console.log( options.to );
-        console.log( options.subject );
-        console.log( error );
-      }
-    });
+    _deferSendEmail( options );
   },
   sendEventDeclinedParticipantsEmail: function (options) {
     check(options, {
@@ -251,18 +220,7 @@ Meteor.methods({
         html: html 
       };
       
-      Meteor.defer( function() {
-        try {
-          sendEmail( options );
-          options.to = 'kopie@traincrowd.de';
-          sendEmail( options );
-        }
-        catch ( error ) {
-          console.log( options.to );
-          console.log( options.subject );
-          console.log( error );
-        }
-      });
+      _deferSendEmail( options );
     });
   },
   sendRateCourseEmail: function (options) {
@@ -310,18 +268,7 @@ Meteor.methods({
         subject: subject, 
         html: html 
       };
-      Meteor.defer( function() {
-        try {
-          sendEmail( options );
-          options.to = 'kopie@traincrowd.de';
-          sendEmail( options );
-        }
-        catch ( error ) {
-          console.log( options.to );
-          console.log( options.subject );
-          console.log( error );
-        }
-      });
+      _deferSendEmail( options );
     });
   },
   sendCourseFullTrainerEmail: function (options) {
@@ -371,18 +318,7 @@ Meteor.methods({
         html: html 
       };
     
-    Meteor.defer( function() {
-      try {
-        sendEmail( options );
-        options.to = 'kopie@traincrowd.de';
-        sendEmail( options );
-      }
-      catch ( error ) {
-        console.log( options.to );
-        console.log( options.subject );
-        console.log( error );
-      }
-    });
+    _deferSendEmail( options );
   },
   sendCourseFullParticipantsEmail: function (options) {
     check(options, {
@@ -446,18 +382,7 @@ Meteor.methods({
         html: html 
       };
       
-      Meteor.defer( function() {
-        try {
-          sendEmail( options );
-          options.to = 'kopie@traincrowd.de';
-          sendEmail( options );
-        }
-        catch ( error ) {
-          console.log( options.to );
-          console.log( options.subject );
-          console.log( error );
-        }
-      });
+      _deferSendEmail( options );
     });
     // send copy to trainer
     dataContext.name = 'Teilnehmername';
@@ -470,18 +395,7 @@ Meteor.methods({
       subject: subject, 
       html: html 
     };
-    Meteor.defer( function() {
-      try {
-        sendEmail( options );
-        options.to = 'kopie@traincrowd.de';
-        sendEmail( options );
-      }
-      catch ( error ) {
-        console.log( options.to );
-        console.log( options.subject );
-        console.log( error );
-      }
-    });
+    _deferSendEmail( options );
   }
 });
 
@@ -523,11 +437,15 @@ sendBookingConfirmationEmail = function ( options ) {
       html: html 
     };
 
+  _deferSendEmail( options );
+};
+
+var _deferSendEmail= function ( options ) {
   Meteor.defer( function() {
     try {
-      sendEmail( options );
+      _sendEmail( options );
       options.to = 'kopie@traincrowd.de';
-      sendEmail( options );
+      _sendEmail( options );
     }
     catch ( error ) {
       console.log( options.to );
@@ -537,7 +455,7 @@ sendBookingConfirmationEmail = function ( options ) {
   });
 };
 
-var sendEmail = function (options) {
+var _sendEmail = function (options) {
   // can only be called in this file! 
   Email.send({
     to: options.to,
