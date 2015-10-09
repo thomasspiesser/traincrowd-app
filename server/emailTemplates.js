@@ -97,10 +97,10 @@ Meteor.methods({
     var subject = "Ihr Kurs: '" + course.title + "'" + " ist leider nicht voll geworden.";
     var html = Spacebars.toHTML(dataContext, Assets.getText('askIfEventExpiredTrainerEmail.html'));
     options = { 
-        to: email, 
-        subject: subject, 
-        html: html 
-      };
+      to: email, 
+      subject: subject, 
+      html: html 
+    };
     
     _deferSendEmail( options );
   },
@@ -141,10 +141,10 @@ Meteor.methods({
     var subject = "Ihr Kurs: '" + course.title + "'" + " ist leider nicht voll geworden.";
     var html = Spacebars.toHTML(dataContext, Assets.getText('informEventExpiredTrainerEmail.html'));
     options = { 
-        to: email, 
-        subject: subject, 
-        html: html 
-      };
+      to: email, 
+      subject: subject, 
+      html: html 
+    };
     
     _deferSendEmail( options );
   },
@@ -267,10 +267,10 @@ Meteor.methods({
     var subject = "Event Bestätigung: '" + course.title +"'";
     var html = Spacebars.toHTML(dataContext, Assets.getText('courseFullTrainerEmail.html'));
     options = { 
-        to: email, 
-        subject: subject, 
-        html: html 
-      };
+      to: email, 
+      subject: subject, 
+      html: html 
+    };
     
     _deferSendEmail( options );
   },
@@ -375,10 +375,10 @@ sendBookingConfirmationEmail = function ( options ) {
   var subject = "Buchungsbestätigung: '" + course.title +"'";
   var html = Spacebars.toHTML(dataContext, Assets.getText('bookingConfirmationEmail.html'));
   options = { 
-      to: email, 
-      subject: subject, 
-      html: html 
-    };
+    to: email, 
+    subject: subject, 
+    html: html 
+  };
 
   _deferSendEmail( options );
 };
