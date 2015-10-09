@@ -1,20 +1,20 @@
 <template name="courseDetail">
 
   <div class="separator separator-inverted">
-    <h2>{{ i18n 'course.courses' }} > {{title}}</h2>
+    <h2>{{ i18n 'course.courses' }} > {{ title }}</h2>
   </div>
 
   <section class="container">
-    {{#if canEdit owner}}
+    {{ #if canEdit }}
       <div class="row">
         <a href="{{ pathFor route='course.edit' slug=slug }}" class="btn btn-red pull-right" type="button"><i class="fa fa-pencil" style="color:white;"></i> {{ i18n 'edit' }}</a>
       </div>
-    {{/if}}
+    {{ /if }}
 
     <div class="row course-detail">
 
       <div class="col-md-2 col-sm-3 course-left">
-        <div class="trainer-img" style="background-image: url( {{#if imageId}} '{{imageId}}' {{else}} {{#if trainerImageId owner}} {{#with trainerImageId owner}} {{this}} {{/with}} {{else}} '/dummyUser.jpg' {{/if}} {{/if}} );"></div>
+        <div class="trainer-img" style="background-image: url( {{ #if imageId }} '{{ imageId }}' {{ else }} {{ #if trainerImageId owner }} {{ #with trainerImageId owner }} {{ this }} {{ /with }} {{ else }} '/dummyUser.jpg' {{ /if }} {{ /if }} );"></div>
         <div class="share-container ">
           <div class="share-open">
             <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
@@ -27,43 +27,43 @@
       </div> <!-- col course-right -->
 
       <div class="col-md-7 col-sm-6 course-center">
-        <h1>{{title}}</h1>
-        <h3><a href="{{ pathFor 'trainerProfile.show' _id = owner }}">{{ownerName}}</a></h3>
-        {{#each categories}}
-          <button type="button" class="btn btn-dark-blue btn-xs">{{this}}</button>
-        {{/each}}
+        <h1>{{ title }}</h1>
+        <h3><a href="{{ pathFor 'trainerProfile.show' _id = owner }}">{{ ownerName }}</a></h3>
+        {{ #each categories }}
+          <button type="button" class="btn btn-dark-blue btn-xs">{{ this }}</button>
+        {{ /each }}
         <h4>{{ i18n 'course.description' }}</h4>
-        <p class="pre-wrap">{{description}}</p>
+        <p class="pre-wrap">{{ description }}</p>
 
-        {{#if aims}}
-         <h4>{{ i18n 'course.aims' }}</h4>
-         <p class="pre-wrap">{{aims}}</p>
-        {{/if}}
+        {{ #if aims }}
+          <h4>{{ i18n 'course.aims' }}</h4>
+          <p class="pre-wrap">{{ aims }}</p>
+        {{ /if }}
 
-        {{#if methods}}
+        {{ #if methods }}
           <h4>{{ i18n 'course.methods' }}</h4>
-          <p class="pre-wrap">{{methods}}</p>
-        {{/if}}
+          <p class="pre-wrap">{{ methods }}</p>
+        {{ /if }}
 
-        {{#if targetGroup}}
+        {{ #if targetGroup }}
           <h4>{{ i18n 'course.targetGroup' }}</h4>
-          <p class="pre-wrap">{{targetGroup}}</p>
-        {{/if}}
+          <p class="pre-wrap">{{ targetGroup }}</p>
+        {{ /if }}
 
-        {{#if prerequisites}}
+        {{ #if prerequisites }}
           <h4>{{ i18n 'course.prerequisites' }}</h4>
-          <p class="pre-wrap">{{prerequisites}}</p>
-        {{/if}}
+          <p class="pre-wrap">{{ prerequisites }}</p>
+        {{ /if }}
 
-        {{#if languages}}
+        {{ #if languages }}
           <h4>{{ i18n 'languages' }}</h4>
-          <p class="pre-wrap">{{languages}}</p>
-        {{/if}}
+          <p class="pre-wrap">{{ languages }}</p>
+        {{ /if }}
 
-        {{#if additionalServices}}
+        {{ #if additionalServices }}
           <h4>{{ i18n 'course.additionalServices' }}</h4>
-          <p class="pre-wrap">{{additionalServices}}</p>
-        {{/if}}
+          <p class="pre-wrap">{{ additionalServices }}</p>
+        {{ /if }}
 
       </div> <!-- col course-center -->
 
@@ -82,7 +82,7 @@
 
           <div class="well">
 
-            <p><i class="fa fa-calendar fa-fw"></i> {{ i18n 'date' }}: {{courseDateRange}} </p>
+            <p><i class="fa fa-calendar fa-fw"></i> {{ i18n 'date' }}: {{ courseDateRange }} </p>
             {{ #if bookedOut .. }}
               <p><i class="fa fa-hourglass-start fa-fw"></i> {{ i18n 'booking.bookedOut2' }}</p>
             {{ else }}
@@ -128,14 +128,14 @@
         <hr>
 
         <h4>{{ i18n 'location' }}:</h4>
-        {{#if noLocation}}
+        {{ #if noLocation }}
           <p>{{ i18n 'no.location' }}</p>
-        {{else}}
-          <p> {{street}} {{streetNumber}} <br>
-          {{#if streetAdditional}} {{streetAdditional}} <br> {{/if}}
-          {{plz}} {{city}} </p>
-          <a href="https://www.google.de/maps/place/{{street}}+{{streetNumber}},{{plz}}" target="_blank"><img src="https://maps.googleapis.com/maps/api/staticmap?markers={{street}}+{{streetNumber}},{{plz}}&zoom=14&size=300x300&sensor=false" alt="" style="width: 100%;"></a>
-        {{/if}}
+        {{ else }}
+          <p> {{ street}} {{ streetNumber }} <br>
+          {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }}
+          {{ plz }} {{ city}} </p>
+          <a href="https://www.google.de/maps/place/{{ street}}+{{ streetNumber }},{{ plz }}" target="_blank"><img src="https://maps.googleapis.com/maps/api/staticmap?markers={{ street}}+{{ streetNumber }},{{ plz }}&zoom=14&size=300x300&sensor=false" alt="" style="width: 100%;"></a>
+        {{ /if }}
 
       </div> <!-- col course-right -->
 

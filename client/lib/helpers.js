@@ -60,12 +60,6 @@ hoverCheckEvents = {
   }
 };
 
-UI.registerHelper('canEdit', function(owner) {
-  if (!Meteor.userId())
-    return false;
-  return owner === Meteor.userId();
-});
-
 UI.registerHelper('i18nOrder', function( arg1, arg2 ) {
   return i18n('ordering', i18n( arg1 ), i18n( arg2 ));
 });

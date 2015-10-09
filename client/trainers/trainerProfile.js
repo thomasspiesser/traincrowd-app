@@ -14,9 +14,6 @@ Template.trainerProfile.helpers({
   isPublic: function () {
     return this.isPublic;
   },
-  canEdit: function () {
-    return this._id === Meteor.userId();
-  },
   hostedCourses: function () {
     return Courses.find( { owner: this._id, isPublic: true }, {fields: {imageId:1, title:1, rating:1, slug:1}} );
   }
