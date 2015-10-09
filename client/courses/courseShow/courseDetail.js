@@ -15,12 +15,6 @@ Template.courseDetail.helpers({
   isPublic: function () {
     return this.isPublic;
   },
-  trainerImageId: function (id) {
-    var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );
-    if (trainer.profile && trainer.profile.imageId)
-      return trainer.profile.imageId;
-    return false;
-  },
   getCurrent: function () {
     return Current.find( { course: this._id }, { sort:{ courseDate: 1 }, fields: { participants: 1, courseDate: 1, confirmed: 1 } } );
   },
@@ -30,18 +24,6 @@ Template.courseDetail.helpers({
       return moment(this.courseDate[0]).format("DD.MM.YYYY");
     if (this.courseDate.length > 1)
       return moment(_.first(this.courseDate) ).format("DD.MM") + ' - ' + moment(_.last(this.courseDate) ).format("DD.MM.YYYY");
-  },
-  taxStatus: function () {
-    return this.taxRate === 19 ? 'inkl. MwSt' : 'MwSt-befreit';
-  },
-  percentFull: function ( course ) {
-    // data context is current, which is why function get par: course
-    if (course.maxParticipants)
-      return (this.participants.length / course.maxParticipants ).toFixed(1) * 100;
-    return 0;
-  },
-  bookedOut: function ( course ) {
-    return this.participants.length === course.maxParticipants;
   },
   runtime: function ( course ) {
     var date = _.first( this.courseDate ); // first day of the event
@@ -53,10 +35,9 @@ Template.courseDetail.helpers({
     var today = moment();
     return date.diff( today, 'days' );
   },
-  openSpots: function ( course ) {
-    return course.maxParticipants - this.participants.length;
-  }
 });
+
+Template.courseDetail.helpers(courseHelpers);
 
 Template.courseDetail.events({
   'click .share-open': function (event, template) {

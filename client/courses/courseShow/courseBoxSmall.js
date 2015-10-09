@@ -15,12 +15,6 @@ Template.courseBoxSmall.helpers({
   twocategories: function () {
     return _.first( this.categories, 2 );
   },
-  trainerImageId: function (id) {
-    var trainer = Meteor.users.findOne( {_id: id}, {fields: {"profile.imageId": 1}} );
-    if (trainer.profile && trainer.profile.imageId)
-      return trainer.profile.imageId;
-    return false;
-  },
   titlePreview: function () {
     if ( !this.title ) {
       return false;
@@ -34,9 +28,6 @@ Template.courseBoxSmall.helpers({
       return titlePreview;
     }
   },
-  taxStatus: function () {
-    return this.taxRate === 19 ? 'inkl. MwSt' : 'MwSt-befreit';
-  },
   getCurrent: function () {
     var self = this;
     var currents = Current.find( { course: this._id }, { sort: { courseDate: 1 }, fields: { participants: 1, confirmed: 1 } } ).fetch();
@@ -47,15 +38,6 @@ Template.courseBoxSmall.helpers({
       return current;
     else
       return currents[0];
-  },
-  bookedOut: function ( course ) {
-    return this.participants.length === course.maxParticipants;
-  },
-  percentFull: function ( course ) {
-    return ( this.participants.length / course.maxParticipants ).toFixed(1) * 100;
-  },
-  openSpots: function ( course ) {
-    return course.maxParticipants - this.participants.length;
   },
   nextEvent: function () {
     if (! this.dates || ! this.dates.length)
@@ -72,6 +54,8 @@ Template.courseBoxSmall.helpers({
     }
   }
 });
+
+Template.courseBoxSmall.helpers(courseHelpers);
 
 Template.courseBoxSmall.events({
   'click .btn-bar': function (event, template) {
