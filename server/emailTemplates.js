@@ -31,28 +31,6 @@ Meteor.startup(function() {
 });
 
 Meteor.methods({
-  // sendTestMail: function ( error, delay ) {
-
-  //   Meteor._sleepForMs( delay );
-    
-  //   if ( error )
-  //     throw new Meteor.Error(123, 'Error: test');
-
-  //   var subject = "testmail";
-  //   options = { 
-  //     to: 'thomas@herro', 
-  //     // to: 'thomas@traincrowd.de', 
-  //     subject: subject, 
-  //     text: "testmail" 
-  //   };
-    
-  //   console.log('sending mail now...');
-
-  //   _sendEmail(options);
-
-  //   console.log('after send...');
-    
-  // },
   sendRequestPublicationEmail: function (options) {
     // check done in method setCoursePublishRequest
     var subject = "Anfrage zur Freischaltung von " + options.what + ": " + options.itemName;
@@ -80,15 +58,13 @@ Meteor.methods({
     if ( ! pass )
       return;
     
-    var owner = Meteor.users.findOne( course.owner );
-    var email;
-    if (owner.emails && owner.emails[0])
-      email = owner.emails[0].address;
-    else {
-      console.log("Don't have an Email for course.owner: " + owner);
+    var user = Meteor.users.findOne( course.owner );
+    if (! user) {
+      console.log( "Can't find user with id: " + course.owner );
       return;
     }
-    var name = displayName( owner );
+    var email = user.getEmail();
+    var name = user.getName();
 
     fields = { courseDate: 1, participants: 1 };
     var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
@@ -141,15 +117,13 @@ Meteor.methods({
     if ( ! pass )
       return;
     
-    var email;
-    var owner = Meteor.users.findOne( course.owner );
-    if (owner.emails && owner.emails[0])
-      email = owner.emails[0].address;
-    else {
-      console.log("Don't have an Email for course.owner: " + owner);
+    var user = Meteor.users.findOne( course.owner );
+    if (! user) {
+      console.log( "Can't find user with id: " + course.owner );
       return;
     }
-    var name = displayName(owner);
+    var email = user.getEmail();
+    var name = user.getName();
 
     fields = { courseDate: 1 };
     var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
@@ -190,21 +164,12 @@ Meteor.methods({
     var url = Meteor.absoluteUrl('course/' + course.slug);
     _.each(options.participants, function( participant ) {
       var user = Meteor.users.findOne( participant );
-      if (!user) {
-        // don't throw new Meteor.Error("Can't find user");
-        // still wanna email the others
-        console.log("Can't find user: " + participant);
-        return; // jump out of current iteration, keeps looping
-      }
-      var email;
-      if (user && user.emails && user.emails[0])
-        email = user.emails[0].address;
-      else {
-        // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
-        console.log("Don't have an Email for user: " + participant);
+      if (! user) {
+        console.log( "Can't find user with id: " + participant );
         return;
       }
-      var name = displayName(user);
+      var email = user.getEmail();
+      var name = user.getName();
 
       var dataContext = {
         name: name,
@@ -239,21 +204,12 @@ Meteor.methods({
     var url = Meteor.absoluteUrl('user-courses');
     _.each(options.participants, function(participant) {
       var user = Meteor.users.findOne( participant );
-      if ( ! user ) {
-        // don't throw new Meteor.Error("Can't find user");
-        // still wanna email the others
-        console.log("Can't find user: "+participant);
-        return; // jump out of current iteration, keeps looping
-      }
-      var email;
-      if (user && user.emails && user.emails[0])
-        email = user.emails[0].address;
-      else {
-        // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
-        console.log("Don't have an Email for user: "+participant);
+      if (! user) {
+        console.log( "Can't find user with id: " + participant );
         return;
       }
-      var name = displayName(user);
+      var email = user.getEmail();
+      var name = user.getName();
 
       var dataContext = {
         name: name,
@@ -285,15 +241,13 @@ Meteor.methods({
     if ( ! pass )
       return;
     
-    var owner = Meteor.users.findOne( course.owner );
-    var email;
-    if (owner.emails && owner.emails[0])
-      email = owner.emails[0].address;
-    else {
-      console.log("Don't have an Email for user: " + owner );
+    var user = Meteor.users.findOne( course.owner );
+    if (! user) {
+      console.log( "Can't find user with id: " + course.owner );
       return;
     }
-    var name = displayName(owner);
+    var email = user.getEmail();
+    var name = user.getName();
 
     fields = { courseDate: 1 };
     var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
@@ -355,21 +309,12 @@ Meteor.methods({
 
     _.each( current.participants, function( participant ) {
       var user = Meteor.users.findOne( participant );
-      if ( ! user ) {
-        // don't throw new Meteor.Error("Can't find user");
-        // still wanna email the others
-        console.log( "Can't find user: " + participant );
-        return; // jump out of current iteration, keeps looping
-      }
-      var email;
-      if ( user && user.emails && user.emails[0] )
-        email = user.emails[0].address;
-      else {
-        // don't throw new Meteor.Error("Don't have an Email for user: "+participant);
-        console.log( "Don't have an Email for user: " + participant);
+      if (! user) {
+        console.log( "Can't find user with id: " + participant );
         return;
       }
-      var name = displayName( user );
+      var email = user.getEmail();
+      var name = user.getName();
 
       dataContext.name = name;
 
@@ -406,14 +351,12 @@ sendBookingConfirmationEmail = function ( options ) {
   });
 
   var user = Meteor.users.findOne( options.userId );
-  var email;
-  if ( user && user.emails && user.emails[0] )
-    email = user.emails[0].address;
-  else {
-    console.log( "Don't have an Email for user: " + options.userId );
+  if (! user) {
+    console.log( "Can't find user with id: " + options.userId );
     return;
   }
-  var name = displayName( user );
+  var email = user.getEmail();
+  var name = user.getName();
 
   var fields = { title: 1, slug: 1, description: 1, aims: 1, methods: 1, targetGroup: 1, prerequisites: 1, languages: 1, additionalServices: 1 };
   var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
@@ -440,7 +383,7 @@ sendBookingConfirmationEmail = function ( options ) {
   _deferSendEmail( options );
 };
 
-var _deferSendEmail= function ( options ) {
+var _deferSendEmail = function ( options ) {
   Meteor.defer( function() {
     try {
       _sendEmail( options );
