@@ -75,7 +75,7 @@ Meteor.methods({
           amount      : options.amount,
           currency    : 'EUR',
           token       : options.token,
-          description : 'user: ' + this.userId + ' ' + displayName( user ) + '; booking: ' + booking._id
+          description : 'user: ' + this.userId + ' ' + user.getName() + '; booking: ' + booking._id
         });
 
         // update booking

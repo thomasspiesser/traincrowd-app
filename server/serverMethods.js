@@ -81,8 +81,7 @@ Meteor.methods({
     if ( this.userId !== course.owner )
       throw new Meteor.Error(403, "Sie können nur Ihre eigenen Kurse editieren");
 
-    var user = Meteor.users.findOne( this.userId );
-    var username = displayName( user );
+    var username = Meteor.users.findOne( this.userId ).getName();
 
     Current.insert({
       course: options.courseId,
@@ -92,7 +91,7 @@ Meteor.methods({
       courseDate: options.courseDate
     });
 
-    Courses.update({_id: options.courseId}, { $push: {dates: options.courseDate }, $set: { hasDate: true } }, {validate: false});
+    Courses.update({_id: options.courseId}, { $push: { dates: options.courseDate }, $set: { hasDate: true } }, {validate: false});
   },
   deleteEvent: function (options) {
     check(options, {

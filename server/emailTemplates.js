@@ -19,7 +19,7 @@ Meteor.startup(function() {
     return 'Passwort vergessen?';
   };
   Accounts.emailTemplates.resetPassword.text = function( user, url ) {
-    return 'Guten Tag ' + displayName(user) + ',\n\n' + 'Um Ihr Passwort zurückzusetzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Vielen Dank.\n';
+    return 'Guten Tag ' + user.getName() + ',\n\n' + 'Um Ihr Passwort zurückzusetzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Vielen Dank.\n';
   };
   Accounts.emailTemplates.enrollAccount.subject = function( user ) {
     return "Es wurde für Sie auf " + Accounts.emailTemplates.siteName + " ein Account angelegt";

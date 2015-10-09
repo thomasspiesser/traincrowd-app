@@ -82,7 +82,7 @@
 // 		if (course && course.owner && course.title) {
 // 			var user = Meteor.users.findOne( course.owner );
 // 			if (user){
-//     		var username = displayName(user);
+//     		var username = user.getName();
 // 				Current.update( { _id: current._id }, {$set: {courseTitle: course.title, ownerName: username}} );
 // 			}
 // 		}

@@ -73,6 +73,5 @@ UI.registerHelper('selected', function(one, two) {
 });
 
 UI.registerHelper('username', function(userId) {
-	var user = Meteor.users.findOne( userId );
-	return displayName( user );
+	return Meteor.users.findOne( userId ).getName();
 });
