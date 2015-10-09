@@ -9,7 +9,7 @@
 
         <div class="modal-body">
           <p>
-            {{ > editEmail data=email collection='User' }}
+            {{ > editEmail data=currentUser.getEmail collection='User' }}
             {{ > editPhone data=currentUser.profile collection='User' }}
           </p>
         </div>

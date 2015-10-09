@@ -34,9 +34,6 @@ Template.courseBoxSmall.helpers({
       return titlePreview;
     }
   },
-  feePP: function () {
-    return ( this.fee / this.maxParticipants ).toFixed(0);
-  },
   taxStatus: function () {
     return this.taxRate === 19 ? 'inkl. MwSt' : 'MwSt-befreit';
   },

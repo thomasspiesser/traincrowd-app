@@ -21,6 +21,12 @@ Template.editCourseDates.rendered=function() {
     });
 };
 
+Template.editCourseDates.helpers({
+  prettyDate: function () {
+    return moment( new Date(this) ).format( "DD.MM.YYYY" );
+  }
+});
+
 Template.editCourseDates.events({
   'input .form-control': function (event, template) {
     var field = event.currentTarget.id.split('-')[2];

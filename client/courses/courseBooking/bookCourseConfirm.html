@@ -20,7 +20,7 @@
         <div class="col-md-4">
           <div class="well">
             <h5>{{ i18n 'contactInformation' }}</h5>
-            E-Mail: {{ useremail currentUser._id }} <br>
+            E-Mail: {{ currentUser.getEmail }} <br>
             Telefon: {{ currentUser.profile.phone }} <br>
             Mobil: {{ currentUser.profile.mobile }} <br><br>
             <a href="#" id="change-contact">{{ i18n 'edit' }}</a>
@@ -62,8 +62,8 @@
                 <td>{{ trainerName }}</td>
                 <td>
                   <ul class="comma-list">
-                    {{#each eventDate}}
-                    <li>{{ niceDate }}</li>
+                    {{#each getPrettyDate}}
+                    <li>{{ this }}</li>
                     {{/each}}
                   </ul>
                 </td>

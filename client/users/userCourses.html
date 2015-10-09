@@ -88,8 +88,8 @@
                     </td>
                     <td>
                       <ul class="comma-list">
-                        {{ #each courseDate }}
-                        <li>{{ niceDate }}</li>
+                        {{ #each getPrettyDates }}
+                        <li>{{ this }}</li>
                         {{ /each }}
                       </ul>
                     </td>
@@ -134,8 +134,8 @@
                     </td>
                     <td>
                       <ul class="comma-list">
-                        {{ #each courseDate }}
-                        <li>{{ niceDate }}</li>
+                        {{ #each getPrettyDates }}
+                        <li>{{ this }}</li>
                         {{ /each }}
                       </ul>
                     </td>

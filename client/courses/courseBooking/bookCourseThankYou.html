@@ -20,8 +20,8 @@
           <p>
             <strong>Datum</strong>:
             <ul class="comma-list">
-              {{#each eventDate}}
-              <li>{{ niceDate }}</li>
+              {{#each getPrettyDates}}
+              <li>{{ this }}</li>
               {{/each}}
             </ul>
           </p>

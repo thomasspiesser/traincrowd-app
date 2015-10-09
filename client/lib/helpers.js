@@ -68,10 +68,6 @@ UI.registerHelper('hoverText', function() {
   return hoverText[ Session.get('showHoverText') ];
 });
 
-UI.registerHelper('niceDate', function() {
-  return moment( this ).format( "DD.MM.YYYY" );
-});
-
 UI.registerHelper('selected', function(one, two) {
   return one === two ? 'selected' : '';
 });
@@ -79,9 +75,4 @@ UI.registerHelper('selected', function(one, two) {
 UI.registerHelper('username', function(userId) {
 	var user = Meteor.users.findOne( userId );
 	return displayName( user );
-});
-
-UI.registerHelper('useremail', function(userId) {
-  var user = Meteor.users.findOne( userId );
-  return displayEmail( user );
 });

@@ -31,9 +31,6 @@ Template.courseDetail.helpers({
     if (this.courseDate.length > 1)
       return moment(_.first(this.courseDate) ).format("DD.MM") + ' - ' + moment(_.last(this.courseDate) ).format("DD.MM.YYYY");
   },
-  feePP: function () {
-    return ( this.fee / this.maxParticipants ).toFixed(0);
-  },
   taxStatus: function () {
     return this.taxRate === 19 ? 'inkl. MwSt' : 'MwSt-befreit';
   },

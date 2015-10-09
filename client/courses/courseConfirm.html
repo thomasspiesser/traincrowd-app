@@ -8,7 +8,9 @@
       <div class="text-center">
         <h3 style="margin-top: 10px;">Kurs: {{ course.title }}</h3>
         {{ #if isValidToken }}
-          <h3 style="margin-top: 10px;">Wann: {{ #each formatedDates }} {{ this }} {{ /each }}</h3>
+          <h3 style="margin-top: 10px;">
+            Wann: <ul class="comma-list" style="display: inline;"> {{ #each current.getPrettyDates }} <li>{{ this }}</li> {{ /each }} </ul>
+          </h3>
         {{ else }}
           <h3 style="margin-top: 10px; color: red;">Event nicht gefunden!</h3>
           <p>Ihr Bestätigungs-token ist ungültig.</p>
@@ -41,7 +43,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="confirmCourseEmailResponsible" class="control-label">Email Ansprechperson</label>
-        <input type="text" class="form-control" id="confirmCourseEmailResponsible" value="{{email course.owner}}">
+        <input type="text" class="form-control" id="confirmCourseEmailResponsible" value="{{ currentUser.getEmail }}">
       </div>
     </div>
   </div> <!-- row -->
