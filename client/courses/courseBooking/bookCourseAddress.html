@@ -20,7 +20,7 @@
           </h5>
           {{ #if firm }} {{ firm }} {{ /if }}
             <p>
-              {{ username currentUser._id }} <br>
+              {{ currentUser.getName }} <br>
               {{ street }} {{ streetNumber }} <br>
               {{ plz }} {{ city }}
               {{ #if streetAdditional }} <br> {{ streetAdditional }} {{ /if }}

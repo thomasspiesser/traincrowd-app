@@ -71,7 +71,3 @@ UI.registerHelper('hoverText', function() {
 UI.registerHelper('selected', function(one, two) {
   return one === two ? 'selected' : '';
 });
-
-UI.registerHelper('username', function(userId) {
-	return Meteor.users.findOne( userId ).getName();
-});
