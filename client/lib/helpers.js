@@ -60,6 +60,15 @@ hoverCheckEvents = {
   }
 };
 
+UI.registerHelper('preview', function ( text, cutoff ) {
+  if ( ! text )
+    return false;
+  var preview = text.replace("\n", " "); // remove linebreaks
+  if ( preview.length > cutoff )
+    return preview.slice(0, cutoff) + "...";
+  return preview;
+});
+
 UI.registerHelper('i18nOrder', function( arg1, arg2 ) {
   return i18n('ordering', i18n( arg1 ), i18n( arg2 ));
 });

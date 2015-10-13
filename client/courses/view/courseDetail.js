@@ -18,13 +18,6 @@ Template.courseDetail.helpers({
   getCurrent: function () {
     return Current.find( { course: this._id }, { sort:{ courseDate: 1 }, fields: { participants: 1, courseDate: 1, confirmed: 1 } } );
   },
-  courseDateRange: function () {
-    // context is current
-    if (this.courseDate.length === 1)
-      return moment(this.courseDate[0]).format("DD.MM.YYYY");
-    if (this.courseDate.length > 1)
-      return moment(_.first(this.courseDate) ).format("DD.MM") + ' - ' + moment(_.last(this.courseDate) ).format("DD.MM.YYYY");
-  },
   runtime: function ( course ) {
     var date = _.first( this.courseDate ); // first day of the event
     date = moment( date );

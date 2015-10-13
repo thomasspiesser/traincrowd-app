@@ -82,7 +82,7 @@
 
           <div class="well">
 
-            <p><i class="fa fa-calendar fa-fw"></i> {{ i18n 'date' }}: {{ courseDateRange }} </p>
+            <p><i class="fa fa-calendar fa-fw"></i> {{ i18n 'date' }}: {{ getPrettyDateRange }} </p>
             {{ #if bookedOut .. }}
               <p><i class="fa fa-hourglass-start fa-fw"></i> {{ i18n 'booking.bookedOut2' }}</p>
             {{ else }}

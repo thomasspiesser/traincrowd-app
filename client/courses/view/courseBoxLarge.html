@@ -22,14 +22,14 @@
 
     <div class="col-lg-7 col-md-6 col-sm-5 box-content">
       <div class="box-content-top">
-        <a href="{{ pathFor route='course.show' slug=this.slug }}"><h3>{{titlePreview}}</h3></a>
+        <a href="{{ pathFor route='course.show' slug=this.slug }}"><h3>{{ preview title 95 }}</h3></a>
         <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}"><h6>{{ownerName}}</h6></a>
 
         {{ #each categories }}
           <a href="#" type="button" class="btn btn-dark-blue btn-xs">{{ this }}</a>
         {{ /each }}
 
-        <p class="course-description-preview"><a href="{{ pathFor route='course.show' slug=this.slug }}">{{ descriptionPreview }}</a></p>
+        <p class="course-description-preview"><a href="{{ pathFor route='course.show' slug=this.slug }}">{{ preview description 200 }}</a></p>
       </div>
     </div>
     
@@ -46,12 +46,12 @@
         </div>
         <div class="btn-bar-right">
           <ul>
-            <li> {{ nextEvent }} </li>
+            <li> {{ #if hasDate }} {{ getNextEvent.getPrettyDateRange }} {{ else }}aktuell kein Termin{{ /if }}</li>
             <li> {{ duration }} {{ i18n 'course.duration' }} </li>
             <li> {{ #if city }} {{ city }} {{ else }} Ort steht noch nicht fest {{ /if }}</li>
             <li>
               {{ #if hasDate }}
-                {{ #with getCurrent }}
+                {{ #with getNextEvent }}
 
                   {{ #if bookedOut .. }}
                     <div class="progress">
