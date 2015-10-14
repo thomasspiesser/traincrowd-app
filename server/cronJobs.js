@@ -64,8 +64,12 @@ function setExpired() {
         // remove from course.dates
         if ( course.dates.length === 1 ) 
           Courses.update( { _id: current.course }, { $pull: { dates: current.courseDate }, $set: { hasDate: false } }, { validate: false } );
-        else
-          Courses.update( { _id: current.course }, { $pull: { dates: current.courseDate } }, { validate: false } );
+        else {
+          // this workaround to pull just one not all elements breaks atomicity
+          Courses.update( { _id: current.course, dates: current.courseDate }, { $unset: { "dates.$": current.courseDate } } );
+          Courses.update( { _id: current.course }, { $pull: { dates: null } } );
+          // Courses.update( { _id: current.course }, { $pull: { dates: current.courseDate } }, { validate: false } );
+        }
         // remove from Current:
         Current.remove( current._id );
       }
@@ -118,8 +122,12 @@ function setElapsed() {
       // remove from course.dates
       if ( course.dates.length === 1 ) 
         Courses.update( { _id: current.course }, { $pull: { dates: current.courseDate }, $set: { hasDate: false } }, { validate: false } );
-      else
-        Courses.update( { _id: current.course }, { $pull: { dates: current.courseDate } }, { validate: false } );
+      else {
+        // this workaround to pull just one not all elements breaks atomicity
+        Courses.update( { _id: current.course, dates: current.courseDate }, { $unset: { "dates.$": current.courseDate } } );
+        Courses.update( { _id: current.course }, { $pull: { dates: null } } );
+        // Courses.update( { _id: current.course }, { $pull: { dates: current.courseDate } }, { validate: false } );
+      }
       // remove from Current:
       Current.remove( current._id );
     }
