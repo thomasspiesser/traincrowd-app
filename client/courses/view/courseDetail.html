@@ -99,9 +99,9 @@
               <div class="progress">
                 <span class="progress-text">
                   {{ #if confirmed }}
-                    <span data-toggle="tooltip" title="Dieser Kurs findet garantiert statt. In der Gruppe ist noch Platz für {{ openSpots .. }} Personen.">findet sicher statt <icon class="fa fa-check"></icon></span>
+                    <span data-toggle="tooltip" title="{{ getWillTakePlaceTooltipText .. }}">{{ i18n 'will.take.place' }} <icon class="fa fa-check"></icon></span>
                   {{ else }}
-                    <span data-toggle="tooltip" title="Diese Gruppe braucht noch {{ openSpots .. }} Personen, damit der Kurs garantiert stattfindet.">noch {{ openSpots .. }} Personen <icon class="fa fa-question-circle"></icon></span>
+                    <span data-toggle="tooltip" title="{{ getMightTakePlaceTooltipText .. }}">{{ getOpenSeatsText .. }} <icon class="fa fa-question-circle"></icon></span>
                   {{ /if }}
                 </span>
                 <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull .. }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull .. }}%; min-width: 0.2em;">
@@ -133,8 +133,8 @@
         {{ else }}
           <p> {{ street}} {{ streetNumber }} <br>
           {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }}
-          {{ plz }} {{ city}} </p>
-          <a href="https://www.google.de/maps/place/{{ street}}+{{ streetNumber }},{{ plz }}" target="_blank"><img src="https://maps.googleapis.com/maps/api/staticmap?markers={{ street}}+{{ streetNumber }},{{ plz }}&zoom=14&size=300x300&sensor=false" alt="" style="width: 100%;"></a>
+          {{ plz }} {{ city }} </p>
+          <a href="https://www.google.de/maps/place/{{ street}}+{{ streetNumber }},{{ plz }}+{{ city }}" target="_blank"><img src="https://maps.googleapis.com/maps/api/staticmap?markers={{ street}}+{{ streetNumber }},{{ plz }}&zoom=14&size=300x300&sensor=false" alt="" style="width: 100%;"></a>
         {{ /if }}
 
       </div> <!-- col course-right -->

@@ -8,7 +8,17 @@ courseHelpers = {
   percentFull: function ( course ) {
     return ( this.participants.length / course.maxParticipants ).toFixed(1) * 100;
   },
-  openSpots: function ( course ) {
-    return course.maxParticipants - this.participants.length;
+  getWillTakePlaceTooltipText: function ( course ) {
+    return i18n('will.take.place.tooltip', openSpots( course, this ) );
   },
+  getMightTakePlaceTooltipText: function ( course ) {
+    return i18n('might.take.place.tooltip', openSpots( course, this ) );
+  },
+  getOpenSeatsText: function ( course ) {
+    return i18n('open.seats', openSpots( course, this ) );
+  },
+};
+
+var openSpots = function ( course, current ) {
+  return course.maxParticipants - current.participants.length;
 };
