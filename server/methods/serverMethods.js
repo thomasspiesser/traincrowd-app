@@ -62,7 +62,7 @@ Meteor.methods({
       'coupon.amount': coupon.amount,
     };
 
-    Bookings.update( { _id: options.bookingId }, { $set: modifier }, {validate: false} );
+    Bookings.update( { _id: options.bookingId }, { $set: modifier } );
     return coupon.amount;
   },
   createEvent: function (options) {
@@ -91,7 +91,7 @@ Meteor.methods({
       courseDate: options.courseDate
     });
 
-    Courses.update({_id: options.courseId}, { $push: { dates: options.courseDate }, $set: { hasDate: true } }, {validate: false});
+    Courses.update( { _id: options.courseId }, { $push: { dates: options.courseDate }, $set: { hasDate: true } } );
   },
   deleteEvent: function (options) {
     check(options, {
@@ -118,12 +118,12 @@ Meteor.methods({
       throw new Meteor.Error(422, "Sie können nur Ihre eigenen Events löschen");
 
     if ( course.dates.length === 1 ) 
-      Courses.update( {_id: options.courseId }, { $pull: { dates: options.courseDate }, $set: { hasDate: false } }, {validate: false} );
+      Courses.update( {_id: options.courseId }, { $pull: { dates: options.courseDate }, $set: { hasDate: false } } );
     else {
       // this workaround to pull just one not all elements breaks atomicity
       Courses.update( { _id: options.courseId, dates: options.courseDate }, { $unset: { "dates.$": options.courseDate } } );
       Courses.update( { _id: options.courseId }, { $pull: { dates: null } } );
-      // Courses.update( { _id: options.courseId }, { $pull: { dates: options.courseDate } }, {validate: false} );
+      // Courses.update( { _id: options.courseId }, { $pull: { dates: options.courseDate } } );
     }
 
     Current.remove({_id: options.currentId});
