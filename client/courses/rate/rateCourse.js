@@ -1,11 +1,17 @@
+Template.rateCourse.onCreated( function() {
+  this.hasRated = new ReactiveVar( false );
+});
+
 Template.rateCourse.onRendered( function() {
   $('.rateit').rateit();
 });
 
 Template.rateCourse.helpers({
-  isValidToken: function () {
-    console.log(this);
+  isValidToken: function() {
     return !!this.user && !!this.elapsed;
+  },
+  hasRated: function() {
+    return Template.instance().hasRated.get();
   },
 });
 
@@ -34,7 +40,12 @@ Template.rateCourse.events({
       if ( error )
         toastr.error( error.reason || error.message );
       else {
-        toastr.success( 'Gespeichert.' );
+        $('body,html').animate({
+          scrollTop: 0
+        }, 200, function() {
+          template.hasRated.set( true );
+          toastr.success( 'Gespeichert.' );
+        });
       }
     });    
   }

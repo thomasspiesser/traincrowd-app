@@ -5,30 +5,38 @@
 
   <section class="container">
     <div class="panel panel-inverted">
-
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-          <div class="text-center">
-            {{ #if isValidToken }}
-              <h3 style="margin-top: 10px;">
-                {{ i18n 'rate.text' user.getName }} "{{ elapsed.courseTitle }}":
-              </h3>
-            {{ else }}
-              <h3 style="margin-top: 10px; color: red;">{{ i18n 'event.not.found' }}</h3>
-              <p>{{ i18n 'rate.invalid.token.info' }}</p>
-              <p>{{{ i18n 'rate.invalid.token.help' }}}</p>
-            {{ /if }}
+    
+      {{ #momentum plugin='fade' }}
+        {{ #unless hasRated }}
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="text-center">
+                {{ #if isValidToken }}
+                  <h3 style="margin-top: 10px;">
+                    {{ i18n 'rate.text' user.getName }} "{{ elapsed.courseTitle }}":
+                  </h3>
+                {{ else }}
+                  <h3 style="margin-top: 10px; color: red;">{{ i18n 'event.not.found' }}</h3>
+                  <p>{{ i18n 'rate.invalid.token.info' }}</p>
+                  <p>{{{ i18n 'rate.invalid.token.help' }}}</p>
+                {{ /if }}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        {{ /unless }}
+      {{ /momentum }}
 
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-        
-        {{ #if isValidToken }}
-          {{ > rateCourseForm }}
-        {{ /if }}
-
+          {{ #momentum plugin='fade' }}
+            {{ #unless hasRated }}
+              {{ #if isValidToken }}
+                {{ > rateCourseForm }}
+              {{ /if }}
+            {{ else }}
+              <h3 class="text-center">{{ i18n 'thank.you' }}</h3>
+            {{ /unless }}
+          {{ /momentum }}
         </div>
       </div>
 
