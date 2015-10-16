@@ -28,12 +28,13 @@
 <template name='navItemsLeft'>
   <li><a href="{{pathFor 'search.course'}}">{{ i18n 'course.search' }}</a></li>
   <li><a href="{{pathFor 'search.trainer'}}">{{ i18n 'trainer.search' }}</a></li>
-  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ i18n 'about.us' }}</a>
+  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ i18n 'about.us' }} <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
       <li><a href="{{ pathFor 'about.traincrowd' }}">{{ i18n 'about.traincrowd' }}</a></li>
       <li><a href="{{ pathFor 'about.us' }}">{{ i18n 'about.team' }}</a></li>
     </ul>
   </li>
+  <li><a href="http://blog.traincrowd.de/">Blog</a></li>
   <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ langCode }} <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
       <li><a href="#" class="langSelector">de</a></li>

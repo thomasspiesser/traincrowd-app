@@ -131,10 +131,11 @@
         {{ #if noLocation }}
           <p>{{ i18n 'no.location' }}</p>
         {{ else }}
-          <p> {{ street}} {{ streetNumber }} <br>
+          <p> {{ #if firm }} {{ firm }} <br> {{ /if }}
+          {{ street}} {{ streetNumber }} <br>
           {{ #if streetAdditional }} {{ streetAdditional }} <br> {{ /if }}
           {{ plz }} {{ city }} </p>
-          <a href="https://www.google.de/maps/place/{{ street}}+{{ streetNumber }},{{ plz }}+{{ city }}" target="_blank"><img src="https://maps.googleapis.com/maps/api/staticmap?markers={{ street}}+{{ streetNumber }},{{ plz }}&zoom=14&size=300x300&sensor=false" alt="" style="width: 100%;"></a>
+          <a href="https://www.google.de/maps/place/{{ street}}+{{ streetNumber }},{{ plz }}+{{ city }}" target="_blank"><img src="https://maps.googleapis.com/maps/api/staticmap?markers={{ street}}+{{ streetNumber }},{{ plz }}+{{ city }}&zoom=14&size=300x300&sensor=false" alt="" style="width: 100%;"></a>
         {{ /if }}
 
       </div> <!-- col course-right -->
