@@ -33,11 +33,21 @@ Meteor.publish('elapsed', function () {
 	return Elapsed.find();
 });
 
+Meteor.publish('elapsedById', function ( id ) {
+  check( id, String );
+  return Elapsed.find( { _id: id } );
+});
+
 Meteor.publish('userData', function () {
 	if ( ! this.userId ) {
 		this.ready();
 	}
 	return Meteor.users.find( { _id: this.userId }, { fields: { services: 0 } } );
+});
+
+Meteor.publish('userByToken', function ( token ) {
+  check( token, String );
+  return Meteor.users.find( { rateTokens: token }, { fields: { services: 0 } } );
 });
 
 // TDOD: don't publish all the info from profile..make more specific here
@@ -49,7 +59,8 @@ Meteor.publish('trainer', function () {
   			createdAt: 0, 
   			updatedAt: 0, 
   			emails: 0, 
-  			hasPublishRequest: 0, 
+  			hasPublishRequest: 0,
+        token: 0,
   			'profile.billingAddresses': 0, 
   			'profile.selectedBillingAddress': 0, 
   			'profile.taxNumber': 0, 

@@ -1,0 +1,115 @@
+<template name="rateCourse">
+  <div class="separator separator-inverted">
+    <h2>{{ i18n 'rate.course' }}</h2>
+  </div>
+
+  <section class="container">
+    <div class="panel panel-inverted">
+
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="text-center">
+            {{ #if isValidToken }}
+              <h3 style="margin-top: 10px;">
+                {{ i18n 'rate.text' user.getName }} "{{ elapsed.courseTitle }}":
+              </h3>
+            {{ else }}
+              <h3 style="margin-top: 10px; color: red;">{{ i18n 'event.not.found' }}</h3>
+              <p>{{ i18n 'rate.invalid.token.info' }}</p>
+              <p>{{{ i18n 'rate.invalid.token.help' }}}</p>
+            {{ /if }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+        
+        {{ #if isValidToken }}
+          {{ > rateCourseForm }}
+        {{ /if }}
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+</template>
+
+<template name="rateCourseForm">
+
+  <hr>
+
+  <span class="clearfix">
+    {{ i18n 'rate.categories.1' }}
+    <input type="range" value="0" step="0.5" id="backing0">
+    <div class="rateit rate-star pull-right dark-green rateitModal0" data-rateit-backingfld="#backing0" data-rateit-resetable="true" data-rateit-ispreset="true" >
+    </div>
+  </span>
+
+  <hr>
+
+  <span class="clearfix">
+    {{ i18n 'rate.categories.2' }}
+    <input type="range" value="0" step="0.5" id="backing1">
+    <div class="rateit rate-star pull-right dark-green rateitModal1" data-rateit-backingfld="#backing1" data-rateit-resetable="true" data-rateit-ispreset="true">
+    </div>
+  </span>
+
+  <hr>
+
+  <span class="clearfix">
+    {{ i18n 'rate.categories.3' }}
+    <input type="range" value="0" step="0.5" id="backing2">
+    <div class="rateit rate-star pull-right dark-green rateitModal2" data-rateit-backingfld="#backing2" data-rateit-resetable="true" data-rateit-ispreset="true">
+    </div>
+  </span>
+
+  <hr>
+
+  <span class="clearfix">
+    {{ i18n 'rate.categories.4' }}
+    <input type="range" value="0" step="0.5" id="backing3">
+    <div class="rateit rate-star pull-right dark-green rateitModal3" data-rateit-backingfld="#backing3" data-rateit-resetable="true" data-rateit-ispreset="true">
+    </div>
+  </span>
+
+  <hr>
+
+  <span class="clearfix">
+    {{ i18n 'rate.categories.5' }}
+    <input type="range" value="0" step="0.5" id="backing4">
+    <div class="rateit rate-star pull-right dark-green rateitModal4" data-rateit-backingfld="#backing4" data-rateit-resetable="true" data-rateit-ispreset="true">
+    </div>
+  </span>
+
+  <hr>
+
+  <span class="clearfix">
+    {{ i18n 'rate.categories.6' }}
+    <input type="range" value="0" step="0.5" id="backing5">
+    <div class="rateit rate-star pull-right dark-green rateitModal5" data-rateit-backingfld="#backing5" data-rateit-resetable="true" data-rateit-ispreset="true">
+    </div>
+  </span>
+
+  <hr>
+
+  <span class="clearfix">
+    {{ i18n 'rate.categories.recommendation' }}
+    <select class="pull-right form-control" id="rate-course-recommendation" style="width: 20%;">
+      <option value=""></option>
+      <option value="yes">{{ i18n 'yes' }}</option>
+      <option value="no">{{ i18n 'no' }}</option>
+    </select>
+  </span>
+
+  <hr>
+
+  <div class="form-group">
+    <label for="rate-course-comments" class="control-label">{{ i18n 'rate.categories.other' }}</label>
+    <textarea class="form-control" id="rate-course-comment" rows="5"></textarea>
+  </div>
+
+  <button type="button" class="btn btn-red pull-right" id="submit-rating">{{ i18n 'button.submit' }}</button>
+  
+</template>

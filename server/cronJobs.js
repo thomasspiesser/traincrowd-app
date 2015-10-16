@@ -98,7 +98,7 @@ function setElapsed() {
 
       // if ( current.participants && current.participants.length ) {
       //   // email current.participants: Aufforderung bewertung
-      //   Meteor.call( 'sendRateCourseEmail', { course: current.course, participants: current.participants }, function ( error, result ) {
+      //   Meteor.call( 'sendRateCourseEmail', { currentId: current._id }, function ( error, result ) {
       //     if ( error ) {
       //       console.log( error );
       //     }

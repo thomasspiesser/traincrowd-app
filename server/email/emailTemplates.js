@@ -188,35 +188,39 @@ Meteor.methods({
       _deferSendEmail( options );
     });
   },
-  sendRateCourseEmail: function (options) {
-    check(options, {
-      course: String,
-      participants: [String]
+  sendRateCourseEmail: function ( options ) {
+    check( options, {
+      currentId: NonEmptyString
     });
 
-    var fields = { title: 1 };
-    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
-    var pass = checkExistanceSilent( course, "course", options.course, fields );
+    fields = { courseTitle: 1, participants: 1 };
+    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
+    pass = checkExistanceSilent( current, "event", options.currentId, fields );
 
     if ( ! pass )
       return;
 
-    var url = Meteor.absoluteUrl('user-courses');
-    _.each(options.participants, function(participant) {
+    var url = Meteor.absoluteUrl('event/' + options.currentId + '/rate-event/');
+    _.each( current.participants, function( participant ) {
       var user = Meteor.users.findOne( participant );
       if (! user) {
         console.log( "Can't find user with id: " + participant );
         return;
       }
+      // save a token
+      var token = Random.hexString(64);
+      Meteor.users.update( { _id: participant }, { 
+        $push: { rateTokens: token }
+      });
       var email = user.getEmail();
       var name = user.getName();
 
       var dataContext = {
         name: name,
-        title: course.title,
-        url: url
+        title: current.courseTitle,
+        url: url + token
       };
-      var subject = "Bewerten Sie den Kurs: '" + course.title +"'";
+      var subject = "Bewerten Sie den Kurs: '" + current.courseTitle +"'";
       var html = Spacebars.toHTML(dataContext, Assets.getText('rateCourseEmail.html'));
 
       var options = { 
