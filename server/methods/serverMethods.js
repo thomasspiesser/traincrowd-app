@@ -218,48 +218,113 @@ Meteor.methods({
     var thisUserId = this.userId;
     Meteor.users.update(this.userId, { $set: { "services.resume.loginTokens": [] } }); // logout the user
     Meteor.users.remove({_id: thisUserId});
-  }
-});
-
-//// custom admin methods
-
-Houston.add_collection(Meteor.users);
-Houston.add_collection(Houston._admins);
-Houston.add_collection(Courses);
-Houston.add_collection(Current);
-Houston.add_collection(Elapsed);
-Houston.add_collection(Bookings);
-Houston.add_collection(Categories);
-
-Houston.methods( Courses, {
-  Publish: function ( course ) {
-    Courses.update(course._id, { $set: { isPublic: true, hasPublishRequest: false } }, { validate: false } );
-    return "Der Kurs: '"+ course.title + "' ist jetzt online!";
   },
-  Unpublish: function ( course ) {
-  	Courses.update(course._id, { $set: { isPublic: false } }, { validate: false } );
-    return "Ok, der Kurs: '"+ course.title + "' ist offline.";
-  }
+  rateCourse: function ( options ) {
+    check( options, {
+      elapsedId: NonEmptyString,
+      values: [ Number ],
+      comment: Match.Optional(String),
+      recommendation: Match.Optional(String),
+      token: Match.Optional(String),
+    });
+
+    if ( ! this.userId && ! options.token )
+      throw new Meteor.Error(403, "Sie müssen eingelogged sein!");
+
+    var userId;
+    if ( this.userId ) 
+      userId = this.userId;
+    else {
+      var user = Meteor.users.findOne( { rateTokens: options.token }, { fields: { _id: 1 } } );
+      if ( ! user )
+        throw new Meteor.Error(403, "User nicht gefunden!");
+      userId = user._id;
+    }
+
+    var fields = { course: 1, participants: 1, ratings: 1, owner: 1 };
+    var elapsed = Elapsed.findOne( { _id: options.elapsedId }, { fields: fields } );
+    checkExistance( elapsed, "Elapsed Event", fields );
+
+    if (! _.contains( elapsed.participants, userId ))
+      throw new Meteor.Error(403, "Sie können nur Kurse bewerten, die Sie besucht haben.");
+
+    var existingRating = _.find( elapsed.ratings, function(item) { return item.participant === userId; } );
+    if ( existingRating ) {
+      existingRating.values = options.values;
+      existingRating.comment = options.comment;
+      existingRating.recommendation = options.recommendation;
+      Elapsed.update( options.elapsedId, { $set: { ratings: elapsed.ratings } } );
+    }
+    else {
+      Elapsed.update( options.elapsedId, { $push: { 
+        ratings: { 
+          participant: userId, 
+          values: options.values,
+          comment: options.comment,
+          recommendation: options.recommendation,
+        } 
+      } } );
+    }
+
+    Meteor.defer(function(){
+      try {
+        _updateCourseRating( elapsed.course );
+        _updateTrainerRating( elapsed.owner );
+        Meteor._sleepForMs(1000); // wait to make sure there is no UI glitch when token is removed
+        Meteor.users.update( { _id: userId }, { $pull: { rateTokens: options.token } } );
+      }
+      catch(e) {
+        console.log(e);
+      }
+    });
+  },
 });
 
-Houston.methods( Meteor.users, {
-  Publish: function ( user ) {
-    Meteor.users.update(user._id, { $set: { isPublic: true, hasPublishRequest: false } }, { validate: false } );
-    return "Das Profil von: '"+ user.profile.name + "' ist jetzt online!";
-  },
-  Unpublish: function ( user ) {
-    Meteor.users.update(user._id, { $set: { isPublic: false } }, { validate: false } );
-    return "Ok, das Profil von: '"+ user.profile.name + "' ist offline.";
-  }
-});
+var _updateCourseRating = function( course ) {
+  // console.log('course rating');
+  // get all elapsed for given course
+  var elapsed = Elapsed.find( { course: course }, {fields: {ratings: 1}} ).fetch();
+  // console.log(elapsed);
+  var ratingElapsedArrays = _.map(elapsed, function(object) {return _.pluck(object.ratings, 'values'); } ); 
+  // [ [ [ 3, 1, 3, 2, 5 ] ], [ [ 2, 4.5, 3, 3, 3 ], [ 5, 1.5, 2, 3, 1 ] ] ] non-flat
+  // console.log(ratingElapsedArrays);
+  var ratingArrays = _.flatten(ratingElapsedArrays, true); // shallow flatten = true: means one level deep
+  // [ [ 3, 1, 3, 2, 5 ], [ 2, 4.5, 3, 3, 3 ], [ 5, 1.5, 2, 3, 1 ] ] flatter
+  // now sort element-wise
+  // console.log(ratingArrays);
+  var ratingScores = _.zip.apply(_,ratingArrays);
+  // [ [ 3, 2, 5 ],  [ 1, 4.5, 1.5 ],  [ 3, 3, 2 ],  [ 2, 3, 3 ],  [ 5, 3, 1 ] ]
+  // console.log(ratingScores);
+  var ratingCount = ratingScores[0].length;
+  // console.log(ratingCount);
+  var ratingSums = _.map(ratingScores, function (array) {return _.reduce( _.compact(array), function(a, b){ return a + b; }, 0); } );
+  // [10, 7, 8, 8, 9]
+  // console.log(ratingSums);
+  var avgsRatings = _.map(ratingSums, function(num){ return num / ratingCount; });
+  // console.log(avgsRatings);
+  // [3.33, 2.33, 2.66, 2.66, 3]
+  var ratingSum = _.reduce(avgsRatings, function(a, b){ return a + b; }, 0);
+  // console.log(ratingSum);
+  var avgRating = ratingSum / avgsRatings.length;
+  // console.log(avgRating);
+  Courses.update( course, { $set: { rating: avgRating, ratingDetail: avgsRatings } } );
+};
 
-Houston.methods( Current, {
-  Confirm: function ( current ) {
-    Current.update( current._id, { $set: { confirmed: true } }, { validate: false } );
-    return "Das Event am " + current.courseDate + " zum Kurs: '"+ current.title + "' findet statt!";
-  },
-  Unconfirm: function ( current ) {
-    Current.update( current._id, { $set: { confirmed: false } }, { validate: false } );
-    return "Ok, das Event am " + current.courseDate + " zum Kurs: '"+ current.title + "' findet nicht statt.";
-  }
-});
+var _updateTrainerRating = function( owner ) {
+  // console.log('trainer rating');
+  // get all courses for given owner = trainer
+  // console.log(owner);
+  var courses = Courses.find( { owner: owner }, { fields: { rating: 1 } } ).fetch();
+  // console.log(courses);
+  var ratings = _.pluck( courses, 'rating' ); // zB. [undefined, 2.75, undefined, undefined]
+  // console.log(ratings);
+  ratings = _.compact( ratings ); // remove falsy values
+  // console.log(ratings);
+  var ratingSum = _.reduce( ratings, function(a, b) { return a + b; }, 0 );
+  // console.log(ratingSum);
+  var ratingCount = ratings.length;
+  // console.log(ratingCount);
+  var avgRating = ratingSum / ratingCount;
+  // console.log(avgRating);
+  Meteor.users.update( { _id: owner }, { $set: { 'profile.rating': avgRating } } );
+};

@@ -57,7 +57,7 @@ Meteor.methods({
           if ( user )
             newParticipants.push( user._id );
           else
-            newParticipants.push( createUserWoPassword( options.additionalParticipants[i] ) );
+            newParticipants.push( _createUserWoPassword( options.additionalParticipants[i] ) );
         }
       }
 
@@ -185,7 +185,7 @@ Meteor.methods({
           if ( user )
             newParticipants.push( user._id );
           else
-            newParticipants.push( createUserWoPassword( options.additionalParticipants[i] ) );
+            newParticipants.push( _createUserWoPassword( options.additionalParticipants[i] ) );
         }
       }
 
@@ -296,7 +296,7 @@ Meteor.methods({
 });
 
 // can only be called from this file
-var createUserWoPassword = function ( email ) {
+var _createUserWoPassword = function ( email ) {
   check( email, String );
 
   if (! EMAIL_REGEX.test( email ))
