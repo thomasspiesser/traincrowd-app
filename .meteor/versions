@@ -74,7 +74,7 @@ meteorhacks:collection-utils@1.2.0
 meteorhacks:kadira@2.23.6
 meteorhacks:meteorx@1.4.1
 meteorhacks:subs-manager@1.6.2
-meteortoys:toykit@2.1.1
+meteortoys:toykit@2.1.2
 minifiers@1.1.7
 minimongo@1.0.10
 mobile-experience@1.0.1
@@ -83,12 +83,11 @@ momentjs:moment@2.10.6
 mongo@1.1.2
 mongo-id@1.0.1
 mongo-livedata@1.0.9
-msavin:mongol@1.4.3
+msavin:mongol@1.5.0
 natestrauser:select2@3.5.1
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
-okgrow:router-autoscroll@0.1.0
 ongoworks:spiderable@1.0.7
 ordered-dict@1.0.4
 peppelg:bootstrap-3-modal@1.0.3
