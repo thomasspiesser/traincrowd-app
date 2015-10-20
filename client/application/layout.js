@@ -13,3 +13,8 @@
 //     }
 //   }
 // }
+  
+// Template.loadingTemplate.onRendered(function(){
+//   $( ".spinner" ).hide()//.delay( 500 ).fadeIn();
+// });
+
