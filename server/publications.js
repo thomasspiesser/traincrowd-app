@@ -47,7 +47,14 @@ Meteor.publish('userData', function () {
 
 Meteor.publish('userByToken', function ( token ) {
   check( token, String );
-  return Meteor.users.find( { rateTokens: token }, { fields: { services: 0 } } );
+  return Meteor.users.find( { rateTokens: token }, 
+    { fields: 
+      { 
+        emails: 1,
+        'profile.name': 1,
+        rateTokens: 1,
+      } 
+    });
 });
 
 // TDOD: don't publish all the info from profile..make more specific here
