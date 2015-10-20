@@ -5,15 +5,17 @@ Template.navItemsLeft.helpers({
 });
 
 Template.navItemsLeft.events({
-  'click .langSelector': function (event) {
-    i18n.setLanguage(event.currentTarget.text);
-    Session.setPersistent( 'Language', event.currentTarget.text );
+  'click .langSelector': function ( event ) {
+    var lang = event.currentTarget.text;
+    i18n.setLanguage( lang );
+    T9n.setLanguage( lang );
+    Session.setPersistent( 'Language', lang );
   }
 });
 
 Template.navItemsRight.events({
   'click #logout': function () {
-    Meteor.logout( function (error) {
+    Meteor.logout( function ( error ) {
       if ( error )
         toastr.error( error.reason );
       else

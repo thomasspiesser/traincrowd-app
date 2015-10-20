@@ -8,14 +8,14 @@
         {{#if currentUser}}
 
         <div class="col-md-12 text-center">
-          <h3>Sie sind bereits angemeldet!</h3>
+          <h3>{{ i18n 'user.already.logged.in' }}</h3>
         </div>
 
         {{else}}
 
         <div class="col-md-4 separator-right">
 
-          <h3>Ich bin bereits Kunde</h3>
+          <h3>{{ i18n 'user.I.am.already.customer' }}</h3>
 
           <div class="row">
             <div class="col-md-12">
@@ -31,15 +31,15 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label for="sign-in-password" class="control-label">Passwort</label>
-                <input type="password" class="form-control" id="sign-in-password" placeholder="Passwort">
+                <label for="sign-in-password" class="control-label">{{ t9n 'password' }}</label>
+                <input type="password" class="form-control" id="sign-in-password" placeholder="{{ t9n 'password' }}">
                 <span class="help-block" id="help-text-sign-in-password"></span>
               </div>
-              <a href="{{pathFor 'atForgotPwd'}}">Passwort vergessen?</a>
+              <a href="{{pathFor 'atForgotPwd'}}">{{ t9n 'forgotPassword' }}</a>
 
               <!-- button -->
               <div class="form-group pull-right">
-                <button type="button" class="btn btn-red" id="book-course-login-button">Anmelden</button>
+                <button type="button" class="btn btn-red" id="book-course-login-button">{{ i18n 'user.signIn' }}</button>
               </div>
             </div>
           </div>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="col-md-8">
-          <h3>Ich bin Neukunde</h3>
+          <h3>{{ i18n 'user.I.am.new.customer' }}</h3>
 
           <div class="row">
             <div class="col-md-3">
@@ -66,7 +66,7 @@
             <div class="col-md-9">
               <div class="form-group">
                 <label for="sign-up-name" class="control-label">Name</label>
-                <input type="text" class="form-control" id="sign-up-name" placeholder="Max Mustermann">
+                <input type="text" class="form-control" id="sign-up-name" placeholder="{{ i18n 'user.fictitious.name' }}">
                 <span class="help-block" id="help-text-sign-up-name"></span>
               </div>
             </div>
@@ -83,8 +83,8 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="sign-up-email-again" class="control-label">Email wiederholen</label>
-                <input type="text" class="form-control" id="sign-up-email-again" placeholder="Email wiederholen">
+                <label for="sign-up-email-again" class="control-label">{{ i18n 'user.email.again' }}</label>
+                <input type="text" class="form-control" id="sign-up-email-again" placeholder="{{ i18n 'user.email.again' }}">
                 <span class="help-block" id="help-text-sign-up-email-again"></span>
               </div>
             </div>
@@ -93,16 +93,16 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="sign-up-password" class="control-label">Passwort</label>
-                <input type="password" class="form-control" id="sign-up-password" placeholder="Passwort">
+                <label for="sign-up-password" class="control-label">{{ t9n 'password' }}</label>
+                <input type="password" class="form-control" id="sign-up-password" placeholder="{{ t9n 'password' }}">
                 <span class="help-block" id="help-text-sign-up-password"></span>
               </div>
             </div>
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="sign-up-password-again" class="control-label">Passwort wiederholen</label>
-                <input type="password" class="form-control" id="sign-up-password-again" placeholder="Passwort wiederholen">
+                <label for="sign-up-password-again" class="control-label">{{ t9n 'passwordAgain' }}</label>
+                <input type="password" class="form-control" id="sign-up-password-again" placeholder="{{ t9n 'passwordAgain' }}">
                 <span class="help-block" id="help-text-sign-up-password-again"></span>
               </div>
             </div>
@@ -110,7 +110,7 @@
 
           <div class="row">
             <div class="col-md-12">
-              Durch die Registrierung akzeptieren Sie unsere <a href="{{pathFor 'privacy'}}">Datenschutzerklärungen</a> und <a href="{{pathFor 'agb'}}">Geschäftsbedingungen</a>.
+              {{ t9n 'clickAgree' }} <a href="{{pathFor 'privacy'}}">{{ t9n 'privacyPolicy' }}</a> {{ t9n 'and' }} <a href="{{pathFor 'agb'}}">{{ t9n 'terms' }}</a>.
             </div>
           </div>
 
@@ -118,7 +118,7 @@
             <div class="col-md-6 col-md-offset-6">
               <!-- button -->
               <div class="form-group">
-                <button type="button" class="btn btn-red pull-right" id="book-course-register-button"> Registrieren</button>
+                <button type="button" class="btn btn-red pull-right" id="book-course-register-button"> {{ t9n 'signUp' }}</button>
               </div>
             </div>
           </div>

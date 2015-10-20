@@ -9,5 +9,6 @@ Meteor.startup(function() {
     if ( lang !== 'de' && lang !== 'en' ) 
       lang = 'de'; // our default in case we don't have tansl for this language
   }
+  T9n.setLanguage( lang );
   i18n.setLanguage( lang );
 });
