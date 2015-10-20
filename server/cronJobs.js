@@ -96,15 +96,6 @@ function setElapsed() {
         return;
       }
 
-      // if ( current.participants && current.participants.length ) {
-      //   // email current.participants: Aufforderung bewertung
-      //   Meteor.call( 'sendRateCourseEmail', { currentId: current._id }, function ( error, result ) {
-      //     if ( error ) {
-      //       console.log( error );
-      //     }
-      //   });
-      // }
-
       // for the record
       elapsedEvents.push( current._id ); 
 
@@ -118,6 +109,15 @@ function setElapsed() {
         participants: current.participants,
         courseDate: current.courseDate
       });
+
+      // if ( current.participants && current.participants.length ) {
+      //   // email current.participants: Aufforderung bewertung
+      //   Meteor.call( 'sendRateCourseEmail', { elapsedId: current._id }, function ( error, result ) {
+      //     if ( error ) {
+      //       console.log( error );
+      //     }
+      //   });
+      // }
 
       // remove from course.dates
       if ( course.dates.length === 1 ) 

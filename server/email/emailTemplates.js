@@ -190,18 +190,18 @@ Meteor.methods({
   },
   sendRateCourseEmail: function ( options ) {
     check( options, {
-      currentId: NonEmptyString
+      elapsedId: NonEmptyString
     });
 
     fields = { courseTitle: 1, participants: 1 };
-    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
-    pass = checkExistanceSilent( current, "event", options.currentId, fields );
+    var elapsed = Elapsed.findOne( { _id: options.elapsedId }, { fields: fields } );
+    pass = checkExistanceSilent( elapsed, "event", options.elapsedId, fields );
 
     if ( ! pass )
       return;
 
-    var url = Meteor.absoluteUrl('event/' + options.currentId + '/rate-event/');
-    _.each( current.participants, function( participant ) {
+    var url = Meteor.absoluteUrl('event/' + options.elapsedId + '/rate-event/');
+    _.each( elapsed.participants, function( participant ) {
       var user = Meteor.users.findOne( participant );
       if (! user) {
         console.log( "Can't find user with id: " + participant );
@@ -217,10 +217,10 @@ Meteor.methods({
 
       var dataContext = {
         name: name,
-        title: current.courseTitle,
+        title: elapsed.courseTitle,
         url: url + token
       };
-      var subject = "Bewerten Sie den Kurs: '" + current.courseTitle +"'";
+      var subject = "Bewerten Sie den Kurs: '" + elapsed.courseTitle +"'";
       var html = Spacebars.toHTML(dataContext, Assets.getText('rateCourseEmail.html'));
 
       var options = { 
