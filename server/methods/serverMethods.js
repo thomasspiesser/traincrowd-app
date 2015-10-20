@@ -283,7 +283,7 @@ Meteor.methods({
 var _updateCourseRating = function( course ) {
   // console.log('course rating');
   // get all elapsed for given course
-  var elapsed = Elapsed.find( { course: course }, {fields: {ratings: 1}} ).fetch();
+  var elapsed = Elapsed.find( { course: course }, { fields: { ratings: 1 } } ).fetch();
   // console.log(elapsed);
   var ratingElapsedArrays = _.map(elapsed, function(object) {return _.pluck(object.ratings, 'values'); } ); 
   // [ [ [ 3, 1, 3, 2, 5 ] ], [ [ 2, 4.5, 3, 3, 3 ], [ 5, 1.5, 2, 3, 1 ] ] ] non-flat
