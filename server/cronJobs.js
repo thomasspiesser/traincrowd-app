@@ -110,14 +110,14 @@ function setElapsed() {
         courseDate: current.courseDate
       });
 
-      // if ( current.participants && current.participants.length ) {
-      //   // email current.participants: Aufforderung bewertung
-      //   Meteor.call( 'sendRateCourseEmail', { elapsedId: current._id }, function ( error, result ) {
-      //     if ( error ) {
-      //       console.log( error );
-      //     }
-      //   });
-      // }
+      if ( current.participants && current.participants.length ) {
+        // email current.participants: Aufforderung bewertung
+        Meteor.call( 'sendRateCourseEmail', { elapsedId: current._id }, function ( error, result ) {
+          if ( error ) {
+            console.log( error );
+          }
+        });
+      }
 
       // remove from course.dates
       if ( course.dates.length === 1 ) 
