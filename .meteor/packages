@@ -61,3 +61,8 @@ twbs:bootstrap-noglyph
 dburles:collection-helpers
 msavin:mongol
 percolate:momentum
+meteorhacks:npm
+
+
+npm-container
+bryanmorgan:webshot
