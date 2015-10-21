@@ -1,10 +1,169 @@
 <html>
 <head>
   <title>Example</title>
+  <link rel="stylesheet" type="text/css" href="pockedGrid.css">
 </head>
 <body>
-  <h1>Example</h1>
+  <img src="{{imgPath}}/Kurs.jpg" alt="">
+  <div class="block-group"> <!-- First row -->
+    <div class="b1 block" style="width:20%;">
+      <p>
+        {{ #if firm }} {{ firm }} <br> {{ /if }}
+        {{ name }} <br>
+        {{ street }} {{ streetNumber }} <br>
+        {{ plz }} {{ city }} <br>
+        {{ country }} 
+      </p>
+    </div>
+    <div class="b2 block" style="width:30%;">
+      <p>
+        <strong>Buchungsinformationen</strong> <br>
+        Rechnungsnr:  {{ billingIndex }} <br>
+        Gebucht am:   {{ billingDate }}
+      </p>
+      <p>
+        <strong>Kontakt</strong> <br>
+        traincrowd UG <br>
+        Bautzener Straße 17 <br>
+        10829 Berlin, Deutschland <br>
+        <a href='mailto:info@traincrowd.de'>info@traincrowd.de</a> <br>
+        USt-IdNr.: DE299187752
+      </p>
+    </div>
+  </div>
 
-  <p>Hello {{name}} this is just another example!</p>
+  <div class="block-group">
+    Rechnung: C1)[Kurstitel] (C2)[Anbietername], C3)[Kursdatum])
+  </div>
+
+  <div class="block-group">
+    <p>
+      Sehr geehrte Damen und Herren,
+    </p>
+    <p>
+      vielen Dank für Ihre Buchung auf traincrowd. Wir berechnen Ihre Bestellung wie folgt:
+    </p>
+  </div>
+
+
+  <div class="block-group">
+    <table class="table">
+      <tr>
+        <th>Veranstaltung</th>
+        <th>Anzahl</th>
+        <th>Einzelpreis Netto</th>
+        <th>MwSt</th>
+        <th>Einzelpreis Brutto</th>
+      </tr>
+      <tr>
+        <td>{{ title }}</td>
+        <td>{{ seats }}</td>
+        <td>100{{ placeholder }}</td>
+        <td>100{{ placeholder }} %</td>
+        <td>100{{ placeholder }}</td>
+      </tr>
+      <tr>
+        <td>{{ couponCode }}</td>
+        <td>{{ seats }}</td>
+        <td>- {{ couponAmount }}</td>
+        <td>100{{ placeholder }} %</td>
+        <td>- 100{{ placeholder }},- Euro</td>
+      </tr>
+      <tr>
+        <td>Summe</td>
+        <td></td>
+        <td>100{{ placeholder }}</td>
+        <td>100{{ placeholder }} %</td>
+        <td>100{{ placeholder }},- Euro</td>
+      </tr>
+      <tr>
+        <td>Enthaltene USt. (19%)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>100{{ placeholder }},- Euro</td>
+      </tr>
+      <tr>
+        <td>Rechnungsbetrag</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>100{{ placeholder }},- Euro</td>
+      </tr>
+    </table>
+  </div>
+
+
+  <div class="block-group">
+    <p>
+      Die traincrowd UG übernimmt im Namen und Auftrag des Anbieters die Rechnungsstellung sowie die Zahlungsabwicklung.
+    </p>
+  </div>
+
+  <div class="block-group text-center">
+    <p>
+      C4 [Text Rechnungsstatus]
+    </p>
+  </div>
+
+  <div class="block-group">
+    <p>
+      Wir wünschen Ihnen viel Spaß und ein inspirierendes Lernerlebnis. 
+    </p>
+    <p>
+      Bis zum nächsten Mal
+    </p>
+    <p>
+      Ihr traincrowd Team
+    </p>
+
+  </div>
+
+  <div class="block-group" style="font-size: 9px; color:gray; position:fixed; bottom:0px; left:50%; width:100%;">
+    <div class="block text-center" style="width:100%;">
+      
+    traincrowd UG (haftungsbeschränkt) | Bautzener Straße 17 | 10829 Berlin   <br>
+    +49 (0)30 3730 6174 | info@traincrowd.de  <br> <br>
+
+    Die traincrowd UG (haftungsbeschränkt) wird durch Elias Sagmeister und Janek Hermann-Friede vertreten.  <br>
+    Registernummer: Handelsregister 164992. Amtsgericht Charlottenburg (Berlin) <br>
+    </div>
+  </div>
+
+
+
 </body>
 </html>
+
+<style>
+  .b2{margin-left: 50% !important;}
+  table {
+    
+    width: 100%;
+    border-collapse: collapse;
+  }
+  td {
+    vertical-align: bottom;
+    padding: 10px;
+  }
+  th {
+    background-color: #427878;
+    color: white;
+  }
+  table, th, td {
+    border: 1px solid black;
+  }
+  .text-center {
+    text-align: center;
+  }
+  /*! PocketGrid 1.1.0
+  * Copyright 2013 Arnaud Leray
+  * MIT License
+  */.block-group,.block,.block-group:after,.block:after,.block-group:before,.block:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+  .block-group{*zoom:1}
+  .block-group:before,.block-group:after{display:table;content:"";line-height:0}
+  .block-group:after{clear:both}
+  .block-group{list-style-type:none;padding:0;margin:0}
+  .block-group>.block-group{clear:none;float:left;margin:0 !important}
+  .block{float:left;width:100%}
+</style>
