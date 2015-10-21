@@ -385,10 +385,20 @@ sendBookingConfirmationEmail = function ( options ) {
     subject: subject, 
     html: html 
   };
-  if ( options.attachBill )
-    _deferGenerateBillAndSendEmail( emailOptions, options.bookingId );
-  else
-    _deferSendEmail( emailOptions );
+  if ( options.attachBill ) {
+    var sync_generateBill = Meteor.wrapAsync(_generateBill);
+    try{
+      var attachment = sync_generateBill;
+      emailOptions.attachments = [ sync_generateBill ];
+    }
+    catch(e) {
+      console.log('ERROR creating email attachment bill');
+      console.log(e);
+    }
+  }
+  console.log(emailOptions);
+
+  // _deferSendEmail( emailOptions );
 };
 
 var _deferSendEmail = function ( options ) {
@@ -406,7 +416,8 @@ var _deferSendEmail = function ( options ) {
   });
 };
 
-_sendEmail = function (options) {
+var _sendEmail = function (options) {
+  // can only be called in this file! 
   Email.send({
     to: options.to,
     from: 'info@traincrowd.de',
