@@ -351,7 +351,9 @@ Meteor.methods({
 sendBookingConfirmationEmail = function ( options ) {
   check( options, {
     course: String,
-    userId: String
+    userId: String,
+    bookingId: String,
+    attachBill: Boolean
   });
 
   var user = Meteor.users.findOne( options.userId );
@@ -378,13 +380,25 @@ sendBookingConfirmationEmail = function ( options ) {
 
   var subject = "Buchungsbestätigung: '" + course.title +"'";
   var html = Spacebars.toHTML(dataContext, Assets.getText('bookingConfirmationEmail.html'));
-  options = { 
+  var emailOptions = { 
     to: email, 
     subject: subject, 
     html: html 
   };
+  if ( options.attachBill ) {
+    var sync_generateBill = Meteor.wrapAsync(_generateBill);
+    try{
+      var attachment = sync_generateBill;
+      emailOptions.attachments = [ sync_generateBill ];
+    }
+    catch(e) {
+      console.log('ERROR creating email attachment bill');
+      console.log(e);
+    }
+  }
+  console.log(emailOptions);
 
-  _deferSendEmail( options );
+  // _deferSendEmail( emailOptions );
 };
 
 var _deferSendEmail = function ( options ) {

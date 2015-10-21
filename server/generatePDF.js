@@ -1,19 +1,37 @@
-_worker = function() {
-  var dataContext = {
-    name: 'Thomas',
-    imgPath: path.join(__meteor_bootstrap__.serverDir, "../web.browser/app")
-  };
-  // console.log(dataContext);
+_generateBill = function( options ) {
+  // zusammenbasteln
+
+  var fields = { eventId: 1, course: 1, courseTitle: 1, courseFeePP: 1, coupon: 1, seats: 1, billingAddress: 1, eventDate: 1, customerName: 1, trainerName: 1, paymentMethod: 1, transactionDate: 1 };
+  var booking = Bookings.findOne( { _id: options.bookingId }, { fields: fields } );
+  var pass = checkExistanceSilent( booking, "Buchung", options.bookingId, _.omit( fields, 'coupon' ) );
+
+  if ( ! pass )
+    return;
+
+  fields = { taxRate: 1};
+  var course = Courses.findOne( { _id: booking.course }, { fields: fields } ); 
+  pass = checkExistanceSilent( course, "course", booking.course, fields );
+
+  if ( ! pass )
+    return;
+
+  var dataContext = _.extend(booking, course);
+
+  dataContext.billingIndex = Utils.findOne().billingCount;
+  dataContext.eventDate = booking.getPrettyDates();
+  dataContext.transactionDate = moment( booking.transactionDate ).format('DD.MM.YYYY');
+  dataContext.isInvoice = booking.paymentMethod === 'Rechnung';
+  console.log(dataContext);
+
   var html = Spacebars.toHTML(dataContext, Assets.getText('bill.html'));
   // console.log(html);
 
   // var fs      = Npm.require('fs');
-  var fileName = "/tmp/bill.pdf";
+  var filePath = "/tmp/bill.pdf";
   // Setup Webshot options
   var options = {
     "paperSize": {
       "format": "Letter",
-      // "orientation": "portrait",
       "margin": {
         top: "2cm",
         left: "1cm",
@@ -22,24 +40,22 @@ _worker = function() {
       },
     },
     siteType: 'html',
-    // phantomPath: '/usr/local/bin/phantomjs',
-    // errorIfStatusIsNot200: true
   };
-  webshot(html, fileName, options, function(err) {
+  var attachment = {
+    fileName: 'Rechnung traincrowd' + booking.customerName + '.pdf',
+    filePath: filePath,
+  };
+
+  webshot(html, filePath, options, function(err) {
     console.log('inner');
     if (err) {
       return console.log(err);
     }
+    else {
+      console.log('attachment');
+      console.log(attachment);
+      return attachment;
+    }
   });
 
 };
-
-// _generatePDF = function(html, options) {
-//   wkhtmltopdf(html, function(code, signal) {
-//     console.log('code');
-//     console.log(code);
-//     console.log('signal');
-//     console.log(signal);
-//     console.log('worked!', fs.readFileSync('out.pdf').toString());
-//   }).pipe(fs.createWriteStream('out.pdf'));
-// };

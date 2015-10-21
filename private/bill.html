@@ -8,18 +8,18 @@
   <div class="block-group"> <!-- First row -->
     <div class="b1 block" style="width:20%;">
       <p>
-        {{ #if firm }} {{ firm }} <br> {{ /if }}
-        {{ name }} <br>
-        {{ street }} {{ streetNumber }} <br>
-        {{ plz }} {{ city }} <br>
-        {{ country }} 
+        {{ #if billingAddress.firm }} {{ billingAddress.firm }} <br> {{ /if }}
+        {{ customerName }} <br>
+        {{ billingAddress.street }} {{ billingAddress.streetNumber }} <br>
+        {{ billingAddress.plz }} {{ billingAddress.city }} <br>
+        {{ billingAddress.country }} 
       </p>
     </div>
     <div class="b2 block" style="width:30%;">
       <p>
         <strong>Buchungsinformationen</strong> <br>
         Rechnungsnr:  {{ billingIndex }} <br>
-        Gebucht am:   {{ billingDate }}
+        Gebucht am:   {{ transactionDate }}
       </p>
       <p>
         <strong>Kontakt</strong> <br>
@@ -33,7 +33,7 @@
   </div>
 
   <div class="block-group">
-    Rechnung: C1)[Kurstitel] (C2)[Anbietername], C3)[Kursdatum])
+    Rechnung: Kurs: {{courseTitle}}, Trainer: {{trainerName}}, Daten: {{eventDate}}
   </div>
 
   <div class="block-group">
@@ -56,19 +56,21 @@
         <th>Einzelpreis Brutto</th>
       </tr>
       <tr>
-        <td>{{ title }}</td>
+        <td>{{ courseTitle }}</td>
         <td>{{ seats }}</td>
-        <td>100{{ placeholder }}</td>
-        <td>100{{ placeholder }} %</td>
-        <td>100{{ placeholder }}</td>
+        <td>{{ courseFeePP }}</td>
+        <td>{{ taxRate }} %</td>
+        <td>{{ courseFeePP }}</td>
       </tr>
+      {{ #if coupon }}
       <tr>
-        <td>{{ couponCode }}</td>
+        <td>{{ coupon.code }}</td>
         <td>{{ seats }}</td>
-        <td>- {{ couponAmount }}</td>
+        <td>- {{ coupon.amount }}</td>
         <td>100{{ placeholder }} %</td>
         <td>- 100{{ placeholder }},- Euro</td>
       </tr>
+      {{ /if }}
       <tr>
         <td>Summe</td>
         <td></td>
@@ -100,9 +102,15 @@
     </p>
   </div>
 
-  <div class="block-group text-center">
+  <div class="block-group">
     <p>
-      C4 [Text Rechnungsstatus]
+      {{ #if isInvoice}}
+        Bitte überweisen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer innerhalb von 7 Tagen auf folgendes Konto: <br> 
+        traincrowd UG (haftungsbeschränkt) <br>
+        Commerzbank | IBAN: DE 96 100 40 0000 5233 12700 | BIC: COBADEFFXXX
+      {{ else }}
+        Rechnungsstatus: bezahlt per Kreditkarte
+      {{ /if }}
     </p>
   </div>
 
@@ -111,26 +119,22 @@
       Wir wünschen Ihnen viel Spaß und ein inspirierendes Lernerlebnis. 
     </p>
     <p>
-      Bis zum nächsten Mal
+      Bis zum nächsten Mal,
     </p>
     <p>
       Ihr traincrowd Team
     </p>
-
   </div>
 
   <div class="block-group" style="font-size: 9px; color:gray; position:fixed; bottom:0px; left:50%; width:100%;">
-    <div class="block text-center" style="width:100%;">
-      
-    traincrowd UG (haftungsbeschränkt) | Bautzener Straße 17 | 10829 Berlin   <br>
-    +49 (0)30 3730 6174 | info@traincrowd.de  <br> <br>
+    <div class="block text-center" style="width:100%;">    
+      traincrowd UG (haftungsbeschränkt) | Bautzener Straße 17 | 10829 Berlin   <br>
+      +49 (0)30 3730 6174 | info@traincrowd.de  <br> <br>
 
-    Die traincrowd UG (haftungsbeschränkt) wird durch Elias Sagmeister und Janek Hermann-Friede vertreten.  <br>
-    Registernummer: Handelsregister 164992. Amtsgericht Charlottenburg (Berlin) <br>
+      Die traincrowd UG (haftungsbeschränkt) wird durch Elias Sagmeister und Janek Hermann-Friede vertreten.  <br>
+      Registernummer: Handelsregister 164992. Amtsgericht Charlottenburg (Berlin) <br>
     </div>
   </div>
-
-
 
 </body>
 </html>
@@ -138,12 +142,10 @@
 <style>
   .b2{margin-left: 50% !important;}
   table {
-    
     width: 100%;
     border-collapse: collapse;
   }
   td {
-    vertical-align: bottom;
     padding: 10px;
   }
   th {
