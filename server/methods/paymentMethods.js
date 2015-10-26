@@ -1,36 +1,8 @@
-let secret = Meteor.settings.paymill.livePrivateKey;
+const secret = Meteor.settings.paymill.livePrivateKey;
 paymill = paymill(secret);
 
-// test if can only be called from this file like this
-let _createUserWoPassword = function( email ) {
-  check( email, String );
-
-  if (! EMAIL_REGEX.test( email )) {
-    throw new Meteor.Error(403, noIndent( `Bitte überprüfen Sie, ob Sie eine\
-      echte Email Adresse eingegeben haben.` ) );
-  }
-
-  let userId = Accounts.createUser( { email: email } );
-  // safety belt. createUser is supposed to throw on error. send 500 error instead of sending an enrolment email with empty userid.
-  if ( ! userId ) {
-    throw new Meteor.Error(444, noIndent( `Beim Erstellung des Nutzerkontos\
-      für weitere Teilnehmer ist ein Fehler aufgetreten.` ) );
-  } else {
-    Meteor.defer( function() {
-      try {
-        Accounts.sendEnrollmentEmail( userId );
-      } catch ( error ) {
-        console.log( 'ERROR: sendEnrollmentEmail' );
-        console.log( 'userId: ' + userId );
-        console.log( error );
-      }
-    });
-  }
-  return userId;
-};
-
 Meteor.methods({
-  createTransaction: function( options ) {
+  createTransaction( options ) {
     check(options, {
       token: NonEmptyString,
       amount: Number,
@@ -39,11 +11,12 @@ Meteor.methods({
       additionalParticipants: [ String ], // the array of emails for the other participants
     });
 
-    if (! this.userId) {
+    if ( ! this.userId ) {
       throw new Meteor.Error(403, 'Sie müssen eingelogged sein');
     }
 
-    let seats = parseInt(options.seats, 10);
+    let bookingId = options.bookingId;
+    let seats = parseInt( options.seats, 10 );
     if ( seats < 1 ) {
       let errMsg = 'Anzahl der Kursplätze muss größer gleich 1 sein.';
       throw new Meteor.Error( 403, errMsg );
@@ -55,9 +28,7 @@ Meteor.methods({
     }
 
     let fields = { eventId: 1, course: 1, courseFeePP: 1, coupon: 1 };
-    let booking = Bookings.findOne(
-      { _id: options.bookingId }, { fields: fields }
-    );
+    let booking = Bookings.findOne( { _id: bookingId }, { fields: fields } );
     checkExistance( booking, 'Buchung', _.omit( fields, 'coupon' ) );
 
     let couponAmount = booking.coupon && booking.coupon.amount || 0;
@@ -91,25 +62,22 @@ Meteor.methods({
       // register the other ones if there are any
       if ( seats > 1 ) {
         // look up users by email or create new users
-        for ( let additionalParticipant in options.additionalParticipants ) {
-          let user = Meteor.users.findOne(
-            { 'emails.address': additionalParticipant }, { fields: { _id: 1 } }
-          );
+        for ( let email of options.additionalParticipants ) {
+          let user = Meteor.users.findOne( { 'emails.address': email }, {
+            fields: { _id: 1 },
+          });
           if ( user ) {
             newParticipants.push( user._id );
           } else {
-            newParticipants.push(
-              _createUserWoPassword( additionalParticipant )
-            );
+            newParticipants.push( _createUserWoPassword( email ) );
           }
         }
       }
 
       // add them to current.participants
-      Current.update(
-        { _id: currentId },
-        { $push: { participants: { $each: newParticipants } } }
-      );
+      Current.update( { _id: currentId }, {
+        $push: { participants: { $each: newParticipants } },
+      });
 
       // synchronous paymill call
       let paymillCreateTransactionSync = Meteor.wrapAsync(
@@ -124,13 +92,13 @@ Meteor.methods({
           currency: 'EUR',
           token: options.token,
           description: noIndent( `user: ${this.userId} ${user.getName()};\
-            booking: ${booking._id}` ),
+            booking: ${bookingId}` ),
         });
 
         // update booking
         let modifier = {
           transaction: result.data.id,
-          transactionDate: new Date(result.data.created_at * 1000), // unix timestamp is in sec, need millisec, hence * 1000
+          transactionDate: new Date( result.data.created_at * 1000 ), // unix timestamp is in sec, need millisec, hence * 1000
           amount: result.data.amount / 100,
           bookingStatus: 'completed',
           seats: seats,
@@ -141,51 +109,51 @@ Meteor.methods({
         }
 
         // non-blocking coz with callback, also error doesnt invoke catch, which is good coz money is with us
-        Bookings.update(
-          { _id: booking._id }, { $set: modifier }, function( error ) {
-            if ( error ) {
-              console.log( error );
-              console.log( 'modifier: ' + modifier );
-              console.log( 'booking-id: ' + booking._id );
-              console.log( 'event-id: ' + currentId );
-              console.log( 'user-id: ' + this.userId );
-            }
+        Bookings.update( { _id: bookingId }, { $set: modifier }, ( error ) => {
+          if ( error ) {
+            console.log( error );
+            console.log( 'modifier: ' + modifier );
+            console.log( 'booking-id: ' + bookingId );
+            console.log( 'event-id: ' + currentId );
+            console.log( 'user-id: ' + this.userId );
           }
-        );
+        });
 
         // inform participants via email
-        for ( let newParticipant in newParticipants ) {
-          let options = {
+        for ( let newParticipant of newParticipants ) {
+          let args = {
             course: course._id,
             userId: newParticipant,
-            bookingId: booking._id,
+            bookingId: bookingId,
             attachBill: true,
           };
-          sendBookingConfirmationEmail( options );
+          sendBookingConfirmationEmail( args );
         }
 
         // check if course is full now:
         if ( afterBooking === course.maxParticipants ) {
           // generate token for trainer to confirm the event
-          let token = Random.hexString(64); 
+          let token = Random.hexString(64);
           // save in current
-          Current.update(
-            { _id: currentId }, { $set: { token: token } }, function( error ) {
-              if ( error ) {
-                console.log( error );
-              } else {
-                // inform trainer (owner) that current event is full so that he can confirm the event
-                Meteor.call('sendCourseFullTrainerEmail',
-                  { currentId: currentId, course: course._id, token: token },
-                  function( error ) {
-                    if ( error ) {
-                      console.log( error );
-                    }
-                  }
-                );
-              }
+          Current.update( { _id: currentId }, {
+            $set: { token: token },
+          }, ( error ) => {
+            if ( error ) {
+              console.log( error );
+            } else {
+              // inform trainer (owner) that current event is full so that he can confirm the event
+              let args = {
+                currentId: currentId,
+                course: course._id,
+                token: token,
+              };
+              Meteor.call('sendCourseFullTrainerEmail', args, ( error ) => {
+                if ( error ) {
+                  console.log( error );
+                }
+              });
             }
-          );
+          });
         }
         return result;
       } catch ( error ) {
@@ -201,18 +169,19 @@ Meteor.methods({
       throw new Meteor.Error('Event ist leider mittlerweile schon ausgebucht!');
     }
   },
-  createInvoice: function( options ) {
+  createInvoice( options ) {
     check(options, {
       bookingId: NonEmptyString,
       seats: Number,
       additionalParticipants: [ String ], // the array of emails for the other participants
     });
 
-    if (! this.userId) {
+    if ( ! this.userId ) {
       throw new Meteor.Error(403, 'Sie müssen eingelogged sein');
     }
 
-    let seats = parseInt(options.seats, 10);
+    let bookingId = options.bookingId;
+    let seats = parseInt( options.seats, 10 );
     if ( seats < 1 ) {
       let errMsg = 'Anzahl der Kursplätze muss größer gleich 1 sein.';
       throw new Meteor.Error( 403, errMsg );
@@ -224,9 +193,7 @@ Meteor.methods({
     }
 
     let fields = { eventId: 1, course: 1, courseFeePP: 1 };
-    let booking = Bookings.findOne(
-      { _id: options.bookingId }, { fields: fields }
-    );
+    let booking = Bookings.findOne( { _id: bookingId }, { fields: fields } );
     checkExistance( booking, 'Buchung', fields );
 
     let currentId = booking.eventId;
@@ -250,25 +217,22 @@ Meteor.methods({
       // register the other ones if there are any
       if ( seats > 1 ) {
         // create new users
-        for ( let additionalParticipant in options.additionalParticipants) {
+        for ( let email of options.additionalParticipants) {
           let user = Meteor.users.findOne(
-            { 'emails.address': additionalParticipant }, { fields: { _id: 1 } }
+            { 'emails.address': email }, { fields: { _id: 1 } }
           );
           if ( user ) {
             newParticipants.push( user._id );
           } else {
-            newParticipants.push(
-              _createUserWoPassword( additionalParticipant )
-            );
+            newParticipants.push( _createUserWoPassword( email ) );
           }
         }
       }
 
       // add them to current.participants
-      Current.update(
-        { _id: currentId },
-        { $push: { participants: { $each: newParticipants } } }
-      );
+      Current.update( { _id: currentId }, {
+        $push: { participants: { $each: newParticipants } },
+      });
 
       // update booking
       let modifier = {
@@ -283,27 +247,25 @@ Meteor.methods({
         modifier.additionalCustomers = options.additionalParticipants;
       }
 
-      // non-blocking coz with callback, also error doesnt end methods
-      Bookings.update(
-        { _id: booking._id }, { $set: modifier }, function( error ) {
-          if ( error ) {
-            console.log( error );
-            console.log( 'booking-id: ' + booking._id );
-            console.log( 'event-id: ' + currentId );
-            console.log( 'user-id: ' + this.userId );
-          }
+      // non-blocking coz with callback, alsoerrordoesnt end methods
+      Bookings.update( { _id: bookingId }, { $set: modifier }, ( error ) => {
+        if ( error ) {
+          console.log( error );
+          console.log( 'booking-id: ' + bookingId );
+          console.log( 'event-id: ' + currentId );
+          console.log( 'user-id: ' + this.userId );
         }
-      );
+      });
 
       // inform participants via email
-      for ( let newParticipant in newParticipants ) {
-        let options = {
+      for ( let newParticipant of newParticipants ) {
+        let args = {
           course: course._id,
           userId: newParticipant,
-          bookingId: booking._id,
+          bookingId: bookingId,
           attachBill: true,
         };
-        sendBookingConfirmationEmail( options );
+        sendBookingConfirmationEmail( args );
       }
 
       // check if course is full now:
@@ -311,32 +273,33 @@ Meteor.methods({
         // generate token for trainer to confirm the event
         let token = Random.hexString(64);
         // save in current
-        Current.update(
-          { _id: currentId }, { $set: { token: token } }, function( error ) {
-            if ( error ) {
-              console.log( error );
-            } else {
-              // inform trainer (owner) that current event is full so that he can confirm the event
-              Meteor.call('sendCourseFullTrainerEmail',
-                { currentId: currentId, course: course._id, token: token },
-                function( error ) {
-                  if ( error ) {
-                    console.log( error );
-                  }
-                }
-              );
-            }
+        Current.update( { _id: currentId }, {
+          $set: { token: token },
+        }, ( error ) => {
+          if ( error ) {
+            console.log( error );
+          } else {
+            // inform trainer (owner) that current event is full so that he can confirm the event
+            let args = {
+              currentId: currentId,
+              course: course._id,
+              token: token,
+            };
+            Meteor.call('sendCourseFullTrainerEmail', args, ( error ) => {
+              if ( error ) {
+                console.log( error );
+              }
+            });
           }
-        );
+        });
       }
-      return;
     } else {
       throw new Meteor.Error('Event ist leider mittlerweile schon ausgebucht!');
     }
   },
-  enrollFreeEvent: function(options) {
+  enrollFreeEvent( options ) {
     check(options, {
-      currentId: NonEmptyString
+      currentId: NonEmptyString,
     });
 
     if ( ! this.userId ) {
@@ -360,41 +323,70 @@ Meteor.methods({
     let afterBooking = current.participants.length;
 
     if ( afterBooking <= course.maxParticipants ) {
-      Current.update(
-        { _id: currentId }, { $push: { participants: this.userId } }
-      );
-      let options = {
+      Current.update( { _id: currentId }, {
+        $push: { participants: this.userId },
+      });
+      let args = {
         course: course._id,
         userId: this.userId,
         attachBill: false,
       };
-      sendBookingConfirmationEmail( options );
+      sendBookingConfirmationEmail( args );
       // check if course is full now:
       if ( afterBooking === course.maxParticipants ) {
         // generate token for trainer to confirm the event
         let token = Random.hexString(64);
         // save in current
-        Current.update(
-          { _id: currentId }, { $set: { token: token } }, function( error ) {
-            if ( error ) {
-              console.log( error );
-            } else {
-              // inform trainer (owner) that current event is full so that he can confirm the event
-              Meteor.call('sendCourseFullTrainerEmail',
-                { currentId: currentId, course: course._id, token: token },
-                function( error ) {
-                  if ( error ) {
-                    console.log( error );
-                  }
-                }
-              );
-            }
+        Current.update( { _id: currentId }, {
+          $set: { token: token },
+        }, ( error ) => {
+          if ( error ) {
+            console.log( error );
+          } else {
+            // inform trainer (owner) that current event is full so that he can confirm the event
+            args = {
+              currentId: currentId,
+              course: course._id,
+              token: token,
+            };
+            Meteor.call('sendCourseFullTrainerEmail', args, ( error ) => {
+              if ( error ) {
+                console.log( error );
+              }
+            });
           }
-        );
+        });
       }
-    }
-    else {
+    } else {
       throw new Meteor.Error('Event ist leider mittlerweile schon ausgebucht!');
     }
   },
 });
+
+// can only be called from this file like this
+function _createUserWoPassword( email ) {
+  check(email, String);
+
+  if ( ! EMAIL_REGEX.test( email ) ) {
+    throw new Meteor.Error(403, noIndent( `Bitte überprüfen Sie, ob Sie eine\
+      echte Email Adresse eingegeben haben.` ) );
+  }
+
+  let userId = Accounts.createUser( { email: email } );
+  // safety belt. createUser is supposed to throw on error. send 500errorinstead of sending an enrolment email with empty userid.
+  if ( ! userId ) {
+    throw new Meteor.Error(444, noIndent( `Beim Erstellung des Nutzerkontos\
+      für weitere Teilnehmer ist ein Fehler aufgetreten.` ) );
+  } else {
+    Meteor.defer( function() {
+      try {
+        Accounts.sendEnrollmentEmail( userId );
+      } catch ( error ) {
+        console.log( 'ERROR: sendEnrollmentEmail' );
+        console.log( 'userId: ' + userId );
+        console.log( error );
+      }
+    });
+  }
+  return userId;
+}
