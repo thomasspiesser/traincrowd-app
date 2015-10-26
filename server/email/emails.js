@@ -1,35 +1,3 @@
-Meteor.startup(function() {
-
-  Accounts.emailTemplates.from = 'traincrowd <info@traincrowd.de>';
-
-  // The public name of your application. Defaults to the DNS name of the application (eg: awesome.meteor.com).
-  Accounts.emailTemplates.siteName = 'traincrowd';
-
-  // A Function that takes a user object and returns a String for the subject line of the email.
-  Accounts.emailTemplates.verifyEmail.subject = function( user ) {
-    return 'Bitte bestätigen Sie noch Ihre Email Adresse';
-  };
-  // A Function that takes a user object and a url, and returns the body text for the email.
-  // Note: if you need to return HTML instead, use Accounts.emailTemplates.verifyEmail.html
-  Accounts.emailTemplates.verifyEmail.text = function( user, url ) {
-    return 'Bitte klicken Sie den folgenden link an, um Ihre Email Adresse zu bestätigen: ' + url;
-  };
-
-  Accounts.emailTemplates.resetPassword.subject = function( user ) {
-    return 'Passwort vergessen?';
-  };
-  Accounts.emailTemplates.resetPassword.text = function( user, url ) {
-    return 'Guten Tag ' + user.getName() + ',\n\n' + 'Um Ihr Passwort zurückzusetzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Vielen Dank.\n';
-  };
-  Accounts.emailTemplates.enrollAccount.subject = function( user ) {
-    return "Es wurde für Sie auf " + Accounts.emailTemplates.siteName + " ein Account angelegt";
-  };
-  Accounts.emailTemplates.enrollAccount.text = function( user, url ) {
-    url = url.replace('#/', '');
-    return 'Hallo.\n\n' + 'Um Ihren neuen Account zu Nutzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Viel Spass.\n';
-  };
-});
-
 Meteor.methods({
   sendRequestPublicationEmail: function (options) {
     // check done in method setCoursePublishRequest
@@ -406,11 +374,14 @@ var _deferSendEmail = function ( options ) {
   });
 };
 
-_sendEmail = function (options) {
-  Email.send({
+_sendEmail = function( options ) {
+  var email = {
     to: options.to,
     from: 'info@traincrowd.de',
     subject: options.subject,
     html: options.html
-  });
+  };
+  if ( options.attachments )
+    email.attachments = options.attachments;
+  Email.send( email );
 };
