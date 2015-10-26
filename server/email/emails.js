@@ -320,7 +320,7 @@ sendBookingConfirmationEmail = function ( options ) {
   check( options, {
     course: String,
     userId: String,
-    bookingId: String,
+    bookingId: Match.optional( String ),
     attachBill: Boolean
   });
 
