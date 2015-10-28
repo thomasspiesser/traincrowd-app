@@ -103,7 +103,7 @@ Meteor.methods({
         }
 
         // non-blocking coz with callback, also error doesnt invoke catch, which is good coz money is with us
-        Bookings.update( { _id: bookingId }, { $set: modifier }, ( error ) => {
+        Bookings.update( { _id: bookingId }, { $set: modifier }, error => {
           if ( error ) {
             console.log( error );
             console.log( 'modifier: ' + modifier );
@@ -215,7 +215,7 @@ Meteor.methods({
       }
 
       // non-blocking coz with callback, also error doesnt end methods
-      Bookings.update( { _id: bookingId }, { $set: modifier }, ( error ) => {
+      Bookings.update( { _id: bookingId }, { $set: modifier }, error => {
         if ( error ) {
           console.log( error );
           console.log( 'booking-id: ' + bookingId );
@@ -266,7 +266,6 @@ Meteor.methods({
     }
 
     let afterBooking = current.participants.length;
-
     if ( afterBooking <= course.maxParticipants ) {
       Current.update( { _id: currentId }, {
         $push: { participants: this.userId },
@@ -317,20 +316,15 @@ function _createUserWoPassword( email ) {
 function _requestConfirmation( currentId ) {
   // generate token for trainer to confirm the event
   let token = Random.hexString(64);
-  Current.update( { _id: currentId }, {
-    $set: { token: token },
-  }, ( error ) => {
-    if ( error ) {
-      console.log( error );
-    } else {
+  Current.update( { _id: currentId }, { $set: { token: token } }, error => {
+    if ( error ) console.log( error );
+    else {
       // inform trainer (owner) that current event is full so that he can confirm the event
       Meteor.call('sendCourseFullTrainerEmail', {
         currentId: currentId,
         token: token,
-      }, ( error ) => {
-        if ( error ) {
-          console.log( error );
-        }
+      }, error => {
+        if ( error ) console.log( error );
       });
     }
   });
