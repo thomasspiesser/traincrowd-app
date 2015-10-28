@@ -14,7 +14,7 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
       paymentMethod: 1,
       transactionDate: 1,
     };
-    let booking = Bookings.findOne( { _id: bookingId }, { fields: fields } );
+    const booking = Bookings.findOne( { _id: bookingId }, { fields: fields } );
     let pass = checkExistanceSilent( booking, 'Buchung', bookingId,
       _.omit( fields, 'coupon' ) );
 
@@ -23,21 +23,41 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
     }
 
     fields = { taxRate: 1 };
-    let course = Courses.findOne( { _id: booking.course }, { fields: fields } );
+    const course = Courses.findOne( { _id: booking.course }, {
+      fields: fields,
+    });
     pass = checkExistanceSilent( course, 'course', booking.course, fields );
 
     if ( ! pass ) {
       return;
     }
 
-    let dataContext = _.extend( booking, course );
+    function _format( arg ) { return arg.toFixed(2).replace('.', ','); }
 
-    let utils = Utils.findOne();
+    let dataContext = _.extend( booking, course );
+    const utils = Utils.findOne();
     dataContext.billingIndex = utils.billingCount;
     dataContext.eventDate = booking.getPrettyDates();
     dataContext.transactionDate = moment( booking.transactionDate )
     .format('DD.MM.YYYY');
     dataContext.isInvoice = booking.paymentMethod === 'Rechnung';
+    dataContext.courseFeePPWoTax =
+      _format( booking.courseFeePP / ( 100 + course.taxRate ) * 100 );
+    dataContext.subtotal = booking.seats * booking.courseFeePP;
+
+    if ( booking.coupon ) {
+      dataContext.couponAmountWoTax =
+        _format( booking.coupon.amount / ( 100 + course.taxRate ) * 100 );
+      dataContext.coupontotal = booking.seats * booking.coupon.amount;
+      dataContext.total = dataContext.subtotal - dataContext.coupontotal;
+    } else {
+      dataContext.total = dataContext.subtotal;
+    }
+    dataContext.tax = _format( dataContext.total - dataContext.total /
+      ( 100 + course.taxRate ) * 100 );
+    dataContext.nettototal =
+      _format( dataContext.total / ( 100 + course.taxRate ) * 100 );
+
     console.log(dataContext);
 
     let html = Spacebars.toHTML(dataContext, Assets.getText('bill.html'));
@@ -62,8 +82,8 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
       filePath: filePath,
     };
 
-    webshot(html, filePath, options, function( error ) {
-      if (error) {
+    webshot(html, filePath, options, error => {
+      if ( error ) {
         console.log( `ERROR creating bill for ${booking.customerName}` );
         console.log( error );
         return false;
@@ -76,10 +96,10 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
         // delete the file with fs.unlink(filePath) - but they get deleted
         // anyways on redeploy so...
         Utils.update( { _id: utils._id }, { $inc: { billingCount: 1 } } );
-      } catch ( err ) {
+      } catch ( error ) {
         console.log( emailOptions.to );
         console.log( emailOptions.subject );
-        console.log( err );
+        console.log( error );
       }
     });
   });

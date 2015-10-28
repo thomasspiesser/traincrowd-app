@@ -6,7 +6,7 @@
 <body>
   <img src="{{imgPath}}/Kurs.jpg" alt="">
   <div class="block-group"> <!-- First row -->
-    <div class="b1 block" style="width:20%;">
+    <div class="b1 block" style="width:30%;">
       <p>
         {{ #if billingAddress.firm }} {{ billingAddress.firm }} <br> {{ /if }}
         {{ customerName }} <br>
@@ -32,8 +32,8 @@
     </div>
   </div>
 
-  <div class="block-group">
-    Rechnung: Kurs: {{courseTitle}}, Trainer: {{trainerName}}, Daten: {{eventDate}}
+  <div class="block-group" style="margin-top:20px;">
+    <strong>Rechnung: {{courseTitle}} ({{trainerName}}), {{eventDate}}</strong>
   </div>
 
   <div class="block-group">
@@ -50,59 +50,49 @@
     <table class="table">
       <tr>
         <th>Veranstaltung</th>
-        <th>Anzahl</th>
-        <th>Einzelpreis Netto</th>
+        <th>Einzelpreis <br> Netto</th>
         <th>MwSt</th>
-        <th>Einzelpreis Brutto</th>
+        <th>Einzelpreis <br> Brutto</th>
+        <th>Anzahl</th>
+        <th>Summe</th>
       </tr>
       <tr>
         <td>{{ courseTitle }}</td>
-        <td>{{ seats }}</td>
-        <td>{{ courseFeePP }}</td>
+        <td class="text-right">{{ courseFeePPWoTax }} Euro</td>
         <td>{{ taxRate }} %</td>
-        <td>{{ courseFeePP }}</td>
+        <td class="text-right">{{ courseFeePP }},00 Euro</td>
+        <td class="text-right">{{ seats }}</td>
+        <td class="text-right">{{ subtotal }},00 Euro</td>
       </tr>
       {{ #if coupon }}
-      <tr>
-        <td>{{ coupon.code }}</td>
-        <td>{{ seats }}</td>
-        <td>- {{ coupon.amount }}</td>
-        <td>100{{ placeholder }} %</td>
-        <td>- 100{{ placeholder }},- Euro</td>
-      </tr>
+        <tr>
+          <td>Gutschein: {{ coupon.code }}</td>
+          <td class="text-right">-{{ couponAmountWoTax }} Euro</td>
+          <td>{{ taxRate }} %</td>
+          <td class="text-right">-{{ coupon.amount }},00 Euro</td>
+          <td class="text-right">{{ seats }}</td>
+          <td class="text-right">-{{ coupontotal }},00 Euro</td>
+        </tr>
       {{ /if }}
-      <tr>
-        <td>Summe</td>
-        <td></td>
-        <td>100{{ placeholder }}</td>
-        <td>100{{ placeholder }} %</td>
-        <td>100{{ placeholder }},- Euro</td>
-      </tr>
-      <tr>
-        <td>Enthaltene USt. (19%)</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>100{{ placeholder }},- Euro</td>
-      </tr>
-      <tr>
+      <tr style="border-top: 3px double black;">
         <td>Rechnungsbetrag</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>100{{ placeholder }},- Euro</td>
+        <td class="text-right" colspan="5">{{ total }},00 Euro</td>
       </tr>
     </table>
   </div>
 
+  <div class="block-group">
+    <p style="font-style: italic;">
+      Der Rechnungsbetrag setzt sich zusammen aus Netto {{ nettototal }} Euro zuzüglich {{ tax }} Euro
+      MwSt.
+    </p>
+  </div>
 
   <div class="block-group">
     <p>
       Die traincrowd UG übernimmt im Namen und Auftrag des Anbieters die Rechnungsstellung sowie die Zahlungsabwicklung.
     </p>
-  </div>
 
-  <div class="block-group">
     <p>
       {{ #if isInvoice}}
         Bitte überweisen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer innerhalb von 7 Tagen auf folgendes Konto: <br> 
@@ -140,7 +130,7 @@
 </html>
 
 <style>
-  .b2{margin-left: 50% !important;}
+  .b2{margin-left: 40% !important;}
   table {
     width: 100%;
     border-collapse: collapse;
@@ -157,6 +147,9 @@
   }
   .text-center {
     text-align: center;
+  }
+  .text-right {
+    text-align: right;
   }
   /*! PocketGrid 1.1.0
   * Copyright 2013 Arnaud Leray
