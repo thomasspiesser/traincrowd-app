@@ -202,13 +202,19 @@ Meteor.methods({
   sendCourseFullTrainerEmail: function (options) {
     check(options, {
       currentId: String,
-      course: String,
       token: String
     });
 
-    var fields = { title: 1, slug: 1, owner: 1 };
-    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
-    var pass = checkExistanceSilent( course, "course", options.course, fields );
+    var fields = { courseDate: 1, course: 1 };
+    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
+    pass = checkExistanceSilent( current, "event", options.currentId, fields );
+
+    if ( ! pass )
+      return;
+
+    fields = { title: 1, slug: 1, owner: 1 };
+    var course = Courses.findOne( { _id: current.course }, { fields: fields } ); 
+    var pass = checkExistanceSilent( course, "course", current.course, fields );
 
     if ( ! pass )
       return;
@@ -220,13 +226,6 @@ Meteor.methods({
     }
     var email = user.getEmail();
     var name = user.getName();
-
-    fields = { courseDate: 1 };
-    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
-    pass = checkExistanceSilent( current, "event", options.currentId, fields );
-
-    if ( ! pass )
-      return;
 
     var url = Meteor.absoluteUrl('course/' + course.slug + '/confirm-event/' + options.token);
     var dataContext = {
