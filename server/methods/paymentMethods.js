@@ -52,92 +52,91 @@ Meteor.methods({
 
     let afterBooking = current.participants.length + seats;
     // check if there are enough seats available
-    if ( afterBooking <= course.maxParticipants ) {
-      // good, there are enough seats available in this course
-      // here i need to add the participants to block the course-seats already for time of payment and remove the participants again if payment is no good ( error ) to unblock seats (let others book them)
-      let newParticipants = [ this.userId ];
-      // register the other ones if there are any
-      if ( seats > 1 ) {
-        // look up users by email or create new users
-        for ( let email of options.additionalParticipants ) {
-          let user = Meteor.users.findOne( { 'emails.address': email }, {
-            fields: { _id: 1 },
-          });
-          if ( user ) newParticipants.push( user._id );
-          else newParticipants.push( _createUserWoPassword( email ) );
-        }
+    if ( afterBooking > course.maxParticipants ) {
+      throw new Meteor.Error('Es sind nicht mehr genug Plätze frei.');
+    }
+    // good, there are enough seats available in this course
+    // here i need to add the participants to block the course-seats already for time of payment and remove the participants again if payment is no good ( error ) to unblock seats (let others book them)
+    let newParticipants = [ this.userId ];
+    // register the other ones if there are any
+    if ( seats > 1 ) {
+      // look up users by email or create new users
+      for ( let email of options.additionalParticipants ) {
+        let user = Meteor.users.findOne( { 'emails.address': email }, {
+          fields: { _id: 1 },
+        });
+        if ( user ) newParticipants.push( user._id );
+        else newParticipants.push( _createUserWoPassword( email ) );
       }
+    }
 
-      // add them to current.participants
-      Current.update( { _id: currentId }, {
-        $push: { participants: { $each: newParticipants } },
+    // add them to current.participants
+    Current.update( { _id: currentId }, {
+      $push: { participants: { $each: newParticipants } },
+    });
+
+    // synchronous paymill call
+    let paymillCreateTransactionSync = Meteor.wrapAsync(
+      paymill.transactions.create
+    );
+
+    try {
+      let username = Meteor.users.findOne( this.userId ).getName();
+
+      let result = paymillCreateTransactionSync({
+        amount: options.amount,
+        currency: 'EUR',
+        token: options.token,
+        description: noIndent( `user: ${this.userId} ${username};\
+          booking: ${bookingId}` ),
       });
 
-      // synchronous paymill call
-      let paymillCreateTransactionSync = Meteor.wrapAsync(
-        paymill.transactions.create
-      );
+      // update booking
+      let modifier = {
+        transaction: result.data.id,
+        transactionDate: new Date( result.data.created_at * 1000 ), // unix timestamp is in sec, need millisec, hence * 1000
+        amount: result.data.amount / 100,
+        bookingStatus: 'completed',
+        seats: seats,
+      };
 
-      try {
-        let username = Meteor.users.findOne( this.userId ).getName();
-
-        let result = paymillCreateTransactionSync({
-          amount: options.amount,
-          currency: 'EUR',
-          token: options.token,
-          description: noIndent( `user: ${this.userId} ${username};\
-            booking: ${bookingId}` ),
-        });
-
-        // update booking
-        let modifier = {
-          transaction: result.data.id,
-          transactionDate: new Date( result.data.created_at * 1000 ), // unix timestamp is in sec, need millisec, hence * 1000
-          amount: result.data.amount / 100,
-          bookingStatus: 'completed',
-          seats: seats,
-        };
-
-        if ( seats > 1 ) {
-          modifier.additionalCustomers = options.additionalParticipants;
-        }
-
-        // non-blocking coz with callback, also error doesnt invoke catch, which is good coz money is with us
-        Bookings.update( { _id: bookingId }, { $set: modifier }, error => {
-          if ( error ) {
-            console.log( error );
-            console.log( 'modifier: ' + modifier );
-            console.log( 'booking-id: ' + bookingId );
-            console.log( 'event-id: ' + currentId );
-            console.log( 'user-id: ' + this.userId );
-          }
-        });
-
-        // inform participants via email
-        for ( let userId of newParticipants ) {
-          sendBookingConfirmationEmail({
-            course: courseId,
-            userId: userId,
-            bookingId: bookingId,
-            attachBill: true,
-          });
-        }
-
-        // check if course is full now:
-        if ( afterBooking === course.maxParticipants ) {
-          _requestConfirmation( currentId );
-        }
-        return result;
-      } catch ( error ) {
-        console.log( error );
-        // remove Participant again - coz payment failed - careful this operation will pull ALL participants with this Id from the list
-        Current.update( { _id: currentId }, {
-          $pull: { participants: { $in: newParticipants } },
-        });
-        throw new Meteor.Error( error.message );
+      if ( seats > 1 ) {
+        modifier.additionalCustomers = options.additionalParticipants;
       }
-    } else {
-      throw new Meteor.Error('Event ist leider mittlerweile schon ausgebucht!');
+
+      // non-blocking coz with callback, also error doesnt invoke catch, which is good coz money is with us
+      Bookings.update( { _id: bookingId }, { $set: modifier }, error => {
+        if ( error ) {
+          console.log( error );
+          console.log( 'modifier: ' + modifier );
+          console.log( 'booking-id: ' + bookingId );
+          console.log( 'event-id: ' + currentId );
+          console.log( 'user-id: ' + this.userId );
+        }
+      });
+
+      // inform participants via email
+      for ( let userId of newParticipants ) {
+        sendBookingConfirmationEmail({
+          course: courseId,
+          userId: userId,
+          bookingId: bookingId,
+          attachBill: true,
+        });
+      }
+
+      // check if course is full now:
+      if ( afterBooking === course.maxParticipants ) {
+        _requestConfirmation( currentId );
+      }
+      return result;
+    } catch ( error ) {
+      console.log( error );
+      // remove Participant again - coz payment failed - careful this operation will pull ALL participants with this Id from the list
+      Current.update( { _id: currentId }, {
+        $pull: { participants: { $in: newParticipants } },
+      });
+      throw new Meteor.Error( error.message );
     }
   },
   createInvoice( options ) {
@@ -178,68 +177,64 @@ Meteor.methods({
     checkExistance( course, 'Kurs', fields );
 
     let afterBooking = current.participants.length + seats;
+    if ( afterBooking > course.maxParticipants ) {
+      throw new Meteor.Error('Es sind nicht mehr genug Plätze frei.');
+    }
 
-    // check if event is already booked out
-    if ( afterBooking <= course.maxParticipants ) {
-      // good, there are enough seats available in this course
-      // here i need to add the participants to block the course-seats already for time of payment and remove the participants again if payment is no good ( error ) to unblock seats (let others book them)
-      let newParticipants = [ this.userId ];
-      // register the other ones if there are any
-      if ( seats > 1 ) {
-        // create new users
-        for ( let email of options.additionalParticipants) {
-          let user = Meteor.users.findOne(
-            { 'emails.address': email }, { fields: { _id: 1 } }
-          );
-          if ( user ) newParticipants.push( user._id );
-          else newParticipants.push( _createUserWoPassword( email ) );
-        }
-      }
-
-      // add them to current.participants
-      Current.update( { _id: currentId }, {
-        $push: { participants: { $each: newParticipants } },
-      });
-
-      // update booking
-      let modifier = {
-        transaction: 'invoice open',
-        transactionDate: new Date(),
-        amount: 0,
-        bookingStatus: 'completed',
-        seats: seats,
-      };
-
-      if ( seats > 1 ) {
-        modifier.additionalCustomers = options.additionalParticipants;
-      }
-
-      // non-blocking coz with callback, also error doesnt end methods
-      Bookings.update( { _id: bookingId }, { $set: modifier }, error => {
-        if ( error ) {
-          console.log( error );
-          console.log( 'booking-id: ' + bookingId );
-          console.log( 'event-id: ' + currentId );
-          console.log( 'user-id: ' + this.userId );
-        }
-      });
-
-      // inform participants via email
-      for ( let userId of newParticipants ) {
-        sendBookingConfirmationEmail({
-          course: courseId,
-          userId: userId,
-          bookingId: bookingId,
-          attachBill: true,
+    let newParticipants = [ this.userId ];
+    // register the other ones if there are any
+    if ( seats > 1 ) {
+      // create new users
+      for ( let email of options.additionalParticipants ) {
+        let user = Meteor.users.findOne( { 'emails.address': email }, {
+          fields: { _id: 1 },
         });
+        if ( user ) newParticipants.push( user._id );
+        else newParticipants.push( _createUserWoPassword( email ) );
       }
+    }
 
-      // check if course is full now:
-      if ( afterBooking === course.maxParticipants ) {
-        _requestConfirmation( currentId );
+    // add them to current.participants
+    Current.update( { _id: currentId }, {
+      $push: { participants: { $each: newParticipants } },
+    });
+
+    // update booking
+    let modifier = {
+      transaction: 'invoice open',
+      transactionDate: new Date(),
+      amount: 0,
+      bookingStatus: 'completed',
+      seats: seats,
+    };
+
+    if ( seats > 1 ) {
+      modifier.additionalCustomers = options.additionalParticipants;
+    }
+
+    // non-blocking coz with callback, also error doesnt end methods
+    Bookings.update( { _id: bookingId }, { $set: modifier }, error => {
+      if ( error ) {
+        console.log( error );
+        console.log( 'booking-id: ' + bookingId );
+        console.log( 'event-id: ' + currentId );
+        console.log( 'user-id: ' + this.userId );
       }
-    } else {
-      throw new Meteor.Error('Event ist leider mittlerweile schon ausgebucht!');
+    });
+
+    // inform participants via email
+    for ( let userId of newParticipants ) {
+      sendBookingConfirmationEmail({
+        course: courseId,
+        userId: userId,
+        bookingId: bookingId,
+        attachBill: true,
+      });
+    }
+
+    // check if course is full now:
+    if ( afterBooking === course.maxParticipants ) {
+      _requestConfirmation( currentId );
     }
   },
   enrollFreeEvent( options ) {
@@ -266,21 +261,20 @@ Meteor.methods({
     }
 
     let afterBooking = current.participants.length;
-    if ( afterBooking <= course.maxParticipants ) {
-      Current.update( { _id: currentId }, {
-        $push: { participants: this.userId },
-      });
-      sendBookingConfirmationEmail({
-        course: courseId,
-        userId: this.userId,
-        attachBill: false,
-      });
-      // check if course is full now:
-      if ( afterBooking === course.maxParticipants ) {
-        _requestConfirmation( currentId );
-      }
-    } else {
-      throw new Meteor.Error('Event ist leider mittlerweile schon ausgebucht!');
+    if ( afterBooking > course.maxParticipants ) {
+      throw new Meteor.Error('Es sind nicht mehr genug Plätze frei.');
+    }
+    Current.update( { _id: currentId }, {
+      $push: { participants: this.userId },
+    });
+    sendBookingConfirmationEmail({
+      course: courseId,
+      userId: this.userId,
+      attachBill: false,
+    });
+    // check if course is full now:
+    if ( afterBooking === course.maxParticipants ) {
+      _requestConfirmation( currentId );
     }
   },
 });
