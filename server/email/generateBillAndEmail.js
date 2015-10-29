@@ -37,10 +37,6 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
 
     // dataContext is dC
     let dC = _.extend( booking, course );
-    let start = moment().startOf('year')._d;
-    let end = moment().endOf('year')._d;
-    dC.billNumber = Bills.find( { createdAt: { $gte: start, $lt: end } } )
-      .count();
     dC.eventDate = booking.getPrettyDates();
     dC.transactionDate = moment( booking.transactionDate )
       .format('DD.MM.YYYY');
@@ -61,6 +57,17 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
       ( 100 + course.taxRate ) * 100 );
     dC.nettototal =
       _format( dC.total / ( 100 + course.taxRate ) * 100 );
+    let start = moment().startOf('year')._d;
+    let end = moment().endOf('year')._d;
+    dC.billNumber = Bills.find( { createdAt: { $gte: start, $lt: end } } )
+      .count();
+    // insert immediately, block that billNumber - if this failes throw
+    Bills.insert({
+      bookingId: bookingId,
+      customer: booking.customer,
+      customerName: booking.customerName,
+      number: dC.billNumber,
+    });
 
     let html = Spacebars.toHTML( dC, Assets.getText('bill.html') );
     let fileId = Random.id();
@@ -79,10 +86,6 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
       },
       siteType: 'html',
     };
-    let attachment = {
-      fileName: `Rechnung traincrowd ${booking.customerName}.pdf`,
-      filePath: filePath,
-    };
 
     webshot(html, filePath, wsOptions, error => {
       if ( error ) {
@@ -90,24 +93,16 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
         console.log( error );
         return false;
       }
-      emailOptions.attachments = [ attachment ];
+      emailOptions.attachments = [{
+        fileName: `Rechnung traincrowd ${booking.customerName}.pdf`,
+        filePath: filePath,
+      }];
       try {
         _sendEmail( emailOptions );
         emailOptions.to = 'kopie@traincrowd.de';
         _sendEmail( emailOptions );
         // delete the file with fs.unlink(filePath) - but they get deleted
         // anyways on redeploy so...
-        Bills.insert({
-          bookingId: bookingId,
-          customer: booking.customer,
-          customerName: booking.customerName,
-          number: dC.billCount,
-        }, error3 => {
-          if ( error3 ) {
-            console.log('Error on insert into Bills');
-            console.log( error3 );
-          }
-        });
       } catch ( error2 ) {
         console.log( emailOptions.to );
         console.log( emailOptions.subject );
