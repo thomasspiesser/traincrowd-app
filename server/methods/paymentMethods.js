@@ -317,8 +317,8 @@ function _requestConfirmation( currentId ) {
       Meteor.call('sendCourseFullTrainerEmail', {
         currentId: currentId,
         token: token,
-      }, error => {
-        if ( error ) console.log( error );
+      }, error2 => {
+        if ( error2 ) console.log( error2 );
       });
     }
   });

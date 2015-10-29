@@ -58,8 +58,6 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
     dataContext.nettototal =
       _format( dataContext.total / ( 100 + course.taxRate ) * 100 );
 
-    console.log(dataContext);
-
     let html = Spacebars.toHTML(dataContext, Assets.getText('bill.html'));
     let fileId = Random.id();
     let filePath = `/tmp/bill${fileId}.pdf`;
@@ -96,10 +94,10 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
         // delete the file with fs.unlink(filePath) - but they get deleted
         // anyways on redeploy so...
         Utils.update( { _id: utils._id }, { $inc: { billingCount: 1 } } );
-      } catch ( error ) {
+      } catch ( error2 ) {
         console.log( emailOptions.to );
         console.log( emailOptions.subject );
-        console.log( error );
+        console.log( error2 );
       }
     });
   });
