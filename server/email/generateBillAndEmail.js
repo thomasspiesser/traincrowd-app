@@ -85,6 +85,10 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
         },
       },
       siteType: 'html',
+      phantomConfig: {
+        'ssl-protocol': 'any',
+        // 'ignore-ssl-errors': 'true',
+      },
     };
 
     webshot(html, filePath, wsOptions, error => {
