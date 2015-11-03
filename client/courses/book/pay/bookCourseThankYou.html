@@ -3,22 +3,22 @@
     <div class="panel panel-inverted">
       <div class="row">
         <div class="col-md-12 text-center">
-          <h2>Buchung erfolgreich - Vielen Dank!</h2>
+          <h2>{{ i18n 'booking.successful' }} - {{ i18n 'thank.you' }}!</h2>
           <p>
             <strong>
-              Vielen Dank für Ihre Buchung auf traincrowd. Sie erhalten von uns in Kürze eine Email mit der Buchungsbestätigung. Sollten Sie Fragen haben, oder sollte Sie die Email nicht erreichen, wenden Sie sich bitte an <a href='mailto:info&#64;traincrowd.de'> info AT traincrowd.de</a> oder telefonisch an +49 30 37 30 61 74 (Festnetz).
+              {{{ i18n 'booking.successful.text' }}}
             </strong>
           </p>
         </div>
 
         <div class="col-md-10 col-md-offset-1">
-          <h3>Die Details Ihrer Buchung:</h3>
+          <h3>{{ i18n 'booking.details' }}:</h3>
           <p>
-            <strong>Kurstitel</strong>: <br>
+            <strong>{{ i18n 'course.course' }}</strong>: <br>
             {{ courseTitle }}
           </p>
           <p>
-            <strong>Datum</strong>:
+            <strong>{{ i18n 'date' }}</strong>:
             <ul class="comma-list">
               {{#each getPrettyDates}}
               <li>{{ this }}</li>
@@ -36,11 +36,11 @@
           </p>
           {{ /unless }}
           <p>
-            <strong>Zahlungsart</strong>: <br>
+            <strong>{{ i18n 'booking.paymentMethod' }}</strong>: <br>
             {{ paymentMethod }}
           </p>
           <p>
-            <strong>Rechnungsadresse</strong>: <br>
+            <strong>{{ i18n 'address.billing' }}</strong>: <br>
             {{ #with billingAddress }} 
               {{ #if firm }} {{ firm }} <br> {{ /if }} 
               {{ ../customerName }} <br>
@@ -57,7 +57,7 @@
 
         <div class="col-md-10 col-md-offset-1">
 
-          zurück zur <a href="{{ pathFor 'home'}}">Homepage</a>
+          {{ i18n 'back.to' }} <a href="{{ pathFor 'home'}}">Homepage</a>
 
         </div>
 
