@@ -1,35 +1,3 @@
-Meteor.startup(function() {
-
-  Accounts.emailTemplates.from = 'traincrowd <info@traincrowd.de>';
-
-  // The public name of your application. Defaults to the DNS name of the application (eg: awesome.meteor.com).
-  Accounts.emailTemplates.siteName = 'traincrowd';
-
-  // A Function that takes a user object and returns a String for the subject line of the email.
-  Accounts.emailTemplates.verifyEmail.subject = function( user ) {
-    return 'Bitte bestätigen Sie noch Ihre Email Adresse';
-  };
-  // A Function that takes a user object and a url, and returns the body text for the email.
-  // Note: if you need to return HTML instead, use Accounts.emailTemplates.verifyEmail.html
-  Accounts.emailTemplates.verifyEmail.text = function( user, url ) {
-    return 'Bitte klicken Sie den folgenden link an, um Ihre Email Adresse zu bestätigen: ' + url;
-  };
-
-  Accounts.emailTemplates.resetPassword.subject = function( user ) {
-    return 'Passwort vergessen?';
-  };
-  Accounts.emailTemplates.resetPassword.text = function( user, url ) {
-    return 'Guten Tag ' + user.getName() + ',\n\n' + 'Um Ihr Passwort zurückzusetzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Vielen Dank.\n';
-  };
-  Accounts.emailTemplates.enrollAccount.subject = function( user ) {
-    return "Es wurde für Sie auf " + Accounts.emailTemplates.siteName + " ein Account angelegt";
-  };
-  Accounts.emailTemplates.enrollAccount.text = function( user, url ) {
-    url = url.replace('#/', '');
-    return 'Hallo.\n\n' + 'Um Ihren neuen Account zu Nutzen, klicken Sie einfach auf den folgenden Link:\n\n' + url + '\n\n' + 'Viel Spass.\n';
-  };
-});
-
 Meteor.methods({
   sendRequestPublicationEmail: function (options) {
     // check done in method setCoursePublishRequest
@@ -234,13 +202,19 @@ Meteor.methods({
   sendCourseFullTrainerEmail: function (options) {
     check(options, {
       currentId: String,
-      course: String,
       token: String
     });
 
-    var fields = { title: 1, slug: 1, owner: 1 };
-    var course = Courses.findOne( { _id: options.course }, { fields: fields } ); 
-    var pass = checkExistanceSilent( course, "course", options.course, fields );
+    var fields = { courseDate: 1, course: 1 };
+    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
+    pass = checkExistanceSilent( current, "event", options.currentId, fields );
+
+    if ( ! pass )
+      return;
+
+    fields = { title: 1, slug: 1, owner: 1 };
+    var course = Courses.findOne( { _id: current.course }, { fields: fields } ); 
+    var pass = checkExistanceSilent( course, "course", current.course, fields );
 
     if ( ! pass )
       return;
@@ -252,13 +226,6 @@ Meteor.methods({
     }
     var email = user.getEmail();
     var name = user.getName();
-
-    fields = { courseDate: 1 };
-    var current = Current.findOne( { _id: options.currentId }, { fields: fields } );
-    pass = checkExistanceSilent( current, "event", options.currentId, fields );
-
-    if ( ! pass )
-      return;
 
     var url = Meteor.absoluteUrl('course/' + course.slug + '/confirm-event/' + options.token);
     var dataContext = {
@@ -351,7 +318,9 @@ Meteor.methods({
 sendBookingConfirmationEmail = function ( options ) {
   check( options, {
     course: String,
-    userId: String
+    userId: String,
+    bookingId: Match.Optional( String ),
+    attachBill: Boolean
   });
 
   var user = Meteor.users.findOne( options.userId );
@@ -378,13 +347,15 @@ sendBookingConfirmationEmail = function ( options ) {
 
   var subject = "Buchungsbestätigung: '" + course.title +"'";
   var html = Spacebars.toHTML(dataContext, Assets.getText('bookingConfirmationEmail.html'));
-  options = { 
+  var emailOptions = { 
     to: email, 
     subject: subject, 
     html: html 
   };
-
-  _deferSendEmail( options );
+  if ( options.attachBill )
+    _deferGenerateBillAndSendEmail( emailOptions, options.bookingId );
+  else
+    _deferSendEmail( emailOptions );
 };
 
 var _deferSendEmail = function ( options ) {
@@ -402,12 +373,14 @@ var _deferSendEmail = function ( options ) {
   });
 };
 
-var _sendEmail = function (options) {
-  // can only be called in this file! 
-  Email.send({
+_sendEmail = function( options ) {
+  var email = {
     to: options.to,
     from: 'info@traincrowd.de',
     subject: options.subject,
     html: options.html
-  });
+  };
+  if ( options.attachments )
+    email.attachments = options.attachments;
+  Email.send( email );
 };

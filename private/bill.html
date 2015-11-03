@@ -1,0 +1,162 @@
+<html>
+<head>
+  <title>Rechnung traincrowd</title>
+</head>
+<body>
+  <div class="block-group"> <!-- First row -->
+    <div class="b1 block" style="width:30%;">
+      <p>
+        {{ #if billingAddress.firm }} {{ billingAddress.firm }} <br> {{ /if }}
+        {{ customerName }} <br>
+        {{ billingAddress.street }} {{ billingAddress.streetNumber }} <br>
+        {{ billingAddress.plz }} {{ billingAddress.city }} <br>
+        {{ billingAddress.country }} 
+      </p>
+    </div>
+    <div class="b2 block" style="width:30%;">
+      <p>
+        <strong>Buchungsinformationen</strong> <br>
+        Rechnungsnr: {{ billNumber }} <br>
+        Gebucht am: {{ transactionDate }}
+      </p>
+      <p>
+        <strong>Kontakt</strong> <br>
+        traincrowd UG <br>
+        Bautzener Straße 17 <br>
+        10829 Berlin, Deutschland <br>
+        <a href='mailto:info@traincrowd.de'>info@traincrowd.de</a> <br>
+        USt-IdNr.: DE299187752
+      </p>
+    </div>
+  </div>
+
+  <div class="block-group" style="margin-top:20px;">
+    <strong>Rechnung: {{courseTitle}} ({{trainerName}}), {{eventDate}}</strong>
+  </div>
+
+  <div class="block-group">
+    <p>
+      Sehr geehrte Damen und Herren,
+    </p>
+    <p>
+      vielen Dank für Ihre Buchung auf traincrowd. Wir berechnen Ihre Bestellung wie folgt:
+    </p>
+  </div>
+
+
+  <div class="block-group">
+    <table class="table">
+      <tr>
+        <th>Veranstaltung</th>
+        <th>Einzelpreis <br> Netto</th>
+        <th>MwSt</th>
+        <th>Einzelpreis <br> Brutto</th>
+        <th>Anzahl</th>
+        <th>Summe</th>
+      </tr>
+      <tr>
+        <td>{{ courseTitle }}</td>
+        <td class="text-right">{{ courseFeePPWoTax }} Euro</td>
+        <td>{{ taxRate }} %</td>
+        <td class="text-right">{{ courseFeePP }},00 Euro</td>
+        <td class="text-right">{{ seats }}</td>
+        <td class="text-right">{{ subtotal }},00 Euro</td>
+      </tr>
+      {{ #if coupon }}
+        <tr>
+          <td>Gutschein: {{ coupon.code }}</td>
+          <td class="text-right">-{{ couponAmountWoTax }} Euro</td>
+          <td>{{ taxRate }} %</td>
+          <td class="text-right">-{{ coupon.amount }},00 Euro</td>
+          <td class="text-right">{{ seats }}</td>
+          <td class="text-right">-{{ coupontotal }},00 Euro</td>
+        </tr>
+      {{ /if }}
+      <tr style="border-top: 3px double black;">
+        <td>Rechnungsbetrag</td>
+        <td class="text-right" colspan="5">{{ total }},00 Euro</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="block-group">
+    <p style="font-style: italic;">
+      Der Rechnungsbetrag setzt sich zusammen aus Netto {{ nettototal }} Euro zuzüglich {{ tax }} Euro
+      MwSt.
+    </p>
+  </div>
+
+  <div class="block-group">
+    <p>
+      Die traincrowd UG übernimmt im Namen und Auftrag des Anbieters die Rechnungsstellung sowie die Zahlungsabwicklung.
+    </p>
+
+    <p>
+      {{ #if isInvoice}}
+        Bitte überweisen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer innerhalb von 7 Tagen auf folgendes Konto: <br> 
+        traincrowd UG (haftungsbeschränkt) <br>
+        Commerzbank | IBAN: DE 96 100 40 0000 5233 12700 | BIC: COBADEFFXXX
+      {{ else }}
+        Rechnungsstatus: bezahlt per Kreditkarte
+      {{ /if }}
+    </p>
+  </div>
+
+  <div class="block-group">
+    <p>
+      Wir wünschen Ihnen viel Spaß und ein inspirierendes Lernerlebnis. 
+    </p>
+    <p>
+      Bis zum nächsten Mal,
+    </p>
+    <p>
+      Ihr traincrowd Team
+    </p>
+  </div>
+
+  <div class="block-group" style="font-size: 9px; color:gray; position:fixed; bottom:0px; left:50%; width:100%;">
+    <div class="block text-center" style="width:100%;">    
+      traincrowd UG (haftungsbeschränkt) | Bautzener Straße 17 | 10829 Berlin   <br>
+      +49 (0)30 3730 6174 | info@traincrowd.de  <br> <br>
+
+      Die traincrowd UG (haftungsbeschränkt) wird durch Elias Sagmeister und Janek Hermann-Friede vertreten.  <br>
+      Registernummer: Handelsregister 164992. Amtsgericht Charlottenburg (Berlin) <br>
+    </div>
+  </div>
+
+</body>
+</html>
+
+<style>
+  .b2{margin-left: 40% !important;}
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  td {
+    padding: 10px;
+  }
+  th {
+    background-color: #427878;
+    color: white;
+  }
+  table, th, td {
+    border: 1px solid black;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-right {
+    text-align: right;
+  }
+  /*! PocketGrid 1.1.0
+  * Copyright 2013 Arnaud Leray
+  * MIT License
+  */.block-group,.block,.block-group:after,.block:after,.block-group:before,.block:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+  .block-group{*zoom:1}
+  .block-group:before,.block-group:after{display:table;content:"";line-height:0}
+  .block-group:after{clear:both}
+  .block-group{list-style-type:none;padding:0;margin:0}
+  .block-group>.block-group{clear:none;float:left;margin:0 !important}
+  .block{float:left;width:100%}
+</style>

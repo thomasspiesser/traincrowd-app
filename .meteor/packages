@@ -26,7 +26,6 @@ tomsp:paymill
 underscore
 yasaricli:slugify
 sacha:spin
-dfischer:phantomjs
 ongoworks:spiderable
 aldeed:collection2
 peppelg:bootstrap-3-modal
@@ -61,3 +60,9 @@ twbs:bootstrap-noglyph
 dburles:collection-helpers
 msavin:mongol
 percolate:momentum
+meteorhacks:npm
+
+
+npm-container
+ecmascript
+dfischer:phantomjs
