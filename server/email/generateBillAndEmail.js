@@ -1,4 +1,4 @@
-_deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
+_deferGenerateBillAndSendEmail = function( emailOptions, bookingId, moreWsOptions ) {
   Meteor.defer( function() {
     let fields = {
       eventId: 1,
@@ -75,6 +75,7 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
 
     // Setup Webshot options
     let wsOptions = {
+      // renderDelay: 5000,
       paperSize: {
         format: 'Letter',
         margin: {
@@ -85,33 +86,51 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
         },
       },
       siteType: 'html',
-      phantomConfig: {
-        'ssl-protocol': 'any',
-        // 'ignore-ssl-errors': 'true',
-      },
+      // phantomConfig: {
+      //   'ssl-protocol': 'any',
+      //   'ignore-ssl-errors': 'true',
+      // },
     };
 
+    wsOptions = _.extend(wsOptions, moreWsOptions);
+    console.log(wsOptions);
+    let webshot = Meteor.npmRequire('webshot');
+    let Future = Npm.require('fibers/future');
+    let fut = new Future();
+    // let fs = Npm.require('fs');
     webshot(html, filePath, wsOptions, error => {
       if ( error ) {
         console.log( `ERROR creating bill for ${booking.customerName}` );
         console.log( error );
         return false;
       }
-      emailOptions.attachments = [{
-        fileName: `Rechnung traincrowd ${booking.customerName}.pdf`,
-        filePath: filePath,
-      }];
-      try {
-        _sendEmail( emailOptions );
-        emailOptions.to = 'kopie@traincrowd.de';
-        _sendEmail( emailOptions );
-        // delete the file with fs.unlink(filePath) - but they get deleted
-        // anyways on redeploy so...
-      } catch ( error2 ) {
-        console.log( emailOptions.to );
-        console.log( emailOptions.subject );
-        console.log( error2 );
-      }
+      fut.return(filePath);
+      // fs.readFile(filePath, function(err, data) {
+      //   if (err) {
+      //     return console.log(err);
+      //   }
+
+      //   fs.unlinkSync(filePath);
+      //   fut.return(data);
+      // });
     });
+
+    emailOptions.attachments = [{
+      fileName: `Rechnung traincrowd ${booking.customerName}.pdf`,
+      // filePath: filePath,
+      filePath: fut.wait(),
+    }];
+    console.log(emailOptions);
+    try {
+      _sendEmail( emailOptions );
+      // emailOptions.to = 'kopie@traincrowd.de';
+      // _sendEmail( emailOptions );
+      // delete the file with fs.unlink(filePath) - but they get deleted
+      // anyways on redeploy so...
+    } catch ( error2 ) {
+      console.log( emailOptions.to );
+      console.log( emailOptions.subject );
+      console.log( error2 );
+    }
   });
 };

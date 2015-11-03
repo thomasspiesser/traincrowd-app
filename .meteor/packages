@@ -26,7 +26,6 @@ tomsp:paymill
 underscore
 yasaricli:slugify
 sacha:spin
-dfischer:phantomjs
 ongoworks:spiderable
 aldeed:collection2
 peppelg:bootstrap-3-modal
@@ -65,5 +64,5 @@ meteorhacks:npm
 
 
 npm-container
-bryanmorgan:webshot
 ecmascript
+dfischer:phantomjs
