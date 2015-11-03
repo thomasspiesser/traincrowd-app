@@ -26,13 +26,13 @@ Meteor.methods({
       throw new Meteor.Error( 403, errMsg );
     }
 
-    const bookingId = options.bookingId;
+    let bookingId = options.bookingId;
     let fields = { eventId: 1, course: 1, courseFeePP: 1, coupon: 1 };
-    const booking = Bookings.findOne( { _id: bookingId }, { fields: fields } );
+    let booking = Bookings.findOne( { _id: bookingId }, { fields: fields } );
     checkExistance( booking, 'Buchung', _.omit( fields, 'coupon' ) );
 
-    const couponAmount = booking.coupon && booking.coupon.amount || 0;
-    const total = ( booking.courseFeePP - couponAmount ) * seats;
+    let couponAmount = booking.coupon && booking.coupon.amount || 0;
+    let total = ( booking.courseFeePP - couponAmount ) * seats;
     // amount is in cents!
     if ( options.amount / 100 !== total ) {
       let errMsg = noIndent( `Bezahlbetrag und Kurspreis für ${seats}\
@@ -40,14 +40,14 @@ Meteor.methods({
       throw new Meteor.Error( 403, errMsg );
     }
 
-    const currentId = booking.eventId;
+    let currentId = booking.eventId;
     fields = { participants: 1 };
-    const current = Current.findOne( { _id: currentId }, { fields: fields } );
+    let current = Current.findOne( { _id: currentId }, { fields: fields } );
     checkExistance( current, 'Event', fields );
 
-    const courseId = booking.course;
+    let courseId = booking.course;
     fields = { maxParticipants: 1, title: 1 };
-    const course = Courses.findOne( { _id: courseId }, { fields: fields } );
+    let course = Courses.findOne( { _id: courseId }, { fields: fields } );
     checkExistance( course, 'Kurs', fields );
 
     let afterBooking = current.participants.length + seats;
@@ -121,7 +121,7 @@ Meteor.methods({
           course: courseId,
           userId: userId,
           bookingId: bookingId,
-          attachBill: true,
+          attachBill: false,
         });
       }
 
@@ -161,19 +161,19 @@ Meteor.methods({
       throw new Meteor.Error( 403, errMsg );
     }
 
-    const bookingId = options.bookingId;
+    let bookingId = options.bookingId;
     let fields = { eventId: 1, course: 1, courseFeePP: 1 };
-    const booking = Bookings.findOne( { _id: bookingId }, { fields: fields } );
+    let booking = Bookings.findOne( { _id: bookingId }, { fields: fields } );
     checkExistance( booking, 'Buchung', fields );
 
-    const currentId = booking.eventId;
+    let currentId = booking.eventId;
     fields = { participants: 1 };
-    const current = Current.findOne( { _id: currentId }, { fields: fields } );
+    let current = Current.findOne( { _id: currentId }, { fields: fields } );
     checkExistance( current, 'Event', fields );
 
-    const courseId = booking.course;
+    let courseId = booking.course;
     fields = { maxParticipants: 1 };
-    const course = Courses.findOne( { _id: courseId }, { fields: fields } );
+    let course = Courses.findOne( { _id: courseId }, { fields: fields } );
     checkExistance( course, 'Kurs', fields );
 
     let afterBooking = current.participants.length + seats;
@@ -228,7 +228,7 @@ Meteor.methods({
         course: courseId,
         userId: userId,
         bookingId: bookingId,
-        attachBill: true,
+        attachBill: false,
       });
     }
 
@@ -246,14 +246,14 @@ Meteor.methods({
       throw new Meteor.Error(403, 'Sie müssen eingelogged sein!');
     }
 
-    const currentId = options.currentId;
+    let currentId = options.currentId;
     let fields = { participants: 1, course: 1 };
-    const current = Current.findOne( { _id: currentId }, { fields: fields } );
+    let current = Current.findOne( { _id: currentId }, { fields: fields } );
     checkExistance( current, 'Event', fields );
 
-    const courseId = current.course;
+    let courseId = current.course;
     fields = { maxParticipants: 1, fee: 1 };
-    const course = Courses.findOne( { _id: courseId }, { fields: fields } );
+    let course = Courses.findOne( { _id: courseId }, { fields: fields } );
     checkExistance( course, 'Kurs', fields );
 
     if ( course.fee !== 0 ) {
