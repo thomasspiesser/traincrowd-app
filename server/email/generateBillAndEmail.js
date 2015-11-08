@@ -1,4 +1,4 @@
-_deferGenerateBillAndSendEmail = function( emailOptions, bookingId, moreWsOptions ) {
+_deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
   Meteor.defer( function() {
     let fields = {
       eventId: 1,
@@ -62,75 +62,54 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId, moreWsOption
     dC.billNumber = Bills.find( { createdAt: { $gte: start, $lt: end } } )
       .count();
     // insert immediately, block that billNumber - if this failes throw
-    Bills.insert({
-      bookingId: bookingId,
-      customer: booking.customer,
-      customerName: booking.customerName,
-      number: dC.billNumber,
-    });
+    // Bills.insert({
+    //   bookingId: bookingId,
+    //   customer: booking.customer,
+    //   customerName: booking.customerName,
+    //   number: dC.billNumber,
+    // });
 
     let html = Spacebars.toHTML( dC, Assets.getText('bill.html') );
-    let fileId = Random.id();
-    let filePath = `/tmp/bill${fileId}.pdf`;
-
-    // Setup Webshot options
-    let wsOptions = {
-      // renderDelay: 5000,
-      paperSize: {
-        format: 'Letter',
-        margin: {
-          top: '2cm',
-          left: '1cm',
-          right: '1cm',
-          bottom: '1cm',
-        },
-      },
-      siteType: 'html',
-      // phantomConfig: {
-      //   'ssl-protocol': 'any',
-      //   'ignore-ssl-errors': 'true',
-      // },
-    };
-
-    wsOptions = _.extend(wsOptions, moreWsOptions);
-    console.log(wsOptions);
-    let webshot = Meteor.npmRequire('webshot');
-    let Future = Npm.require('fibers/future');
-    let fut = new Future();
-    // let fs = Npm.require('fs');
-    webshot(html, filePath, wsOptions, error => {
-      if ( error ) {
-        console.log( `ERROR creating bill for ${booking.customerName}` );
-        console.log( error );
-        return false;
-      }
-      fut.return(filePath);
-      // fs.readFile(filePath, function(err, data) {
-      //   if (err) {
-      //     return console.log(err);
-      //   }
-
-      //   fs.unlinkSync(filePath);
-      //   fut.return(data);
-      // });
-    });
+    let filePath = `/tmp/bill${Random.id()}.html`;
+    let fs = Npm.require('fs');
+    let writeFileSync = Meteor.wrapAsync( fs.writeFile );
+    try {
+      writeFileSync( filePath, html );
+    } catch ( exception ) {
+      console.log( exception );
+    }
+    let childProcess = Npm.require('child_process');
+    let cmd = 'phantomjs assets/app/phantomDriver.js ' + filePath;
+    let execSync = Meteor.wrapAsync( childProcess.exec );
+    try {
+      execSync( cmd );
+    } catch ( exception ) {
+      console.log( exception );
+    }
+    // childProcess.exec( cmd,
+    //   function(error, stdout, stderr) {
+    //     console.log('stdout: ' + stdout);
+    //     console.log('stderr: ' + stderr);
+    //     if ( error ) {
+    //       console.log('exec error: ' + error);
+    //     }
+    //   }
+    // );
 
     emailOptions.attachments = [{
       fileName: `Rechnung traincrowd ${booking.customerName}.pdf`,
-      // filePath: filePath,
-      filePath: fut.wait(),
+      filePath: filePath.replace('.html', '.pdf'),
     }];
-    console.log(emailOptions);
     try {
       _sendEmail( emailOptions );
       // emailOptions.to = 'kopie@traincrowd.de';
       // _sendEmail( emailOptions );
-      // delete the file with fs.unlink(filePath) - but they get deleted
-      // anyways on redeploy so...
-    } catch ( error2 ) {
+      fs.unlink( filePath );
+      fs.unlink( filePath.replace('.html', '.pdf') );
+    } catch ( error ) {
       console.log( emailOptions.to );
       console.log( emailOptions.subject );
-      console.log( error2 );
+      console.log( error );
     }
   });
 };
