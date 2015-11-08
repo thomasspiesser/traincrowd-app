@@ -62,15 +62,22 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
     dC.billNumber = Bills.find( { createdAt: { $gte: start, $lt: end } } )
       .count();
     // insert immediately, block that billNumber - if this failes throw
-    // Bills.insert({
-    //   bookingId: bookingId,
-    //   customer: booking.customer,
-    //   customerName: booking.customerName,
-    //   number: dC.billNumber,
-    // });
+    Bills.insert({
+      bookingId: bookingId,
+      customer: booking.customer,
+      customerName: booking.customerName,
+      number: dC.billNumber,
+    });
 
     let html = Spacebars.toHTML( dC, Assets.getText('bill.html') );
-    let filePath = `/tmp/bill${Random.id()}.html`;
+    let filePath;
+    let filename = `bill${Random.id()}.html`;
+    if ( process.env.NODE_ENV === 'development' ) {
+      filePath = '/tmp/' + filename;
+    } else {
+      let path = Npm.require('path');
+      filePath = path.join( process.env.TEMP_DIR, filename );
+    }
     let fs = Npm.require('fs');
     let writeFileSync = Meteor.wrapAsync( fs.writeFile );
     try {
@@ -86,15 +93,6 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
     } catch ( exception ) {
       console.log( exception );
     }
-    // childProcess.exec( cmd,
-    //   function(error, stdout, stderr) {
-    //     console.log('stdout: ' + stdout);
-    //     console.log('stderr: ' + stderr);
-    //     if ( error ) {
-    //       console.log('exec error: ' + error);
-    //     }
-    //   }
-    // );
 
     emailOptions.attachments = [{
       fileName: `Rechnung traincrowd ${booking.customerName}.pdf`,
@@ -107,8 +105,7 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
       fs.unlink( filePath );
       fs.unlink( filePath.replace('.html', '.pdf') );
     } catch ( error ) {
-      console.log( emailOptions.to );
-      console.log( emailOptions.subject );
+      console.log( emailOptions );
       console.log( error );
     }
   });
