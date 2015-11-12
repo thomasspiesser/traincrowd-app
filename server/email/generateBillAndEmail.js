@@ -82,8 +82,9 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
     let writeFileSync = Meteor.wrapAsync( fs.writeFile );
     try {
       writeFileSync( filePath, html );
-    } catch ( exception ) {
-      console.log( exception );
+    } catch ( error ) {
+      console.log( 'Error writing html to file:');
+      console.log( error );
     }
 
     // call phantom to render pdf from html
@@ -92,8 +93,9 @@ _deferGenerateBillAndSendEmail = function( emailOptions, bookingId ) {
     let execSync = Meteor.wrapAsync( childProcess.exec );
     try {
       execSync( cmd );
-    } catch ( exception ) {
-      console.log( exception );
+    } catch ( error ) {
+      console.log( 'Error phantomjs:');
+      console.log( error );
     }
 
     // attach pdf to email
