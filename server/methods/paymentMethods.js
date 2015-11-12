@@ -121,7 +121,7 @@ Meteor.methods({
           course: courseId,
           userId: userId,
           bookingId: bookingId,
-          attachBill: false,
+          attachBill: true,
         });
       }
 
@@ -228,7 +228,7 @@ Meteor.methods({
         course: courseId,
         userId: userId,
         bookingId: bookingId,
-        attachBill: false,
+        attachBill: true,
       });
     }
 
