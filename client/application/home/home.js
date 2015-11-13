@@ -18,3 +18,4 @@ Template.home.events({
     Router.go( 'search.course', {}, { query: 'q='+searchtext } );
   }
 });
+
