@@ -56,24 +56,26 @@
                   {{ #if bookedOut .. }}
                     <div class="progress">
                       <div class="progress-bar progress-booked-out" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                        {{ i18n 'booking.bookedOut1' }}
+                        {{ i18n 'group.full' }}
                       </div>
                     </div>
                   {{ else }}
                     <!-- new progress -->
-                    {{ #if confirmed }}
-                      <div class="progress">
-                        <div class="progress-bar progress-confirmed" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                          {{ i18n 'open.confirmed' }}
+                    <a href="{{ pathFor route='course.show' slug=../slug }}">
+                      {{ #if confirmed }}
+                        <div class="progress">
+                          <div class="progress-bar progress-confirmed" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            {{ i18n 'open.confirmed' }}
+                          </div>
                         </div>
-                      </div>
-                    {{ else }}
-                      <div class="progress">
-                        <div class="progress-bar progress-open" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                          {{ i18n 'open.open' }}
+                      {{ else }}
+                        <div class="progress">
+                          <div class="progress-bar progress-open" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            join the crowd
+                          </div>
                         </div>
-                      </div>
-                    {{ /if }}
+                      {{ /if }}
+                    </a>
                     <!-- old progress -->
 <!--                     <div class="progress">
                       <span class="progress-text">
