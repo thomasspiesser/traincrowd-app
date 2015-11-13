@@ -13,10 +13,6 @@ Template.home.onRendered(function() {
     classToAdd: 'visible animated fadeInLeft',
     classToRemove: 'invisible'
   });
-  $('.wow2').addClass('invisible').viewportChecker({
-    classToAdd: 'visible animated fadeInUp',
-    classToRemove: 'invisible'
-  });
 });
 
 Template.home.events({
