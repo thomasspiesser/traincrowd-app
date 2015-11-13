@@ -9,6 +9,10 @@ Template.home.onRendered(function() {
   }
   checkWidth();
   $( window ).resize( checkWidth );
+  $('.wow').addClass('invisible').viewportChecker({
+    classToAdd: 'visible animated fadeInLeft',
+    classToRemove: 'invisible'
+  });
 });
 
 Template.home.events({
@@ -18,4 +22,3 @@ Template.home.events({
     Router.go( 'search.course', {}, { query: 'q='+searchtext } );
   }
 });
-
