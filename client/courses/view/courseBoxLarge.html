@@ -60,7 +60,22 @@
                       </div>
                     </div>
                   {{ else }}
-                    <div class="progress">
+                    <!-- new progress -->
+                    {{ #if confirmed }}
+                      <div class="progress">
+                        <div class="progress-bar progress-confirmed" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                          {{ i18n 'open.confirmed' }}
+                        </div>
+                      </div>
+                    {{ else }}
+                      <div class="progress">
+                        <div class="progress-bar progress-open" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                          {{ i18n 'open.open' }}
+                        </div>
+                      </div>
+                    {{ /if }}
+                    <!-- old progress -->
+<!--                     <div class="progress">
                       <span class="progress-text">
                         {{ #if confirmed }}
                           <span data-toggle="tooltip" title="{{ getWillTakePlaceTooltipText .. }}">{{ i18n 'will.take.place' }} <i class="fa fa-check"></i></span>
@@ -70,7 +85,7 @@
                       </span>
                       <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull .. }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull .. }}%; min-width: 0.2em;">
                       </span>
-                    </div>
+                    </div> -->
                   {{ /if }}
 
                 {{ /with }}
