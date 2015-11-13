@@ -31,7 +31,6 @@ ddp-common@1.2.2
 ddp-rate-limiter@1.0.0
 ddp-server@1.2.2
 deps@1.0.9
-dfischer:phantomjs@1.0.4
 diff-sequence@1.0.1
 doctorpangloss:admin@1.0.1
 ecmascript@0.1.6
