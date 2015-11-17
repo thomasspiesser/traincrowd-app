@@ -1,5 +1,5 @@
 Template.searchTrainer.helpers({
-	getPlaceholder: function () {
-		return i18n('search.short');
-	}
+  getPlaceholder() {
+    return i18n('search.short');
+  },
 });

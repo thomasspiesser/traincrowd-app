@@ -1,10 +1,18 @@
 Template.searchCourse.helpers({
-  query() {
-    return Router.current().params.query.q;
+  coursesIndex() {
+    return CoursesIndex;
   },
-  // getPlaceholder: function () {
-  //   return i18n('search.short');
-  // }
+  inputAttributes() {
+    let attrs = {
+      class: 'form-control',
+      placeholder: i18n('search.short'),
+      value: Router.current().params.query.q,
+    };
+    return attrs;
+  },
+  loadMoreAttributes() {
+    return { class: 'btn btn-light-blue btn-block margin-bottom' };
+  },
 });
 
 Template.filter.onCreated( function() {
