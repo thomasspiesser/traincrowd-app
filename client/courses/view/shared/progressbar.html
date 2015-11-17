@@ -1,0 +1,41 @@
+<template name="progressbar">
+  <!-- gets a course and an event as data context -->
+
+  {{ #if bookedOut course event }}
+    <div class="progress">
+      <div class="progress-bar progress-booked-out" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+        {{ i18n 'booking.bookedOut2' }}
+      </div>
+    </div>
+  {{ else }}
+
+    <!-- new progress -->
+    <a href="{{ pathFor route='course.show' slug=course/slug }}">
+      <div class="progress">
+        {{ #if event.confirmed }}
+          <div class="progress-bar progress-confirmed" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+            {{ i18n 'open.confirmed' }}
+          </div>
+        {{ else }}
+          <div class="progress-bar progress-open{{style}}" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+            join the crowd
+          </div>
+        {{ /if }}
+      </div>
+    </a>
+
+    <!-- old progress -->
+<!--                     <div class="progress">
+      <span class="progress-text">
+        {{ #if event.confirmed }}
+          <span data-toggle="tooltip" title="{{ getWillTakePlaceTooltipText course event }}">{{ i18n 'will.take.place' }} <i class="fa fa-check"></i></span>
+        {{ else }}
+          <span data-toggle="tooltip" title="{{ getMightTakePlaceTooltipText course event }}">{{ getOpenSeatsText course event }} <i class="fa fa-question-circle"></i></span>
+        {{ /if }}
+      </span>
+      <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull course event }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull course event }}%; min-width: 0.2em;">
+      </span>
+    </div> -->
+  {{ /if }}
+
+</template>
