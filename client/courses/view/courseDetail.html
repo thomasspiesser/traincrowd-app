@@ -89,29 +89,11 @@
               <p><i class="fa fa-hourglass-start fa-fw"></i> noch {{ runtime .. }} Tage buchbar</p>
             {{ /if }}
 
-            {{ #if bookedOut .. }}
-              <div class="progress">
-                <div class="progress-bar progress-booked-out" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                  {{ i18n 'booking.bookedOut1' }}
-                </div>
-              </div>
-            {{ else }}
-              <div class="progress">
-                <span class="progress-text">
-                  {{ #if confirmed }}
-                    <span data-toggle="tooltip" title="{{ getWillTakePlaceTooltipText .. }}">{{ i18n 'will.take.place' }} <icon class="fa fa-check"></icon></span>
-                  {{ else }}
-                    <span data-toggle="tooltip" title="{{ getMightTakePlaceTooltipText .. }}">{{ getOpenSeatsText .. }} <icon class="fa fa-question-circle"></icon></span>
-                  {{ /if }}
-                </span>
-                <span class="progress-bar" role="progressbar" aria-valuenow="{{ percentFull .. }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentFull .. }}%; min-width: 0.2em;">
-                </span>
-              </div>
-            {{ /if }}
+            {{ > progressbar course=.. event=this }}
 
             {{ #unless bookedOut .. }}
               <div class="row text-center">
-                <h5>{{ i18n 'course.joinGroup' }}:</h5>
+                <!-- <h5>{{ i18n 'course.joinGroup' }}:</h5> -->
                 <a href="#" type="button" class="btn btn-red joinCourseButton">{{ i18n 'booking.book' }}</a>
               </div>
             {{ /unless }}

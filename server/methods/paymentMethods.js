@@ -115,14 +115,23 @@ Meteor.methods({
         }
       });
 
-      // inform participants via email
-      for ( let userId of newParticipants ) {
-        sendBookingConfirmationEmail({
-          course: courseId,
-          userId: userId,
-          bookingId: bookingId,
-          attachBill: true,
-        });
+      // send booking confirmation and bill to buyer via email
+      sendBookingConfirmationEmail({
+        course: courseId,
+        userId: this.userId,
+        bookingId: bookingId,
+        attachBill: true,
+      });
+      // and inform potential other participants
+      let others = _.without( newParticipants, this.userId )
+      if ( others.length ) {
+        for ( let userId of others ) {
+          sendBookingConfirmationEmail({
+            course: courseId,
+            userId: userId,
+            attachBill: false,
+          });
+        }
       }
 
       // check if course is full now:
@@ -222,14 +231,23 @@ Meteor.methods({
       }
     });
 
-    // inform participants via email
-    for ( let userId of newParticipants ) {
-      sendBookingConfirmationEmail({
-        course: courseId,
-        userId: userId,
-        bookingId: bookingId,
-        attachBill: true,
-      });
+    // send booking confirmation and bill to buyer via email
+    sendBookingConfirmationEmail({
+      course: courseId,
+      userId: this.userId,
+      bookingId: bookingId,
+      attachBill: true,
+    });
+    // and inform potential other participants
+    let others = _.without( newParticipants, this.userId )
+    if ( others.length ) {
+      for ( let userId of others ) {
+        sendBookingConfirmationEmail({
+          course: courseId,
+          userId: userId,
+          attachBill: false,
+        });
+      }
     }
 
     // check if course is full now:
