@@ -2,17 +2,25 @@
 
 Meteor.publish('courses', function() {
   // Meteor._sleepForMs(5000);
-  return Courses.find( { $or: [ { isPublic: true }, { owner: this.userId } ] } );
+  return Courses.find({
+    $or: [ { isPublic: true }, { owner: this.userId } ],
+  });
 });
 
 Meteor.publish('singleCourse', function( slug ) {
   check( slug, String );
-  return Courses.find( { slug: slug, $or: [ { isPublic: true }, { owner: this.userId } ] } );
+  return Courses.find({
+    slug: slug,
+    $or: [ { isPublic: true }, { owner: this.userId } ],
+  });
 });
 
 Meteor.publish('singleCourseById', function( id ) {
   check( id, String );
-  return Courses.find( { _id: id, $or: [ { isPublic: true }, { owner: this.userId } ] } );
+  return Courses.find({
+    _id: id,
+    $or: [ { isPublic: true }, { owner: this.userId } ],
+  });
 });
 
 Meteor.publish('topCourses', function() {
