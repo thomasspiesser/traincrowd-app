@@ -128,71 +128,6 @@ ol {
   }
 }
 
-.promo-text {
-  color: @dark-blue;
-  .Choplin-Medium;
-  font-size: 22px;
-}
-
-.promo-box {
-  margin-top: 30px;
-  margin-bottom: 5px;
-  border-radius: 0px;
-  padding: 15px;
-  border: 3px solid @dark-blue;
-  
-}
-
-/* newletter modal */
-
-#newsletter-modal {
-  @media only screen and (max-width : @screen-sm-min) {
-    width: 90%;
-    margin: 90px 5%;
-  }
-  
-  margin: 90px auto;
-}
-
-#newsletter-modal-box {
-  text-align: center;
-  background-color: @bg-color;
-}
-
-#modal-body-line {
-  margin: -5px;
-  padding: 15px;
-  border: 1px solid @dark-gray;
-  border-radius: 4px;
-}
-
-#newsletter-modal-heading {
-  margin-top: 22px;
-  color: @dark-blue;
-}
-
-.newsletter-modal-text {
-  font-size:11px;
-}
-
-#mce-EMAIL-newsletter-modal {
-  height: 53px;
-  width: 320px;
-  border-radius: 6px;
-  margin-left: 5px;
-  @media only screen and (max-width : @screen-sm-min) {
-    margin-left: 0;
-    width: 100%;
-  }
-}
-
-#newsletter-modal-logo {
-  width: 220px;
-  @media only screen and (max-width : @screen-sm-min) {
-    width: 150px;
-  }
-}
-
 /* Buttons */
 .btn {
   border-radius: 0;
@@ -324,8 +259,6 @@ ol {
   }
 }
 
-
-
 .btn-lg {
   padding: 15px 35px;
   border-radius: 6px;
@@ -356,7 +289,6 @@ ol {
   font-size: 20px;
   padding: 5px;
 }
-
 
 
 /* Pagination */
@@ -453,7 +385,6 @@ ol {
   border-top: 8px solid @light-red;
 }
 
-
 .icon-square {
   width: 40px;
   height: 40px;
@@ -489,14 +420,12 @@ input.input-blue {
 }
 
 .form-group {
-
   label.control-label {
     color: @dark-gray;
     font-weight: normal;
     margin-bottom: 2px;
   }
 }
-
 
 .form-control::-webkit-input-placeholder {
   color: @dark-blue;
@@ -519,15 +448,12 @@ input[type="radio"], input[type="checkbox"] {
   margin-right: 5px;
 }
 
-
-
 .form-control-feedback {
   margin-right: 40px;
   margin-top: 22px;
   font-size: 22px;
   color: @dark-blue;
 }
-
 
 input.input-gray {
   border: @dark-gray solid 20px;
@@ -671,8 +597,6 @@ ul.sort {
         padding: 19px;
     }
   }
-
-
 }
 
 .trainerbox {
@@ -874,8 +798,6 @@ ul.sort {
   }
 }
 
-
-
 .box-lg {
   width: 625px;
   overflow: auto;
@@ -925,7 +847,6 @@ ul.sort {
   }
 
   .box-md-title {
-
     margin: 0 40px;
     margin-top: -20px;
     h5, h4 {
@@ -1205,6 +1126,8 @@ section {
   background: @bg-grunge;
 }
 
+/* Home - testimonials */
+
 .quote-text {
   font-style: italic; 
   margin-top: 50px;
@@ -1224,15 +1147,89 @@ section {
   height: 170px;
 }
 
-.vertical-align-wrapper {
-  height: 100px;
-  position: relative;
+/* Home - meta-categories */
+
+.meta-category-box {
+  color: @beige;
+  // color: #fff;
+  text-shadow: 2px 2px 4px #000;
+  .box-img {
+    width: 100%;
+    height: 204px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    .img-zoom {
+      width: 100%;
+      height: 100%;
+      background-position: 50% 50%;
+      background-size: cover;
+      .Default-Transition;
+      &:hover {
+        -webkit-transform: scale(1.05);
+        -moz-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+        -o-transform: scale(1.05);
+        transform: scale(1.05);
+        color: #fff;
+        text-shadow: 4px 4px 4px #000;
+      }
+      // this centers the child, aka the text:
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 
-.vertical-align {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
+/* newletter modal */
+
+#newsletter-modal {
+  @media only screen and (max-width : @screen-sm-min) {
+    width: 90%;
+    margin: 90px 5%;
+  }
+  
+  margin: 90px auto;
+}
+
+#newsletter-modal-box {
+  text-align: center;
+  background-color: @bg-color;
+}
+
+#modal-body-line {
+  margin: -5px;
+  padding: 15px;
+  border: 1px solid @dark-gray;
+  border-radius: 4px;
+}
+
+#newsletter-modal-heading {
+  margin-top: 22px;
+  color: @dark-blue;
+}
+
+.newsletter-modal-text {
+  font-size:11px;
+}
+
+#mce-EMAIL-newsletter-modal {
+  height: 53px;
+  width: 320px;
+  border-radius: 6px;
+  margin-left: 5px;
+  @media only screen and (max-width : @screen-sm-min) {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+#newsletter-modal-logo {
+  width: 220px;
+  @media only screen and (max-width : @screen-sm-min) {
+    width: 150px;
+  }
 }
 
 /* booking */
@@ -1240,6 +1237,20 @@ section {
 #new-participants-info {
   opacity: 0;
   margin-top: 15px;
+}
+
+.promo-text {
+  color: @dark-blue;
+  .Choplin-Medium;
+  font-size: 22px;
+}
+
+.promo-box {
+  margin-top: 30px;
+  margin-bottom: 5px;
+  border-radius: 0px;
+  padding: 15px;
+  border: 3px solid @dark-blue;
 }
 
 /* separator */
@@ -1349,12 +1360,11 @@ section {
     color: @dark-blue;
     text-transform: uppercase;
   }
-
-
 }
 
 
 /* Trainer Profile Detail */
+
 .profile-detail {
   position: relative;
   overflow: hidden;
@@ -1404,8 +1414,6 @@ section {
   a {
     color: @dark-gray;
   }
-
-
 }
 
 
@@ -1470,6 +1478,8 @@ footer {
     }
   }
 }
+
+/* loading */
 
 .loading {
   position: relative;
@@ -1714,8 +1724,6 @@ footer {
 
 }
 
-
-
 /* Helpers */
 
 .separator-right {
@@ -1791,4 +1799,14 @@ hr.white {
 
 .visible{
   opacity: 1;
+}
+
+.vertical-align-wrapper {
+  position: relative;
+}
+
+.vertical-align {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
 }
