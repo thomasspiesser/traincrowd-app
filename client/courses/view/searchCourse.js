@@ -27,16 +27,9 @@ Template.filter.helpers({
 
 Template.filter.events({
   'click .filter'( event ) {
-    var category = event.target.id;
+    let category = event.target.id;
     // console.log(category);
-    var instance = EasySearch.getComponentInstance({
-      index: 'courses',
-    });
-
-    // Change the currently filteredCategories like this
-    EasySearch.changeProperty('courses', 'filteredCategory', category);
-    // Trigger the search again, to reload the new products
-    instance.triggerSearch();
+    CoursesIndex.getComponentMethods().addProps('categories', category);
   },
   'click ul.nav.nav-pills li a'( event ) {
     $( event.currentTarget ).parent().addClass( 'active' )
