@@ -3,31 +3,18 @@
 // };
 
 Template.trainerBox.helpers({
-  shareData: function () {
+  shareData() {
     var data = {
       title: this.profile.name,
       description: this.profile.description,
-      url: Meteor.absoluteUrl() + 'profile/' + this._id
+      url: Meteor.absoluteUrl() + 'profile/' + this.slug,
     };
     return data;
   },
-  descriptionPreview: function () {
-    if ( !this.profile.description ) {
-      return 'Keine Kurzbeschreibung angegeben';
-    }
-    var descriptionPreview = this.profile.description.replace("\n", " "); // remove linebreaks
-    var breaker = 110;
-    if (descriptionPreview.length > breaker) {
-      return descriptionPreview.slice(0, breaker) + "...";
-    }
-    else {
-      return descriptionPreview;
-    }
-  }
 });
 
 Template.trainerBox.events({
-  'click .share-open': function (event, template) {
+  'click .share-open'( event ) {
     $(event.currentTarget).next().toggleClass('in');
-  }
+  },
 });

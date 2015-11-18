@@ -63,7 +63,7 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:10px;">{{ currentUser.getName }} <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
         {{#if isInRole 'trainer'}}
-          <li><a href="{{ pathFor 'trainerProfile.show' data=currentUser }}">{{ i18n 'user.signedIn.profile' }}</a></li>
+          <li><a href="{{ pathFor 'trainerProfile.show' slug=currentUser.slug }}">{{ i18n 'user.signedIn.profile' }}</a></li>
           <li><a href="{{ pathFor 'edit.trainer' }}">{{ i18n 'user.signedIn.editProfile' }}</a></li>
         {{else}}
           <li><a href="{{ pathFor 'edit.user' }}">{{ i18n 'user.signedIn.profile' }}</a></li>

@@ -1,6 +1,6 @@
 <template name="trainerBoxLight">
   <div class="trainerbox-light">
-    <a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">
+    <a href="{{ pathFor 'trainerProfile.show' slug=slug }}">
       <div class="circle-img">
         <div class="img-zoom" style="background-image: url( {{#if profile.imageId}} {{profile.imageId}} {{else}} /dummyUser.jpg {{/if}} )"></div>
       </div>
@@ -9,7 +9,7 @@
       <div class="rateit rate-star dark-gray" data-rateit-value="{{profile.rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
     </div> -->
     <div class="box-title">
-      <h3><a href="{{ pathFor 'trainerProfile.show' _id=this._id }}">{{profile.name}}</a></h3>
+      <h3><a href="{{ pathFor 'trainerProfile.show' slug=slug }}">{{profile.name}}</a></h3>
       <!-- <p>Heading 11</p> -->
     </div>
     <div class="more"></div>

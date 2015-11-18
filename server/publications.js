@@ -64,7 +64,6 @@ Meteor.publish('userByToken', function( token ) {
   });
 });
 
-// TDOD: don't publish all the info from profile..make more specific here
 Meteor.publish('trainer', function() {
   return Meteor.users.find( { roles: 'trainer', isPublic: true }, {
     fields: {
@@ -90,7 +89,6 @@ Meteor.publish('trainer', function() {
 
 Meteor.publish('topTrainer', function() {
   // Meteor._sleepForMs(5000);
-  // return Meteor.users.find( { roles: 'trainer', isPublic: true }, { limit: 4, fields: { 'profile.name': 1, 'profile.imageId': 1 } } );
   return Meteor.users.find( topTrainer.find, topTrainer.options );
 });
 
