@@ -1,5 +1,5 @@
 Template.searchCourse.helpers({
-  coursesIndex() {
+  index() {
     return CoursesIndex;
   },
   inputAttributes() {
