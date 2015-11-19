@@ -1,7 +1,8 @@
 <template name="searchCourse">
 
   <div class="separator separator-inverted">
-    <h2>{{ i18n 'course.search' }}</h2>
+    <h2>{{ getMetaCategory }}</h2>
+    <!-- <h2>{{ i18n 'course.search' }}</h2> -->
   </div>
 
   <div class="container margin-top">
@@ -49,10 +50,10 @@
         </a>
 
         <ul class="dropdown-menu" role="menu">
-          <li role="presentation" class="filter left-menu-item"><a href="#" id="Alle">Alle</a></li>
+          <li role="presentation" class="filter left-menu-item"><a href="#">Alle</a></li>
           {{ #if Template.subscriptionsReady }}
-            {{ #each categories }}
-              <li role="presentation" class="filter left-menu-item"><a href="#" id="{{ this }}">{{ this }}</a></li>
+            {{ #each metaCategories }}
+              <li role="presentation" class="filter left-menu-item"><a href="#">{{ name }}</a></li>
             {{ /each }}
           {{ /if }}
         </ul>

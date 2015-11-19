@@ -1,4 +1,13 @@
+Template.searchCourse.onCreated( function() {
+  let metaCategory = Router.current().params.query.metaCategory
+    || i18n('course.search');
+  Session.set( 'metaCategory', metaCategory );
+});
+
 Template.searchCourse.helpers({
+  getMetaCategory() {
+    return Session.get( 'metaCategory' );
+  },
   index() {
     return CoursesIndex;
   },
@@ -16,20 +25,33 @@ Template.searchCourse.helpers({
 });
 
 Template.filter.onCreated( function() {
+  this.subscribe( 'metaCategories' );
   this.subscribe( 'categories' );
+  this.subscribe( 'categoriesMap' );
 });
 
 Template.filter.helpers({
-  categories() {
-    return Categories.findOne().categories;
+  metaCategories() {
+    return MetaCategories.find();
   },
 });
 
 Template.filter.events({
-  'click .filter'( event ) {
-    let category = event.target.id;
-    // console.log(category);
-    CoursesIndex.getComponentMethods().addProps('categories', category);
+  'click .filter'() {
+    if ( !_.isEmpty( this ) ) {
+      let metaCategoryName = this.name;
+      let metaCategoryId = this.name;
+      let categories = [];
+      CategoriesMap.find( { metaCategoryId: metaCategoryId } )
+        .forEach( function( match ) {
+          categories.push( Categories.findOne( { _id: match.categoryId } ).name );
+        });
+      CoursesIndex.getComponentMethods().addProps('categories', categories);
+      Session.set( 'metaCategory', metaCategoryName );
+    } else {
+      CoursesIndex.getComponentMethods().addProps('categories', 'Alle');
+      Session.set( 'metaCategory', i18n('course.search') );
+    }
   },
   'click ul.nav.nav-pills li a'( event ) {
     $( event.currentTarget ).parent().addClass( 'active' )
