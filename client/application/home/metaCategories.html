@@ -1,0 +1,34 @@
+<template name="metaCategories">
+  <div class="row">
+    {{ #each metaCategories 3 0 }}
+      <div class="col-md-4 meta-category-box">
+        <div class="box-img">
+          <div class="img-zoom" style="background-image: url( /images/meta-category-{{_index}}.jpg )">
+            <p class="meta-categorie">{{ name }}</p>
+          </div>
+        </div>
+      </div>
+    {{ /each }}
+  </div>
+
+  <div class="row margin-top">
+    {{ #each metaCategories 2 3 }}
+      <div class="col-md-4 meta-category-box">
+        <div class="box-img">
+          <div class="img-zoom" style="background-image: url( /images/meta-category-{{_index}}.jpg )">
+            <p class="meta-categorie">{{ name }}</p>
+          </div>
+        </div>
+      </div>
+    {{ /each }}
+
+    <div class="col-md-4 meta-category-box">
+      <div class="box-img">
+        <div class="img-zoom" style="background-image: url( /images/meta-category-6.jpg )">
+          <p class="meta-categorie">Alle Kurse</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>
