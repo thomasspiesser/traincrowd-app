@@ -40,16 +40,17 @@ Template.filter.events({
   'click .filter'() {
     if ( !_.isEmpty( this ) ) {
       let metaCategoryName = this.name;
-      let metaCategoryId = this.name;
+      let metaCategoryId = this._id;
       let categories = [];
       CategoriesMap.find( { metaCategoryId: metaCategoryId } )
         .forEach( function( match ) {
           categories.push( Categories.findOne( { _id: match.categoryId } ).name );
         });
+      console.log(categories);
       CoursesIndex.getComponentMethods().addProps('categories', categories);
       Session.set( 'metaCategory', metaCategoryName );
     } else {
-      CoursesIndex.getComponentMethods().addProps('categories', 'Alle');
+      CoursesIndex.getComponentMethods().addProps('categories', []);
       Session.set( 'metaCategory', i18n('course.search') );
     }
   },
