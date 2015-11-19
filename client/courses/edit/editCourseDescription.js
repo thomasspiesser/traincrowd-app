@@ -1,9 +1,10 @@
 Template.editCourseDescription.onRendered( function () {
-  var sub = this.subscribe("categories", function () {
-    var categories = Categories.findOne();
+  var sub = this.subscribe('categories', function () {
+    var categories = Categories.find().fetch();
     $('#edit-course-categories').select2({
-      data: _.map( categories.categories, function( category ) { return { id: category, text: category }; } ),
-      multiple: "true"
+      // data: _.map( categories.categories, function( category ) { return { id: category, text: category }; } ),
+      data: _.map( categories, function( category ) { return { id: category.name, text: category.name }; } ),
+      multiple: 'true',
     });
   });
 });
