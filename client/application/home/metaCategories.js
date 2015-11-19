@@ -14,5 +14,23 @@ Template.metaCategories.helpers({
       return a;
     });
   },
+});
 
+Template.metaCategories.events({
+  'click .meta-categorie'( event ) {
+    event.preventDefault();
+    let metaCategoryId = this._id;
+    let metaCategory = this.name;
+    // find all matching categories
+    let categories = [];
+    CategoriesMap.find( { metaCategoryId: metaCategoryId } )
+      .forEach( function( match ) {
+        categories.push( Categories.findOne( { _id: match.categoryId } ).name );
+      });
+    let filter = {
+      metaCategory: metaCategory,
+      filter: categories,
+    };
+    Router.go( 'search.course', {}, { query: filter } );
+  },
 });

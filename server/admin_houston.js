@@ -5,6 +5,8 @@ Houston.add_collection(Current);
 Houston.add_collection(Elapsed);
 Houston.add_collection(Bookings);
 Houston.add_collection(Categories);
+Houston.add_collection(MetaCategories);
+Houston.add_collection(CategoriesMap);
 Houston.add_collection(Bills);
 
 Houston.methods( Courses, {
