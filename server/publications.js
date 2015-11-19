@@ -100,3 +100,11 @@ Meteor.publish('topTrainer', function() {
 Meteor.publish('categories', function() {
   return Categories.find();
 });
+
+Meteor.publish('metaCategories', function() {
+  return MetaCategories.find();
+});
+
+Meteor.publish('categoriesMap', function() {
+  return CategoriesMap.find();
+});
