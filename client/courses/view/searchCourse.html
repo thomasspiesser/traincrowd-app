@@ -1,9 +1,31 @@
 <template name="searchCourse">
 
-  <div class="separator separator-inverted">
+  <div class="container">
+
+    <div class="row tracker">
+
+      {{ #if Template.subscriptionsReady }}
+        <div class="tracker-slim col-md-2">
+          <a href="#" class="filter" id="Alle">
+            <span class="step-text">Alle Kurse</span>
+          </a>
+        </div>
+        {{ #each metaCategories }}
+          <div class="tracker-slim col-md-2">
+            <a href="#" class="filter" id="{{ getShortName }}">
+              <span class="step-text">{{ name }}</span>
+            </a>
+          </div>
+        {{ /each }}
+      {{ /if }}
+
+    </div> <!-- row -->
+
+  </div> <!-- container -->
+
+<!--   <div class="separator separator-inverted">
     <h2>{{ getMetaCategory }}</h2>
-    <!-- <h2>{{ i18n 'course.search' }}</h2> -->
-  </div>
+  </div> -->
 
   <div class="container margin-top">
 
@@ -13,13 +35,14 @@
           {{ > EasySearch.Input index=index attributes=inputAttributes timeout=500 }}
         </div>
       </div>
-      <div class="col-md-2">
+<!--       <div class="col-md-2">
         {{ > filter }}
-      </div>
+      </div> -->
     </div>
 
     {{ #EasySearch.IfSearching index=index }}
-      {{ > searching }}
+      <!-- {{ > searching }} -->
+      {{ > loadingTemplate }}
     {{ else }}
       {{ #EasySearch.Each index=index }}
         {{ > courseBoxLarge }}
@@ -39,7 +62,7 @@
   </div>
 </template>
 
-<template name="filter">
+<!-- <template name="filter">
   <div class="filters pull-right">
     <ul class="nav nav-pills">
 
@@ -61,4 +84,4 @@
 
     </ul>
   </div>
-</template>
+</template> -->

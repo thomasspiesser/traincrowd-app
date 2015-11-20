@@ -1,21 +1,37 @@
+Template.searchCourse.onCreated( function() {
+  this.subscribe( 'metaCategories' );
+  this.subscribe( 'categories' );
+  this.subscribe( 'categoriesMap' );
+});
+
 Template.searchCourse.onRendered( function() {
   Tracker.autorun( function() {
     let metaCategory = Router.current().params.query.metaCategory;
     // if some query option are passed:
+    $( '.tracker-slim' ).removeClass('active');
     if ( metaCategory ) {
       let categories = Router.current().params.query.filter.join();
       CoursesIndex.getComponentMethods().addProps( 'categories', categories );
-      Session.set( 'metaCategory', metaCategory );
+      // Session.set( 'metaCategory', metaCategory );
+      Meteor.setTimeout(function() {
+        $( '#' + metaCategory.split(' ')[0] ).parent().addClass('active');
+      }, 200);
     } else {
       CoursesIndex.getComponentMethods().addProps( 'categories', '' );
       metaCategory = i18n('course.search');
+      Meteor.setTimeout(function() {
+        $( '#Alle' ).parent().addClass('active');
+      }, 200);
     }
   });
 });
 
 Template.searchCourse.helpers({
-  getMetaCategory() {
-    return Session.get( 'metaCategory' );
+  metaCategories() {
+    return MetaCategories.find();
+  },
+  getShortName() {
+    return this.name.split(' ')[0];
   },
   index() {
     return CoursesIndex;
@@ -33,19 +49,19 @@ Template.searchCourse.helpers({
   },
 });
 
-Template.filter.onCreated( function() {
-  this.subscribe( 'metaCategories' );
-  this.subscribe( 'categories' );
-  this.subscribe( 'categoriesMap' );
-});
+// Template.filter.onCreated( function() {
+//   this.subscribe( 'metaCategories' );
+//   this.subscribe( 'categories' );
+//   this.subscribe( 'categoriesMap' );
+// });
 
-Template.filter.helpers({
-  metaCategories() {
-    return MetaCategories.find();
-  },
-});
+// Template.filter.helpers({
+//   metaCategories() {
+//     return MetaCategories.find();
+//   },
+// });
 
-Template.filter.events({
+Template.searchCourse.events({
   'click .filter'() {
     event.preventDefault();
     if ( !_.isEmpty( this ) ) {
@@ -63,8 +79,8 @@ Template.filter.events({
       Router.go( 'search.course' );
     }
   },
-  'click ul.nav.nav-pills li a'( event ) {
-    $( event.currentTarget ).parent().addClass( 'active' )
-      .siblings().removeClass( 'active' );
-  },
+  // 'click ul.nav.nav-pills li a'( event ) {
+  //   $( event.currentTarget ).parent().addClass( 'active' )
+  //     .siblings().removeClass( 'active' );
+  // },
 });

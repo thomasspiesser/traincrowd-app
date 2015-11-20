@@ -1151,7 +1151,6 @@ section {
 
 .meta-category-box {
   color: @beige;
-  // color: #fff;
   text-shadow: 2px 2px 4px #000;
   .box-img {
     width: 100%;
@@ -1692,42 +1691,51 @@ footer {
         font-size: 16px;
       }
     }
-
   }
 
-   > [class^="col-"]:last-child, > [class*=" col-"]:last-child {
-      background-image: none;
-   }
+  > [class^="col-"]:last-child, > [class*=" col-"]:last-child {
+    background-image: none;
+  }
 
-
-   > [class^="col-"].active, > [class*=" col-"].active {
-     /* background-color: @light-blue; */
-     color: @dark-gray;
-     a {
-      color: @dark-blue;
-      cursor: default;
-     }
-     a:hover {
-       color: @dark-blue;
-     }
+  > [class^="col-"].active, > [class*=" col-"].active {
+   /* background-color: @light-blue; */
+   color: @dark-gray;
+   a {
+    color: @dark-blue;
+    cursor: default;
    }
-   > [class^="col-"].active:after, > [class*=" col-"].active:after {
-     content: "";
-     background: url('/separator-arrow-inverted.png') no-repeat center center;
-     background-size: 74px 30px;
-     width: 74px;
-     height: 30px;
-     display: block;
-     margin-top: 0;
-     text-align: center;
-     width: 100%;
+   a:hover {
+     color: @dark-blue;
    }
+  }
+  > [class^="col-"].active:after, > [class*=" col-"].active:after {
+   content: "";
+   background: url('/separator-arrow-inverted.png') no-repeat center center;
+   background-size: 74px 30px;
+   width: 74px;
+   height: 30px;
+   display: block;
+   margin-top: 0;
+   text-align: center;
+   width: 100%;
+  }
 
-   .fa {
-  /*    vertical-align: middle;
-  font-size: 32px; */
-   }
-
+  .tracker-slim {
+    background-color: transparent;
+    .step-text {
+      font-size: 14px;
+    }
+    .filter {
+      // this centers the child, aka the text:
+      padding-top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .tracker-slim.active:after {
+    background: none;
+  }
 }
 
 /* Helpers */
