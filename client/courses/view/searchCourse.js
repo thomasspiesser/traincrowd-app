@@ -4,6 +4,12 @@ Template.searchCourse.onCreated( function() {
   Session.set( 'metaCategory', metaCategory );
 });
 
+Template.searchCourse.onRendered( function() {
+  let filter = Router.current().params.query.filter;
+  categories = filter.join();
+  CoursesIndex.getComponentMethods().addProps( 'categories', categories );
+});
+
 Template.searchCourse.helpers({
   getMetaCategory() {
     return Session.get( 'metaCategory' );
@@ -46,11 +52,11 @@ Template.filter.events({
         .forEach( function( match ) {
           categories.push( Categories.findOne( { _id: match.categoryId } ).name );
         });
-      console.log(categories);
-      CoursesIndex.getComponentMethods().addProps('categories', categories);
+      categories = categories.join();
+      CoursesIndex.getComponentMethods().addProps( 'categories', categories );
       Session.set( 'metaCategory', metaCategoryName );
     } else {
-      CoursesIndex.getComponentMethods().addProps('categories', []);
+      CoursesIndex.getComponentMethods().addProps( 'categories', 'Alle' );
       Session.set( 'metaCategory', i18n('course.search') );
     }
   },
