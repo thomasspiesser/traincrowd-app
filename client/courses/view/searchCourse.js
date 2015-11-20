@@ -1,13 +1,16 @@
-Template.searchCourse.onCreated( function() {
-  let metaCategory = Router.current().params.query.metaCategory
-    || i18n('course.search');
-  Session.set( 'metaCategory', metaCategory );
-});
-
 Template.searchCourse.onRendered( function() {
-  let filter = Router.current().params.query.filter;
-  categories = filter.join();
-  CoursesIndex.getComponentMethods().addProps( 'categories', categories );
+  Tracker.autorun( function() {
+    let metaCategory = Router.current().params.query.metaCategory;
+    // if some query option are passed:
+    if ( metaCategory ) {
+      let categories = Router.current().params.query.filter.join();
+      CoursesIndex.getComponentMethods().addProps( 'categories', categories );
+      Session.set( 'metaCategory', metaCategory );
+    } else {
+      CoursesIndex.getComponentMethods().addProps( 'categories', '' );
+      metaCategory = i18n('course.search');
+    }
+  });
 });
 
 Template.searchCourse.helpers({
@@ -44,20 +47,20 @@ Template.filter.helpers({
 
 Template.filter.events({
   'click .filter'() {
+    event.preventDefault();
     if ( !_.isEmpty( this ) ) {
-      let metaCategoryName = this.name;
-      let metaCategoryId = this._id;
       let categories = [];
-      CategoriesMap.find( { metaCategoryId: metaCategoryId } )
+      CategoriesMap.find( { metaCategoryId: this._id } )
         .forEach( function( match ) {
-          categories.push( Categories.findOne( { _id: match.categoryId } ).name );
+          categories.push( Categories.findOne({ _id: match.categoryId }).name );
         });
-      categories = categories.join();
-      CoursesIndex.getComponentMethods().addProps( 'categories', categories );
-      Session.set( 'metaCategory', metaCategoryName );
+      let filter = {
+        metaCategory: this.name,
+        filter: categories,
+      };
+      Router.go( 'search.course', {}, { query: filter } );
     } else {
-      CoursesIndex.getComponentMethods().addProps( 'categories', 'Alle' );
-      Session.set( 'metaCategory', i18n('course.search') );
+      Router.go( 'search.course' );
     }
   },
   'click ul.nav.nav-pills li a'( event ) {
