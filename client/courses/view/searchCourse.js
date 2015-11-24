@@ -4,27 +4,36 @@ Template.searchCourse.onCreated( function() {
   this.subscribe( 'categoriesMap' );
 });
 
+let handle;
+
 Template.searchCourse.onRendered( function() {
-  Tracker.autorun( function() {
+  handle = this.autorun( function() {
     let metaCategory = Router.current().params.query.metaCategory;
-    // if some query option are passed:
-    $( '.tracker-slim' ).removeClass('active');
-    if ( metaCategory ) {
-      let categories = Router.current().params.query.filter.join();
-      CoursesIndex.getComponentMethods().addProps( 'categories', categories );
-      // Session.set( 'metaCategory', metaCategory );
-      Meteor.setTimeout(function() {
-        $( '#' + metaCategory.split(' ')[0] ).parent().addClass('active');
-      }, 200);
-    } else {
-      CoursesIndex.getComponentMethods().addProps( 'categories', '' );
-      metaCategory = i18n('course.search');
-      Meteor.setTimeout(function() {
-        $( '#Alle' ).parent().addClass('active');
-      }, 200);
-    }
+    Tracker.nonreactive( function() {
+      _setFilter( metaCategory );
+    });
   });
 });
+
+Template.searchCourse.onDestroyed( function() {
+  handle.stop();
+});
+
+function _setFilter( metaCategory ) {
+  $( '.tracker-slim' ).removeClass('active');
+  if ( metaCategory ) {
+    let categories = Router.current().params.query.filter.join();
+    CoursesIndex.getComponentMethods().addProps( 'categories', categories );
+    Meteor.setTimeout(function() {
+      $( '#' + metaCategory.split(' ')[0] ).parent().addClass('active');
+    }, 200);
+  } else {
+    CoursesIndex.getComponentMethods().addProps( 'categories', '' );
+    Meteor.setTimeout(function() {
+      $( '#Alle' ).parent().addClass('active');
+    }, 200);
+  }
+}
 
 Template.searchCourse.helpers({
   metaCategories() {
