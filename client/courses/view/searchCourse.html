@@ -1,45 +1,68 @@
 <template name="searchCourse">
 
-  <div class="separator separator-inverted">
-    <h2>{{ i18n 'course.search' }}</h2>
-  </div>
+  <div class="container">
+
+    <div class="row tracker">
+
+      {{ #if Template.subscriptionsReady }}
+        <div class="tracker-slim col-md-2">
+          <a href="#" class="filter" id="Alle">
+            <span class="step-text">Alle Kurse</span>
+          </a>
+        </div>
+        {{ #each metaCategories }}
+          <div class="tracker-slim col-md-2">
+            <a href="#" class="filter" id="{{ getShortName }}">
+              <span class="step-text">{{ name }}</span>
+            </a>
+          </div>
+        {{ /each }}
+      {{ /if }}
+
+    </div> <!-- row -->
+
+  </div> <!-- container -->
+
+<!--   <div class="separator separator-inverted">
+    <h2>{{ getMetaCategory }}</h2>
+  </div> -->
 
   <div class="container margin-top">
 
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
         <div class="searchInput">
-          {{ > esInput index="courses" placeholder="Suchen.." class="form-control" allDocsOnEmpty=true value=query }}
-          <!-- {{ > esInput index="courses" placeholder=getPlaceholder class="form-control" allDocsOnEmpty=true value=query }} -->
+          {{ > EasySearch.Input index=index attributes=inputAttributes timeout=500 }}
         </div>
       </div>
-      <div class="col-md-2">
+<!--       <div class="col-md-2">
         {{ > filter }}
-      </div>
+      </div> -->
     </div>
 
-    {{#ifEsIsSearching index="courses"}}
-      {{ > searching }}
-    {{else}}
-      {{#esEach index="courses"}}
+    {{ #EasySearch.IfSearching index=index }}
+      <!-- {{ > searching }} -->
+      {{ > loadingTemplate }}
+    {{ else }}
+      {{ #EasySearch.Each index=index }}
         {{ > courseBoxLarge }}
-      {{/esEach}}
+      {{ /EasySearch.Each }}
 
       <div class="row">
         <div class="col-lg-2 col-lg-offset-5">
-          {{> esLoadMoreButton index="courses" class="btn btn-default btn-block" content="Mehr" howMany=50}}
+          {{ > EasySearch.LoadMore index=index attributes=loadMoreAttributes content="Mehr" count=50 }}
         </div>
       </div>
-    {{/ifEsIsSearching}}
+    {{ /EasySearch.IfSearching }}
 
-    {{#ifEsHasNoResults index="courses"}}
+    {{ #EasySearch.IfNoResults index=index }}
       {{ > searchFailed }}
-    {{/ifEsHasNoResults}}
+    {{ /EasySearch.IfNoResults }}
 
   </div>
 </template>
 
-<template name="filter">
+<!-- <template name="filter">
   <div class="filters pull-right">
     <ul class="nav nav-pills">
 
@@ -50,10 +73,10 @@
         </a>
 
         <ul class="dropdown-menu" role="menu">
-          <li role="presentation" class="filter left-menu-item"><a href="#" id="Alle">Alle</a></li>
+          <li role="presentation" class="filter left-menu-item"><a href="#">Alle</a></li>
           {{ #if Template.subscriptionsReady }}
-            {{ #each categories }}
-              <li role="presentation" class="filter left-menu-item"><a href="#" id="{{ this }}">{{ this }}</a></li>
+            {{ #each metaCategories }}
+              <li role="presentation" class="filter left-menu-item"><a href="#">{{ name }}</a></li>
             {{ /each }}
           {{ /if }}
         </ul>
@@ -61,4 +84,4 @@
 
     </ul>
   </div>
-</template>
+</template> -->

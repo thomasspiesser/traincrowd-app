@@ -3,27 +3,29 @@
 // };
 
 Template.trainerProfile.helpers({
-  shareData: function () {
+  shareData() {
     var data = {
       title: this.profile.name,
       description: this.profile.description,
-      url: Meteor.absoluteUrl() + 'profile/' + this._id
+      url: Meteor.absoluteUrl() + 'profile/' + this.slug,
     };
     return data;
   },
-  isPublic: function () {
+  isPublic() {
     return this.isPublic;
   },
-  hostedCourses: function () {
-    return Courses.find( { owner: this._id, isPublic: true }, {fields: {imageId:1, title:1, rating:1, slug:1}} );
-  }
+  hostedCourses() {
+    return Courses.find( { owner: this._id, isPublic: true }, {
+      fields: { imageId: 1, title: 1, rating: 1, slug: 1 },
+    });
+  },
 });
 
 Template.trainerProfile.events({
-  'click #impersonate': function ( event, tempalte ) {
+  'click #impersonate'() {
     var userId = this._id;
     var username = this.profile.name;
-    Meteor.call('impersonate', userId, function ( error, result ) {
+    Meteor.call('impersonate', userId, function ( error ) {
       if ( error )
         toastr.error( error.reason );
       else {
@@ -32,7 +34,7 @@ Template.trainerProfile.events({
       }
     });
   },
-  'click .share-open': function (event, template) {
+  'click .share-open'( event ) {
     $(event.currentTarget).next().toggleClass('in');
   }
 });

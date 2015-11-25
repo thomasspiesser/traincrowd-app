@@ -25,7 +25,7 @@
     <div class="col-sm-7 box-content">
       <div class="box-content-top">
         <a href="{{ pathFor 'course.show' slug=this.slug }}"><h3>{{ preview title 37 }}</h3></a>
-        <a href="{{ pathFor 'trainerProfile.show' _id=this.owner }}"><h6>von {{ ownerName }}</h6></a>
+        <a href="{{ pathFor 'trainerProfile.show' slug=getOwnerSlug }}"><h6>von {{ ownerName }}</h6></a>
       </div>
       <div class="box-content-bottom">
         {{ #each twocategories }}

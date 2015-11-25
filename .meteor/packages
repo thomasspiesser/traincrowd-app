@@ -6,7 +6,6 @@
 accounts-password
 iron:router@1.0.0-pre4
 rajit:bootstrap3-datepicker
-matteodem:easy-search
 alanning:roles
 
 dandv:jquery-rateit
@@ -66,3 +65,4 @@ meteorhacks:npm
 npm-container
 ecmascript
 tomsp:viewportchecker
+easy:search
