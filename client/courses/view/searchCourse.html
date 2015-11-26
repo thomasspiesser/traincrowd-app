@@ -35,9 +35,6 @@
           {{ > EasySearch.Input index=index attributes=inputAttributes timeout=500 }}
         </div>
       </div>
-<!--       <div class="col-md-2">
-        {{ > filter }}
-      </div> -->
     </div>
 
     {{ #EasySearch.IfSearching index=index }}
@@ -61,27 +58,3 @@
 
   </div>
 </template>
-
-<!-- <template name="filter">
-  <div class="filters pull-right">
-    <ul class="nav nav-pills">
-
-      <li role="presentation" class="dropdown">
-
-        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-          {{ i18n 'categories' }} <span class="fa fa-caret-right"></span>
-        </a>
-
-        <ul class="dropdown-menu" role="menu">
-          <li role="presentation" class="filter left-menu-item"><a href="#">Alle</a></li>
-          {{ #if Template.subscriptionsReady }}
-            {{ #each metaCategories }}
-              <li role="presentation" class="filter left-menu-item"><a href="#">{{ name }}</a></li>
-            {{ /each }}
-          {{ /if }}
-        </ul>
-      </li>
-
-    </ul>
-  </div>
-</template> -->

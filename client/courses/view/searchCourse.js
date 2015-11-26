@@ -1,5 +1,12 @@
 Template.searchCourse.onCreated( function() {
-  this.subscribe( 'metaCategories' );
+  this.subscribe( 'metaCategories', () => {
+    $( '.tracker-slim' ).removeClass('active');
+    let metaCategory = Router.current().params.query.metaCategory;
+    let finder = metaCategory ? '#' + metaCategory.split(' ')[0] : '#Alle';
+    Meteor.setTimeout(function() {
+      $( finder ).parent().addClass('active');
+    }, 200);
+  });
   this.subscribe( 'categories' );
   this.subscribe( 'categoriesMap' );
 });
@@ -20,19 +27,15 @@ Template.searchCourse.onDestroyed( function() {
 });
 
 function _setFilter( metaCategory ) {
-  $( '.tracker-slim' ).removeClass('active');
   if ( metaCategory ) {
     let categories = Router.current().params.query.filter.join();
     CoursesIndex.getComponentMethods().addProps( 'categories', categories );
-    Meteor.setTimeout(function() {
-      $( '#' + metaCategory.split(' ')[0] ).parent().addClass('active');
-    }, 200);
   } else {
     CoursesIndex.getComponentMethods().addProps( 'categories', '' );
-    Meteor.setTimeout(function() {
-      $( '#Alle' ).parent().addClass('active');
-    }, 200);
   }
+  $( '.tracker-slim' ).removeClass('active');
+  let finder = metaCategory ? '#' + metaCategory.split(' ')[0] : '#Alle';
+  $( finder ).parent().addClass('active');
 }
 
 Template.searchCourse.helpers({
@@ -58,18 +61,6 @@ Template.searchCourse.helpers({
   },
 });
 
-// Template.filter.onCreated( function() {
-//   this.subscribe( 'metaCategories' );
-//   this.subscribe( 'categories' );
-//   this.subscribe( 'categoriesMap' );
-// });
-
-// Template.filter.helpers({
-//   metaCategories() {
-//     return MetaCategories.find();
-//   },
-// });
-
 Template.searchCourse.events({
   'click .filter'() {
     event.preventDefault();
@@ -88,8 +79,4 @@ Template.searchCourse.events({
       Router.go( 'search.course' );
     }
   },
-  // 'click ul.nav.nav-pills li a'( event ) {
-  //   $( event.currentTarget ).parent().addClass( 'active' )
-  //     .siblings().removeClass( 'active' );
-  // },
 });
