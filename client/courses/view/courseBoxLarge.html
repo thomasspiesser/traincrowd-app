@@ -1,4 +1,5 @@
 <template name="courseBoxLarge">
+
   <div class="row no-gutters coursebox">
     <div class="col-lg-2 col-md-3 col-sm-3">
       <a href="{{ pathFor 'course.show' slug=this.slug }}">
@@ -17,12 +18,11 @@
       </div>
 
       <!-- <div class="rateit rate-star dark-green pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div> -->
-
     </div>
 
     <div class="col-lg-7 col-md-6 col-sm-5 box-content">
       <div class="box-content-top">
-        <a href="{{ pathFor route='course.show' slug=this.slug }}"><h3>{{ preview title 95 }}</h3></a>
+        <a href="{{ pathFor 'course.show' slug=this.slug }}"><h3>{{ preview title 95 }}</h3></a>
         <a href="{{ pathFor 'trainerProfile.show' slug=getOwnerSlug }}"><h6>{{ ownerName }}</h6></a>
 
         {{ #each categories }}
@@ -33,7 +33,6 @@
       </div>
     </div>
     
-
       <div class="btn-bar btn-bar-inverted in">
         <div class="btn-bar-left">
           <ul>

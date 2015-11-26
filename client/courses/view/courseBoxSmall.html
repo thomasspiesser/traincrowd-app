@@ -8,8 +8,6 @@
         </div>
       </a>
 
-      <!-- <div class="box-img" style="background-image: url(/Kurs.jpg)"></div> -->
-
       <div class="share-container ">
         <div class="share-open">
           <a href="#" class="btn btn-dark-blue btn-square"><i class="fa fa-share-alt"></i></a>
@@ -20,14 +18,14 @@
       </div>
 
       <!-- <div class="rateit rate-star dark-green pull-right" data-rateit-value="{{rating}}" data-rateit-ispreset="true" data-rateit-readonly="true"></div> -->
-
     </div>
+
     <div class="col-sm-7 box-content">
       <div class="box-content-top">
         <a href="{{ pathFor 'course.show' slug=this.slug }}"><h3>{{ preview title 37 }}</h3></a>
-        <a href="{{ pathFor 'trainerProfile.show' slug=getOwnerSlug }}"><h6>von {{ ownerName }}</h6></a>
-      </div>
-      <div class="box-content-bottom">
+        <a href="{{ pathFor 'trainerProfile.show' slug=getOwnerSlug }}"><h6>{{ ownerName }}</h6></a>
+      <!-- </div> -->
+      <!-- <div class="box-content-bottom"> -->
         {{ #each twocategories }}
           <a href="#" type="button" class="btn btn-dark-blue btn-xs">{{ this }}</a>
         {{ /each }}
