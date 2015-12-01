@@ -14,7 +14,16 @@ function setExpired() {
     if ( current.confirmed )
       return;
 
-    var course = Courses.findOne( { _id: current.course }, { fields: { expires: 1, dates: 1, maxParticipants: 1 } } );
+    var course = Courses.findOne({
+      _id: current.course
+    }, {
+      fields: {
+        expires: 1,
+        dates: 1,
+        maxParticipants: 1,
+        isPublic: 1,
+      }
+    });
 
     if ( ! course ) {
       console.log( "ERROR: Kurs nicht gefunden. Id: " + current._id );
@@ -54,11 +63,13 @@ function setExpired() {
       }
 
       else {
-        // inform trainer event expired
-        Meteor.call( 'sendInformEventExpiredTrainerEmail', { course: current.course, currentId: current._id }, function ( error, result ) {
-          if ( error )
-            console.log("ERROR: " + error );
-        });
+        // inform trainer event expired only if the course is public
+        if ( course.isPublic ) {
+          Meteor.call( 'sendInformEventExpiredTrainerEmail', { course: current.course, currentId: current._id }, function ( error, result ) {
+            if ( error )
+              console.log("ERROR: " + error );
+          });
+        }
         // for the record
         expiredEvents.push( current._id ); 
         // remove from course.dates
