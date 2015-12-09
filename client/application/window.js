@@ -1,7 +1,7 @@
 // show bootstrap modal with mailchimp signup
-window.onload = function(){
+window.onload = function() {
   //time is set in milliseconds
-  if ( ! Session.get( 'no-show-newsletter-modal' ) ) {
+  if ( Session.get( 'no-show-newsletter-modal' ) < 3 ) {
     Meteor.setTimeout( function() { Modal.show('newsletterModal'); }, 30000);
   }
 };
