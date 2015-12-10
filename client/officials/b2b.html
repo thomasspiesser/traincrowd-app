@@ -1,0 +1,58 @@
+<template name="b2b">
+  <div class="separator separator-inverted">
+    <h2>{{ i18n 'about.traincrowd' }}</h2>
+  </div>
+  <section class="container">
+
+    <div class="panel panel-inverted">
+      <div class="row">
+        <div class="col-md-12 col-inverted">
+
+          <div class="row">
+            <div class="col-md-6">
+              <h3>{{ i18n 'about.mission.title' }}</h3>
+              <p>{{ i18n 'about.mission.text' }}</p>
+
+              <h3>{{ i18n 'about.approach.title' }}</h3>
+              <p>{{ i18n 'about.approach.text' }}</p>
+
+              <h3>{{ i18n 'about.selection.title' }}</h3>
+              <p>{{ i18n 'about.selection.text' }}</p>
+
+              <h3>{{ i18n 'about.team' }}</h3>
+              <p>{{{ i18n 'about.team.short' }}}</p>
+
+              <p>{{ i18n 'official.link.to.faqs' }}</p>
+              <a href="{{ pathFor 'faq' }}" class="btn btn-red">{{ i18n 'official.faq' }}</a>
+
+            </div>
+            <div class="col-md-6">
+
+              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                    <img src="/Kurs.jpg" alt="...">
+                  </div>
+                  <div class="item">
+                    <img src="dummyUser.jpg" alt="...">
+                  </div>                  
+                </div>
+
+              </div> <!-- carousel -->
+
+              <div> 
+              <!-- call to action -->
+                
+              </div>
+
+            </div> <!-- col -->
+          </div> <!-- row -->
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+</template>
