@@ -44,7 +44,8 @@
         </div>
         <div class="btn-bar-right">
           <ul>
-            <li> {{ #if hasDate }} {{ getNextEvent.getPrettyDateRange }} {{ else }} {{ i18n 'no.date' }} {{ /if }} </li>
+            <!-- <li> {{ #if hasDate }} {{ getNextEvent.getPrettyDateRange }} {{ else }} {{ i18n 'no.date' }} {{ /if }} </li> -->
+            <li> {{ #if hasDate }} {{ getNextEvent.getPrettyDateRange }} {{ else }} Termine auf Anfrage {{ /if }} </li>
             <li> {{ duration }} {{ i18n 'course.duration' }} </li>
             <li> {{ #if city }} {{ city }} {{ else }} {{ i18n 'no.location' }} {{ /if }}</li>
             <li>
@@ -55,7 +56,8 @@
 
                 {{ /with }}
               {{ else }}
-                {{ i18n 'no.date' }}
+                <!-- {{ i18n 'no.date' }} -->
+                Plätze auf Anfrage
               {{ /if }}
             </li>
             <li> {{ getFeePP }},- <span class="taxStatus">{{ taxStatus }}</span> </li>
