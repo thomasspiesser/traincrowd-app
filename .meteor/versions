@@ -128,7 +128,7 @@ templating-tools@1.0.0
 tmeasday:paginated-subscription@0.2.4
 tomsp:paymill@0.0.1
 tomsp:share@0.0.1
-tomsp:viewportchecker@0.0.1
+tomsp:viewport-checker@0.0.1
 tracker@1.0.9
 twbs:bootstrap-noglyph@3.3.5
 u2622:persistent-session@0.4.4

@@ -1,2 +1,5 @@
+const appId = Meteor.settings.kadira.id;
+const appSecret = Meteor.settings.kadira.secret;
+
 if ( process.env.NODE_ENV === 'production' )
-	Kadira.connect('gQaPLeCcRo2FrpQ79', '61658c27-8013-43c6-8e6f-88d398509576');
+	Kadira.connect(appId, appSecret);

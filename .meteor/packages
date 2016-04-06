@@ -63,5 +63,5 @@ meteorhacks:npm
 
 npm-container
 ecmascript
-tomsp:viewportchecker
 easy:search
+tomsp:viewport-checker
