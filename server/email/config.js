@@ -1,7 +1,10 @@
+const username = Meteor.settings.email.username;
+const password = Meteor.settings.email.password;
+
 Meteor.startup(function() {
   smtp = {
-    username: 'info@traincrowd.de',   // eg: server@gentlenode.com
-    password: 'Fk2Dk*5e$4M9',   // eg: 3eeP1gtizk5eziohfervU
+    username: username,   // eg: server@gentlenode.com
+    password: password,   // eg: eQeQvszKX3M2A7
     server: 'smtp.strato.de',  // eg: mail.gandi.net
     port: 587,
   };
